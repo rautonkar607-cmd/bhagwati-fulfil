@@ -3,33 +3,32 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>Bhagwati Fulfil | Client Portal</title>
 
 <style>
-*{
-    box-sizing:border-box;
-    margin:0;
-    padding:0;
-}
+*{box-sizing:border-box;margin:0;padding:0}
 
 body{
-    font-family:Arial, sans-serif;
-    background:#f5f7fb;
+    font-family:Arial,sans-serif;
+    background:#f4f6f9;
     color:#172033;
 }
 
 .header{
     background:#111827;
     color:white;
-    padding:22px 18px;
+    padding:24px 16px;
     text-align:center;
+    border-bottom:4px solid #ff6a00;
 }
 
 .logo{
-    font-size:28px;
-    font-weight:800;
+    font-size:30px;
+    font-weight:900;
+    letter-spacing:.5px;
 }
+
+.logo span{color:#ff6a00}
 
 .tagline{
     margin-top:6px;
@@ -38,50 +37,54 @@ body{
 }
 
 .container{
-    max-width:700px;
-    margin:30px auto;
-    padding:0 16px;
+    max-width:720px;
+    margin:25px auto;
+    padding:0 15px;
 }
 
 .card{
     background:white;
     border-radius:18px;
-    padding:25px;
-    margin-bottom:20px;
+    padding:22px;
+    margin-bottom:18px;
     box-shadow:0 5px 20px rgba(0,0,0,.07);
 }
 
 h2{
+    font-size:21px;
     margin-bottom:18px;
-    font-size:20px;
+}
+
+h3{
+    margin-top:24px;
+    margin-bottom:8px;
+    font-size:17px;
 }
 
 label{
     display:block;
-    margin-top:14px;
+    margin-top:13px;
     margin-bottom:6px;
     font-size:13px;
     font-weight:bold;
 }
 
-input, select, textarea{
+input,select,textarea{
     width:100%;
     padding:13px;
-    border:1px solid #d7dce5;
+    border:1px solid #d6dbe3;
     border-radius:10px;
     font-size:15px;
     outline:none;
 }
 
-textarea{
-    min-height:85px;
-    resize:vertical;
+input:focus,select:focus,textarea:focus{
+    border-color:#ff6a00;
 }
 
-input:focus,
-select:focus,
-textarea:focus{
-    border-color:#111827;
+textarea{
+    min-height:80px;
+    resize:vertical;
 }
 
 .row{
@@ -93,9 +96,9 @@ textarea:focus{
 button{
     width:100%;
     border:0;
-    border-radius:10px;
+    border-radius:11px;
     padding:14px;
-    margin-top:20px;
+    margin-top:18px;
     background:#111827;
     color:white;
     font-size:15px;
@@ -103,46 +106,115 @@ button{
     cursor:pointer;
 }
 
-button:hover{
-    opacity:.9;
-}
+button:hover{opacity:.92}
+
+.orange{background:#ff6a00}
 
 .rate-box{
-    background:#f3f4f6;
-    border-radius:12px;
-    padding:16px;
-    margin-top:15px;
+    background:#f8fafc;
+    border:1px solid #e5e7eb;
+    border-radius:14px;
+    padding:17px;
+    margin-top:18px;
 }
 
-.rate{
+.rate-line{
+    display:flex;
+    justify-content:space-between;
+    padding:6px 0;
+    font-size:14px;
+}
+
+.total{
+    border-top:1px solid #ddd;
+    margin-top:8px;
+    padding-top:12px;
     font-size:22px;
-    font-weight:bold;
-    margin-top:5px;
+    font-weight:900;
 }
 
-.tracking{
-    text-align:center;
-}
-
-.track-input{
-    margin-top:10px;
-}
-
-.footer{
-    text-align:center;
-    padding:25px;
-    font-size:12px;
-    color:#737b8c;
+.notice{
+    background:#fff7ed;
+    border:1px solid #fed7aa;
+    padding:12px;
+    border-radius:10px;
+    margin-top:15px;
+    font-size:13px;
 }
 
 .success{
     display:none;
     background:#ecfdf3;
     color:#067647;
-    padding:12px;
-    border-radius:10px;
+    padding:15px;
+    border-radius:11px;
     margin-top:15px;
-    font-size:13px;
+    line-height:1.6;
+}
+
+.stats{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:10px;
+}
+
+.stat{
+    background:#f8fafc;
+    border-radius:12px;
+    padding:15px 8px;
+    text-align:center;
+}
+
+.stat b{
+    display:block;
+    font-size:22px;
+}
+
+.stat small{
+    color:#667085;
+}
+
+.booking{
+    border:1px solid #e5e7eb;
+    border-radius:12px;
+    padding:14px;
+    margin-top:10px;
+}
+
+.status{
+    display:inline-block;
+    background:#fff7ed;
+    color:#c2410c;
+    padding:5px 9px;
+    border-radius:20px;
+    font-size:11px;
+    font-weight:bold;
+}
+
+.footer{
+    text-align:center;
+    padding:25px;
+    color:#667085;
+    font-size:12px;
+}
+
+.support{
+    text-align:center;
+    background:#111827;
+    color:white;
+    border-radius:15px;
+    padding:18px;
+}
+
+.support a{
+    color:#ff8a3d;
+    text-decoration:none;
+    font-weight:bold;
+}
+
+@media(max-width:520px){
+    .row{grid-template-columns:1fr}
+    .stats{grid-template-columns:1fr 1fr 1fr}
 }
 </style>
 </head>
@@ -150,26 +222,270 @@ button:hover{
 <body>
 
 <header class="header">
-    <div class="logo">BHAGWATI FULFIL</div>
-    <div class="tagline">
-        D2C FULFILLMENT & LOGISTICS
-    </div>
+    <div class="logo">BHAGWATI <span>FULFIL</span></div>
+    <div class="tagline">D2C PICKUP & DELIVERY SERVICES</div>
 </header>
 
 <div class="container">
 
-    <!-- CLIENT ORDER -->
-    <div class="card">
+<!-- CLIENT PROFILE -->
+<div class="card">
+<h2>👤 Client Profile</h2>
 
-        <h2>📦 Create New Shipment</h2>
+<label>Client / Business Name</label>
+<input id="client" type="text" placeholder="Enter business name">
 
-        <label>Client / Business Name</label>
-        <input type="text" id="client" placeholder="Your business name">
+<label>Mobile Number</label>
+<input id="clientMobile" type="tel" placeholder="Enter mobile number">
 
-        <label>Order ID</label>
-        <input type="text" id="orderId" placeholder="Example: ORD001">
+<h3>🏦 COD Settlement Bank Details</h3>
 
-        <h3 style="margin-top:25px;">Pickup Details</h3>
+<label>Account Holder Name</label>
+<input id="holder" type="text" placeholder="Account holder name">
 
-        <label>Pickup Name</label>
-        <input
+<label>Bank Account Number</label>
+<input id="account" type="text" placeholder="Account number">
+
+<label>IFSC Code</label>
+<input id="ifsc" type="text" placeholder="Example: SBIN0001234">
+
+<label>Bank Name</label>
+<input id="bank" type="text" placeholder="Bank name">
+
+<div class="row">
+<div>
+<label>Branch</label>
+<input id="branch" type="text" placeholder="Branch">
+</div>
+
+<div>
+<label>Account Type</label>
+<select id="accountType">
+<option value="">Select</option>
+<option>Saving</option>
+<option>Current</option>
+</select>
+</div>
+</div>
+
+<div class="notice">
+🔐 Bank details are one-time client profile details and will be used for COD settlement.
+</div>
+</div>
+
+
+<!-- NEW SHIPMENT -->
+<div class="card">
+
+<h2>📦 Create New Shipment</h2>
+
+<label>Order ID</label>
+<input id="orderId" type="text" placeholder="Example: ORD001">
+
+<h3>📍 Pickup Details</h3>
+
+<label>Pickup Name</label>
+<input id="pickupName" type="text" placeholder="Pickup person / business name">
+
+<label>Pickup Mobile</label>
+<input id="pickupMobile" type="tel" placeholder="10 digit mobile number">
+
+<label>Pickup Address</label>
+<textarea id="pickupAddress" placeholder="Full pickup address"></textarea>
+
+<div class="row">
+<div>
+<label>Pickup Pincode</label>
+<input id="pickupPin" type="text" maxlength="6" placeholder="Pincode">
+</div>
+
+<div>
+<label>Service Zone</label>
+<select id="zone" onchange="calculateRate()">
+<option value="">Select Zone</option>
+<option value="MH">Maharashtra</option>
+<option value="PAN">Pan India</option>
+</select>
+</div>
+</div>
+
+
+<h3>📍 Delivery Details</h3>
+
+<label>Customer Name</label>
+<input id="customerName" type="text" placeholder="Customer name">
+
+<label>Customer Mobile</label>
+<input id="customerMobile" type="tel" placeholder="Customer mobile">
+
+<label>Delivery Address</label>
+<textarea id="deliveryAddress" placeholder="Full delivery address"></textarea>
+
+<label>Delivery Pincode</label>
+<input id="deliveryPin" type="text" maxlength="6" placeholder="Delivery pincode">
+
+
+<h3>📦 Shipment Details</h3>
+
+<div class="row">
+
+<div>
+<label>Weight</label>
+<select id="weight" onchange="calculateRate()">
+<option value="">Select Weight</option>
+<option value="250">Up to 250g</option>
+<option value="500">Up to 500g</option>
+<option value="750">Up to 750g</option>
+<option value="1000">Up to 1 kg</option>
+<option value="1500">Up to 1.5 kg</option>
+<option value="2000">Up to 2 kg</option>
+<option value="2500">2.5 kg</option>
+<option value="3000">3 kg</option>
+<option value="3500">3.5 kg</option>
+<option value="4000">4 kg</option>
+<option value="5000">5 kg</option>
+</select>
+</div>
+
+<div>
+<label>Payment Type</label>
+<select id="payment" onchange="calculateRate()">
+<option value="">Select</option>
+<option value="Prepaid">Prepaid</option>
+<option value="COD">COD</option>
+</select>
+</div>
+
+</div>
+
+<label>COD Amount</label>
+<input id="codAmount" type="number" placeholder="Enter COD amount" oninput="calculateRate()">
+
+<div class="rate-box">
+
+<div class="rate-line">
+<span>Shipping Charge</span>
+<b id="shipping">₹0</b>
+</div>
+
+<div class="rate-line">
+<span>COD Handling</span>
+<b id="codCharge">₹0</b>
+</div>
+
+<div class="rate-line total">
+<span>Total</span>
+<b id="total">₹0</b>
+</div>
+
+</div>
+
+<button class="orange" onclick="bookShipment()">📦 BOOK SHIPMENT</button>
+
+<div id="success" class="success"></div>
+
+</div>
+
+
+<!-- CLIENT DASHBOARD -->
+<div class="card">
+
+<h2>📊 My Shipment Dashboard</h2>
+
+<div class="stats">
+
+<div class="stat">
+<b id="totalBookings">0</b>
+<small>Total</small>
+</div>
+
+<div class="stat">
+<b id="delivered">0</b>
+<small>Delivered</small>
+</div>
+
+<div class="stat">
+<b id="pending">0</b>
+<small>Pending</small>
+</div>
+
+</div>
+
+<div id="bookingList"></div>
+
+</div>
+
+
+<!-- SUPPORT -->
+<div class="support">
+<h3 style="margin-top:0">Need Help?</h3>
+<p style="margin-top:8px">
+Customer Support
+</p>
+<p style="margin-top:7px">
+📧 <a href="mailto:bhagtifulfil@gmail.com">bhagtifulfil@gmail.com</a>
+</p>
+</div>
+
+</div>
+
+<footer class="footer">
+© 2026 BHAGWATI FULFIL • D2C Pickup & Delivery Services
+</footer>
+
+
+<script>
+
+let bookings = JSON.parse(localStorage.getItem("bhagwatiBookings") || "[]");
+
+
+function calculateRate(){
+
+    let zone = document.getElementById("zone").value;
+    let weight = Number(document.getElementById("weight").value);
+    let payment = document.getElementById("payment").value;
+
+    let shipping = 0;
+
+    if(zone && weight){
+
+        if(zone === "MH"){
+
+            if(weight <= 250) shipping = 40;
+            else if(weight <= 500) shipping = 45;
+            else if(weight <= 750) shipping = 55;
+            else if(weight <= 1000) shipping = 70;
+            else if(weight <= 1500) shipping = 95;
+            else if(weight <= 2000) shipping = 105;
+            else shipping = 105 + Math.ceil((weight - 2000) / 500) * 20;
+
+        }else{
+
+            if(weight <= 250) shipping = 50;
+            else if(weight <= 500) shipping = 60;
+            else if(weight <= 750) shipping = 75;
+            else if(weight <= 1000) shipping = 90;
+            else if(weight <= 1500) shipping = 115;
+            else if(weight <= 2000) shipping = 125;
+            else shipping = 125 + Math.ceil((weight - 2000) / 500) * 25;
+
+        }
+    }
+
+    let codCharge = payment === "COD" ? 25 : 0;
+    let total = shipping + codCharge;
+
+    document.getElementById("shipping").innerText = "₹" + shipping;
+    document.getElementById("codCharge").innerText = "₹" + codCharge;
+    document.getElementById("total").innerText = "₹" + total;
+}
+
+
+function bookShipment(){
+
+    let client = document.getElementById("client").value.trim();
+    let orderId = document.getElementById("orderId").value.trim();
+    let pickupName = document.getElementById("pickupName").value.trim();
+    let pickupMobile = document.getElementById("pickupMobile").value.trim();
+    let pickupAddress = document.getElementById("pickupAddress").value.trim();
+    let pickupPin = document.get
