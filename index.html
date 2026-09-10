@@ -2,195 +2,176 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>BHAGWATI FULFIL | Client Portal</title>
 
 <style>
-*{box-sizing:border-box}
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
 
 body{
-  margin:0;
-  font-family:Arial,sans-serif;
-  background:#f4f6f8;
-  color:#17202a
+    font-family:Arial,sans-serif;
+    background:#f4f6f9;
+    color:#172033;
 }
 
 header{
-  background:#111827;
-  color:white;
-  padding:18px 20px;
-  text-align:center
+    background:#111827;
+    color:white;
+    text-align:center;
+    padding:22px 15px;
 }
 
 header h1{
-  margin:0;
-  font-size:24px
+    font-size:27px;
 }
 
 header p{
-  margin:6px 0 0;
-  font-size:13px;
-  color:#d1d5db
+    margin-top:6px;
+    font-size:14px;
+    color:#cbd5e1;
 }
 
-.wrap{
-  max-width:850px;
-  margin:25px auto;
-  padding:0 15px
+.container{
+    max-width:650px;
+    margin:20px auto;
+    padding:12px;
 }
 
 .card{
-  background:white;
-  border-radius:14px;
-  padding:22px;
-  box-shadow:0 4px 18px #00000012;
-  margin-bottom:18px
-}
-
-.steps{
-  display:flex;
-  gap:8px;
-  margin-bottom:18px
-}
-
-.step{
-  flex:1;
-  text-align:center;
-  padding:10px;
-  border-radius:8px;
-  background:#e5e7eb;
-  font-size:12px;
-  font-weight:bold
-}
-
-.step.active{
-  background:#111827;
-  color:white
-}
-
-.page{
-  display:none
-}
-
-.page.active{
-  display:block
+    background:#fff;
+    padding:20px;
+    margin-bottom:18px;
+    border-radius:14px;
+    box-shadow:0 4px 15px rgba(0,0,0,.08);
 }
 
 h2{
-  margin-top:0
+    font-size:19px;
+    margin-bottom:16px;
 }
 
 label{
-  display:block;
-  font-size:13px;
-  font-weight:bold;
-  margin:12px 0 6px
+    display:block;
+    font-weight:bold;
+    font-size:14px;
+    margin:12px 0 6px;
 }
 
-input,select{
-  width:100%;
-  padding:12px;
-  border:1px solid #d1d5db;
-  border-radius:8px;
-  font-size:14px
+input,select,textarea{
+    width:100%;
+    padding:12px;
+    border:1px solid #d1d5db;
+    border-radius:8px;
+    font-size:15px;
 }
 
-.grid{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:12px
-}
-
-.full{
-  grid-column:1/-1
+textarea{
+    min-height:75px;
+    resize:vertical;
 }
 
 button{
-  border:0;
-  border-radius:9px;
-  padding:12px 18px;
-  background:#111827;
-  color:white;
-  font-weight:bold;
-  cursor:pointer;
-  margin-top:16px;
-  width:100%
+    width:100%;
+    border:0;
+    border-radius:9px;
+    padding:13px;
+    margin-top:12px;
+    font-size:15px;
+    font-weight:bold;
+    cursor:pointer;
 }
 
-button.secondary{
-  background:#e5e7eb;
-  color:#111827
+.save{
+    background:#111827;
+    color:#fff;
 }
 
-.row{
-  display:flex;
-  gap:10px
+.book{
+    background:#16a34a;
+    color:white;
 }
 
-.row button{
-  flex:1
+.edit{
+    background:#e5e7eb;
+    color:#111827;
 }
 
-.notice{
-  padding:12px;
-  background:#f3f4f6;
-  border-radius:8px;
-  font-size:13px;
-  margin-top:12px
+.reset{
+    background:#fee2e2;
+    color:#991b1b;
 }
 
-.saved{
-  background:#f0fdf4;
-  border:1px solid #bbf7d0;
-  padding:14px;
-  border-radius:10px;
-  margin-bottom:15px
+.grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:10px;
+}
+
+.rate{
+    width:100%;
+    border-collapse:collapse;
+    font-size:13px;
+}
+
+.rate th,
+.rate td{
+    border:1px solid #ddd;
+    padding:9px 4px;
+    text-align:center;
+}
+
+.rate th{
+    background:#111827;
+    color:white;
 }
 
 .summary{
-  border:1px solid #e5e7eb;
-  border-radius:10px;
-  padding:14px
+    background:#f1f5f9;
+    padding:15px;
+    border-radius:9px;
+    line-height:1.8;
 }
 
-.summary div{
-  display:flex;
-  justify-content:space-between;
-  gap:15px;
-  padding:8px 0;
-  border-bottom:1px solid #eee
+.total{
+    font-size:21px;
+    font-weight:bold;
 }
 
-.summary div:last-child{
-  border:0;
-  font-weight:bold;
-  font-size:17px
+.success{
+    display:none;
+    background:#dcfce7;
+    color:#166534;
+    padding:12px;
+    border-radius:8px;
+    margin-top:12px;
+    text-align:center;
 }
 
-.small{
-  font-size:12px;
-  color:#6b7280
+.saved{
+    display:none;
+    background:#dbeafe;
+    color:#1e40af;
+    padding:12px;
+    border-radius:8px;
+    margin-bottom:15px;
+    text-align:center;
 }
 
 footer{
-  text-align:center;
-  padding:20px;
-  font-size:12px;
-  color:#6b7280
+    text-align:center;
+    padding:25px;
+    font-size:13px;
+    color:#64748b;
 }
 
-@media(max-width:600px){
-  .grid{
-    grid-template-columns:1fr
-  }
-
-  .full{
-    grid-column:auto
-  }
-
-  .row{
-    flex-direction:column
-  }
+@media(max-width:500px){
+    .grid{
+        grid-template-columns:1fr;
+    }
 }
 </style>
 </head>
@@ -198,258 +179,499 @@ footer{
 <body>
 
 <header>
-  <h1>BHAGWATI FULFIL</h1>
-  <p>D2C PICKUP &amp; DELIVERY SERVICES</p>
+    <h1>BHAGWATI FULFIL</h1>
+    <p>Client Portal | Fulfillment Solutions</p>
 </header>
 
-<div class="wrap">
+<div class="container">
 
-<!-- STEPS -->
-<div class="steps">
-  <div id="s1" class="step active">1. PROFILE</div>
-  <div id="s2" class="step">2. SHIPMENT</div>
-  <div id="s3" class="step">3. REVIEW &amp; BOOK</div>
+<div class="saved" id="savedMsg">
+    ✓ Details saved successfully
+</div>
+
+<!-- CLIENT DETAILS -->
+<div class="card">
+
+<h2>👤 Client Details</h2>
+
+<label>Client Name</label>
+<input id="clientName" type="text" placeholder="Enter client name">
+
+<label>WhatsApp Number</label>
+<input id="clientPhone" type="tel" maxlength="10"
+       placeholder="10 digit number">
+
+<label>Pickup Address</label>
+<textarea id="pickup" placeholder="Pickup address"></textarea>
+
+<label>Delivery Address</label>
+<textarea id="delivery" placeholder="Delivery address"></textarea>
+
 </div>
 
 
-<!-- ================= PROFILE ================= -->
+<!-- SHIPMENT -->
+<div class="card">
 
-<section id="page1" class="page active card">
+<h2>📦 Shipment Details</h2>
 
-<h2>Client Profile</h2>
-
-<div id="savedProfile" class="saved" style="display:none"></div>
-
-<div class="grid">
-
-<div>
-<label>Client / Business Name *</label>
-<input id="clientName">
-</div>
-
-<div>
-<label>Contact Person *</label>
-<input id="contactName">
-</div>
-
-<div>
-<label>Mobile *</label>
-<input id="mobile" inputmode="numeric" maxlength="10">
-</div>
-
-<div>
-<label>Pickup Address *</label>
-<input id="pickupAddress">
-</div>
-
-<div>
-<label>Pickup City *</label>
-<input id="pickupCity">
-</div>
-
-<div>
-<label>Pickup Pincode *</label>
-<input id="pickupPincode" inputmode="numeric" maxlength="6">
-</div>
-
-<div>
-<label>Bank Account Holder *</label>
-<input id="accountHolder">
-</div>
-
-<div>
-<label>Bank Account Number *</label>
-<input id="accountNo" inputmode="numeric">
-</div>
-
-<div>
-<label>IFSC *</label>
-<input id="ifsc">
-</div>
-
-<div>
-<label>Bank Name *</label>
-<input id="bankName">
-</div>
-
-<div>
-<label>Branch *</label>
-<input id="branch">
-</div>
-
-<div>
-<label>Account Type *</label>
-<select id="accountType">
-<option value="">Select</option>
-<option>Savings</option>
-<option>Current</option>
+<label>Actual Weight</label>
+<select id="weight">
+    <option value="0">Select weight</option>
+    <option value="250">Up to 250 gm</option>
+    <option value="500">Up to 500 gm</option>
+    <option value="750">Up to 750 gm</option>
+    <option value="1000">Up to 1 kg</option>
+    <option value="1500">Up to 1.5 kg</option>
+    <option value="2000">Up to 2 kg</option>
+    <option value="above">Above 2 kg</option>
 </select>
-</div>
 
-</div>
-
-<div class="notice">
-Bank account number edit करताना पुन्हा type करावा लागेल.
-Saved account UI मध्ये फक्त last 4 digits दिसतील.
-</div>
-
-<div class="row">
-
-<button id="saveBtn">
-SAVE &amp; CONTINUE →
-</button>
-
-<button id="editBtn" class="secondary" style="display:none">
-EDIT PROFILE
-</button>
-
-</div>
-
-</section>
-
-
-<!-- ================= SHIPMENT ================= -->
-
-<section id="page2" class="page card">
-
-<h2>Book Shipment</h2>
-
-<div class="notice">
-Order ID automatically booking झाल्यावर generate होईल.
-Example: ONKAR-01, ONKAR-02, ONKAR-03
-</div>
-
-<div class="grid">
-
-<div>
-<label>Receiver Name *</label>
-<input id="receiverName">
-</div>
-
-<div>
-<label>Receiver Mobile *</label>
-<input id="receiverMobile" inputmode="numeric" maxlength="10">
-</div>
-
-<div class="full">
-<label>Delivery Address *</label>
-<input id="deliveryAddress">
-</div>
-
-<div>
-<label>Delivery City *</label>
-<input id="deliveryCity">
-</div>
-
-<div>
-<label>Delivery Pincode *</label>
-<input id="deliveryPincode" inputmode="numeric" maxlength="6">
-</div>
-
-<div>
-<label>Service / Zone *</label>
+<label>Delivery Zone</label>
 <select id="zone">
-<option value="">Select Zone</option>
-<option value="Maharashtra">Maharashtra</option>
-<option value="Pan India">Pan India</option>
+    <option value="">Select zone</option>
+    <option value="Maharashtra">Maharashtra</option>
+    <option value="Pan India">Pan India</option>
 </select>
-</div>
 
-<div>
-<label>Payment Type *</label>
-<select id="paymentType">
-<option value="">Select</option>
-<option value="Prepaid">Prepaid</option>
-<option value="COD">COD</option>
+<label>Payment Mode</label>
+<select id="payment">
+    <option value="">Select payment mode</option>
+    <option value="Prepaid">Prepaid</option>
+    <option value="COD">COD (+₹25)</option>
 </select>
+
+<label>Number of Orders</label>
+<input id="quantity" type="number" min="1" value="1">
+
 </div>
 
-<div id="codBox" style="display:none">
 
-<label>COD Amount ₹ *</label>
-<input id="codAmount" inputmode="decimal">
+<!-- VOLUMETRIC -->
+<div class="card">
 
+<h2>📐 Volumetric Weight</h2>
+
+<div class="grid">
+
+<div>
+<label>Length (cm)</label>
+<input id="length" type="number" min="0"
+       placeholder="Length">
 </div>
 
 <div>
-<label>Actual Weight (grams) *</label>
-<input id="actualWeight" inputmode="decimal">
+<label>Width (cm)</label>
+<input id="width" type="number" min="0"
+       placeholder="Width">
 </div>
 
 <div>
-<label>Length (cm) *</label>
-<input id="length" inputmode="decimal">
+<label>Height (cm)</label>
+<input id="height" type="number" min="0"
+       placeholder="Height">
+</div>
+
+</div>
+
+<button class="save" onclick="calculate()">
+    Calculate Charges
+</button>
+
+</div>
+
+
+<!-- SUMMARY -->
+<div class="card">
+
+<h2>💰 Order Summary</h2>
+
+<div class="summary">
+
+<div>
+Actual Weight:
+<b id="actualDisplay">-</b>
 </div>
 
 <div>
-<label>Width (cm) *</label>
-<input id="width" inputmode="decimal">
+Volumetric Weight:
+<b id="volDisplay">-</b>
 </div>
 
 <div>
-<label>Height (cm) *</label>
-<input id="height" inputmode="decimal">
+Chargeable Weight:
+<b id="chargeDisplay">-</b>
+</div>
+
+<div>
+Zone:
+<b id="zoneDisplay">-</b>
+</div>
+
+<div>
+Payment:
+<b id="paymentDisplay">-</b>
+</div>
+
+<div>
+Rate / Order:
+<b id="rateDisplay">₹0</b>
+</div>
+
+<div>
+COD Charge:
+<b id="codDisplay">₹0</b>
+</div>
+
+<hr>
+
+<div class="total">
+Total: ₹<span id="totalDisplay">0</span>
 </div>
 
 </div>
 
-<div id="chargeBox" class="notice">
-Enter weight, dimensions and zone to calculate charges.
 </div>
 
-<div class="row">
 
-<button id="backProfile" class="secondary">
-← PROFILE
+<!-- RATE CARD -->
+<div class="card">
+
+<h2>🚚 BHAGWATI FULFIL Rates</h2>
+
+<table class="rate">
+
+<tr>
+<th>Weight</th>
+<th>Maharashtra</th>
+<th>Pan India</th>
+</tr>
+
+<tr>
+<td>250 gm</td>
+<td>₹40</td>
+<td>₹50</td>
+</tr>
+
+<tr>
+<td>500 gm</td>
+<td>₹45</td>
+<td>₹60</td>
+</tr>
+
+<tr>
+<td>750 gm</td>
+<td>₹55</td>
+<td>₹75</td>
+</tr>
+
+<tr>
+<td>1 kg</td>
+<td>₹70</td>
+<td>₹90</td>
+</tr>
+
+<tr>
+<td>1.5 kg</td>
+<td>₹95</td>
+<td>₹115</td>
+</tr>
+
+<tr>
+<td>2 kg</td>
+<td>₹105</td>
+<td>₹125</td>
+</tr>
+
+<tr>
+<td>Above 2 kg</td>
+<td>+₹20/kg</td>
+<td>+₹25/kg</td>
+</tr>
+
+</table>
+
+<p style="margin-top:12px;font-size:13px;">
+<b>COD:</b> ₹25 extra per order<br>
+<b>Prepaid:</b> No extra charge
+</p>
+
+</div>
+
+
+<!-- ACTIONS -->
+<div class="card">
+
+<h2>⚡ Actions</h2>
+
+<button class="save" onclick="saveDetails()">
+    💾 Save Details
 </button>
 
-<button id="reviewBtn">
-REVIEW →
+<button class="edit" onclick="editDetails()">
+    ✏️ Edit Saved Details
 </button>
+
+<button class="book" onclick="bookShipment()">
+    📦 Book Shipment
+</button>
+
+<button class="reset" onclick="resetForm()">
+    🔄 Clear Details
+</button>
+
+<div class="success" id="success">
+    ✓ Booking request created
+</div>
 
 </div>
 
-</section>
-
-
-<!-- ================= REVIEW ================= -->
-
-<section id="page3" class="page card">
-
-<h2>Review &amp; Book</h2>
-
-<div id="review" class="summary"></div>
-
-<div class="row">
-
-<button id="backShipment" class="secondary">
-← EDIT SHIPMENT
-</button>
-
-<button id="bookBtn">
-BOOK SHIPMENT ✓
-</button>
-
 </div>
 
-</section>
-
-
-<!-- ================= SUCCESS ================= -->
-
-<section id="success" class="page card">
-
-<h2>Shipment Booked ✓</h2>
-
-<div id="successBox" class="saved"></div>
-
-<button id="newBtn">
-BOOK ANOTHER SHIPMENT
-</button>
-
-</section>
-
-</div>
 
 <footer>
-BHAGWATI F
+© 2026 BHAGWATI FULFIL<br>
+Fulfillment Solutions
+</footer>
+
+
+<script>
+
+/* =========================
+   RATE CALCULATION
+========================= */
+
+function getBaseRate(weight, zone){
+
+    if(zone === "Maharashtra"){
+
+        if(weight <= 250) return 40;
+        if(weight <= 500) return 45;
+        if(weight <= 750) return 55;
+        if(weight <= 1000) return 70;
+        if(weight <= 1500) return 95;
+        if(weight <= 2000) return 105;
+
+    }
+
+    if(zone === "Pan India"){
+
+        if(weight <= 250) return 50;
+        if(weight <= 500) return 60;
+        if(weight <= 750) return 75;
+        if(weight <= 1000) return 90;
+        if(weight <= 1500) return 115;
+        if(weight <= 2000) return 125;
+
+    }
+
+    return 0;
+}
+
+
+/* =========================
+   CALCULATE
+========================= */
+
+function calculate(){
+
+    let actual = document.getElementById("weight").value;
+    let zone = document.getElementById("zone").value;
+    let payment = document.getElementById("payment").value;
+
+    let length =
+        Number(document.getElementById("length").value) || 0;
+
+    let width =
+        Number(document.getElementById("width").value) || 0;
+
+    let height =
+        Number(document.getElementById("height").value) || 0;
+
+    let quantity =
+        Number(document.getElementById("quantity").value) || 1;
+
+
+    if(!zone || actual === "0"){
+        alert("Please select weight and delivery zone.");
+        return;
+    }
+
+
+    let actualWeight =
+        actual === "above" ? 2001 : Number(actual);
+
+
+    let volumetric =
+        (length * width * height) / 5000;
+
+
+    let chargeable =
+        Math.max(actualWeight / 1000, volumetric);
+
+
+    let rate = getBaseRate(actualWeight, zone);
+
+
+    /* Above 2 KG */
+
+    if(actual === "above"){
+
+        if(zone === "Maharashtra"){
+            rate = 105 + 20;
+        }
+
+        if(zone === "Pan India"){
+            rate = 125 + 25;
+        }
+    }
+
+
+    let cod =
+        payment === "COD" ? 25 : 0;
+
+
+    let totalPerOrder =
+        rate + cod;
+
+
+    let total =
+        totalPerOrder * quantity;
+
+
+    document.getElementById("actualDisplay").innerText =
+        actual === "above" ? "Above 2 kg" : actual + " gm";
+
+    document.getElementById("volDisplay").innerText =
+        volumetric.toFixed(2) + " kg";
+
+    document.getElementById("chargeDisplay").innerText =
+        chargeable.toFixed(2) + " kg";
+
+    document.getElementById("zoneDisplay").innerText =
+        zone;
+
+    document.getElementById("paymentDisplay").innerText =
+        payment;
+
+    document.getElementById("rateDisplay").innerText =
+        "₹" + rate;
+
+    document.getElementById("codDisplay").innerText =
+        "₹" + cod;
+
+    document.getElementById("totalDisplay").innerText =
+        total;
+
+}
+
+
+/* =========================
+   SAVE DETAILS
+========================= */
+
+function saveDetails(){
+
+    let data = {
+
+        clientName:
+        document.getElementById("clientName").value,
+
+        clientPhone:
+        document.getElementById("clientPhone").value,
+
+        pickup:
+        document.getElementById("pickup").value,
+
+        delivery:
+        document.getElementById("delivery").value,
+
+        weight:
+        document.getElementById("weight").value,
+
+        zone:
+        document.getElementById("zone").value,
+
+        payment:
+        document.getElementById("payment").value,
+
+        quantity:
+        document.getElementById("quantity").value,
+
+        length:
+        document.getElementById("length").value,
+
+        width:
+        document.getElementById("width").value,
+
+        height:
+        document.getElementById("height").value
+
+    };
+
+
+    localStorage.setItem(
+        "bhagwatiClient",
+        JSON.stringify(data)
+    );
+
+
+    document.getElementById("savedMsg").style.display =
+        "block";
+
+    calculate();
+}
+
+
+/* =========================
+   EDIT DETAILS
+========================= */
+
+function editDetails(){
+
+    let saved =
+        localStorage.getItem("bhagwatiClient");
+
+    if(!saved){
+        alert("No saved details found.");
+        return;
+    }
+
+    let data = JSON.parse(saved);
+
+
+    document.getElementById("clientName").value =
+        data.clientName || "";
+
+    document.getElementById("clientPhone").value =
+        data.clientPhone || "";
+
+    document.getElementById("pickup").value =
+        data.pickup || "";
+
+    document.getElementById("delivery").value =
+        data.delivery || "";
+
+    document.getElementById("weight").value =
+        data.weight || "0";
+
+    document.getElementById("zone").value =
+        data.zone || "";
+
+    document.getElementById("payment").value =
+        data.payment || "";
+
+    document.getElementById("quantity").value =
+        data.quantity || 1;
+
+    document.getElementById("length").value =
+        data.length || "";
+
+    document.getElementById("width").value =
+        data.width || "";
+
+    document.getElementById("height").value =
+        data.height || "";
+
+
+    calculate
