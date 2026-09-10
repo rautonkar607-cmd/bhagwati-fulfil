@@ -6,672 +6,107 @@
 <title>BHAGWATI FULFIL | Client Portal</title>
 
 <style>
-*{
-    box-sizing:border-box;
-    margin:0;
-    padding:0;
-}
-
+*{box-sizing:border-box}
 body{
-    font-family:Arial,sans-serif;
-    background:#f4f6f9;
-    color:#172033;
+  margin:0;
+  font-family:Arial,sans-serif;
+  background:#f4f6f8;
+  color:#111827;
 }
-
-header{
-    background:#111827;
-    color:white;
-    text-align:center;
-    padding:22px 15px;
+.header{
+  background:#111827;
+  color:#fff;
+  padding:22px 15px;
+  text-align:center;
 }
-
-header h1{
-    font-size:27px;
-}
-
-header p{
-    margin-top:6px;
-    font-size:14px;
-    color:#cbd5e1;
-}
+.header h1{margin:0;font-size:26px}
+.header p{margin:6px 0 0;color:#cbd5e1}
 
 .container{
-    max-width:650px;
-    margin:20px auto;
-    padding:12px;
+  max-width:650px;
+  margin:auto;
+  padding:15px;
 }
 
 .card{
-    background:#fff;
-    padding:20px;
-    margin-bottom:18px;
-    border-radius:14px;
-    box-shadow:0 4px 15px rgba(0,0,0,.08);
+  background:#fff;
+  border-radius:14px;
+  padding:20px;
+  margin-bottom:16px;
+  box-shadow:0 3px 12px rgba(0,0,0,.08);
 }
 
 h2{
-    font-size:19px;
-    margin-bottom:16px;
+  margin:0 0 16px;
+  font-size:19px;
 }
 
 label{
-    display:block;
-    font-weight:bold;
-    font-size:14px;
-    margin:12px 0 6px;
+  display:block;
+  font-size:14px;
+  font-weight:bold;
+  margin:12px 0 6px;
 }
 
-input,select,textarea{
-    width:100%;
-    padding:12px;
-    border:1px solid #d1d5db;
-    border-radius:8px;
-    font-size:15px;
+input,textarea,select{
+  width:100%;
+  padding:13px;
+  border:1px solid #cbd5e1;
+  border-radius:8px;
+  font-size:15px;
+  background:#fff;
 }
 
 textarea{
-    min-height:75px;
-    resize:vertical;
-}
-
-button{
-    width:100%;
-    border:0;
-    border-radius:9px;
-    padding:13px;
-    margin-top:12px;
-    font-size:15px;
-    font-weight:bold;
-    cursor:pointer;
-}
-
-.save{
-    background:#111827;
-    color:#fff;
-}
-
-.book{
-    background:#16a34a;
-    color:white;
-}
-
-.edit{
-    background:#e5e7eb;
-    color:#111827;
-}
-
-.reset{
-    background:#fee2e2;
-    color:#991b1b;
+  min-height:80px;
+  resize:vertical;
 }
 
 .grid{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:10px;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
 }
 
-.rate{
-    width:100%;
-    border-collapse:collapse;
-    font-size:13px;
+button{
+  width:100%;
+  min-height:48px;
+  border:0;
+  border-radius:9px;
+  margin-top:12px;
+  padding:13px;
+  font-size:16px;
+  font-weight:bold;
+  cursor:pointer;
+  touch-action:manipulation;
 }
 
-.rate th,
-.rate td{
-    border:1px solid #ddd;
-    padding:9px 4px;
-    text-align:center;
-}
-
-.rate th{
-    background:#111827;
-    color:white;
-}
+.primary{background:#111827;color:#fff}
+.green{background:#16a34a;color:#fff}
+.gray{background:#e5e7eb;color:#111827}
 
 .summary{
-    background:#f1f5f9;
-    padding:15px;
-    border-radius:9px;
-    line-height:1.8;
+  background:#f8fafc;
+  border-radius:10px;
+  padding:15px;
+  line-height:2;
 }
 
 .total{
-    font-size:21px;
-    font-weight:bold;
+  border-top:1px solid #ddd;
+  margin-top:8px;
+  padding-top:10px;
+  font-size:22px;
+  font-weight:bold;
 }
 
-.success{
-    display:none;
-    background:#dcfce7;
-    color:#166534;
-    padding:12px;
-    border-radius:8px;
-    margin-top:12px;
-    text-align:center;
+.status{
+  display:none;
+  padding:13px;
+  border-radius:8px;
+  margin-top:12px;
+  text-align:center;
+  font-weight:bold;
 }
 
-.saved{
-    display:none;
-    background:#dbeafe;
-    color:#1e40af;
-    padding:12px;
-    border-radius:8px;
-    margin-bottom:15px;
-    text-align:center;
-}
-
-footer{
-    text-align:center;
-    padding:25px;
-    font-size:13px;
-    color:#64748b;
-}
-
-@media(max-width:500px){
-    .grid{
-        grid-template-columns:1fr;
-    }
-}
-</style>
-</head>
-
-<body>
-
-<header>
-    <h1>BHAGWATI FULFIL</h1>
-    <p>Client Portal | Fulfillment Solutions</p>
-</header>
-
-<div class="container">
-
-<div class="saved" id="savedMsg">
-    ✓ Details saved successfully
-</div>
-
-<!-- CLIENT DETAILS -->
-<div class="card">
-
-<h2>👤 Client Details</h2>
-
-<label>Client Name</label>
-<input id="clientName" type="text" placeholder="Enter client name">
-
-<label>WhatsApp Number</label>
-<input id="clientPhone" type="tel" maxlength="10"
-       placeholder="10 digit number">
-
-<label>Pickup Address</label>
-<textarea id="pickup" placeholder="Pickup address"></textarea>
-
-<label>Delivery Address</label>
-<textarea id="delivery" placeholder="Delivery address"></textarea>
-
-</div>
-
-
-<!-- SHIPMENT -->
-<div class="card">
-
-<h2>📦 Shipment Details</h2>
-
-<label>Actual Weight</label>
-<select id="weight">
-    <option value="0">Select weight</option>
-    <option value="250">Up to 250 gm</option>
-    <option value="500">Up to 500 gm</option>
-    <option value="750">Up to 750 gm</option>
-    <option value="1000">Up to 1 kg</option>
-    <option value="1500">Up to 1.5 kg</option>
-    <option value="2000">Up to 2 kg</option>
-    <option value="above">Above 2 kg</option>
-</select>
-
-<label>Delivery Zone</label>
-<select id="zone">
-    <option value="">Select zone</option>
-    <option value="Maharashtra">Maharashtra</option>
-    <option value="Pan India">Pan India</option>
-</select>
-
-<label>Payment Mode</label>
-<select id="payment">
-    <option value="">Select payment mode</option>
-    <option value="Prepaid">Prepaid</option>
-    <option value="COD">COD (+₹25)</option>
-</select>
-
-<label>Number of Orders</label>
-<input id="quantity" type="number" min="1" value="1">
-
-</div>
-
-
-<!-- VOLUMETRIC -->
-<div class="card">
-
-<h2>📐 Volumetric Weight</h2>
-
-<div class="grid">
-
-<div>
-<label>Length (cm)</label>
-<input id="length" type="number" min="0"
-       placeholder="Length">
-</div>
-
-<div>
-<label>Width (cm)</label>
-<input id="width" type="number" min="0"
-       placeholder="Width">
-</div>
-
-<div>
-<label>Height (cm)</label>
-<input id="height" type="number" min="0"
-       placeholder="Height">
-</div>
-
-</div>
-
-<button class="save" onclick="calculate()">
-    Calculate Charges
-</button>
-
-</div>
-
-
-<!-- SUMMARY -->
-<div class="card">
-
-<h2>💰 Order Summary</h2>
-
-<div class="summary">
-
-<div>
-Actual Weight:
-<b id="actualDisplay">-</b>
-</div>
-
-<div>
-Volumetric Weight:
-<b id="volDisplay">-</b>
-</div>
-
-<div>
-Chargeable Weight:
-<b id="chargeDisplay">-</b>
-</div>
-
-<div>
-Zone:
-<b id="zoneDisplay">-</b>
-</div>
-
-<div>
-Payment:
-<b id="paymentDisplay">-</b>
-</div>
-
-<div>
-Rate / Order:
-<b id="rateDisplay">₹0</b>
-</div>
-
-<div>
-COD Charge:
-<b id="codDisplay">₹0</b>
-</div>
-
-<hr>
-
-<div class="total">
-Total: ₹<span id="totalDisplay">0</span>
-</div>
-
-</div>
-
-</div>
-
-
-<!-- RATE CARD -->
-<div class="card">
-
-<h2>🚚 BHAGWATI FULFIL Rates</h2>
-
-<table class="rate">
-
-<tr>
-<th>Weight</th>
-<th>Maharashtra</th>
-<th>Pan India</th>
-</tr>
-
-<tr>
-<td>250 gm</td>
-<td>₹40</td>
-<td>₹50</td>
-</tr>
-
-<tr>
-<td>500 gm</td>
-<td>₹45</td>
-<td>₹60</td>
-</tr>
-
-<tr>
-<td>750 gm</td>
-<td>₹55</td>
-<td>₹75</td>
-</tr>
-
-<tr>
-<td>1 kg</td>
-<td>₹70</td>
-<td>₹90</td>
-</tr>
-
-<tr>
-<td>1.5 kg</td>
-<td>₹95</td>
-<td>₹115</td>
-</tr>
-
-<tr>
-<td>2 kg</td>
-<td>₹105</td>
-<td>₹125</td>
-</tr>
-
-<tr>
-<td>Above 2 kg</td>
-<td>+₹20/kg</td>
-<td>+₹25/kg</td>
-</tr>
-
-</table>
-
-<p style="margin-top:12px;font-size:13px;">
-<b>COD:</b> ₹25 extra per order<br>
-<b>Prepaid:</b> No extra charge
-</p>
-
-</div>
-
-
-<!-- ACTIONS -->
-<div class="card">
-
-<h2>⚡ Actions</h2>
-
-<button class="save" onclick="saveDetails()">
-    💾 Save Details
-</button>
-
-<button class="edit" onclick="editDetails()">
-    ✏️ Edit Saved Details
-</button>
-
-<button class="book" onclick="bookShipment()">
-    📦 Book Shipment
-</button>
-
-<button class="reset" onclick="resetForm()">
-    🔄 Clear Details
-</button>
-
-<div class="success" id="success">
-    ✓ Booking request created
-</div>
-
-</div>
-
-</div>
-
-
-<footer>
-© 2026 BHAGWATI FULFIL<br>
-Fulfillment Solutions
-</footer>
-
-
-<script>
-
-/* =========================
-   RATE CALCULATION
-========================= */
-
-function getBaseRate(weight, zone){
-
-    if(zone === "Maharashtra"){
-
-        if(weight <= 250) return 40;
-        if(weight <= 500) return 45;
-        if(weight <= 750) return 55;
-        if(weight <= 1000) return 70;
-        if(weight <= 1500) return 95;
-        if(weight <= 2000) return 105;
-
-    }
-
-    if(zone === "Pan India"){
-
-        if(weight <= 250) return 50;
-        if(weight <= 500) return 60;
-        if(weight <= 750) return 75;
-        if(weight <= 1000) return 90;
-        if(weight <= 1500) return 115;
-        if(weight <= 2000) return 125;
-
-    }
-
-    return 0;
-}
-
-
-/* =========================
-   CALCULATE
-========================= */
-
-function calculate(){
-
-    let actual = document.getElementById("weight").value;
-    let zone = document.getElementById("zone").value;
-    let payment = document.getElementById("payment").value;
-
-    let length =
-        Number(document.getElementById("length").value) || 0;
-
-    let width =
-        Number(document.getElementById("width").value) || 0;
-
-    let height =
-        Number(document.getElementById("height").value) || 0;
-
-    let quantity =
-        Number(document.getElementById("quantity").value) || 1;
-
-
-    if(!zone || actual === "0"){
-        alert("Please select weight and delivery zone.");
-        return;
-    }
-
-
-    let actualWeight =
-        actual === "above" ? 2001 : Number(actual);
-
-
-    let volumetric =
-        (length * width * height) / 5000;
-
-
-    let chargeable =
-        Math.max(actualWeight / 1000, volumetric);
-
-
-    let rate = getBaseRate(actualWeight, zone);
-
-
-    /* Above 2 KG */
-
-    if(actual === "above"){
-
-        if(zone === "Maharashtra"){
-            rate = 105 + 20;
-        }
-
-        if(zone === "Pan India"){
-            rate = 125 + 25;
-        }
-    }
-
-
-    let cod =
-        payment === "COD" ? 25 : 0;
-
-
-    let totalPerOrder =
-        rate + cod;
-
-
-    let total =
-        totalPerOrder * quantity;
-
-
-    document.getElementById("actualDisplay").innerText =
-        actual === "above" ? "Above 2 kg" : actual + " gm";
-
-    document.getElementById("volDisplay").innerText =
-        volumetric.toFixed(2) + " kg";
-
-    document.getElementById("chargeDisplay").innerText =
-        chargeable.toFixed(2) + " kg";
-
-    document.getElementById("zoneDisplay").innerText =
-        zone;
-
-    document.getElementById("paymentDisplay").innerText =
-        payment;
-
-    document.getElementById("rateDisplay").innerText =
-        "₹" + rate;
-
-    document.getElementById("codDisplay").innerText =
-        "₹" + cod;
-
-    document.getElementById("totalDisplay").innerText =
-        total;
-
-}
-
-
-/* =========================
-   SAVE DETAILS
-========================= */
-
-function saveDetails(){
-
-    let data = {
-
-        clientName:
-        document.getElementById("clientName").value,
-
-        clientPhone:
-        document.getElementById("clientPhone").value,
-
-        pickup:
-        document.getElementById("pickup").value,
-
-        delivery:
-        document.getElementById("delivery").value,
-
-        weight:
-        document.getElementById("weight").value,
-
-        zone:
-        document.getElementById("zone").value,
-
-        payment:
-        document.getElementById("payment").value,
-
-        quantity:
-        document.getElementById("quantity").value,
-
-        length:
-        document.getElementById("length").value,
-
-        width:
-        document.getElementById("width").value,
-
-        height:
-        document.getElementById("height").value
-
-    };
-
-
-    localStorage.setItem(
-        "bhagwatiClient",
-        JSON.stringify(data)
-    );
-
-
-    document.getElementById("savedMsg").style.display =
-        "block";
-
-    calculate();
-}
-
-
-/* =========================
-   EDIT DETAILS
-========================= */
-
-function editDetails(){
-
-    let saved =
-        localStorage.getItem("bhagwatiClient");
-
-    if(!saved){
-        alert("No saved details found.");
-        return;
-    }
-
-    let data = JSON.parse(saved);
-
-
-    document.getElementById("clientName").value =
-        data.clientName || "";
-
-    document.getElementById("clientPhone").value =
-        data.clientPhone || "";
-
-    document.getElementById("pickup").value =
-        data.pickup || "";
-
-    document.getElementById("delivery").value =
-        data.delivery || "";
-
-    document.getElementById("weight").value =
-        data.weight || "0";
-
-    document.getElementById("zone").value =
-        data.zone || "";
-
-    document.getElementById("payment").value =
-        data.payment || "";
-
-    document.getElementById("quantity").value =
-        data.quantity || 1;
-
-    document.getElementById("length").value =
-        data.length || "";
-
-    document.getElementById("width").value =
-        data.width || "";
-
-    document.getElementById("height").value =
-        data.height || "";
-
-
-    calculate
+.ok{background:#dcfce7
