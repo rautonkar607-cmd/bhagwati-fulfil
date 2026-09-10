@@ -3,37 +3,27 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>BHAGWATI FULFIL | Client Portal</title>
 
 <style>
-*{
-  box-sizing:border-box;
-}
+*{box-sizing:border-box}
 
 body{
   margin:0;
-  font-family:Arial, sans-serif;
+  font-family:Arial,sans-serif;
   background:#f4f6f8;
   color:#222;
 }
 
 header{
   background:#111827;
-  color:white;
+  color:#fff;
   text-align:center;
   padding:22px 15px;
 }
 
-header h1{
-  margin:0;
-  font-size:26px;
-}
-
-header p{
-  margin:7px 0 0;
-  color:#d1d5db;
-}
+header h1{margin:0;font-size:26px}
+header p{margin:7px 0 0;color:#d1d5db}
 
 .container{
   width:94%;
@@ -43,21 +33,16 @@ header p{
 
 .step{
   display:none;
-  background:white;
+  background:#fff;
   padding:22px;
   border-radius:14px;
   box-shadow:0 3px 15px rgba(0,0,0,.08);
   margin-bottom:20px;
 }
 
-.step.active{
-  display:block;
-}
+.step.active{display:block}
 
-h2{
-  margin-top:0;
-  font-size:21px;
-}
+h2{margin-top:0;font-size:21px}
 
 h3{
   margin-top:25px;
@@ -73,9 +58,7 @@ label{
   margin-bottom:6px;
 }
 
-input,
-select,
-textarea{
+input,select,textarea{
   width:100%;
   padding:12px;
   border:1px solid #ccc;
@@ -84,9 +67,7 @@ textarea{
   outline:none;
 }
 
-input:focus,
-select:focus,
-textarea:focus{
+input:focus,select:focus,textarea:focus{
   border-color:#111827;
 }
 
@@ -114,27 +95,15 @@ button{
   border:0;
   border-radius:9px;
   background:#111827;
-  color:white;
+  color:#fff;
   font-size:16px;
   font-weight:bold;
   cursor:pointer;
 }
 
-button:hover{
-  opacity:.9;
-}
+button:hover{opacity:.9}
 
-.secondary{
-  background:#6b7280;
-}
-
-.success{
-  text-align:center;
-}
-
-.success h2{
-  color:green;
-}
+.secondary{background:#6b7280}
 
 .order-box{
   background:#f3f4f6;
@@ -154,6 +123,7 @@ button:hover{
   display:flex;
   justify-content:space-between;
   padding:6px 0;
+  gap:10px;
 }
 
 .total{
@@ -170,9 +140,11 @@ button:hover{
   margin-top:5px;
 }
 
-.hidden{
-  display:none;
-}
+.hidden{display:none}
+
+.success{text-align:center}
+
+.success h2{color:green}
 
 .badge{
   display:inline-block;
@@ -184,15 +156,12 @@ button:hover{
 }
 
 @media(max-width:600px){
-  .row,
-  .row3{
+  .row,.row3{
     grid-template-columns:1fr;
     gap:0;
   }
 
-  .step{
-    padding:17px;
-  }
+  .step{padding:17px}
 }
 </style>
 </head>
@@ -206,28 +175,33 @@ button:hover{
 
 <div class="container">
 
-<!-- ================= STEP 1 ================= -->
+<!-- STEP 1 -->
 
 <section id="step1" class="step active">
 
   <h2>Step 1 — Client Details</h2>
 
   <label>Business / Client Name</label>
-  <input id="clientName" type="text" placeholder="Enter business name">
+  <input id="clientName" type="text"
+         placeholder="Enter business name">
 
   <label>Mobile Number</label>
-  <input id="clientMobile" type="tel" maxlength="10" placeholder="10 digit mobile number">
+  <input id="clientMobile" type="tel"
+         maxlength="10"
+         placeholder="10 digit mobile number">
 
   <button onclick="saveClient()">SAVE & CONTINUE</button>
 
-  <button class="secondary" onclick="editClient()">EDIT SAVED DETAILS</button>
+  <button class="secondary" onclick="editClient()">
+    EDIT SAVED DETAILS
+  </button>
 
   <p id="clientMessage" class="small"></p>
 
 </section>
 
 
-<!-- ================= STEP 2 ================= -->
+<!-- STEP 2 -->
 
 <section id="step2" class="step">
 
@@ -241,56 +215,107 @@ button:hover{
   <h3>Pickup Address</h3>
 
   <label>Pickup Name</label>
-  <input id="pickupName" type="text" placeholder="Pickup person / business name">
+  <input id="pickupName" type="text"
+         placeholder="Pickup person / business name">
 
   <label>Pickup Mobile</label>
-  <input id="pickupMobile" type="tel" maxlength="10" placeholder="10 digit mobile">
+  <input id="pickupMobile" type="tel"
+         maxlength="10"
+         placeholder="10 digit mobile">
 
   <label>Pickup Address</label>
-  <textarea id="pickupAddress" placeholder="Complete pickup address"></textarea>
+  <textarea id="pickupAddress"
+            placeholder="Complete pickup address"></textarea>
 
   <label>Pickup Pincode</label>
-  <input id="pickupPincode" type="text" maxlength="6" placeholder="6 digit pincode">
+  <input id="pickupPincode"
+         type="text"
+         maxlength="6"
+         placeholder="6 digit pincode">
 
 
   <h3>Delivery / Customer Address</h3>
 
   <label>Customer Name</label>
-  <input id="customerName" type="text" placeholder="Customer name">
+  <input id="customerName"
+         type="text"
+         placeholder="Customer name">
 
   <label>Customer Mobile</label>
-  <input id="customerMobile" type="tel" maxlength="10" placeholder="10 digit mobile">
+  <input id="customerMobile"
+         type="tel"
+         maxlength="10"
+         placeholder="10 digit customer mobile">
 
   <label>Delivery Address</label>
-  <textarea id="deliveryAddress" placeholder="Complete delivery address"></textarea>
+  <textarea id="deliveryAddress"
+            placeholder="Complete delivery address"></textarea>
 
   <label>Delivery Pincode</label>
-  <input id="deliveryPincode" type="text" maxlength="6" placeholder="6 digit delivery pincode">
+  <input id="deliveryPincode"
+         type="text"
+         maxlength="6"
+         placeholder="6 digit delivery pincode">
 
 
-  <h3>Payment</h3>
+  <h3>Payment Details</h3>
 
   <label>Payment Type</label>
+
   <select id="paymentType" onchange="paymentChange()">
     <option value="Prepaid">Prepaid</option>
     <option value="COD">COD</option>
   </select>
 
-  <div id="codBox" class="hidden">
 
-    <label>COD Amount ₹</label>
-    <input id="codAmount" type="number" min="0" placeholder="Enter COD amount">
+  <!-- PREPAID -->
+
+  <div id="prepaidBox">
+
+    <label>Parcel Value ₹</label>
+
+    <input id="parcelValue"
+           type="number"
+           min="0"
+           placeholder="Enter parcel / order value">
+
+    <p class="small">
+      Enter the value of the parcel for prepaid shipment.
+    </p>
 
   </div>
 
-  <button onclick="continueShipment()">CONTINUE TO PACKAGE</button>
 
-  <button class="secondary" onclick="showStep(1)">BACK</button>
+  <!-- COD -->
+
+  <div id="codBox" class="hidden">
+
+    <label>COD Amount ₹</label>
+
+    <input id="codAmount"
+           type="number"
+           min="0"
+           placeholder="Enter COD amount">
+
+    <p class="small">
+      Enter the amount to be collected from customer.
+    </p>
+
+  </div>
+
+
+  <button onclick="continueShipment()">
+    CONTINUE TO PACKAGE
+  </button>
+
+  <button class="secondary" onclick="showStep(1)">
+    BACK
+  </button>
 
 </section>
 
 
-<!-- ================= STEP 3 ================= -->
+<!-- STEP 3 -->
 
 <section id="step3" class="step">
 
@@ -302,43 +327,67 @@ button:hover{
 
     <div>
       <label>Length (cm)</label>
-      <input id="length" type="number" min="0" step="0.1" oninput="calculateRate()">
+      <input id="length"
+             type="number"
+             min="0"
+             step="0.1"
+             oninput="calculateRate()">
     </div>
 
     <div>
       <label>Width (cm)</label>
-      <input id="width" type="number" min="0" step="0.1" oninput="calculateRate()">
+      <input id="width"
+             type="number"
+             min="0"
+             step="0.1"
+             oninput="calculateRate()">
     </div>
 
     <div>
       <label>Height (cm)</label>
-      <input id="height" type="number" min="0" step="0.1" oninput="calculateRate()">
+      <input id="height"
+             type="number"
+             min="0"
+             step="0.1"
+             oninput="calculateRate()">
     </div>
 
   </div>
 
+
   <h3>Weight</h3>
 
   <label>Actual Weight (grams)</label>
-  <input id="actualWeight" type="number" min="0" step="1"
+
+  <input id="actualWeight"
+         type="number"
+         min="0"
+         step="1"
          placeholder="Example: 750"
          oninput="calculateRate()">
+
 
   <div class="rate-box">
 
     <div class="rate-line">
       <span>Volumetric Weight</span>
-      <strong><span id="volumetricWeight">0.000</span> kg</strong>
+      <strong>
+        <span id="volumetricWeight">0.000</span> kg
+      </strong>
     </div>
 
     <div class="rate-line">
       <span>Actual Weight</span>
-      <strong><span id="actualKg">0.000</span> kg</strong>
+      <strong>
+        <span id="actualKg">0.000</span> kg
+      </strong>
     </div>
 
     <div class="rate-line">
       <span>Chargeable Weight</span>
-      <strong><span id="chargeableWeight">0.000</span> kg</strong>
+      <strong>
+        <span id="chargeableWeight">0.000</span> kg
+      </strong>
     </div>
 
     <div class="rate-line">
@@ -348,33 +397,52 @@ button:hover{
 
     <div class="rate-line">
       <span>Shipping Charge</span>
-      <strong>₹<span id="shippingCharge">0</span></strong>
+      <strong>
+        ₹<span id="shippingCharge">0</span>
+      </strong>
     </div>
 
     <div class="rate-line">
       <span>COD Charge</span>
-      <strong>₹<span id="codCharge">0</span></strong>
+      <strong>
+        ₹<span id="codCharge">0</span>
+      </strong>
+    </div>
+
+    <div class="rate-line">
+      <span>Parcel Value</span>
+      <strong>
+        ₹<span id="displayParcelValue">0</span>
+      </strong>
     </div>
 
     <div class="rate-line total">
-      <span>TOTAL</span>
-      <strong>₹<span id="totalCharge">0</span></strong>
+      <span>TOTAL SHIPPING</span>
+      <strong>
+        ₹<span id="totalCharge">0</span>
+      </strong>
     </div>
 
   </div>
+
 
   <p class="small">
     Volumetric Weight = L × W × H ÷ 5000
   </p>
 
-  <button onclick="bookShipment()">BOOK SHIPMENT</button>
 
-  <button class="secondary" onclick="showStep(2)">BACK</button>
+  <button onclick="bookShipment()">
+    BOOK SHIPMENT
+  </button>
+
+  <button class="secondary" onclick="showStep(2)">
+    BACK
+  </button>
 
 </section>
 
 
-<!-- ================= SUCCESS ================= -->
+<!-- SUCCESS -->
 
 <section id="successStep" class="step success">
 
@@ -390,6 +458,11 @@ button:hover{
     </p>
 
     <p>
+      <strong>Client:</strong><br>
+      <span id="successClient"></span>
+    </p>
+
+    <p>
       <strong>Zone:</strong><br>
       <span id="successZone"></span>
     </p>
@@ -397,6 +470,11 @@ button:hover{
     <p>
       <strong>Chargeable Weight:</strong><br>
       <span id="successWeight"></span> kg
+    </p>
+
+    <p>
+      <strong>Parcel Value:</strong><br>
+      ₹<span id="successParcelValue"></span>
     </p>
 
     <p>
@@ -410,7 +488,7 @@ button:hover{
     </p>
 
     <p>
-      <strong>Total:</strong><br>
+      <strong>Total Shipping:</strong><br>
       ₹<span id="successTotal"></span>
     </p>
 
@@ -421,7 +499,9 @@ button:hover{
 
   </div>
 
-  <button onclick="bookAnother()">BOOK ANOTHER SHIPMENT</button>
+  <button onclick="bookAnother()">
+    BOOK ANOTHER SHIPMENT
+  </button>
 
 </section>
 
@@ -430,78 +510,275 @@ button:hover{
 
 <script>
 
-/* =========================================
+/* ===============================
    CLIENT PROFILE
-========================================= */
+================================ */
 
 function saveClient(){
 
-  var name = document.getElementById("clientName").value.trim();
-  var mobile = document.getElementById("clientMobile").value.trim();
+  var name =
+    document.getElementById("clientName").value.trim();
+
+  var mobile =
+    document.getElementById("clientMobile").value.trim();
+
 
   if(name === ""){
     alert("Please enter Business / Client Name");
     return;
   }
 
+
   if(!/^[0-9]{10}$/.test(mobile)){
     alert("Please enter valid 10 digit mobile number");
     return;
   }
 
-  localStorage.setItem("bf_clientName", name);
-  localStorage.setItem("bf_clientMobile", mobile);
+
+  /*
+    Client name is saved.
+    A client-specific counter is also maintained.
+  */
+
+  localStorage.setItem("bf_clientName",name);
+  localStorage.setItem("bf_clientMobile",mobile);
+
+
+  /*
+    Create client key from client name.
+    Same name = same client numbering.
+  */
+
+  var clientKey = makeClientKey(name);
+
+  localStorage.setItem(
+    "bf_clientKey",
+    clientKey
+  );
+
 
   document.getElementById("clientMessage").innerText =
     "Client details saved successfully.";
 
+
   showStep(2);
+
   prepareOrder();
 }
 
 
+/* ===============================
+   CLIENT KEY
+================================ */
+
+function makeClientKey(name){
+
+  var key = name
+    .toUpperCase()
+    .trim()
+    .replace(/[^A-Z0-9]+/g,"-")
+    .replace(/^-+|-+$/g,"");
+
+
+  /*
+    Keep ID readable.
+    Example:
+    ABC STORE -> ABC-STORE
+  */
+
+  if(key.length > 25){
+    key = key.substring(0,25);
+  }
+
+
+  return key;
+}
+
+
+/* ===============================
+   NEXT ORDER NUMBER
+================================ */
+
+function getNextClientOrderNumber(clientKey){
+
+  var storageKey =
+    "bf_order_counter_" + clientKey;
+
+  var current =
+    parseInt(
+      localStorage.getItem(storageKey) || "0",
+      10
+    );
+
+
+  current = current + 1;
+
+
+  localStorage.setItem(
+    storageKey,
+    current.toString()
+  );
+
+
+  return String(current).padStart(2,"0");
+}
+
+
+/* ===============================
+   GENERATE ORDER ID
+================================ */
+
+function generateOrderId(){
+
+  var name =
+    localStorage.getItem("bf_clientName") || "CLIENT";
+
+
+  var clientKey =
+    localStorage.getItem("bf_clientKey");
+
+
+  if(!clientKey){
+    clientKey = makeClientKey(name);
+
+    localStorage.setItem(
+      "bf_clientKey",
+      clientKey
+    );
+  }
+
+
+  var number =
+    getNextClientOrderNumber(clientKey);
+
+
+  return clientKey + "-" + number;
+}
+
+
+/*
+  IMPORTANT:
+  Order ID should NOT generate a new number
+  every time the page refreshes.
+
+  Therefore prepareOrder() creates it once
+  and stores it until booking is completed.
+*/
+
+function prepareOrder(){
+
+  var existing =
+    sessionStorage.getItem("bf_currentOrderId");
+
+
+  if(!existing){
+
+    var newId =
+      generateOrderId();
+
+
+    sessionStorage.setItem(
+      "bf_currentOrderId",
+      newId
+    );
+
+
+    existing = newId;
+  }
+
+
+  document.getElementById("orderId").innerText =
+    existing;
+}
+
+
+/* ===============================
+   EDIT CLIENT
+================================ */
+
 function editClient(){
 
-  var name = localStorage.getItem("bf_clientName") || "";
-  var mobile = localStorage.getItem("bf_clientMobile") || "";
+  var name =
+    localStorage.getItem("bf_clientName") || "";
 
-  document.getElementById("clientName").value = name;
-  document.getElementById("clientMobile").value = mobile;
+  var mobile =
+    localStorage.getItem("bf_clientMobile") || "";
+
+
+  document.getElementById("clientName").value =
+    name;
+
+  document.getElementById("clientMobile").value =
+    mobile;
+
 
   showStep(1);
 }
 
 
+/* ===============================
+   LOAD CLIENT
+================================ */
+
 function loadClient(){
 
-  var name = localStorage.getItem("bf_clientName");
-  var mobile = localStorage.getItem("bf_clientMobile");
+  var name =
+    localStorage.getItem("bf_clientName");
+
+  var mobile =
+    localStorage.getItem("bf_clientMobile");
+
 
   if(name){
-    document.getElementById("clientName").value = name;
+    document.getElementById("clientName").value =
+      name;
   }
 
+
   if(mobile){
-    document.getElementById("clientMobile").value = mobile;
+    document.getElementById("clientMobile").value =
+      mobile;
+  }
+
+
+  if(name){
+
+    var key =
+      makeClientKey(name);
+
+    localStorage.setItem(
+      "bf_clientKey",
+      key
+    );
   }
 }
 
 
-/* =========================================
+/* ===============================
    STEP CONTROL
-========================================= */
+================================ */
 
 function showStep(n){
 
-  document.querySelectorAll(".step").forEach(function(el){
-    el.classList.remove("active");
-  });
+  document.querySelectorAll(".step")
+    .forEach(function(el){
+      el.classList.remove("active");
+    });
+
 
   if(n === "success"){
-    document.getElementById("successStep").classList.add("active");
+
+    document
+      .getElementById("successStep")
+      .classList.add("active");
+
   }else{
-    document.getElementById("step" + n).classList.add("active");
+
+    document
+      .getElementById("step" + n)
+      .classList.add("active");
   }
+
 
   window.scrollTo({
     top:0,
@@ -510,80 +787,88 @@ function showStep(n){
 }
 
 
-/* =========================================
-   ORDER ID
-========================================= */
-
-function generateOrderId(){
-
-  var now = new Date();
-
-  var date =
-    now.getFullYear().toString().slice(-2) +
-    String(now.getMonth()+1).padStart(2,"0") +
-    String(now.getDate()).padStart(2,"0");
-
-  var random = Math.floor(1000 + Math.random() * 9000);
-
-  return "BF" + date + random;
-}
-
-
-function prepareOrder(){
-
-  document.getElementById("orderId").innerText =
-    generateOrderId();
-}
-
-
-/* =========================================
-   PAYMENT
-========================================= */
+/* ===============================
+   PAYMENT CHANGE
+================================ */
 
 function paymentChange(){
 
-  var payment = document.getElementById("paymentType").value;
-  var codBox = document.getElementById("codBox");
+  var payment =
+    document.getElementById("paymentType").value;
+
+
+  var prepaidBox =
+    document.getElementById("prepaidBox");
+
+  var codBox =
+    document.getElementById("codBox");
+
 
   if(payment === "COD"){
+
     codBox.classList.remove("hidden");
+    prepaidBox.classList.add("hidden");
+
+    document.getElementById("parcelValue").value = "";
+
   }else{
+
+    prepaidBox.classList.remove("hidden");
     codBox.classList.add("hidden");
+
     document.getElementById("codAmount").value = "";
   }
+
 
   calculateRate();
 }
 
 
-/* =========================================
+/* ===============================
    STEP 2 VALIDATION
-========================================= */
+================================ */
 
 function continueShipment(){
 
   var fields = [
+
     ["pickupName","Pickup Name"],
     ["pickupMobile","Pickup Mobile"],
     ["pickupAddress","Pickup Address"],
     ["pickupPincode","Pickup Pincode"],
+
     ["customerName","Customer Name"],
     ["customerMobile","Customer Mobile"],
     ["deliveryAddress","Delivery Address"],
     ["deliveryPincode","Delivery Pincode"]
+
   ];
+
 
   for(var i=0;i<fields.length;i++){
 
     var value =
-      document.getElementById(fields[i][0]).value.trim();
+      document
+        .getElementById(fields[i][0])
+        .value
+        .trim();
+
 
     if(value === ""){
-      alert("Please enter " + fields[i][1]);
-      document.getElementById(fields[i][0]).focus();
+
+      alert(
+        "Please enter " +
+        fields[i][1]
+      );
+
+      document
+        .getElementById(fields[i][0])
+        .focus();
+
       return;
     }
   }
+
 
   var pickupMobile =
     document.getElementById("pickupMobile").value.trim();
@@ -597,59 +882,108 @@ function continueShipment(){
   var deliveryPin =
     document.getElementById("deliveryPincode").value.trim();
 
+
   if(!/^[0-9]{10}$/.test(pickupMobile)){
+
     alert("Pickup mobile must be 10 digits");
     return;
   }
 
+
   if(!/^[0-9]{10}$/.test(customerMobile)){
+
     alert("Customer mobile must be 10 digits");
     return;
   }
 
+
   if(!/^[0-9]{6}$/.test(pickupPin)){
+
     alert("Pickup pincode must be 6 digits");
     return;
   }
 
+
   if(!/^[0-9]{6}$/.test(deliveryPin)){
+
     alert("Delivery pincode must be 6 digits");
     return;
   }
 
+
+  var payment =
+    document.getElementById("paymentType").value;
+
+
+  if(payment === "Prepaid"){
+
+    var parcelValue =
+      parseFloat(
+        document.getElementById("parcelValue").value
+      ) || 0;
+
+
+    if(parcelValue <= 0){
+
+      alert("Please enter Prepaid Parcel Value");
+      return;
+    }
+
+  }else{
+
+    var codAmount =
+      parseFloat(
+        document.getElementById("codAmount").value
+      ) || 0;
+
+
+    if(codAmount <= 0){
+
+      alert("Please enter COD Amount");
+      return;
+    }
+  }
+
+
   calculateRate();
+
   showStep(3);
 }
 
 
-/* =========================================
-   RATE CALCULATION
-========================================= */
+/* ===============================
+   SHIPPING RATE
+================================ */
 
-function getShippingRate(weightKg, zone){
+function getShippingRate(weightKg,zone){
 
   var rates;
+
 
   if(zone === "Maharashtra"){
 
     rates = [
-      {max:0.25, price:40},
-      {max:0.50, price:45},
-      {max:0.75, price:55},
-      {max:1.00, price:70},
-      {max:1.50, price:95},
-      {max:2.00, price:105}
+
+      {max:0.25,price:40},
+      {max:0.50,price:45},
+      {max:0.75,price:55},
+      {max:1.00,price:70},
+      {max:1.50,price:95},
+      {max:2.00,price:105}
+
     ];
 
   }else{
 
     rates = [
-      {max:0.25, price:50},
-      {max:0.50, price:60},
-      {max:0.75, price:75},
-      {max:1.00, price:90},
-      {max:1.50, price:115},
-      {max:2.00, price:125}
+
+      {max:0.25,price:50},
+      {max:0.50,price:60},
+      {max:0.75,price:75},
+      {max:1.00,price:90},
+      {max:1.50,price:115},
+      {max:2.00,price:125}
+
     ];
   }
 
@@ -667,47 +1001,57 @@ function getShippingRate(weightKg, zone){
   }
 
 
-  /*
-    Above 2 kg:
-    Maharashtra = ₹20 per additional 500g
-    Pan India   = ₹25 per additional 500g
+  var extraKg =
+    weightKg - 2;
 
-    Example:
-    2.1 kg = 2.5 kg slab
-    2.6 kg = 3.0 kg slab
-  */
 
-  var extraKg = weightKg - 2;
+  var extraSteps =
+    Math.ceil(extraKg / 0.5);
 
-  var extraSteps = Math.ceil(extraKg / 0.5);
 
   var extraCharge =
-    extraSteps * (zone === "Maharashtra" ? 20 : 25);
+    extraSteps *
+    (zone === "Maharashtra" ? 20 : 25);
 
-  return 105 + extraCharge;
+
+  return
+    (zone === "Maharashtra" ? 105 : 125)
+    + extraCharge;
 }
 
 
-/* =========================================
-   MAIN CALCULATION
-========================================= */
+/* ===============================
+   CALCULATE RATE
+================================ */
 
 function calculateRate(){
 
   var length =
-    parseFloat(document.getElementById("length").value) || 0;
+    parseFloat(
+      document.getElementById("length").value
+    ) || 0;
+
 
   var width =
-    parseFloat(document.getElementById("width").value) || 0;
+    parseFloat(
+      document.getElementById("width").value
+    ) || 0;
+
 
   var height =
-    parseFloat(document.getElementById("height").value) || 0;
+    parseFloat(
+      document.getElementById("height").value
+    ) || 0;
+
 
   var actualGrams =
-    parseFloat(document.getElementById("actualWeight").value) || 0;
+    parseFloat(
+      document.getElementById("actualWeight").value
+    ) || 0;
 
 
-  var actualKg = actualGrams / 1000;
+  var actualKg =
+    actualGrams / 1000;
 
 
   var volumetricKg =
@@ -715,27 +1059,36 @@ function calculateRate(){
 
 
   var chargeableKg =
-    Math.max(actualKg, volumetricKg);
+    Math.max(
+      actualKg,
+      volumetricKg
+    );
 
 
   var deliveryPincode =
-    document.getElementById("deliveryPincode").value.trim();
+    document
+      .getElementById("deliveryPincode")
+      .value
+      .trim();
 
 
   var zone = "Pan India";
 
-  /*
-    Maharashtra pincode ranges used:
-    40xxxx, 41xxxx, 42xxxx, 43xxxx, 44xxxx
-  */
 
-  if(/^(40|41|42|43|44)[0-9]{4}$/.test(deliveryPincode)){
+  if(
+    /^(40|41|42|43|44)[0-9]{4}$/
+      .test(deliveryPincode)
+  ){
+
     zone = "Maharashtra";
   }
 
 
   var shipping =
-    getShippingRate(chargeableKg, zone);
+    getShippingRate(
+      chargeableKg,
+      zone
+    );
 
 
   var payment =
@@ -746,6 +1099,25 @@ function calculateRate(){
     payment === "COD" ? 25 : 0;
 
 
+  var parcelValue = 0;
+
+
+  if(payment === "Prepaid"){
+
+    parcelValue =
+      parseFloat(
+        document.getElementById("parcelValue").value
+      ) || 0;
+
+  }else{
+
+    parcelValue =
+      parseFloat(
+        document.getElementById("codAmount").value
+      ) || 0;
+  }
+
+
   var total =
     shipping + codCharge;
 
@@ -753,55 +1125,88 @@ function calculateRate(){
   document.getElementById("volumetricWeight").innerText =
     volumetricKg.toFixed(3);
 
+
   document.getElementById("actualKg").innerText =
     actualKg.toFixed(3);
+
 
   document.getElementById("chargeableWeight").innerText =
     chargeableKg.toFixed(3);
 
+
   document.getElementById("zone").innerText =
     zone;
+
 
   document.getElementById("shippingCharge").innerText =
     shipping;
 
+
   document.getElementById("codCharge").innerText =
     codCharge;
 
+
+  document.getElementById("displayParcelValue").innerText =
+    parcelValue;
+
+
   document.getElementById("totalCharge").innerText =
     total;
-
 }
 
 
-/* =========================================
+/* ===============================
    BOOK SHIPMENT
-========================================= */
+================================ */
 
 function bookShipment(){
 
   var actualWeight =
-    parseFloat(document.getElementById("actualWeight").value) || 0;
+    parseFloat(
+      document.getElementById("actualWeight").value
+    ) || 0;
+
 
   var length =
-    parseFloat(document.getElementById("length").value) || 0;
+    parseFloat(
+      document.getElementById("length").value
+    ) || 0;
+
 
   var width =
-    parseFloat(document.getElementById("width").value) || 0;
+    parseFloat(
+      document.getElementById("width").value
+    ) || 0;
+
 
   var height =
-    parseFloat(document.getElementById("height").value) || 0;
+    parseFloat(
+      document.getElementById("height").value
+    ) || 0;
 
 
   if(actualWeight <= 0){
+
     alert("Please enter actual weight in grams");
-    document.getElementById("actualWeight").focus();
+
+    document
+      .getElementById("actualWeight")
+      .focus();
+
     return;
   }
 
 
-  if(length <= 0 || width <= 0 || height <= 0){
-    alert("Please enter package Length, Width and Height");
+  if(
+    length <= 0 ||
+    width <= 0 ||
+    height <= 0
+  ){
+
+    alert(
+      "Please enter package Length, Width and Height"
+    );
+
     return;
   }
 
@@ -812,28 +1217,62 @@ function bookShipment(){
   var orderId =
     document.getElementById("orderId").innerText;
 
+
+  var clientName =
+    document.getElementById("clientName").value;
+
+
   var zone =
     document.getElementById("zone").innerText;
+
 
   var weight =
     document.getElementById("chargeableWeight").innerText;
 
+
   var shipping =
     document.getElementById("shippingCharge").innerText;
 
+
   var cod =
     document.getElementById("codCharge").innerText;
+
 
   var total =
     document.getElementById("totalCharge").innerText;
 
 
+  var paymentType =
+    document.getElementById("paymentType").value;
+
+
+  var parcelValue = 0;
+  var codAmount = 0;
+
+
+  if(paymentType === "Prepaid"){
+
+    parcelValue =
+      parseFloat(
+        document.getElementById("parcelValue").value
+      ) || 0;
+
+  }else{
+
+    codAmount =
+      parseFloat(
+        document.getElementById("codAmount").value
+      ) || 0;
+
+    parcelValue = codAmount;
+  }
+
+
   var booking = {
 
-    orderId: orderId,
+    orderId:orderId,
 
-    clientName:
-      document.getElementById("clientName").value,
+    clientName:clientName,
 
     clientMobile:
       document.getElementById("clientMobile").value,
@@ -862,14 +1301,16 @@ function bookShipment(){
     deliveryPincode:
       document.getElementById("deliveryPincode").value,
 
-    paymentType:
-      document.getElementById("paymentType").value,
+    paymentType:paymentType,
 
-    codAmount:
-      document.getElementById("codAmount").value,
+    parcelValue:parcelValue,
+
+    codAmount:codAmount,
 
     length:length,
+
     width:width,
+
     height:height,
 
     actualWeight:actualWeight,
@@ -895,8 +1336,8 @@ function bookShipment(){
 
     status:"Booked",
 
-    createdAt:new Date().toISOString()
-
+    createdAt:
+      new Date().toISOString()
   };
 
 
@@ -906,29 +1347,53 @@ function bookShipment(){
   document.getElementById("successOrderId").innerText =
     orderId;
 
+
+  document.getElementById("successClient").innerText =
+    clientName;
+
+
   document.getElementById("successZone").innerText =
     zone;
+
 
   document.getElementById("successWeight").innerText =
     weight;
 
+
+  document.getElementById("successParcelValue").innerText =
+    parcelValue;
+
+
   document.getElementById("successShipping").innerText =
     shipping;
+
 
   document.getElementById("successCod").innerText =
     cod;
 
+
   document.getElementById("successTotal").innerText =
     total;
+
+
+  /*
+    Current order completed.
+    Clear current session ID so next shipment
+    gets the next number.
+  */
+
+  sessionStorage.removeItem(
+    "bf_currentOrderId"
+  );
 
 
   showStep("success");
 }
 
 
-/* =========================================
-   SAVE BOOKING LOCALLY
-========================================= */
+/* ===============================
+   SAVE BOOKING
+================================ */
 
 function saveBookingLocal(booking){
 
@@ -937,7 +1402,9 @@ function saveBookingLocal(booking){
       localStorage.getItem("bf_bookings") || "[]"
     );
 
+
   bookings.push(booking);
+
 
   localStorage.setItem(
     "bf_bookings",
@@ -946,9 +1413,9 @@ function saveBookingLocal(booking){
 }
 
 
-/* =========================================
+/* ===============================
    BOOK ANOTHER
-========================================= */
+================================ */
 
 function bookAnother(){
 
@@ -964,6 +1431,7 @@ function bookAnother(){
     "deliveryAddress",
     "deliveryPincode",
 
+    "parcelValue",
     "codAmount",
 
     "length",
@@ -979,60 +1447,98 @@ function bookAnother(){
     var el =
       document.getElementById(id);
 
+
     if(el){
       el.value = "";
     }
-
   });
 
 
   document.getElementById("paymentType").value =
     "Prepaid";
 
-  document.getElementById("codBox").classList.add("hidden");
+
+  document.getElementById("prepaidBox")
+    .classList.remove("hidden");
+
+
+  document.getElementById("codBox")
+    .classList.add("hidden");
 
 
   document.getElementById("volumetricWeight").innerText =
     "0.000";
 
+
   document.getElementById("actualKg").innerText =
     "0.000";
+
 
   document.getElementById("chargeableWeight").innerText =
     "0.000";
 
+
   document.getElementById("zone").innerText =
     "-";
+
 
   document.getElementById("shippingCharge").innerText =
     "0";
 
+
   document.getElementById("codCharge").innerText =
     "0";
+
+
+  document.getElementById("displayParcelValue").innerText =
+    "0";
+
 
   document.getElementById("totalCharge").innerText =
     "0";
 
 
+  /*
+    New shipment = next client-specific number.
+  */
+
+  sessionStorage.removeItem(
+    "bf_currentOrderId"
+  );
+
+
   prepareOrder();
+
 
   showStep(2);
 }
 
 
-/* =========================================
+/* ===============================
    PAGE LOAD
-========================================= */
+================================ */
 
-document.addEventListener("DOMContentLoaded", function(){
+document.addEventListener(
+  "DOMContentLoaded",
+  function(){
 
-  loadClient();
+    loadClient();
 
-  prepareOrder();
+    calculateRate();
 
-  calculateRate();
+    /*
+      Only prepare an order if a client
+      is already saved.
+    */
 
-});
+    if(
+      localStorage.getItem("bf_clientName")
+    ){
+      prepareOrder();
+    }
+
+  }
+);
 
 </script>
 
