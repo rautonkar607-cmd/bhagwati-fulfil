@@ -2,299 +2,194 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <title>BHAGWATI FULFIL | Client Portal</title>
 
 <style>
-*{
-  box-sizing:border-box;
-  margin:0;
-  padding:0;
-  font-family:Arial,Helvetica,sans-serif;
-}
+*{box-sizing:border-box}
 
 body{
-  background:#f5f7fb;
-  color:#172033;
+  margin:0;
+  font-family:Arial,sans-serif;
+  background:#f4f6f8;
+  color:#17202a
 }
 
-.header{
+header{
   background:#111827;
   color:white;
   padding:18px 20px;
-  text-align:center;
+  text-align:center
 }
 
-.header h1{
-  font-size:25px;
-  letter-spacing:1px;
+header h1{
+  margin:0;
+  font-size:24px
 }
 
-.header p{
-  margin-top:5px;
-  font-size:12px;
-  color:#cbd5e1;
+header p{
+  margin:6px 0 0;
+  font-size:13px;
+  color:#d1d5db
 }
 
-.container{
-  width:94%;
+.wrap{
   max-width:850px;
   margin:25px auto;
+  padding:0 15px
 }
 
 .card{
   background:white;
-  border-radius:16px;
+  border-radius:14px;
   padding:22px;
-  margin-bottom:18px;
-  box-shadow:0 5px 20px rgba(0,0,0,.07);
+  box-shadow:0 4px 18px #00000012;
+  margin-bottom:18px
 }
 
-.card h2{
-  font-size:20px;
-  margin-bottom:18px;
+.steps{
+  display:flex;
+  gap:8px;
+  margin-bottom:18px
 }
 
-.card h3{
-  margin-bottom:12px;
+.step{
+  flex:1;
+  text-align:center;
+  padding:10px;
+  border-radius:8px;
+  background:#e5e7eb;
+  font-size:12px;
+  font-weight:bold
+}
+
+.step.active{
+  background:#111827;
+  color:white
+}
+
+.page{
+  display:none
+}
+
+.page.active{
+  display:block
+}
+
+h2{
+  margin-top:0
 }
 
 label{
   display:block;
   font-size:13px;
   font-weight:bold;
-  margin:12px 0 6px;
+  margin:12px 0 6px
 }
 
-input,select,textarea{
+input,select{
   width:100%;
-  padding:13px;
-  border:1px solid #d6dbe5;
-  border-radius:10px;
-  outline:none;
-  font-size:14px;
-  background:#fff;
-}
-
-input:focus,select:focus,textarea:focus{
-  border-color:#111827;
-}
-
-textarea{
-  min-height:80px;
-  resize:vertical;
+  padding:12px;
+  border:1px solid #d1d5db;
+  border-radius:8px;
+  font-size:14px
 }
 
 .grid{
   display:grid;
   grid-template-columns:1fr 1fr;
-  gap:12px;
+  gap:12px
 }
 
-.btn{
-  width:100%;
-  border:none;
-  padding:14px;
-  border-radius:10px;
-  font-size:15px;
+.full{
+  grid-column:1/-1
+}
+
+button{
+  border:0;
+  border-radius:9px;
+  padding:12px 18px;
+  background:#111827;
+  color:white;
   font-weight:bold;
   cursor:pointer;
-  margin-top:15px;
+  margin-top:16px;
+  width:100%
 }
 
-.btn-primary{
-  background:#111827;
-  color:white;
-}
-
-.btn-secondary{
+button.secondary{
   background:#e5e7eb;
-  color:#111827;
+  color:#111827
 }
 
-.btn-success{
-  background:#15803d;
-  color:white;
-}
-
-.btn-danger{
-  background:#dc2626;
-  color:white;
-}
-
-.hidden{
-  display:none !important;
-}
-
-.step{
+.row{
   display:flex;
-  gap:8px;
-  margin-bottom:20px;
+  gap:10px
 }
 
-.step div{
-  flex:1;
-  padding:9px 5px;
+.row button{
+  flex:1
+}
+
+.notice{
+  padding:12px;
+  background:#f3f4f6;
   border-radius:8px;
-  background:#e5e7eb;
-  text-align:center;
-  font-size:12px;
-  font-weight:bold;
+  font-size:13px;
+  margin-top:12px
 }
 
-.step .active{
-  background:#111827;
-  color:white;
+.saved{
+  background:#f0fdf4;
+  border:1px solid #bbf7d0;
+  padding:14px;
+  border-radius:10px;
+  margin-bottom:15px
 }
 
-.saved-box{
-  background:#f1f5f9;
-  border-radius:12px;
-  padding:15px;
-  margin-bottom:18px;
+.summary{
+  border:1px solid #e5e7eb;
+  border-radius:10px;
+  padding:14px
 }
 
-.saved-row{
+.summary div{
   display:flex;
   justify-content:space-between;
   gap:15px;
-  padding:7px 0;
-  border-bottom:1px solid #e2e8f0;
-  font-size:13px;
-}
-
-.saved-row:last-child{
-  border-bottom:none;
-}
-
-.saved-row span:first-child{
-  color:#64748b;
-}
-
-.saved-row span:last-child{
-  font-weight:bold;
-  text-align:right;
-}
-
-.rate-box{
-  background:#f8fafc;
-  border:1px solid #e2e8f0;
-  border-radius:12px;
-  padding:16px;
-  margin-top:15px;
-}
-
-.rate-row{
-  display:flex;
-  justify-content:space-between;
   padding:8px 0;
-  font-size:14px;
+  border-bottom:1px solid #eee
 }
 
-.rate-row.total{
-  border-top:1px solid #cbd5e1;
-  margin-top:8px;
-  padding-top:13px;
-  font-size:18px;
+.summary div:last-child{
+  border:0;
   font-weight:bold;
+  font-size:17px
 }
 
-.badge{
-  display:inline-block;
-  padding:5px 9px;
-  border-radius:20px;
-  font-size:11px;
-  font-weight:bold;
-  background:#e2e8f0;
-}
-
-.success{
-  text-align:center;
-  padding:30px 15px;
-}
-
-.success-icon{
-  font-size:55px;
-  margin-bottom:10px;
-}
-
-.success h2{
-  color:#15803d;
-}
-
-.order-id{
-  font-size:24px;
-  font-weight:bold;
-  margin:15px 0;
-}
-
-.note{
-  background:#fff7ed;
-  border-left:4px solid #f97316;
-  padding:12px;
-  border-radius:8px;
+.small{
   font-size:12px;
-  margin-top:12px;
+  color:#6b7280
 }
 
-.error{
-  color:#dc2626;
-  font-size:12px;
-  margin-top:5px;
-}
-
-.dashboard-grid{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:10px;
-}
-
-.stat{
-  background:#f8fafc;
-  border-radius:12px;
-  padding:15px;
+footer{
   text-align:center;
-}
-
-.stat strong{
-  display:block;
-  font-size:25px;
-  margin-bottom:5px;
-}
-
-.stat small{
-  color:#64748b;
-}
-
-.review-item{
-  padding:10px 0;
-  border-bottom:1px solid #e5e7eb;
-  font-size:14px;
-}
-
-.review-item:last-child{
-  border-bottom:none;
-}
-
-.footer{
-  text-align:center;
-  color:#64748b;
-  font-size:12px;
   padding:20px;
+  font-size:12px;
+  color:#6b7280
 }
 
 @media(max-width:600px){
   .grid{
-    grid-template-columns:1fr;
+    grid-template-columns:1fr
   }
 
-  .dashboard-grid{
-    grid-template-columns:1fr 1fr;
+  .full{
+    grid-column:auto
   }
 
-  .card{
-    padding:17px;
+  .row{
+    flex-direction:column
   }
 }
 </style>
@@ -302,56 +197,259 @@ textarea{
 
 <body>
 
-<header class="header">
+<header>
   <h1>BHAGWATI FULFIL</h1>
-  <p>D2C PICKUP & DELIVERY SERVICES</p>
+  <p>D2C PICKUP &amp; DELIVERY SERVICES</p>
 </header>
 
-<div class="container">
+<div class="wrap">
 
-  <!-- ================= PROFILE PAGE ================= -->
+<!-- STEPS -->
+<div class="steps">
+  <div id="s1" class="step active">1. PROFILE</div>
+  <div id="s2" class="step">2. SHIPMENT</div>
+  <div id="s3" class="step">3. REVIEW &amp; BOOK</div>
+</div>
 
-  <section id="profilePage" class="card">
 
-    <h2 id="profileTitle">Client Profile</h2>
+<!-- ================= PROFILE ================= -->
 
-    <div class="note">
-      First time? Fill your profile once. Your details will be saved for future shipments.
-    </div>
+<section id="page1" class="page active card">
 
-    <label>Client / Business Name *</label>
-    <input id="clientName" type="text" placeholder="Enter client or business name">
+<h2>Client Profile</h2>
 
-    <label>Mobile Number *</label>
-    <input id="clientMobile" type="tel" maxlength="10" placeholder="10 digit mobile number">
+<div id="savedProfile" class="saved" style="display:none"></div>
 
-    <label>Pickup Address *</label>
-    <textarea id="pickupAddress" placeholder="Enter complete pickup address"></textarea>
+<div class="grid">
 
-    <div class="grid">
+<div>
+<label>Client / Business Name *</label>
+<input id="clientName">
+</div>
 
-      <div>
-        <label>Pickup City *</label>
-        <input id="pickupCity" type="text" placeholder="Pune">
-      </div>
+<div>
+<label>Contact Person *</label>
+<input id="contactName">
+</div>
 
-      <div>
-        <label>Pickup Pincode *</label>
-        <input id="pickupPin" type="text" maxlength="6" placeholder="411001">
-      </div>
+<div>
+<label>Mobile *</label>
+<input id="mobile" inputmode="numeric" maxlength="10">
+</div>
 
-    </div>
+<div>
+<label>Pickup Address *</label>
+<input id="pickupAddress">
+</div>
 
-    <h3 style="margin-top:22px;">Bank Settlement Details</h3>
+<div>
+<label>Pickup City *</label>
+<input id="pickupCity">
+</div>
 
-    <label>Account Holder Name *</label>
-    <input id="accountHolder" type="text" placeholder="As per bank account">
+<div>
+<label>Pickup Pincode *</label>
+<input id="pickupPincode" inputmode="numeric" maxlength="6">
+</div>
 
-    <label>Bank Account Number *</label>
-    <input id="accountNumber" type="password" placeholder="Enter account number">
+<div>
+<label>Bank Account Holder *</label>
+<input id="accountHolder">
+</div>
 
-    <label>IFSC Code *</label>
-    <input id="ifsc" type="text" placeholder="Example: SBIN0001234">
+<div>
+<label>Bank Account Number *</label>
+<input id="accountNo" inputmode="numeric">
+</div>
 
-    <label>Bank Name *</label>
-    <input id="bankName" type="text" placeholder="Bank name">
+<div>
+<label>IFSC *</label>
+<input id="ifsc">
+</div>
+
+<div>
+<label>Bank Name *</label>
+<input id="bankName">
+</div>
+
+<div>
+<label>Branch *</label>
+<input id="branch">
+</div>
+
+<div>
+<label>Account Type *</label>
+<select id="accountType">
+<option value="">Select</option>
+<option>Savings</option>
+<option>Current</option>
+</select>
+</div>
+
+</div>
+
+<div class="notice">
+Bank account number edit करताना पुन्हा type करावा लागेल.
+Saved account UI मध्ये फक्त last 4 digits दिसतील.
+</div>
+
+<div class="row">
+
+<button id="saveBtn">
+SAVE &amp; CONTINUE →
+</button>
+
+<button id="editBtn" class="secondary" style="display:none">
+EDIT PROFILE
+</button>
+
+</div>
+
+</section>
+
+
+<!-- ================= SHIPMENT ================= -->
+
+<section id="page2" class="page card">
+
+<h2>Book Shipment</h2>
+
+<div class="notice">
+Order ID automatically booking झाल्यावर generate होईल.
+Example: ONKAR-01, ONKAR-02, ONKAR-03
+</div>
+
+<div class="grid">
+
+<div>
+<label>Receiver Name *</label>
+<input id="receiverName">
+</div>
+
+<div>
+<label>Receiver Mobile *</label>
+<input id="receiverMobile" inputmode="numeric" maxlength="10">
+</div>
+
+<div class="full">
+<label>Delivery Address *</label>
+<input id="deliveryAddress">
+</div>
+
+<div>
+<label>Delivery City *</label>
+<input id="deliveryCity">
+</div>
+
+<div>
+<label>Delivery Pincode *</label>
+<input id="deliveryPincode" inputmode="numeric" maxlength="6">
+</div>
+
+<div>
+<label>Service / Zone *</label>
+<select id="zone">
+<option value="">Select Zone</option>
+<option value="Maharashtra">Maharashtra</option>
+<option value="Pan India">Pan India</option>
+</select>
+</div>
+
+<div>
+<label>Payment Type *</label>
+<select id="paymentType">
+<option value="">Select</option>
+<option value="Prepaid">Prepaid</option>
+<option value="COD">COD</option>
+</select>
+</div>
+
+<div id="codBox" style="display:none">
+
+<label>COD Amount ₹ *</label>
+<input id="codAmount" inputmode="decimal">
+
+</div>
+
+<div>
+<label>Actual Weight (grams) *</label>
+<input id="actualWeight" inputmode="decimal">
+</div>
+
+<div>
+<label>Length (cm) *</label>
+<input id="length" inputmode="decimal">
+</div>
+
+<div>
+<label>Width (cm) *</label>
+<input id="width" inputmode="decimal">
+</div>
+
+<div>
+<label>Height (cm) *</label>
+<input id="height" inputmode="decimal">
+</div>
+
+</div>
+
+<div id="chargeBox" class="notice">
+Enter weight, dimensions and zone to calculate charges.
+</div>
+
+<div class="row">
+
+<button id="backProfile" class="secondary">
+← PROFILE
+</button>
+
+<button id="reviewBtn">
+REVIEW →
+</button>
+
+</div>
+
+</section>
+
+
+<!-- ================= REVIEW ================= -->
+
+<section id="page3" class="page card">
+
+<h2>Review &amp; Book</h2>
+
+<div id="review" class="summary"></div>
+
+<div class="row">
+
+<button id="backShipment" class="secondary">
+← EDIT SHIPMENT
+</button>
+
+<button id="bookBtn">
+BOOK SHIPMENT ✓
+</button>
+
+</div>
+
+</section>
+
+
+<!-- ================= SUCCESS ================= -->
+
+<section id="success" class="page card">
+
+<h2>Shipment Booked ✓</h2>
+
+<div id="successBox" class="saved"></div>
+
+<button id="newBtn">
+BOOK ANOTHER SHIPMENT
+</button>
+
+</section>
+
+</div>
+
+<footer>
+BHAGWATI F
