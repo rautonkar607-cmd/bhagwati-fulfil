@@ -38,8 +38,10 @@ textarea{min-height:90px;resize:vertical}label{font-weight:600;font-size:14px}bu
 <label>Email</label><input id="signupEmail" type="email" placeholder="Email">
 <label>Password</label><input id="signupPassword" type="password" placeholder="Minimum 6 characters">
 <button class="primary" onclick="signup()">CREATE ACCOUNT</button>
+ <button class="secondary" onclick="resendVerification()">RESEND VERIFICATION EMAIL</button>
 <button class="secondary" onclick="showLogin()">BACK TO LOGIN</button>
-</section>
+<div class="notice">After account creation, verify the email first. Admin approval is required before booking. If the email is not visible, check Spam/Junk and use RESEND VERIFICATION EMAIL.</div>
+ </section>
 
 <section id="clientArea" class="hidden">
 <div class="card"><div class="topbar"><div><h2>Client Dashboard</h2><div id="clientWelcome"></div></div><button class="danger" onclick="logout()">LOGOUT</button></div></div>
@@ -97,7 +99,7 @@ textarea{min-height:90px;resize:vertical}label{font-weight:600;font-size:14px}bu
 <p><b>RTO Charge:</b> ₹<span id="rtoCharge">0</span></p>
 </div>
 <button class="success" onclick="bookShipment()">BOOK SHIPMENT</button>
-<button class="secondary" onclick="clearBooking()">CLEAR</button>
+<button class="secondary" onclick="clearBooking()">BOOK ANOTHER SHIPMENT</button>
 </div>
 
 <div id="ordersBox" class="card hidden"><h2>My Shipments</h2><div id="ordersList">Loading...</div></div>
@@ -132,9 +134,20 @@ async function signup(){
  if(!name||!mobile||!email||!password)return msg("signupMsg","Please fill all details.","error");
  if(password.length<6)return msg("signupMsg","Password must be at least 6 characters.","error");
  msg("signupMsg","Creating account...");
- const {data,error}=await supabaseClient.auth.signUp({email,password,options:{data:{full_name:name,mobile}}});
+ const redirectTo=window.location.origin+window.location.pathname;
+ const {data,error}=await supabaseClient.auth.signUp({email,password,options:{data:{full_name:name,mobile},emailRedirectTo:redirectTo}});
  if(error)return msg("signupMsg",error.message,"error");
  if(data.user)msg("signupMsg","Account created. Please verify your email. After verification, Admin will approve your account.","ok");
+}
+
+async function resendVerification(){
+ const email=signupEmail.value.trim();
+ if(!email)return msg("signupMsg","Enter your email first.","error");
+ msg("signupMsg","Sending verification email...");
+ const redirectTo=window.location.origin+window.location.pathname;
+ const {error}=await supabaseClient.auth.resend({type:"signup",email,options:{emailRedirectTo:redirectTo}});
+ if(error)return msg("signupMsg",error.message,"error");
+ msg("signupMsg","Verification email sent. Please check Inbox and Spam/Junk.","ok");
 }
 
 async function login(){
@@ -217,8 +230,15 @@ async function bookShipment(){
  if(payment==="COD"&&!ca)return msg("bookingMsg","Enter COD amount.","error");
  calculateRate();
  const vol=(l*w*h)/5000,charge=Math.max(aw/1000,vol),shipping=Number(shippingCharge.textContent),cod=Number(codCharge.textContent),total=Number(totalCharge.textContent),zoneName=zone.textContent;
- const clientShort=(currentClient.client_name||"CLIENT").replace(/[^a-zA-Z0-9]/g,"-").toUpperCase().substring(0,20);
- const orderId=clientShort+"-"+new Date().toISOString().slice(0,10).replaceAll("-","")+"-"+Date.now().toString().slice(-5);
+ const clientShort=(currentClient.client_name||"CLIENT").replace(/[^a-zA-Z0-9]+/g,"-").replace(/^-|-$/g,"").toUpperCase().substring(0,20)||"CLIENT";
+ const {data:existingOrders,error:orderFetchError}=await supabaseClient.from("bookings").select("order_id").eq("client_id",currentProfile.client_id);
+ if(orderFetchError)return msg("bookingMsg",orderFetchError.message,"error");
+ let maxSeq=0;
+ (existingOrders||[]).forEach(o=>{
+  const m=String(o.order_id||"").match(/-(\d+)$/);
+  if(m)maxSeq=Math.max(maxSeq,Number(m[1])||0);
+ });
+ const orderId=clientShort+"-"+String(maxSeq+1).padStart(2,"0");
  const booking={client_id:currentProfile.client_id,order_id:orderId,payment_type:payment,parcel_value:payment==="Prepaid"?pv:0,cod_amount:payment==="COD"?ca:0,pickup_name:pn,pickup_mobile:pm,pickup_address:pa,pickup_pincode:pp,customer_name:cn,customer_mobile:cm,delivery_address:da,delivery_pincode:dp,zone:zoneName,length_cm:l,width_cm:w,height_cm:h,actual_weight_g:aw,volumetric_weight_kg:Number(vol.toFixed(3)),chargeable_weight_kg:Number(charge.toFixed(3)),shipping_charge:shipping,cod_charge:cod,total_charge:total,rto_charge:shipping,status:"Booked"};
  msg("bookingMsg","Saving booking...");
  const {error}=await supabaseClient.from("bookings").insert(booking);
@@ -304,27 +324,26 @@ function escapeHtml(v){return String(v??"").replaceAll("&","&amp;").replaceAll("
 function escapeAttr(v){return escapeHtml(v)}
 function safeUrl(url){try{const u=new URL(url);return["https:","http:"].includes(u.protocol)?u.href:"#"}catch(e){return "#"}}
 
-async function handleEmailVerification(){
+let loadingUser=false;
+async function restoreSession(){
+ if(loadingUser)return;
+ loadingUser=true;
  try{
-  const params=new URLSearchParams(window.location.search);
-  const code=params.get("code");
-  if(code){
-   const {error}=await supabaseClient.auth.exchangeCodeForSession(code);
-   if(error){msg("loginMsg","Email verification failed. Please open the latest confirmation email again or contact support.","error");return;}
-   window.history.replaceState({},document.title,window.location.pathname);
-  }
-  const {data}=await supabaseClient.auth.getSession();
-  if(data.session) await loadUser();
- }catch(e){console.error(e);}
+  const {data,error}=await supabaseClient.auth.getSession();
+  if(error)console.error("Session error:",error);
+  if(data?.session)await loadUser();
+ }finally{loadingUser=false;}
 }
 
-supabaseClient.auth.onAuthStateChange(async(event,session)=>{
- if(event==="SIGNED_IN" && session) await loadUser();
+supabaseClient.auth.onAuthStateChange((event,session)=>{
+ if((event==="SIGNED_IN"||event==="INITIAL_SESSION")&&session){
+  setTimeout(()=>restoreSession(),0);
+ }
 });
 
 document.addEventListener("DOMContentLoaded",async()=>{
  paymentChanged();
- await handleEmailVerification();
+ await restoreSession();
 });
 </script>
 </body>
