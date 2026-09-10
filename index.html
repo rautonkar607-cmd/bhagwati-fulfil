@@ -2,18 +2,13 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>BHAGWATI FULFIL</title>
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>BHAGWATI FULFIL | Client Portal</title>
 
 <style>
-*{
-box-sizing:border-box;
-}
+*{box-sizing:border-box;margin:0;padding:0;font-family:Arial,sans-serif}
 
 body{
-margin:0;
-font-family:Arial,sans-serif;
 background:#f5f7fb;
 color:#111827;
 }
@@ -21,12 +16,14 @@ color:#111827;
 header{
 background:#111827;
 color:white;
-padding:20px;
-text-align:center;
+padding:18px 20px;
+display:flex;
+justify-content:space-between;
+align-items:center;
 }
 
 .logo{
-font-size:26px;
+font-size:21px;
 font-weight:800;
 }
 
@@ -34,52 +31,46 @@ font-weight:800;
 color:#ff6a00;
 }
 
+.header-sub{
+font-size:12px;
+opacity:.8;
+}
+
 .container{
-max-width:850px;
+max-width:900px;
 margin:25px auto;
-padding:15px;
+padding:0 15px;
 }
 
 .card{
 background:white;
-padding:22px;
 border-radius:16px;
-margin-bottom:20px;
-box-shadow:0 5px 20px #00000012;
+padding:22px;
+margin-bottom:18px;
+box-shadow:0 5px 20px rgba(0,0,0,.06);
 }
 
-.steps{
-display:flex;
-gap:8px;
-margin-bottom:20px;
+h2{
+font-size:21px;
+margin-bottom:7px;
 }
 
-.step{
-flex:1;
-padding:10px;
-text-align:center;
-border-radius:10px;
-background:#e5e7eb;
-font-weight:bold;
+h3{
+font-size:17px;
+margin-bottom:15px;
+}
+
+.subtitle{
+color:#6b7280;
 font-size:13px;
-}
-
-.step.active{
-background:#ff6a00;
-color:white;
-}
-
-.grid{
-display:grid;
-grid-template-columns:1fr 1fr;
-gap:14px;
+margin-bottom:20px;
 }
 
 label{
 display:block;
 font-size:13px;
-font-weight:bold;
-margin-bottom:6px;
+font-weight:700;
+margin:13px 0 6px;
 }
 
 input,select{
@@ -87,64 +78,166 @@ width:100%;
 padding:12px;
 border:1px solid #d1d5db;
 border-radius:9px;
-font-size:15px;
+font-size:14px;
+outline:none;
 }
 
-button{
+input:focus,select:focus{
+border-color:#ff6a00;
+}
+
+.grid{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:15px;
+}
+
+.btn{
+width:100%;
 border:0;
+padding:14px;
 border-radius:10px;
-padding:13px 18px;
 background:#ff6a00;
 color:white;
-font-weight:bold;
+font-size:15px;
+font-weight:700;
 cursor:pointer;
+margin-top:18px;
 }
 
-.back{
+.btn-dark{
 background:#111827;
 }
 
-.actions{
-display:flex;
-justify-content:space-between;
-margin-top:20px;
+.btn-light{
+background:#e5e7eb;
+color:#111827;
 }
 
 .hidden{
-display:none;
+display:none!important;
 }
 
-.rate{
-margin-top:20px;
+.step{
+display:flex;
+gap:8px;
+margin-bottom:22px;
+}
+
+.step div{
+flex:1;
+text-align:center;
+padding:9px;
+border-radius:8px;
+background:#e5e7eb;
+font-size:12px;
+font-weight:700;
+}
+
+.step .active{
+background:#ff6a00;
+color:white;
+}
+
+.info{
+background:#eff6ff;
+border:1px solid #bfdbfe;
+padding:13px;
+border-radius:10px;
+font-size:13px;
+margin-top:15px;
+}
+
+.rate-box{
 background:#fff7ed;
-padding:16px;
-border-radius:12px;
 border:1px solid #fed7aa;
+padding:17px;
+border-radius:12px;
+margin-top:18px;
+}
+
+.rate-row{
+display:flex;
+justify-content:space-between;
+padding:7px 0;
+font-size:14px;
+gap:20px;
 }
 
 .total{
-font-size:24px;
-font-weight:900;
+border-top:1px solid #fdba74;
+margin-top:8px;
+padding-top:11px;
+font-size:18px;
+font-weight:800;
 }
 
 .success{
 background:#ecfdf5;
-padding:16px;
+border:1px solid #a7f3d0;
+padding:18px;
 border-radius:12px;
 }
 
-@media(max-width:650px){
-.grid{
-grid-template-columns:1fr;
+.order-id{
+font-size:23px;
+font-weight:800;
+color:#ff6a00;
+margin:8px 0;
 }
 
-.actions{
+.small{
+font-size:12px;
+color:#6b7280;
+}
+
+.dashboard-grid{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:12px;
+}
+
+.stat{
+background:#f9fafb;
+border:1px solid #e5e7eb;
+border-radius:12px;
+padding:15px;
+text-align:center;
+}
+
+.stat-number{
+font-size:24px;
+font-weight:800;
+margin-bottom:4px;
+}
+
+.profile-top{
+display:flex;
+justify-content:space-between;
+align-items:center;
 gap:10px;
 }
 
-.actions button{
-flex:1;
+.edit-btn{
+border:0;
+background:#111827;
+color:white;
+padding:9px 14px;
+border-radius:8px;
+font-size:12px;
+font-weight:bold;
+cursor:pointer;
 }
+
+.masked{
+letter-spacing:2px;
+font-weight:bold;
+}
+
+@media(max-width:650px){
+.grid{grid-template-columns:1fr}
+.dashboard-grid{grid-template-columns:1fr 1fr}
+header{align-items:flex-start;gap:10px}
 }
 </style>
 </head>
@@ -152,473 +245,549 @@ flex:1;
 <body>
 
 <header>
-
-<div class="logo">
-BHAGWATI <span>FULFIL</span>
-</div>
-
 <div>
-D2C PICKUP & DELIVERY SERVICES
+<div class="logo">BHAGWATI <span>FULFIL</span></div>
+<div class="header-sub">D2C PICKUP & DELIVERY SERVICES</div>
 </div>
 
+<div class="header-sub">Client Portal</div>
 </header>
 
 
 <div class="container">
 
-<div class="steps">
 
-<div id="s1" class="step active">
-1. Profile
-</div>
-
-<div id="s2" class="step">
-2. Shipment
-</div>
-
-<div id="s3" class="step">
-3. Review & Book
-</div>
-
+<!-- STEP -->
+<div class="step" id="steps">
+<div id="tab1">1. Profile</div>
+<div id="tab2">2. Shipment</div>
+<div id="tab3">3. Review</div>
 </div>
 
 
 <!-- PROFILE -->
+<section id="profileSection" class="card">
 
-<section id="page1" class="card">
-
+<div class="profile-top">
+<div>
 <h2>Client Profile</h2>
-
-<p>
-Enter your details once. You can edit them later.
+<p class="subtitle">
+Fill your details once. They will be saved for future shipments.
 </p>
+</div>
+</div>
+
 
 <div class="grid">
 
 <div>
-<label>Business / Client Name</label>
-<input id="clientName">
+<label>Client / Business Name *</label>
+<input id="clientName" placeholder="Example: Rahul">
 </div>
 
 <div>
-<label>Mobile</label>
-<input id="mobile">
+<label>Mobile Number *</label>
+<input id="clientMobile" type="tel" maxlength="10">
+</div>
+
+</div>
+
+
+<h3 style="margin-top:25px">Pickup Details</h3>
+
+<label>Pickup Address *</label>
+<input id="pickupAddress">
+
+<div class="grid">
+
+<div>
+<label>Pickup City *</label>
+<input id="pickupCity">
 </div>
 
 <div>
-<label>Account Holder Name</label>
-<input id="holder">
+<label>Pickup Pincode *</label>
+<input id="pickupPin" maxlength="6">
+</div>
+
+</div>
+
+
+<h3 style="margin-top:25px">Bank Settlement Details</h3>
+
+<div class="grid">
+
+<div>
+<label>Account Holder Name *</label>
+<input id="accountHolder">
 </div>
 
 <div>
-<label>Bank Account Number</label>
-<input id="account">
+<label>Bank Name *</label>
+<input id="bankName">
 </div>
 
 <div>
-<label>IFSC</label>
+<label>Account Number *</label>
+<input id="accountNumber" type="password">
+</div>
+
+<div>
+<label>IFSC *</label>
 <input id="ifsc">
 </div>
 
 <div>
-<label>Bank Name</label>
-<input id="bank">
-</div>
-
-<div>
-<label>Branch</label>
+<label>Branch *</label>
 <input id="branch">
 </div>
 
 <div>
-<label>Account Type</label>
-
+<label>Account Type *</label>
 <select id="accountType">
+<option value="">Select</option>
 <option>Saving</option>
 <option>Current</option>
 </select>
-
 </div>
 
 </div>
 
 
-<div class="actions">
-
-<span></span>
-
-<button onclick="saveProfile()">
-Save & Continue →
+<button class="btn" onclick="saveProfile()">
+Save Profile & Continue
 </button>
+
+</section>
+
+
+<!-- SAVED PROFILE -->
+<section id="savedProfileSection" class="card hidden">
+
+<div class="profile-top">
+
+<div>
+<h2 id="savedClientName"></h2>
+<p class="subtitle">Saved Client Profile</p>
+</div>
+
+<button class="edit-btn" onclick="openEditProfile()">
+Edit Profile
+</button>
+
+</div>
+
+<div class="info">
+
+<b>Mobile:</b>
+<span id="savedMobile"></span>
+<br><br>
+
+<b>Pickup:</b>
+<span id="savedPickup"></span>
+<br><br>
+
+<b>Bank:</b>
+<span id="savedBank"></span>
+<br><br>
+
+<b>Account:</b>
+<span id="savedAccount" class="masked"></span>
 
 </div>
 
 </section>
 
 
-
 <!-- SHIPMENT -->
+<section id="shipmentSection" class="card hidden">
 
-<section id="page2" class="card hidden">
+<h2>New Shipment</h2>
 
-<h2>Shipment Details</h2>
+<p class="subtitle">
+Enter shipment details. Order ID will be generated automatically.
+</p>
+
+
+<div class="info">
+
+<b>Client:</b>
+<span id="displayClient"></span>
+
+<br><br>
+
+<b>Order ID:</b>
+<span id="displayOrder"></span>
+
+</div>
+
+
+<h3 style="margin-top:22px">
+Delivery Details
+</h3>
+
+
+<label>Customer Name *</label>
+<input id="receiverName">
+
+
+<label>Customer Mobile *</label>
+<input id="receiverMobile" type="tel">
+
+
+<label>Delivery Address *</label>
+<input id="deliveryAddress">
 
 
 <div class="grid">
 
 <div>
+<label>Delivery City *</label>
+<input id="deliveryCity">
+</div>
 
-<label>Order ID / Reference ID</label>
-
-<input
-id="orderId"
-placeholder="Example: ORD1001">
+<div>
+<label>Delivery Pincode *</label>
+<input id="deliveryPin" maxlength="6">
+</div>
 
 </div>
 
 
-<div>
+<h3 style="margin-top:25px">
+Shipment Details
+</h3>
 
-<label>Zone</label>
 
-<select id="zone" onchange="calculate()">
-
-<option value="MH">
-Maharashtra
-</option>
-
-<option value="PAN">
-Pan India
-</option>
-
-</select>
-
-</div>
-
+<div class="grid">
 
 <div>
-
-<label>Pickup Name</label>
-
-<input id="pickupName">
-
-</div>
-
-
-<div>
-
-<label>Pickup Pincode</label>
-
-<input
-id="pickupPin"
-maxlength="6">
-
-</div>
-
-
-<div>
-
-<label>Delivery Name</label>
-
-<input id="deliveryName">
-
-</div>
-
-
-<div>
-
-<label>Delivery Pincode</label>
-
-<input
-id="deliveryPin"
-maxlength="6">
-
-</div>
-
-
-<div>
-
-<label>Actual Weight (grams)</label>
-
+<label>Actual Weight (grams) *</label>
 <input
 id="actualWeight"
 type="number"
-oninput="calculate()">
-
+min="1"
+placeholder="Example: 500"
+oninput="calculateRate()">
 </div>
 
 
 <div>
+<label>Payment Type *</label>
+<select id="paymentType" onchange="calculateRate()">
 
-<label>Length (cm)</label>
-
-<input
-id="length"
-type="number"
-oninput="calculate()">
-
-</div>
-
-
-<div>
-
-<label>Width (cm)</label>
-
-<input
-id="width"
-type="number"
-oninput="calculate()">
-
-</div>
-
-
-<div>
-
-<label>Height (cm)</label>
-
-<input
-id="height"
-type="number"
-oninput="calculate()">
-
-</div>
-
-
-<div>
-
-<label>Payment Type</label>
-
-<select
-id="payment"
-onchange="calculate()">
-
-<option value="Prepaid">
-Prepaid
-</option>
-
-<option value="COD">
-COD
-</option>
+<option value="">Select</option>
+<option value="Prepaid">Prepaid</option>
+<option value="COD">COD</option>
 
 </select>
+</div>
 
 </div>
 
 
-<div>
+<div id="codBox" class="hidden">
 
-<label>COD Amount</label>
+<label>COD Amount (₹) *</label>
 
 <input
 id="codAmount"
 type="number"
-value="0">
+min="1">
 
 </div>
 
-</div>
+
+<h3 style="margin-top:25px">
+Parcel Dimensions
+</h3>
 
 
-
-<div class="rate">
+<div class="grid">
 
 <div>
-Volumetric Weight:
-<b id="vol">0.00 kg</b>
-</div>
-
-<div>
-Chargeable Weight:
-<b id="charge">0.00 kg</b>
-</div>
-
-<div>
-Shipping Charge:
-<b id="ship">₹0</b>
+<label>Length (cm)</label>
+<input
+id="length"
+type="number"
+min="0"
+oninput="calculateRate()">
 </div>
 
 <div>
-COD Handling:
-<b id="codFee">₹0</b>
+<label>Width (cm)</label>
+<input
+id="width"
+type="number"
+min="0"
+oninput="calculateRate()">
 </div>
 
-<hr>
+<div>
+<label>Height (cm)</label>
+<input
+id="height"
+type="number"
+min="0"
+oninput="calculateRate()">
+</div>
 
-<div class="total">
+<div>
+<label>Zone *</label>
 
-Total:
-<span id="total">₹0</span>
+<select id="zone" onchange="calculateRate()">
+
+<option value="">Select Zone</option>
+<option value="Maharashtra">Maharashtra</option>
+<option value="Pan India">Pan India</option>
+
+</select>
 
 </div>
 
-<p>
-Volumetric Weight = L × W × H ÷ 5000
-</p>
+</div>
+
+
+<!-- RATE -->
+<div id="rateBox" class="rate-box hidden">
+
+<div class="rate-row">
+<span>Actual Weight</span>
+<b id="showActual">0 g</b>
+</div>
+
+<div class="rate-row">
+<span>Volumetric Weight</span>
+<b id="showVolumetric">0 kg</b>
+</div>
+
+<div class="rate-row">
+<span>Billing Weight</span>
+<b id="showChargeable">0 kg</b>
+</div>
+
+<div class="rate-row">
+<span>Billing Basis</span>
+<b id="showBasis">Actual Weight</b>
+</div>
+
+<div class="rate-row">
+<span>Shipping Charge</span>
+<b>₹<span id="showShipping">0</span></b>
+</div>
+
+<div class="rate-row">
+<span>COD Handling</span>
+<b>₹<span id="showCOD">0</span></b>
+</div>
+
+<div class="rate-row total">
+<span>Total</span>
+<span>₹<span id="showTotal">0</span></span>
+</div>
 
 </div>
 
 
-
-<div class="actions">
-
-<button
-class="back"
-onclick="showPage(1)">
-
-← Back
-
+<button class="btn" onclick="goToReview()">
+Continue to Review
 </button>
-
-
-<button onclick="review()">
-
-Review →
-
-</button>
-
-</div>
 
 </section>
-
 
 
 <!-- REVIEW -->
+<section id="reviewSection" class="card hidden">
 
-<section id="page3" class="card hidden">
+<h2>Review & Book</h2>
 
-<h2>
-Review & Book
-</h2>
-
-<div id="reviewBox"></div>
-
-
-<div class="actions">
-
-<button
-class="back"
-onclick="showPage(2)">
-
-← Edit
-
-</button>
-
-
-<button onclick="bookShipment()">
-
-Confirm & Book Shipment
-
-</button>
-
-</div>
-
-</section>
-
-
-
-<!-- TRACKING LINK -->
-
-<section class="card">
-
-<h3>
-📦 Track Your Shipment
-</h3>
-
-<p>
-After booking, use your BHAGWATI FULFIL tracking page.
+<p class="subtitle">
+Check your shipment details before booking.
 </p>
 
-<button
-onclick="openTracking()">
+<div id="reviewContent"></div>
 
-Track Shipment
+<button class="btn" onclick="bookShipment()">
+BOOK SHIPMENT
+</button>
 
+<button class="btn btn-dark" onclick="backToShipment()">
+Edit Shipment
 </button>
 
 </section>
 
 
+<!-- SUCCESS -->
+<section id="successSection" class="card hidden">
+
+<div class="success">
+
+<h2>Shipment Booked Successfully ✅</h2>
+
+<p style="margin-top:10px">
+Your shipment request has been received.
+</p>
+
+<div style="margin-top:18px">
+
+<div class="small">
+Order ID
 </div>
 
+<div class="order-id" id="successOrder"></div>
+
+</div>
+
+
+<div style="margin-top:15px">
+
+<div class="small">
+Booking ID
+</div>
+
+<b id="successBooking"></b>
+
+</div>
+
+
+<div style="margin-top:15px">
+Status: <b>Pending</b>
+</div>
+
+</div>
+
+
+<button class="btn" onclick="newShipment()">
+Book Another Shipment
+</button>
+
+</section>
+
+
+<!-- DASHBOARD -->
+<section id="dashboardSection" class="card hidden">
+
+<h2>My Dashboard</h2>
+
+<p class="subtitle">
+Your shipment summary
+</p>
+
+<div class="dashboard-grid">
+
+<div class="stat">
+<div class="stat-number" id="totalOrders">0</div>
+<div class="small">Total Orders</div>
+</div>
+
+<div class="stat">
+<div class="stat-number" id="pendingOrders">0</div>
+<div class="small">Pending</div>
+</div>
+
+<div class="stat">
+<div class="stat-number" id="deliveredOrders">0</div>
+<div class="small">Delivered</div>
+</div>
+
+</div>
+
+</section>
+
+
+<div style="text-align:center;padding:10px;color:#6b7280;font-size:12px">
+Support: bhagtifulfil@gmail.com
+</div>
+
+</div>
 
 
 <script>
 
-/*
-====================================
-GOOGLE APPS SCRIPT URL
-====================================
 
-Nantar Google Apps Script Web App URL
-ithe paste karaycha.
+/* =====================================================
+   BHAGWATI FULFIL
+   ===================================================== */
 
-Example:
 
-const SCRIPT_URL =
-"https://script.google.com/macros/s/XXXX/exec";
-
-*/
-
+/* Google Apps Script URL later */
 const SCRIPT_URL = "";
 
 
-/*
-====================================
-RATE CARD
-====================================
-*/
-
-const rates = {
-
-MH:{
-250:40,
-500:45,
-750:55,
-1000:70,
-1500:95,
-2000:105,
-extra:20
-},
-
-PAN:{
-250:50,
-500:60,
-750:75,
-1000:90,
-1500:115,
-2000:125,
-extra:25
-}
-
-};
+/* Current order ID */
+let currentOrderId = null;
 
 
+/* -----------------------------------------------------
+   NAME PREFIX
+   ----------------------------------------------------- */
 
-/*
-PAGE CHANGE
-*/
+function cleanClientName(name){
 
-function showPage(n){
-
-for(let i=1;i<=3;i++){
-
-document
-.getElementById("page"+i)
-.classList.toggle("hidden",i!==n);
-
-document
-.getElementById("s"+i)
-.classList.toggle("active",i===n);
-
-}
+return name
+.toUpperCase()
+.replace(/[^A-Z0-9]/g,"")
+.substring(0,15);
 
 }
 
 
+/* -----------------------------------------------------
+   GET NEXT ORDER NUMBER
+   ----------------------------------------------------- */
+
+function getNextOrderId(){
+
+const profile =
+JSON.parse(
+localStorage.getItem("bf_client_profile")
+);
+
+const prefix =
+cleanClientName(profile.clientName);
+
 
 /*
-PROFILE SAVE
+IMPORTANT:
+Counter is based on client name.
+
+Example:
+
+RAHUL-01
+RAHUL-02
+RAHUL-03
 */
+
+const key =
+"bf_counter_" + prefix;
+
+
+let counter =
+parseInt(
+localStorage.getItem(key) || "0"
+);
+
+
+counter++;
+
+
+localStorage.setItem(
+key,
+counter
+);
+
+
+return prefix +
+"-" +
+String(counter).padStart(2,"0");
+
+}
+
+
+/* -----------------------------------------------------
+   SAVE PROFILE
+   ----------------------------------------------------- */
 
 function saveProfile(){
 
@@ -627,20 +796,29 @@ const profile={
 clientName:
 document.getElementById("clientName").value.trim(),
 
-mobile:
-document.getElementById("mobile").value.trim(),
+clientMobile:
+document.getElementById("clientMobile").value.trim(),
 
-holder:
-document.getElementById("holder").value.trim(),
+pickupAddress:
+document.getElementById("pickupAddress").value.trim(),
 
-account:
-document.getElementById("account").value.trim(),
+pickupCity:
+document.getElementById("pickupCity").value.trim(),
+
+pickupPin:
+document.getElementById("pickupPin").value.trim(),
+
+accountHolder:
+document.getElementById("accountHolder").value.trim(),
+
+bankName:
+document.getElementById("bankName").value.trim(),
+
+accountNumber:
+document.getElementById("accountNumber").value.trim(),
 
 ifsc:
 document.getElementById("ifsc").value.trim(),
-
-bank:
-document.getElementById("bank").value.trim(),
 
 branch:
 document.getElementById("branch").value.trim(),
@@ -651,497 +829,577 @@ document.getElementById("accountType").value
 };
 
 
-if(!profile.clientName ||
-!profile.mobile){
+if(
+!profile.clientName ||
+!profile.clientMobile ||
+!profile.pickupAddress ||
+!profile.pickupCity ||
+!profile.pickupPin ||
+!profile.accountHolder ||
+!profile.bankName ||
+!profile.accountNumber ||
+!profile.ifsc ||
+!profile.branch ||
+!profile.accountType
+){
 
-alert(
-"Client Name and Mobile required."
-);
-
+alert("Please fill all required profile details.");
 return;
 
 }
 
 
+/*
+When editing profile,
+the old order counter is NOT changed.
+*/
+
 localStorage.setItem(
-"bf_profile",
+"bf_client_profile",
 JSON.stringify(profile)
 );
 
 
-document.getElementById("pickupName").value =
-profile.clientName;
-
-
-showPage(2);
+showMainPortal();
 
 }
 
 
-
-/*
-WEIGHT SLAB
-*/
-
-function slab(kg){
-
-if(kg<=0)return 0;
-
-return Math.ceil(kg*4)/4;
-
-}
-
-
-
-/*
-SHIPPING RATE
-*/
-
-function shippingRate(kg,zone){
-
-const r=rates[zone];
-
-const w=slab(kg);
-
-
-if(w<=0.25)
-return r[250];
-
-if(w<=0.50)
-return r[500];
-
-if(w<=0.75)
-return r[750];
-
-if(w<=1)
-return r[1000];
-
-if(w<=1.5)
-return r[1500];
-
-if(w<=2)
-return r[2000];
-
-
-const extra =
-Math.ceil((w-2)/0.5);
-
-
-return r[2000]+
-extra*r.extra;
-
-}
-
-
-
-/*
-CALCULATE
-*/
-
-function calculate(){
-
-const actual =
-(parseFloat(
-document.getElementById("actualWeight").value
-)||0)/1000;
-
-
-const l =
-parseFloat(
-document.getElementById("length").value
-)||0;
-
-
-const w =
-parseFloat(
-document.getElementById("width").value
-)||0;
-
-
-const h =
-parseFloat(
-document.getElementById("height").value
-)||0;
-
-
-/*
-VOLUMETRIC
-*/
-
-const volumetric =
-(l*w*h)/5000;
-
-
-/*
-CHARGEABLE
-*/
-
-const chargeable =
-Math.max(actual,volumetric);
-
-
-/*
-SHIPPING
-*/
-
-const shipping =
-shippingRate(
-chargeable,
-document.getElementById("zone").value
-);
-
-
-/*
-COD
-*/
-
-const codFee =
-document.getElementById("payment").value==="COD"
-?25
-:0;
-
-
-const total =
-shipping+codFee;
-
-
-document.getElementById("vol").innerText =
-volumetric.toFixed(2)+" kg";
-
-
-document.getElementById("charge").innerText =
-chargeable.toFixed(2)+" kg";
-
-
-document.getElementById("ship").innerText =
-"₹"+shipping;
-
-
-document.getElementById("codFee").innerText =
-"₹"+codFee;
-
-
-document.getElementById("total").innerText =
-"₹"+total;
-
-
-return{
-
-actual,
-volumetric,
-chargeable,
-shipping,
-codFee,
-total
-
-};
-
-}
-
-
-
-/*
-GET BOOKING DATA
-*/
-
-function getBooking(){
-
-const c=calculate();
-
-
-return{
-
-bookingId:
-"BF-"+Date.now().toString().slice(-8),
-
-clientName:
-document.getElementById("clientName").value,
-
-mobile:
-document.getElementById("mobile").value,
-
-orderId:
-document.getElementById("orderId").value,
-
-pickupName:
-document.getElementById("pickupName").value,
-
-pickupPin:
-document.getElementById("pickupPin").value,
-
-deliveryName:
-document.getElementById("deliveryName").value,
-
-deliveryPin:
-document.getElementById("deliveryPin").value,
-
-zone:
-document.getElementById("zone").value,
-
-actualWeight:
-c.actual,
-
-volumetricWeight:
-c.volumetric,
-
-chargeableWeight:
-c.chargeable,
-
-length:
-document.getElementById("length").value,
-
-width:
-document.getElementById("width").value,
-
-height:
-document.getElementById("height").value,
-
-payment:
-document.getElementById("payment").value,
-
-codAmount:
-document.getElementById("codAmount").value,
-
-shippingCharge:
-c.shipping,
-
-codHandling:
-c.codFee,
-
-total:
-c.total,
-
-status:"Pending",
-
-createdAt:
-new Date().toLocaleString("en-IN")
-
-};
-
-}
-
-
-let currentBooking=null;
-
-
-
-/*
-REVIEW
-*/
-
-function review(){
-
-if(
-!document.getElementById("orderId").value ||
-!document.getElementById("deliveryName").value ||
-!document.getElementById("deliveryPin").value
-){
-
-alert(
-"Order ID, Delivery Name and Delivery Pincode required."
-);
-
-return;
-
-}
-
-
-if(
-!(parseFloat(
-document.getElementById("actualWeight").value
-)>0)
-){
-
-alert(
-"Actual Weight required."
-);
-
-return;
-
-}
-
-
-currentBooking=getBooking();
-
-
-document.getElementById("reviewBox").innerHTML=`
-
-<div class="success">
-
-<p>
-<b>Booking ID:</b>
-${currentBooking.bookingId}
-</p>
-
-<p>
-<b>Order ID:</b>
-${currentBooking.orderId}
-</p>
-
-<p>
-<b>Delivery:</b>
-${currentBooking.deliveryName}
-</p>
-
-<p>
-<b>Chargeable Weight:</b>
-${currentBooking.chargeableWeight.toFixed(2)}
-kg
-</p>
-
-<p>
-<b>Dimensions:</b>
-${currentBooking.length} ×
-${currentBooking.width} ×
-${currentBooking.height} cm
-</p>
-
-<p>
-<b>Payment:</b>
-${currentBooking.payment}
-</p>
-
-<p>
-<b>Shipping:</b>
-₹${currentBooking.shippingCharge}
-</p>
-
-<p>
-<b>COD Handling:</b>
-₹${currentBooking.codHandling}
-</p>
-
-<hr>
-
-<h2>
-Total: ₹${currentBooking.total}
-</h2>
-
-</div>
-`;
-
-
-showPage(3);
-
-}
-
-
-
-/*
-BOOK SHIPMENT
-*/
-
-async function bookShipment(){
-
-if(!currentBooking)
-return;
-
-
-if(SCRIPT_URL){
-
-try{
-
-await fetch(
-SCRIPT_URL,
-{
-method:"POST",
-mode:"no-cors",
-headers:{
-"Content-Type":
-"text/plain;charset=utf-8"
-},
-body:
-JSON.stringify(currentBooking)
-}
-);
-
-}catch(error){
-
-console.log(error);
-
-}
-
-}
-
-
-/*
-DEMO LOCAL SAVE
-*/
-
-const bookings=
-JSON.parse(
-localStorage.getItem("bf_bookings")||"[]"
-);
-
-
-bookings.push(currentBooking);
-
-
-localStorage.setItem(
-"bf_bookings",
-JSON.stringify(bookings)
-);
-
-
-alert(
-"Shipment booked successfully!\n\nBooking ID: "+
-currentBooking.bookingId
-);
-
-
-showPage(1);
-
-}
-
-
-
-/*
-TRACKING
-*/
-
-function openTracking(){
-
-window.location.href=
-"tracking.html";
-
-}
-
-
-
-/*
-LOAD PROFILE
-*/
+/* -----------------------------------------------------
+   LOAD PROFILE
+   ----------------------------------------------------- */
 
 function loadProfile(){
 
-const p=
-JSON.parse(
-localStorage.getItem("bf_profile")||"null"
-);
-
-if(!p)return;
+const saved =
+localStorage.getItem("bf_client_profile");
 
 
-Object.keys(p).forEach(k=>{
+if(!saved){
 
-const el=
-document.getElementById(k);
+document.getElementById("profileSection")
+.classList.remove("hidden");
 
-if(el)
-el.value=p[k];
-
-});
-
-
-document.getElementById("pickupName").value=
-p.clientName||"";
+return;
 
 }
 
 
-loadProfile();
+showMainPortal();
 
-</script>
+}
 
-</body>
-</html>
+
+/* -----------------------------------------------------
+   MAIN PORTAL
+   ----------------------------------------------------- */
+
+function showMainPortal(){
+
+document.getElementById("profileSection")
+.classList.add("hidden");
+
+document.getElementById("savedProfileSection")
+.classList.remove("hidden");
+
+document.getElementById("shipmentSection")
+.classList.remove("hidden");
+
+document.getElementById("dashboardSection")
+.classList.remove("hidden");
+
+
+const p =
+JSON.parse(
+localStorage.getItem("bf_client_profile")
+);
+
+
+document.getElementById("savedClientName")
+.textContent =
+p.clientName;
+
+
+document.getElementById("savedMobile")
+.textContent =
+p.clientMobile;
+
+
+document.getElementById("savedPickup")
+.textContent =
+p.pickupCity +
+" - " +
+p.pickupPin;
+
+
+document.getElementById("savedBank")
+.textContent =
+p.bankName;
+
+
+document.getElementById("savedAccount")
+.textContent =
+maskAccount(p.accountNumber);
+
+
+document.getElementById("displayClient")
+.textContent =
+p.clientName;
+
+
+/*
+Order ID is generated when shipment starts.
+*/
+
+if(!currentOrderId){
+
+currentOrderId =
+getNextOrderId();
+
+}
+
+
+document.getElementById("displayOrder")
+.textContent =
+currentOrderId;
+
+
+updateDashboard();
+
+}
+
+
+/* -----------------------------------------------------
+   MASK BANK ACCOUNT
+   ----------------------------------------------------- */
+
+function maskAccount(account){
+
+if(!account)
+return "******";
+
+
+if(account.length <= 4)
+return "******";
+
+
+return "******" +
+account.slice(-4);
+
+}
+
+
+/* -----------------------------------------------------
+   EDIT PROFILE
+   ----------------------------------------------------- */
+
+function openEditProfile(){
+
+const p =
+JSON.parse(
+localStorage.getItem("bf_client_profile")
+);
+
+
+/*
+Profile is editable.
+But account number must be entered
+again for security.
+*/
+
+document.getElementById("profileSection")
+.classList.remove("hidden");
+
+document.getElementById("savedProfileSection")
+.classList.add("hidden");
+
+
+document.getElementById("shipmentSection")
+.classList.add("hidden");
+
+
+document.getElementById("clientName").value =
+p.clientName || "";
+
+document.getElementById("clientMobile").value =
+p.clientMobile || "";
+
+document.getElementById("pickupAddress").value =
+p.pickupAddress || "";
+
+document.getElementById("pickupCity").value =
+p.pickupCity || "";
+
+document.getElementById("pickupPin").value =
+p.pickupPin || "";
+
+document.getElementById("accountHolder").value =
+p.accountHolder || "";
+
+document.getElementById("bankName").value =
+p.bankName || "";
+
+
+/*
+SECURITY:
+Account number is NOT auto-filled.
+Client must enter it again.
+*/
+
+document.getElementById("accountNumber").value =
+"";
+
+document.getElementById("ifsc").value =
+p.ifsc || "";
+
+document.getElementById("branch").value =
+p.branch || "";
+
+document.getElementById("accountType").value =
+p.accountType || "";
+
+}
+
+
+/* -----------------------------------------------------
+   RATE CALCULATION
+   ----------------------------------------------------- */
+
+function calculateRate(){
+
+const actual =
+parseFloat(
+document.getElementById("actualWeight").value
+) || 0;
+
+
+const L =
+parseFloat(
+document.getElementById("length").value
+) || 0;
+
+
+const W =
+parseFloat(
+document.getElementById("width").value
+) || 0;
+
+
+const H =
+parseFloat(
+document.getElementById("height").value
+) || 0;
+
+
+const zone =
+document.getElementById("zone").value;
+
+
+const payment =
+document.getElementById("paymentType").value;
+
+
+document.getElementById("codBox")
+.classList.toggle(
+"hidden",
+payment !== "COD"
+);
+
+
+if(actual <= 0 || !zone){
+
+document.getElementById("rateBox")
+.classList.add("hidden");
+
+return;
+
+}
+
+
+/*
+Volumetric Weight
+
+L × W × H ÷ 5000
+*/
+
+const volumetric =
+(L * W * H) / 5000;
+
+
+const actualKg =
+actual / 1000;
+
+
+/*
+IMPORTANT RULE:
+
+Normal parcel:
+Actual >= Volumetric
+→ Actual rate.
+
+Oversized parcel:
+Volumetric > Actual
+→ Volumetric rate.
+*/
+
+let billingWeight;
+
+let billingBasis;
+
+
+if(volumetric > actualKg){
+
+billingWeight =
+volumetric;
+
+billingBasis =
+"Volumetric Weight";
+
+}else{
+
+billingWeight =
+actualKg;
+
+billingBasis =
+"Actual Weight";
+
+}
+
+
+/*
+Round UP to nearest 250g
+*/
+
+const billingGrams =
+Math.ceil(
+billingWeight * 1000 / 250
+) * 250;
+
+
+let shipping = 0;
+
+
+/* MAHARASHTRA */
+
+if(zone === "Maharashtra"){
+
+if(billingGrams <= 250)
+shipping = 40;
+
+else if(billingGrams <= 500)
+shipping = 45;
+
+else if(billingGrams <= 750)
+shipping = 55;
+
+else if(billingGrams <= 1000)
+shipping = 70;
+
+else if(billingGrams <= 1500)
+shipping = 95;
+
+else if(billingGrams <= 2000)
+shipping = 105;
+
+else{
+
+shipping =
+105 +
+Math.ceil(
+(billingGrams - 2000) / 500
+) * 20;
+
+}
+
+}
+
+
+/* PAN INDIA */
+
+if(zone === "Pan India"){
+
+if(billingGrams <= 250)
+shipping = 50;
+
+else if(billingGrams <= 500)
+shipping = 60;
+
+else if(billingGrams <= 750)
+shipping = 75;
+
+else if(billingGrams <= 1000)
+shipping = 90;
+
+else if(billingGrams <= 1500)
+shipping = 115;
+
+else if(billingGrams <= 2000)
+shipping = 125;
+
+else{
+
+shipping =
+125 +
+Math.ceil(
+(billingGrams - 2000) / 500
+) * 25;
+
+}
+
+}
+
+
+/*
+COD = ₹25
+Prepaid = ₹0
+*/
+
+const codHandling =
+payment === "COD" ? 25 : 0;
+
+
+const total =
+shipping + codHandling;
+
+
+document.getElementById("rateBox")
+.classList.remove("hidden");
+
+
+document.getElementById("showActual")
+.textContent =
+actual + " g";
+
+
+document.getElementById("showVolumetric")
+.textContent =
+volumetric.toFixed(2) + " kg";
+
+
+document.getElementById("showChargeable")
+.textContent =
+(billingGrams / 1000).toFixed(2) + " kg";
+
+
+document.getElementById("showBasis")
+.textContent =
+billingBasis;
+
+
+document.getElementById("showShipping")
+.textContent =
+shipping;
+
+
+document.getElementById("showCOD")
+.textContent =
+codHandling;
+
+
+document.getElementById("showTotal")
+.textContent =
+total;
+
+}
+
+
+/* -----------------------------------------------------
+   REVIEW
+   ----------------------------------------------------- */
+
+function goToReview(){
+
+const receiverName =
+document.getElementById("receiverName")
+.value.trim();
+
+
+const receiverMobile =
+document.getElementById("receiverMobile")
+.value.trim();
+
+
+const deliveryAddress =
+document.getElementById("deliveryAddress")
+.value.trim();
+
+
+const deliveryCity =
+document.getElementById("deliveryCity")
+.value.trim();
+
+
+const deliveryPin =
+document.getElementById("deliveryPin")
+.value.trim();
+
+
+const actual =
+parseFloat(
+document.getElementById("actualWeight").value
+) || 0;
+
+
+const payment =
+document.getElementById("paymentType").value;
+
+
+const zone =
+document.getElementById("zone").value;
+
+
+if(
+!receiverName ||
+!receiverMobile ||
+!deliveryAddress ||
+!deliveryCity ||
+!deliveryPin ||
+actual <= 0 ||
+!payment ||
+!zone
+){
+
+alert("Please fill all required shipment details.");
+return;
+
+}
+
+
+if(payment === "COD"){
+
+const cod =
+parseFloat(
+document.getElementById("codAmount").value
+) || 0;
+
+
+if(cod <= 0){
+
+alert("Please enter COD amount.");
+return;
+
+}
+
+}
+
+
+calculateRate();
+
+
+const review = `
+
+<div class="rate-box">
+
+<h3>Order Details</h3>
+
+<div class="rate-row">
+<span>Order ID</span>
+<b>${currentOrderId}</b>
+</div>
+
+<div class="rate-row">
+<span>Receiver</span>
+<b>${receiverName}</b>
+</div>
+
+<div class="rate-row">
