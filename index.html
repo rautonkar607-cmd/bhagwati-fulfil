@@ -1,1536 +1,386 @@
-<!DOCTYPE html>
-<html lang="en">
+const SHEET_NAME = "Orders";
 
-<head>
 
-<meta charset="UTF-8">
+function doGet(e){
 
-<meta name="viewport"
-content="width=device-width, initial-scale=1">
+  const action =
+    e.parameter.action || "";
 
-<title>BHAGWATI FULFIL | Client Portal</title>
 
-<style>
+  if(action === "track"){
 
-*{
-box-sizing:border-box;
-}
+    return trackShipment(e.parameter.awb);
 
-body{
-margin:0;
-font-family:Arial,sans-serif;
-background:#f4f6f8;
-color:#17202a;
-}
+  }
 
-header{
-background:#111827;
-color:white;
-padding:18px 20px;
-text-align:center;
-}
 
-header h1{
-margin:0;
-font-size:24px;
-}
-
-header p{
-margin:6px 0 0;
-font-size:13px;
-color:#d1d5db;
-}
-
-.wrap{
-max-width:850px;
-margin:25px auto;
-padding:0 15px;
-}
-
-.card{
-background:white;
-border-radius:14px;
-padding:22px;
-box-shadow:0 4px 18px #00000012;
-margin-bottom:18px;
-}
-
-.steps{
-display:flex;
-gap:8px;
-margin-bottom:18px;
-}
-
-.step{
-flex:1;
-text-align:center;
-padding:10px;
-border-radius:8px;
-background:#e5e7eb;
-font-size:12px;
-font-weight:bold;
-}
-
-.step.active{
-background:#111827;
-color:white;
-}
-
-.step.done{
-background:#16a34a;
-color:white;
-}
-
-.page{
-display:none;
-}
-
-.page.active{
-display:block;
-}
-
-h2{
-margin-top:0;
-}
-
-label{
-display:block;
-font-size:13px;
-font-weight:bold;
-margin:12px 0 6px;
-}
-
-input,
-select{
-width:100%;
-padding:12px;
-border:1px solid #d1d5db;
-border-radius:8px;
-font-size:14px;
-outline:none;
-}
-
-input:focus,
-select:focus{
-border-color:#111827;
-}
-
-.grid{
-display:grid;
-grid-template-columns:1fr 1fr;
-gap:12px;
-}
-
-.full{
-grid-column:1/-1;
-}
-
-button{
-border:0;
-border-radius:9px;
-padding:12px 18px;
-background:#111827;
-color:white;
-font-weight:bold;
-cursor:pointer;
-margin-top:16px;
-width:100%;
-}
-
-button:hover{
-opacity:.9;
-}
-
-button.secondary{
-background:#e5e7eb;
-color:#111827;
-}
-
-.row{
-display:flex;
-gap:10px;
-}
-
-.row button{
-flex:1;
-}
-
-.notice{
-padding:12px;
-background:#f3f4f6;
-border-radius:8px;
-font-size:13px;
-margin-top:12px;
-}
-
-.saved{
-background:#f0fdf4;
-border:1px solid #bbf7d0;
-padding:14px;
-border-radius:10px;
-margin-bottom:15px;
-}
-
-.summary{
-border:1px solid #e5e7eb;
-border-radius:10px;
-padding:14px;
-}
-
-.summary div{
-display:flex;
-justify-content:space-between;
-gap:15px;
-padding:8px 0;
-border-bottom:1px solid #eee;
-}
-
-.summary div:last-child{
-border:0;
-font-weight:bold;
-font-size:17px;
-}
-
-.track-card{
-border:1px solid #e5e7eb;
-border-radius:10px;
-padding:15px;
-margin-top:12px;
-}
-
-.status{
-display:inline-block;
-padding:7px 12px;
-border-radius:20px;
-background:#fef3c7;
-font-weight:bold;
-font-size:12px;
-}
-
-.status.shipped,
-.status.delivered{
-background:#dcfce7;
-}
-
-.status.cancelled{
-background:#fee2e2;
-}
-
-.hidden{
-display:none;
-}
-
-footer{
-text-align:center;
-padding:20px;
-font-size:12px;
-color:#6b7280;
-}
-
-@media(max-width:600px){
-
-.grid{
-grid-template-columns:1fr;
-}
-
-.full{
-grid-column:auto;
-}
-
-.row{
-flex-direction:column;
-}
-
-.steps{
-gap:4px;
-}
-
-.step{
-font-size:10px;
-padding:9px 4px;
-}
+  return jsonResponse({
+    success:true,
+    message:"BHAGWATI FULFIL API is running"
+  });
 
 }
 
-</style>
 
-</head>
 
-<body>
+function doPost(e){
 
-<header>
+  try{
 
-<h1>BHAGWATI FULFIL</h1>
+    const data =
+      JSON.parse(e.postData.contents);
 
-<p>D2C PICKUP &amp; DELIVERY SERVICES</p>
 
-</header>
+    if(data.action === "createOrder"){
 
-<div class="wrap">
+      return createOrder(data);
 
-<div class="steps">
+    }
 
-<div id="s1" class="step active">
-1. PROFILE
-</div>
 
-<div id="s2" class="step">
-2. SHIPMENT
-</div>
+    return jsonResponse({
 
-<div id="s3" class="step">
-3. REVIEW
-</div>
+      success:false,
 
-</div>
+      message:"Invalid action"
 
+    });
 
-<!-- PROFILE -->
 
-<section id="page1" class="page active card">
+  }catch(error){
 
-<h2>Client Profile</h2>
+    return jsonResponse({
 
-<div class="grid">
+      success:false,
 
-<div>
+      message:error.toString()
 
-<label>Client / Business Name *</label>
+    });
 
-<input id="clientName" type="text">
-
-</div>
-
-<div>
-
-<label>Contact Person *</label>
-
-<input id="contactName" type="text">
-
-</div>
-
-<div>
-
-<label>Mobile *</label>
-
-<input
-id="mobile"
-type="tel"
-inputmode="numeric"
-maxlength="10">
-
-</div>
-
-<div>
-
-<label>Pickup Address *</label>
-
-<input id="pickupAddress" type="text">
-
-</div>
-
-<div>
-
-<label>Pickup City *</label>
-
-<input id="pickupCity" type="text">
-
-</div>
-
-<div>
-
-<label>Pickup Pincode *</label>
-
-<input
-id="pickupPincode"
-type="tel"
-inputmode="numeric"
-maxlength="6">
-
-</div>
-
-</div>
-
-<button id="saveProfileBtn">
-
-CONTINUE TO SHIPMENT →
-
-</button>
-
-</section>
-
-
-<!-- SHIPMENT -->
-
-<section id="page2" class="page card">
-
-<h2>Book Shipment</h2>
-
-<div class="notice">
-
-You can book another shipment immediately after submitting this shipment.
-
-</div>
-
-<div class="grid">
-
-<div>
-
-<label>Receiver Name *</label>
-
-<input id="receiverName" type="text">
-
-</div>
-
-<div>
-
-<label>Receiver Mobile *</label>
-
-<input
-id="receiverMobile"
-type="tel"
-inputmode="numeric"
-maxlength="10">
-
-</div>
-
-<div class="full">
-
-<label>Delivery Address *</label>
-
-<input id="deliveryAddress" type="text">
-
-</div>
-
-<div>
-
-<label>Delivery City *</label>
-
-<input id="deliveryCity" type="text">
-
-</div>
-
-<div>
-
-<label>Delivery Pincode *</label>
-
-<input
-id="deliveryPincode"
-type="tel"
-inputmode="numeric"
-maxlength="6">
-
-</div>
-
-<div>
-
-<label>Service / Zone *</label>
-
-<select id="zone">
-
-<option value="">Select Zone</option>
-
-<option value="Maharashtra">
-Maharashtra
-</option>
-
-<option value="Pan India">
-Pan India
-</option>
-
-</select>
-
-</div>
-
-<div>
-
-<label>Payment Type *</label>
-
-<select id="paymentType">
-
-<option value="">Select</option>
-
-<option value="Prepaid">
-Prepaid
-</option>
-
-<option value="COD">
-COD
-</option>
-
-</select>
-
-</div>
-
-<div id="codBox" style="display:none">
-
-<label>COD Amount ₹ *</label>
-
-<input
-id="codAmount"
-type="number"
-min="1"
-step="0.01">
-
-</div>
-
-<div>
-
-<label>Actual Weight (grams) *</label>
-
-<input
-id="actualWeight"
-type="number"
-min="1"
-step="0.01">
-
-</div>
-
-<div>
-
-<label>Length (cm) *</label>
-
-<input
-id="length"
-type="number"
-min="1"
-step="0.01">
-
-</div>
-
-<div>
-
-<label>Width (cm) *</label>
-
-<input
-id="width"
-type="number"
-min="1"
-step="0.01">
-
-</div>
-
-<div>
-
-<label>Height (cm) *</label>
-
-<input
-id="height"
-type="number"
-min="1"
-step="0.01">
-
-</div>
-
-</div>
-
-<div id="chargeBox" class="notice">
-
-Enter weight, dimensions and zone to calculate charges.
-
-</div>
-
-<div class="row">
-
-<button
-id="backProfile"
-class="secondary">
-
-← PROFILE
-
-</button>
-
-<button id="reviewBtn">
-
-REVIEW →
-
-</button>
-
-</div>
-
-</section>
-
-
-<!-- REVIEW -->
-
-<section id="page3" class="page card">
-
-<h2>Review Shipment</h2>
-
-<div id="review" class="summary"></div>
-
-<div class="row">
-
-<button
-id="backShipment"
-class="secondary">
-
-← EDIT
-
-</button>
-
-<button id="submitBtn">
-
-SUBMIT SHIPMENT ✓
-
-</button>
-
-</div>
-
-</section>
-
-
-<!-- SUCCESS -->
-
-<section id="success" class="page card">
-
-<h2>Shipment Request Received ✓</h2>
-
-<div id="successBox" class="saved"></div>
-
-<button id="anotherBtn">
-
-BOOK ANOTHER SHIPMENT
-
-</button>
-
-<button id="trackAfterBtn" class="secondary">
-
-TRACK MY SHIPMENT
-
-</button>
-
-</section>
-
-
-<!-- TRACKING -->
-
-<section id="trackingPage" class="page card">
-
-<h2>Track Shipment</h2>
-
-<div class="notice">
-
-Enter the AWB / Tracking Number shared by BHAGWATI FULFIL.
-
-</div>
-
-<label>AWB / Tracking Number</label>
-
-<input id="trackingInput" type="text">
-
-<button id="trackBtn">
-
-TRACK SHIPMENT
-
-</button>
-
-<div id="trackingResult"></div>
-
-<button
-id="backHomeBtn"
-class="secondary">
-
-← BACK
-
-</button>
-
-</section>
-
-</div>
-
-
-<footer>
-
-BHAGWATI FULFIL
-
-</footer>
-
-
-<script>
-
-/*
-====================================================
-IMPORTANT
-====================================================
-
-After deploying Google Apps Script,
-paste your Web App URL below.
-
-Example:
-
-const API_URL =
-"https://script.google.com/macros/s/XXXXX/exec";
-
-*/
-
-const API_URL =
-"PASTE_YOUR_GOOGLE_APPS_SCRIPT_URL_HERE";
-
-
-let currentProfile = {};
-
-let currentShipment = {};
-
-
-
-/* ================= HELPERS ================= */
-
-function $(id){
-
-return document.getElementById(id);
-
-}
-
-
-function escapeHTML(value){
-
-return String(value || "")
-
-.replace(/&/g,"&amp;")
-
-.replace(/</g,"&lt;")
-
-.replace(/>/g,"&gt;")
-
-.replace(/"/g,"&quot;")
-
-.replace(/'/g,"&#039;");
+  }
 
 }
 
 
 
-function showPage(page){
+/* ================= CREATE ORDER ================= */
 
-document
-.querySelectorAll(".page")
-.forEach(function(p){
+function createOrder(data){
 
-p.classList.remove("active");
-
-});
+  const ss =
+    SpreadsheetApp.getActiveSpreadsheet();
 
 
-$(page).classList.add("active");
+  let sheet =
+    ss.getSheetByName(SHEET_NAME);
 
-window.scrollTo({
-top:0,
-behavior:"smooth"
-});
+
+  if(!sheet){
+
+    sheet =
+      ss.insertSheet(SHEET_NAME);
+
+  }
+
+
+  setupHeaders(sheet);
+
+
+  const profile =
+    data.profile || {};
+
+  const shipment =
+    data.shipment || {};
+
+
+  const clientName =
+    profile.clientName || "CLIENT";
+
+
+  /*
+  Internal Order ID
+
+  Example:
+  RAHUL-01
+  RAHUL-02
+  */
+
+  const cleanName =
+    clientName
+      .replace(/[^a-zA-Z0-9]/g,"")
+      .toUpperCase();
+
+
+  const internalId =
+    generateInternalId(
+      sheet,
+      cleanName
+    );
+
+
+  /*
+  Status always starts as PENDING.
+  Admin changes it later.
+  */
+
+  const status =
+    "PENDING";
+
+
+  /*
+  AWB is empty initially.
+  Admin enters it later.
+  */
+
+  const awb = "";
+
+
+  const location = "";
+
+
+  const trackingMessage = "";
+
+
+  const timestamp =
+    new Date();
+
+
+  const row = [
+
+    timestamp,
+
+    internalId,
+
+    clientName,
+
+    profile.contactName || "",
+
+    profile.mobile || "",
+
+    profile.pickupAddress || "",
+
+    profile.pickupCity || "",
+
+    profile.pickupPincode || "",
+
+    shipment.receiverName || "",
+
+    shipment.receiverMobile || "",
+
+    shipment.deliveryAddress || "",
+
+    shipment.deliveryCity || "",
+
+    shipment.deliveryPincode || "",
+
+    shipment.zone || "",
+
+    shipment.paymentType || "",
+
+    shipment.codAmount || "",
+
+    shipment.actualWeight || "",
+
+    shipment.length || "",
+
+    shipment.width || "",
+
+    shipment.height || "",
+
+    shipment.actualKg || "",
+
+    shipment.volumetricKg || "",
+
+    shipment.applicableKg || "",
+
+    shipment.shipping || "",
+
+    shipment.codCharge || "",
+
+    shipment.total || "",
+
+    status,
+
+    awb,
+
+    location,
+
+    trackingMessage
+
+  ];
+
+
+  sheet.appendRow(row);
+
+
+  return jsonResponse({
+
+    success:true,
+
+    message:"Shipment received",
+
+    /*
+    IMPORTANT:
+    Internal ID is intentionally
+    NOT returned to client.
+    */
+
+  });
 
 }
 
 
 
-/* ================= PROFILE ================= */
+/* ================= INTERNAL ID ================= */
 
-$("saveProfileBtn").addEventListener(
-"click",
-function(){
-
-const name =
-$("clientName").value.trim();
-
-const contact =
-$("contactName").value.trim();
-
-const mobile =
-$("mobile").value.trim();
-
-const address =
-$("pickupAddress").value.trim();
-
-const city =
-$("pickupCity").value.trim();
-
-const pin =
-$("pickupPincode").value.trim();
-
-
-if(
-!name ||
-!contact ||
-!mobile ||
-!address ||
-!city ||
-!pin
+function generateInternalId(
+  sheet,
+  cleanName
 ){
 
-alert("Please fill all profile details.");
-
-return;
-
-}
+  const lastRow =
+    sheet.getLastRow();
 
 
-if(!/^[0-9]{10}$/.test(mobile)){
+  if(lastRow < 2){
 
-alert("Please enter valid 10 digit mobile.");
+    return cleanName + "-01";
 
-return;
-
-}
+  }
 
 
-if(!/^[0-9]{6}$/.test(pin)){
-
-alert("Please enter valid 6 digit pincode.");
-
-return;
-
-}
-
-
-currentProfile = {
-
-clientName:name,
-
-contactName:contact,
-
-mobile:mobile,
-
-pickupAddress:address,
-
-pickupCity:city,
-
-pickupPincode:pin
-
-};
+  const values =
+    sheet
+      .getRange(
+        2,
+        2,
+        lastRow - 1,
+        1
+      )
+      .getValues();
 
 
-localStorage.setItem(
-"bhagwatiClientProfile",
-JSON.stringify(currentProfile)
-);
+  let maxNumber = 0;
 
 
-$("s1").classList.remove("active");
+  values.forEach(function(row){
 
-$("s1").classList.add("done");
-
-$("s2").classList.add("active");
-
-showPage("page2");
-
-});
+    const id =
+      String(row[0] || "");
 
 
+    if(
+      id.startsWith(
+        cleanName + "-"
+      )
+    ){
 
-/* ================= COD ================= */
-
-$("paymentType").addEventListener(
-"change",
-function(){
-
-if(this.value === "COD"){
-
-$("codBox").style.display = "block";
-
-}else{
-
-$("codBox").style.display = "none";
-
-$("codAmount").value = "";
-
-}
-
-calculateCharges();
-
-});
+      const number =
+        parseInt(
+          id.split("-").pop()
+        );
 
 
+      if(!isNaN(number)){
 
-/* ================= RATE CALCULATION ================= */
+        maxNumber =
+          Math.max(
+            maxNumber,
+            number
+          );
 
-function getRate(applicableKg,zone){
+      }
 
-let rate = 0;
+    }
+
+  });
 
 
-/* MAHARASHTRA */
-
-if(zone === "Maharashtra"){
-
-if(applicableKg <= 0.25)
-rate = 40;
-
-else if(applicableKg <= 0.50)
-rate = 45;
-
-else if(applicableKg <= 0.75)
-rate = 55;
-
-else if(applicableKg <= 1)
-rate = 70;
-
-else if(applicableKg <= 1.5)
-rate = 95;
-
-else if(applicableKg <= 2)
-rate = 105;
-
-else{
-
-const extra =
-Math.ceil(
-(applicableKg - 2) / 0.5
-);
-
-rate =
-105 + extra * 20;
-
-}
+  return (
+    cleanName +
+    "-" +
+    String(maxNumber + 1)
+      .padStart(2,"0")
+  );
 
 }
 
 
-/* PAN INDIA */
 
-if(zone === "Pan India"){
+/* ================= HEADERS ================= */
 
-if(applicableKg <= 0.25)
-rate = 50;
+function setupHeaders(sheet){
 
-else if(applicableKg <= 0.50)
-rate = 60;
+  if(sheet.getLastRow() > 0){
 
-else if(applicableKg <= 0.75)
-rate = 75;
+    return;
 
-else if(applicableKg <= 1)
-rate = 90;
+  }
 
-else if(applicableKg <= 1.5)
-rate = 115;
 
-else if(applicableKg <= 2)
-rate = 125;
+  sheet.appendRow([
 
-else{
+    "Date",
 
-const extra =
-Math.ceil(
-(applicableKg - 2) / 0.5
-);
+    "Internal ID",
 
-rate =
-125 + extra * 25;
+    "Client Name",
 
-}
+    "Contact Person",
 
-}
+    "Client Mobile",
 
+    "Pickup Address",
 
-return rate;
+    "Pickup City",
 
-}
+    "Pickup Pincode",
 
+    "Receiver Name",
 
+    "Receiver Mobile",
 
-/* ================= CALCULATE ================= */
+    "Delivery Address",
 
-function calculateCharges(){
+    "Delivery City",
 
-const weight =
-parseFloat($("actualWeight").value) || 0;
+    "Delivery Pincode",
 
-const l =
-parseFloat($("length").value) || 0;
+    "Zone",
 
-const w =
-parseFloat($("width").value) || 0;
+    "Payment Type",
 
-const h =
-parseFloat($("height").value) || 0;
+    "COD Amount",
 
-const zone =
-$("zone").value;
+    "Actual Weight (g)",
 
+    "Length",
 
-if(
-!weight ||
-!l ||
-!w ||
-!h ||
-!zone
-){
+    "Width",
 
-$("chargeBox").innerHTML =
-"Enter weight, dimensions and zone to calculate charges.";
+    "Height",
 
-return;
+    "Actual Weight (kg)",
 
-}
+    "Volumetric Weight (kg)",
 
+    "Applicable Weight (kg)",
 
-const actualKg =
-weight / 1000;
+    "Shipping",
 
+    "COD Charge",
 
-/*
-Volumetric Weight
-L × W × H ÷ 5000
-*/
+    "Total",
 
-const volumetricKg =
-(l * w * h) / 5000;
+    "Status",
 
+    "AWB",
 
-/*
-Applicable = higher of Actual & Volumetric
-*/
+    "Current Location",
 
-const applicableKg =
-Math.max(
-actualKg,
-volumetricKg
-);
+    "Tracking Message"
 
-
-const shipping =
-getRate(
-applicableKg,
-zone
-);
-
-
-let codCharge = 0;
-
-if($("paymentType").value === "COD"){
-
-codCharge = 25;
-
-}
-
-
-const total =
-shipping + codCharge;
-
-
-$("chargeBox").innerHTML =
-
-"<strong>Actual Weight:</strong> " +
-
-actualKg.toFixed(3) +
-
-" kg" +
-
-"<br><strong>Volumetric Weight:</strong> " +
-
-volumetricKg.toFixed(3) +
-
-" kg" +
-
-"<br><strong>Applicable Weight:</strong> " +
-
-applicableKg.toFixed(3) +
-
-" kg" +
-
-"<br><strong>Shipping:</strong> ₹" +
-
-shipping.toFixed(2) +
-
-"<br><strong>COD:</strong> ₹" +
-
-codCharge.toFixed(2) +
-
-"<br><strong>Total:</strong> ₹" +
-
-total.toFixed(2);
-
-return {
-
-actualKg,
-
-volumetricKg,
-
-applicableKg,
-
-shipping,
-
-codCharge,
-
-total
-
-};
-
-}
-
-
-
-/* ================= AUTO CALCULATE ================= */
-
-[
-"actualWeight",
-"length",
-"width",
-"height",
-"zone",
-"paymentType",
-"codAmount"
-
-].forEach(function(id){
-
-$(id).addEventListener(
-"input",
-calculateCharges
-);
-
-$(id).addEventListener(
-"change",
-calculateCharges
-);
-
-});
-
-
-
-/* ================= VALIDATE SHIPMENT ================= */
-
-function validateShipment(){
-
-const fields = [
-
-["receiverName","Receiver Name"],
-
-["receiverMobile","Receiver Mobile"],
-
-["deliveryAddress","Delivery Address"],
-
-["deliveryCity","Delivery City"],
-
-["deliveryPincode","Delivery Pincode"],
-
-["zone","Service / Zone"],
-
-["paymentType","Payment Type"],
-
-["actualWeight","Actual Weight"],
-
-["length","Length"],
-
-["width","Width"],
-
-["height","Height"]
-
-];
-
-
-for(const item of fields){
-
-if(!$(item[0]).value.trim()){
-
-alert(
-"Please fill: " +
-item[1]
-);
-
-$(item[0]).focus();
-
-return false;
-
-}
-
-}
-
-
-if(
-!/^[0-9]{10}$/.test(
-$("receiverMobile").value.trim()
-)
-){
-
-alert(
-"Please enter valid receiver mobile."
-);
-
-return false;
-
-}
-
-
-if(
-!/^[0-9]{6}$/.test(
-$("deliveryPincode").value.trim()
-)
-){
-
-alert(
-"Please enter valid delivery pincode."
-);
-
-return false;
-
-}
-
-
-if(
-$("paymentType").value === "COD" &&
-parseFloat($("codAmount").value) <= 0
-){
-
-alert("Please enter valid COD amount.");
-
-return false;
-
-}
-
-
-return true;
-
-}
-
-
-
-/* ================= REVIEW ================= */
-
-$("reviewBtn").addEventListener(
-"click",
-function(){
-
-if(!validateShipment()) return;
-
-
-const calc =
-calculateCharges();
-
-
-currentShipment = {
-
-receiverName:
-$("receiverName").value.trim(),
-
-receiverMobile:
-$("receiverMobile").value.trim(),
-
-deliveryAddress:
-$("deliveryAddress").value.trim(),
-
-deliveryCity:
-$("deliveryCity").value.trim(),
-
-deliveryPincode:
-$("deliveryPincode").value.trim(),
-
-zone:
-$("zone").value,
-
-paymentType:
-$("paymentType").value,
-
-codAmount:
-$("codAmount").value || "0",
-
-actualWeight:
-$("actualWeight").value,
-
-length:
-$("length").value,
-
-width:
-$("width").value,
-
-height:
-$("height").value,
-
-actualKg:
-calc.actualKg,
-
-volumetricKg:
-calc.volumetricKg,
-
-applicableKg:
-calc.applicableKg,
-
-shipping:
-calc.shipping,
-
-codCharge:
-calc.codCharge,
-
-total:
-calc.total
-
-};
-
-
-$("review").innerHTML = `
-
-<div>
-<span>Client</span>
-<span>${escapeHTML(currentProfile.clientName)}</span>
-</div>
-
-<div>
-<span>Receiver</span>
-<span>${escapeHTML(currentShipment.receiverName)}</span>
-</div>
-
-<div>
-<span>Mobile</span>
-<span>${escapeHTML(currentShipment.receiverMobile)}</span>
-</div>
-
-<div>
-<span>Delivery City</span>
-<span>${escapeHTML(currentShipment.deliveryCity)}</span>
-</div>
-
-<div>
-<span>Zone</span>
-<span>${escapeHTML(currentShipment.zone)}</span>
-</div>
-
-<div>
-<span>Payment</span>
-<span>${escapeHTML(currentShipment.paymentType)}</span>
-</div>
-
-<div>
-<span>Actual Weight</span>
-<span>${currentShipment.actualKg.toFixed(3)} kg</span>
-</div>
-
-<div>
-<span>Volumetric Weight</span>
-<span>${currentShipment.volumetricKg.toFixed(3)} kg</span>
-</div>
-
-<div>
-<span>Applicable Weight</span>
-<span>${currentShipment.applicableKg.toFixed(3)} kg</span>
-</div>
-
-<div>
-<span>Shipping</span>
-<span>₹${currentShipment.shipping.toFixed(2)}</span>
-</div>
-
-<div>
-<span>COD Charge</span>
-<span>₹${currentShipment.codCharge.toFixed(2)}</span>
-</div>
-
-<div>
-<span>Total</span>
-<span>₹${currentShipment.total.toFixed(2)}</span>
-</div>
-
-`;
-
-
-$("s2").classList.remove("active");
-
-$("s2").classList.add("done");
-
-$("s3").classList.add("active");
-
-showPage("page3");
-
-});
-
-
-
-/* ================= BACK ================= */
-
-$("backProfile").addEventListener(
-"click",
-function(){
-
-showPage("page1");
-
-});
-
-
-$("backShipment").addEventListener(
-"click",
-function(){
-
-showPage("page2");
-
-});
-
-
-
-/* ================= SUBMIT ================= */
-
-$("submitBtn").addEventListener(
-"click",
-async function(){
-
-if(
-API_URL ===
-"PASTE_YOUR_GOOGLE_APPS_SCRIPT_URL_HERE"
-){
-
-alert(
-"Backend URL is not connected yet."
-);
-
-return;
-
-}
-
-
-$("submitBtn").disabled = true;
-
-$("submitBtn").innerText =
-"SUBMITTING...";
-
-
-const payload = {
-
-action:"createOrder",
-
-profile:currentProfile,
-
-shipment:currentShipment
-
-};
-
-
-try{
-
-const response =
-await fetch(
-API_URL,
-{
-
-method:"POST",
-
-body:JSON.stringify(payload)
-
-}
-);
-
-
-const result =
-await response.json();
-
-
-if(!result.success){
-
-throw new Error(
-result.message ||
-"Order submission failed"
-);
-
-}
-
-
-/*
-Only client-safe information is shown.
-Internal Order ID is NOT shown.
-*/
-
-$("successBox").innerHTML = `
-
-<strong>
-Shipment Request Received ✓
-</strong>
-
-<br><br>
-
-Client:
-${escapeHTML(currentProfile.clientName)}
-
-<br>
-
-Receiver:
-${escapeHTML(currentShipment.receiverName)}
-
-<br>
-
-Delivery City:
-${escapeHTML(currentShipment.deliveryCity)}
-
-<br><br>
-
-<strong>
-Status: PENDING
-</strong>
-
-<br><br>
-
-Your shipment request has been received.
-Tracking details will be updated after booking.
-
-`;
-
-showPage("success");
-
-}catch(error){
-
-alert(
-"Unable to submit order. Please try again."
-);
-
-console.error(error);
-
-}
-
-
-$("submitBtn").disabled = false;
-
-$("submitBtn").innerText =
-"SUBMIT SHIPMENT ✓";
-
-});
-
-
-
-/* ================= ANOTHER SHIPMENT ================= */
-
-$("anotherBtn").addEventListener(
-"click",
-function(){
-
-clearShipmentForm();
-
-showPage("page2");
-
-$("s3").classList.remove("active");
-
-$("s2").classList.add("active");
-
-});
-
-
-
-function clearShipmentForm(){
-
-[
-"receiverName",
-"receiverMobile",
-"deliveryAddress",
-"deliveryCity",
-"deliveryPincode",
-"codAmount",
-"actualWeight",
-"length",
-"width",
-"height"
-
-].forEach(function(id){
-
-$(id).value = "";
-
-});
-
-
-$("zone").value = "";
-
-$("paymentType").value = "";
-
-$("codBox").style.display =
-"none";
-
-$("chargeBox").innerHTML =
-"Enter weight, dimensions and zone to calculate charges.";
-
-currentShipment = {};
+  ]);
 
 }
 
@@ -1538,17 +388,137 @@ currentShipment = {};
 
 /* ================= TRACK ================= */
 
-$("trackAfterBtn").addEventListener(
-"click",
-function(){
+function trackShipment(awb){
 
-$("trackingInput").value = "";
+  if(!awb){
 
-$("trackingResult").innerHTML = "";
+    return jsonResponse({
 
-showPage("trackingPage");
+      success:false,
 
-});
+      message:"AWB required"
+
+    });
+
+  }
 
 
-$("trackBtn").addEventListener(
+  const ss =
+    SpreadsheetApp.getActiveSpreadsheet();
+
+
+  const sheet =
+    ss.getSheetByName(SHEET_NAME);
+
+
+  if(!sheet){
+
+    return jsonResponse({
+
+      success:false,
+
+      message:"No orders"
+
+    });
+
+  }
+
+
+  const data =
+    sheet
+      .getDataRange()
+      .getValues();
+
+
+  /*
+  AWB column = 28
+  because:
+  Date=1
+  Internal ID=2
+  ...
+  AWB=28
+  */
+
+  for(let i=1;i<data.length;i++){
+
+    const row =
+      data[i];
+
+
+    const rowAwb =
+      String(row[27] || "")
+        .trim();
+
+
+    if(
+      rowAwb.toLowerCase() ===
+      String(awb).trim().toLowerCase()
+    ){
+
+      /*
+      IMPORTANT:
+
+      Do NOT send internal ID
+      or admin information.
+      */
+
+      return jsonResponse({
+
+        success:true,
+
+        order:{
+
+          receiverName:
+            row[8] || "",
+
+          deliveryCity:
+            row[11] || "",
+
+          awb:
+            row[27] || "",
+
+          status:
+            row[26] || "PENDING",
+
+          location:
+            row[28] || "",
+
+          trackingMessage:
+            row[29] || ""
+
+        }
+
+      });
+
+    }
+
+  }
+
+
+  return jsonResponse({
+
+    success:false,
+
+    message:"Shipment not found"
+
+  });
+
+}
+
+
+
+/* ================= JSON ================= */
+
+function jsonResponse(data){
+
+  return ContentService
+
+    .createTextOutput(
+      JSON.stringify(data)
+    )
+
+    .setMimeType(
+      ContentService.MimeType.JSON
+    );
+
+}
