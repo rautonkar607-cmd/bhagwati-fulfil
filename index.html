@@ -1,71 +1,2244 @@
-/* BHAGWATI FULFIL FINAL RATE CARD */
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>BHAGWATI FULFIL | Client Portal</title>
+
+<style>
+
+*{
+  box-sizing:border-box;
+}
+
+body{
+  margin:0;
+  font-family:Arial,sans-serif;
+  background:#f4f6f8;
+  color:#17202a;
+}
+
+header{
+  background:#111827;
+  color:white;
+  padding:18px 20px;
+  text-align:center;
+}
+
+header h1{
+  margin:0;
+  font-size:24px;
+}
+
+header p{
+  margin:6px 0 0;
+  font-size:13px;
+  color:#d1d5db;
+}
+
+.wrap{
+  max-width:850px;
+  margin:25px auto;
+  padding:0 15px;
+}
+
+.card{
+  background:white;
+  border-radius:14px;
+  padding:22px;
+  box-shadow:0 4px 18px #00000012;
+  margin-bottom:18px;
+}
+
+.steps{
+  display:flex;
+  gap:8px;
+  margin-bottom:18px;
+}
+
+.step{
+  flex:1;
+  text-align:center;
+  padding:10px;
+  border-radius:8px;
+  background:#e5e7eb;
+  font-size:12px;
+  font-weight:bold;
+}
+
+.step.active{
+  background:#111827;
+  color:white;
+}
+
+.step.done{
+  background:#16a34a;
+  color:white;
+}
+
+.page{
+  display:none;
+}
+
+.page.active{
+  display:block;
+}
+
+h2{
+  margin-top:0;
+}
+
+label{
+  display:block;
+  font-size:13px;
+  font-weight:bold;
+  margin:12px 0 6px;
+}
+
+input,
+select{
+  width:100%;
+  padding:12px;
+  border:1px solid #d1d5db;
+  border-radius:8px;
+  font-size:14px;
+  outline:none;
+}
+
+input:focus,
+select:focus{
+  border-color:#111827;
+}
+
+.grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:12px;
+}
+
+.full{
+  grid-column:1/-1;
+}
+
+button{
+  border:0;
+  border-radius:9px;
+  padding:12px 18px;
+  background:#111827;
+  color:white;
+  font-weight:bold;
+  cursor:pointer;
+  margin-top:16px;
+  width:100%;
+}
+
+button:hover{
+  opacity:.9;
+}
+
+button.secondary{
+  background:#e5e7eb;
+  color:#111827;
+}
+
+.row{
+  display:flex;
+  gap:10px;
+}
+
+.row button{
+  flex:1;
+}
+
+.notice{
+  padding:12px;
+  background:#f3f4f6;
+  border-radius:8px;
+  font-size:13px;
+  margin-top:12px;
+}
+
+.saved{
+  background:#f0fdf4;
+  border:1px solid #bbf7d0;
+  padding:14px;
+  border-radius:10px;
+  margin-bottom:15px;
+}
+
+.summary{
+  border:1px solid #e5e7eb;
+  border-radius:10px;
+  padding:14px;
+}
+
+.summary div{
+  display:flex;
+  justify-content:space-between;
+  gap:15px;
+  padding:8px 0;
+  border-bottom:1px solid #eee;
+}
+
+.summary div:last-child{
+  border:0;
+  font-weight:bold;
+  font-size:17px;
+}
+
+footer{
+  text-align:center;
+  padding:20px;
+  font-size:12px;
+  color:#6b7280;
+}
+
+@media(max-width:600px){
+
+  .grid{
+    grid-template-columns:1fr;
+  }
+
+  .full{
+    grid-column:auto;
+  }
+
+  .row{
+    flex-direction:column;
+  }
+
+  .steps{
+    gap:4px;
+  }
+
+  .step{
+    font-size:10px;
+    padding:9px 4px;
+  }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<!-- ================= HEADER ================= -->
+
+<header>
+
+<h1>BHAGWATI FULFIL</h1>
+
+<p>
+D2C PICKUP &amp; DELIVERY SERVICES
+</p>
+
+</header>
+
+
+<div class="wrap">
+
+
+<!-- ================= STEPS ================= -->
+
+<div class="steps">
+
+<div id="s1" class="step active">
+1. PROFILE
+</div>
+
+<div id="s2" class="step">
+2. SHIPMENT
+</div>
+
+<div id="s3" class="step">
+3. REVIEW &amp; BOOK
+</div>
+
+</div>
+
+
+
+<!-- ================================================= -->
+<!-- ================= PROFILE ======================= -->
+<!-- ================================================= -->
+
+<section id="page1" class="page active card">
+
+<h2>Client Profile</h2>
+
+
+<div id="savedProfile"
+class="saved"
+style="display:none">
+</div>
+
+
+<div class="grid">
+
+
+<div>
+
+<label>
+Client / Business Name *
+</label>
+
+<input
+id="clientName"
+type="text">
+
+</div>
+
+
+<div>
+
+<label>
+Contact Person *
+</label>
+
+<input
+id="contactName"
+type="text">
+
+</div>
+
+
+<div>
+
+<label>
+Mobile *
+</label>
+
+<input
+id="mobile"
+type="tel"
+inputmode="numeric"
+maxlength="10">
+
+</div>
+
+
+<div>
+
+<label>
+Pickup Address *
+</label>
+
+<input
+id="pickupAddress"
+type="text">
+
+</div>
+
+
+<div>
+
+<label>
+Pickup City *
+</label>
+
+<input
+id="pickupCity"
+type="text">
+
+</div>
+
+
+<div>
+
+<label>
+Pickup Pincode *
+</label>
+
+<input
+id="pickupPincode"
+type="tel"
+inputmode="numeric"
+maxlength="6">
+
+</div>
+
+
+<div>
+
+<label>
+Bank Name *
+</label>
+
+<input
+id="bankName"
+type="text">
+
+</div>
+
+
+<div>
+
+<label>
+Branch *
+</label>
+
+<input
+id="branch"
+type="text">
+
+</div>
+
+
+<div>
+
+<label>
+Account Type *
+</label>
+
+<select id="accountType">
+
+<option value="">
+Select
+</option>
+
+<option value="Savings">
+Savings
+</option>
+
+<option value="Current">
+Current
+</option>
+
+</select>
+
+</div>
+
+
+</div>
+
+
+<div class="row">
+
+<button id="saveBtn">
+
+SAVE &amp; CONTINUE →
+
+</button>
+
+
+<button
+id="editBtn"
+class="secondary"
+style="display:none">
+
+EDIT PROFILE
+
+</button>
+
+</div>
+
+
+</section>
+
+
+
+<!-- ================================================= -->
+<!-- ================= SHIPMENT ====================== -->
+<!-- ================================================= -->
+
+<section id="page2" class="page card">
+
+<h2>
+Book Shipment
+</h2>
+
+
+<div class="notice">
+
+Order ID automatically booking झाल्यावर generate होईल.
+
+Example:
+ONKAR-01, ONKAR-02, ONKAR-03
+
+</div>
+
+
+<div class="grid">
+
+
+<div>
+
+<label>
+Receiver Name *
+</label>
+
+<input
+id="receiverName"
+type="text">
+
+</div>
+
+
+<div>
+
+<label>
+Receiver Mobile *
+</label>
+
+<input
+id="receiverMobile"
+type="tel"
+inputmode="numeric"
+maxlength="10">
+
+</div>
+
+
+<div class="full">
+
+<label>
+Delivery Address *
+</label>
+
+<input
+id="deliveryAddress"
+type="text">
+
+</div>
+
+
+<div>
+
+<label>
+Delivery City *
+</label>
+
+<input
+id="deliveryCity"
+type="text">
+
+</div>
+
+
+<div>
+
+<label>
+Delivery Pincode *
+</label>
+
+<input
+id="deliveryPincode"
+type="tel"
+inputmode="numeric"
+maxlength="6">
+
+</div>
+
+
+<div>
+
+<label>
+Service / Zone *
+</label>
+
+<select id="zone">
+
+<option value="">
+Select Zone
+</option>
+
+<option value="Maharashtra">
+Maharashtra
+</option>
+
+<option value="Pan India">
+Pan India
+</option>
+
+</select>
+
+</div>
+
+
+<div>
+
+<label>
+Payment Type *
+</label>
+
+<select id="paymentType">
+
+<option value="">
+Select
+</option>
+
+<option value="Prepaid">
+Prepaid
+</option>
+
+<option value="COD">
+COD
+</option>
+
+</select>
+
+</div>
+
+
+<div
+id="codBox"
+style="display:none">
+
+<label>
+COD Amount ₹ *
+</label>
+
+<input
+id="codAmount"
+type="number"
+min="0"
+step="0.01">
+
+</div>
+
+
+<div>
+
+<label>
+Actual Weight (grams) *
+</label>
+
+<input
+id="actualWeight"
+type="number"
+min="1"
+step="0.01">
+
+</div>
+
+
+<div>
+
+<label>
+Length (cm) *
+</label>
+
+<input
+id="length"
+type="number"
+min="1"
+step="0.01">
+
+</div>
+
+
+<div>
+
+<label>
+Width (cm) *
+</label>
+
+<input
+id="width"
+type="number"
+min="1"
+step="0.01">
+
+</div>
+
+
+<div>
+
+<label>
+Height (cm) *
+</label>
+
+<input
+id="height"
+type="number"
+min="1"
+step="0.01">
+
+</div>
+
+
+</div>
+
+
+<div
+id="chargeBox"
+class="notice">
+
+Enter weight, dimensions and zone to calculate charges.
+
+</div>
+
+
+<div class="row">
+
+<button
+id="backProfile"
+class="secondary">
+
+← PROFILE
+
+</button>
+
+
+<button id="reviewBtn">
+
+REVIEW →
+
+</button>
+
+</div>
+
+
+</section>
+
+
+
+<!-- ================================================= -->
+<!-- ================= REVIEW ======================== -->
+<!-- ================================================= -->
+
+<section id="page3" class="page card">
+
+<h2>
+Review &amp; Book
+</h2>
+
+
+<div
+id="review"
+class="summary">
+
+</div>
+
+
+<div class="row">
+
+<button
+id="backShipment"
+class="secondary">
+
+← EDIT SHIPMENT
+
+</button>
+
+
+<button id="bookBtn">
+
+BOOK SHIPMENT ✓
+
+</button>
+
+</div>
+
+
+</section>
+
+
+
+<!-- ================================================= -->
+<!-- ================= SUCCESS ======================= -->
+<!-- ================================================= -->
+
+<section id="success" class="page card">
+
+<h2>
+Shipment Booked ✓
+</h2>
+
+
+<div
+id="successBox"
+class="saved">
+
+</div>
+
+
+<button id="newBtn">
+
+BOOK ANOTHER SHIPMENT
+
+</button>
+
+
+</section>
+
+
+</div>
+
+
+<footer>
+
+BHAGWATI FULFIL
+
+</footer>
+
+
+
+<!-- ================================================= -->
+<!-- ================= JAVASCRIPT ==================== -->
+<!-- ================================================= -->
+
+<script>
+
+document.addEventListener(
+"DOMContentLoaded",
+function(){
+
+
+
+/* ================= ELEMENTS ================= */
+
+const saveBtn =
+document.getElementById("saveBtn");
+
+const editBtn =
+document.getElementById("editBtn");
+
+const backProfile =
+document.getElementById("backProfile");
+
+const reviewBtn =
+document.getElementById("reviewBtn");
+
+const backShipment =
+document.getElementById("backShipment");
+
+const bookBtn =
+document.getElementById("bookBtn");
+
+const newBtn =
+document.getElementById("newBtn");
+
+const paymentType =
+document.getElementById("paymentType");
+
+const codBox =
+document.getElementById("codBox");
+
+const chargeBox =
+document.getElementById("chargeBox");
+
+
+
+/* ================= PAGE NAVIGATION ================= */
+
+function showPage(number){
+
+document
+.querySelectorAll(".page")
+.forEach(function(page){
+
+page.classList.remove("active");
+
+});
+
+
+if(number === 4){
+
+document
+.getElementById("success")
+.classList.add("active");
+
+}else{
+
+document
+.getElementById("page" + number)
+.classList.add("active");
+
+}
+
+
+/* STEP STATUS */
+
+document
+.querySelectorAll(".step")
+.forEach(function(step){
+
+step.classList.remove("active");
+step.classList.remove("done");
+
+});
+
+
+if(number === 1){
+
+document
+.getElementById("s1")
+.classList.add("active");
+
+}
+
+
+if(number === 2){
+
+document
+.getElementById("s1")
+.classList.add("done");
+
+document
+.getElementById("s2")
+.classList.add("active");
+
+}
+
+
+if(number === 3){
+
+document
+.getElementById("s1")
+.classList.add("done");
+
+document
+.getElementById("s2")
+.classList.add("done");
+
+document
+.getElementById("s3")
+.classList.add("active");
+
+}
+
+
+window.scrollTo({
+top:0,
+behavior:"smooth"
+});
+
+}
+
+
+
+/* ================= PROFILE VALIDATION ================= */
+
+function validateProfile(){
+
+const fields = [
+
+["clientName","Client / Business Name"],
+
+["contactName","Contact Person"],
+
+["mobile","Mobile"],
+
+["pickupAddress","Pickup Address"],
+
+["pickupCity","Pickup City"],
+
+["pickupPincode","Pickup Pincode"],
+
+["bankName","Bank Name"],
+
+["branch","Branch"],
+
+["accountType","Account Type"]
+
+];
+
+
+for(
+const item of fields
+){
+
+const field =
+document.getElementById(item[0]);
+
+
+if(!field.value.trim()){
+
+alert(
+"Please fill: " +
+item[1]
+);
+
+field.focus();
+
+return false;
+
+}
+
+}
+
+
+/* MOBILE */
+
+const mobile =
+document
+.getElementById("mobile")
+.value
+.trim();
+
+
+if(!/^[0-9]{10}$/.test(mobile)){
+
+alert(
+"Please enter valid 10 digit mobile number."
+);
+
+document
+.getElementById("mobile")
+.focus();
+
+return false;
+
+}
+
+
+/* PINCODE */
+
+const pincode =
+document
+.getElementById("pickupPincode")
+.value
+.trim();
+
+
+if(!/^[0-9]{6}$/.test(pincode)){
+
+alert(
+"Please enter valid 6 digit pickup pincode."
+);
+
+document
+.getElementById("pickupPincode")
+.focus();
+
+return false;
+
+}
+
+
+return true;
+
+}
+
+
+
+/* ================= SAVE PROFILE ================= */
+
+saveBtn.addEventListener(
+"click",
+function(){
+
+if(!validateProfile()){
+
+return;
+
+}
+
+
+const profile = {
+
+clientName:
+document
+.getElementById("clientName")
+.value
+.trim(),
+
+contactName:
+document
+.getElementById("contactName")
+.value
+.trim(),
+
+mobile:
+document
+.getElementById("mobile")
+.value
+.trim(),
+
+pickupAddress:
+document
+.getElementById("pickupAddress")
+.value
+.trim(),
+
+pickupCity:
+document
+.getElementById("pickupCity")
+.value
+.trim(),
+
+pickupPincode:
+document
+.getElementById("pickupPincode")
+.value
+.trim(),
+
+bankName:
+document
+.getElementById("bankName")
+.value
+.trim(),
+
+branch:
+document
+.getElementById("branch")
+.value
+.trim(),
+
+accountType:
+document
+.getElementById("accountType")
+.value
+
+};
+
+
+localStorage.setItem(
+"bhagwatiProfile",
+JSON.stringify(profile)
+);
+
+
+/* SAVED MESSAGE */
+
+const savedProfile =
+document.getElementById("savedProfile");
+
+
+savedProfile.innerHTML =
+
+"<strong>Profile Saved ✓</strong><br>" +
+
+"Business: " +
+escapeHTML(profile.clientName) +
+
+"<br>Mobile: " +
+escapeHTML(profile.mobile);
+
+
+savedProfile.style.display =
+"block";
+
+
+saveBtn.style.display =
+"none";
+
+editBtn.style.display =
+"block";
+
+
+/* IMPORTANT */
+
+showPage(2);
+
+});
+
+
+
+/* ================= EDIT PROFILE ================= */
+
+editBtn.addEventListener(
+"click",
+function(){
+
+saveBtn.style.display =
+"block";
+
+editBtn.style.display =
+"none";
+
+});
+
+
+
+/* ================= COD ================= */
+
+paymentType.addEventListener(
+"change",
+function(){
+
+if(this.value === "COD"){
+
+codBox.style.display =
+"block";
+
+}else{
+
+codBox.style.display =
+"none";
+
+document
+.getElementById("codAmount")
+.value = "";
+
+}
+
+calculateCharges();
+
+});
+
+
+
+/* ================= CHARGES ================= */
+
+function calculateCharges(){
+
+const weight =
+parseFloat(
+document
+.getElementById("actualWeight")
+.value
+) || 0;
+
+
+const length =
+parseFloat(
+document
+.getElementById("length")
+.value
+) || 0;
+
+
+const width =
+parseFloat(
+document
+.getElementById("width")
+.value
+) || 0;
+
+
+const height =
+parseFloat(
+document
+.getElementById("height")
+.value
+) || 0;
+
+
+const zone =
+document
+.getElementById("zone")
+.value;
+
+
+if(
+!weight ||
+!length ||
+!width ||
+!height ||
+!zone
+){
+
+chargeBox.innerHTML =
+"Enter weight, dimensions and zone to calculate charges.";
+
+return;
+
+}
+
+
+/* ACTUAL WEIGHT */
+
+const actualKg =
+weight / 1000;
+
+
+/* VOLUMETRIC WEIGHT */
+
+const volumetricKg =
+(length * width * height) / 5000;
+
+
+/* CHARGEABLE WEIGHT */
+
+const chargeableKg =
+Math.max(
+actualKg,
+volumetricKg
+);
+
+
+/* BASIC SHIPPING */
 
 let shipping = 0;
 
+
 if(zone === "Maharashtra"){
 
-  if(chargeableKg <= 0.25){
-    shipping = 40;
-  }
-  else if(chargeableKg <= 0.50){
-    shipping = 45;
-  }
-  else if(chargeableKg <= 0.75){
-    shipping = 55;
-  }
-  else if(chargeableKg <= 1.00){
-    shipping = 70;
-  }
-  else if(chargeableKg <= 1.50){
-    shipping = 95;
-  }
-  else if(chargeableKg <= 2.00){
-    shipping = 105;
-  }
-  else{
-    shipping = 105 + Math.ceil(chargeableKg - 2) * 20;
-  }
+shipping =
+50 + (chargeableKg * 20);
 
 }
 
 
 if(zone === "Pan India"){
 
-  if(chargeableKg <= 0.25){
-    shipping = 50;
-  }
-  else if(chargeableKg <= 0.50){
-    shipping = 60;
-  }
-  else if(chargeableKg <= 0.75){
-    shipping = 75;
-  }
-  else if(chargeableKg <= 1.00){
-    shipping = 90;
-  }
-  else if(chargeableKg <= 1.50){
-    shipping = 115;
-  }
-  else if(chargeableKg <= 2.00){
-    shipping = 125;
-  }
-  else{
-    shipping = 125 + Math.ceil(chargeableKg - 2) * 25;
-  }
+shipping =
+70 + (chargeableKg * 30);
 
 }
 
 
-/* COD EXTRA CHARGE */
+/* COD */
 
 let codCharge = 0;
 
+
 if(paymentType.value === "COD"){
-  codCharge = 25;
+
+codCharge = 30;
+
 }
 
 
-/* FINAL TOTAL */
+const total =
+shipping + codCharge;
+
+
+chargeBox.innerHTML =
+
+"<strong>Chargeable Weight:</strong> " +
+
+chargeableKg.toFixed(2) +
+
+" kg" +
+
+"<br><strong>Shipping Charge:</strong> ₹" +
+
+shipping.toFixed(2) +
+
+"<br><strong>COD Charge:</strong> ₹" +
+
+codCharge.toFixed(2) +
+
+"<br><strong>Total Charge:</strong> ₹" +
+
+total.toFixed(2);
+
+}
+
+
+
+/* ================= AUTO CHARGE ================= */
+
+const chargeInputs = [
+
+"actualWeight",
+"length",
+"width",
+"height",
+"zone",
+"codAmount"
+
+];
+
+
+chargeInputs.forEach(
+function(id){
+
+document
+.getElementById(id)
+.addEventListener(
+"input",
+calculateCharges
+);
+
+document
+.getElementById(id)
+.addEventListener(
+"change",
+calculateCharges
+);
+
+});
+
+
+
+/* ================= SHIPMENT VALIDATION ================= */
+
+function validateShipment(){
+
+const fields = [
+
+["receiverName","Receiver Name"],
+
+["receiverMobile","Receiver Mobile"],
+
+["deliveryAddress","Delivery Address"],
+
+["deliveryCity","Delivery City"],
+
+["deliveryPincode","Delivery Pincode"],
+
+["zone","Service / Zone"],
+
+["paymentType","Payment Type"],
+
+["actualWeight","Actual Weight"],
+
+["length","Length"],
+
+["width","Width"],
+
+["height","Height"]
+
+];
+
+
+for(
+const item of fields
+){
+
+const field =
+document
+.getElementById(item[0]);
+
+
+if(!field.value.trim()){
+
+alert(
+"Please fill: " +
+item[1]
+);
+
+field.focus();
+
+return false;
+
+}
+
+}
+
+
+/* RECEIVER MOBILE */
+
+const mobile =
+document
+.getElementById("receiverMobile")
+.value
+.trim();
+
+
+if(!/^[0-9]{10}$/.test(mobile)){
+
+alert(
+"Please enter valid 10 digit receiver mobile number."
+);
+
+document
+.getElementById("receiverMobile")
+.focus();
+
+return false;
+
+}
+
+
+/* DELIVERY PINCODE */
+
+const pincode =
+document
+.getElementById("deliveryPincode")
+.value
+.trim();
+
+
+if(!/^[0-9]{6}$/.test(pincode)){
+
+alert(
+"Please enter valid 6 digit delivery pincode."
+);
+
+document
+.getElementById("deliveryPincode")
+.focus();
+
+return false;
+
+}
+
+
+/* COD */
+
+if(
+paymentType.value === "COD"
+){
+
+const cod =
+parseFloat(
+document
+.getElementById("codAmount")
+.value
+) || 0;
+
+
+if(cod <= 0){
+
+alert(
+"Please enter valid COD Amount."
+);
+
+document
+.getElementById("codAmount")
+.focus();
+
+return false;
+
+}
+
+}
+
+
+return true;
+
+}
+
+
+
+/* ================= REVIEW ================= */
+
+reviewBtn.addEventListener(
+"click",
+function(){
+
+if(!validateShipment()){
+
+return;
+
+}
+
+
+createReview();
+
+showPage(3);
+
+});
+
+
+
+/* ================= REVIEW DATA ================= */
+
+function createReview(){
+
+const profile =
+JSON.parse(
+localStorage.getItem(
+"bhagwatiProfile"
+) || "{}"
+);
+
+
+const receiverName =
+document
+.getElementById("receiverName")
+.value
+.trim();
+
+
+const receiverMobile =
+document
+.getElementById("receiverMobile")
+.value
+.trim();
+
+
+const deliveryAddress =
+document
+.getElementById("deliveryAddress")
+.value
+.trim();
+
+
+const deliveryCity =
+document
+.getElementById("deliveryCity")
+.value
+.trim();
+
+
+const deliveryPincode =
+document
+.getElementById("deliveryPincode")
+.value
+.trim();
+
+
+const zone =
+document
+.getElementById("zone")
+.value;
+
+
+const payment =
+document
+.getElementById("paymentType")
+.value;
+
+
+const codAmount =
+document
+.getElementById("codAmount")
+.value || "0";
+
+
+const weight =
+document
+.getElementById("actualWeight")
+.value;
+
+
+const length =
+document
+.getElementById("length")
+.value;
+
+
+const width =
+document
+.getElementById("width")
+.value;
+
+
+const height =
+document
+.getElementById("height")
+.value;
+
+
+const review =
+document
+.getElementById("review");
+
+
+review.innerHTML = `
+
+<div>
+
+<span>Business</span>
+
+<span>
+${escapeHTML(profile.clientName || "-")}
+</span>
+
+</div>
+
+
+<div>
+
+<span>Contact</span>
+
+<span>
+${escapeHTML(profile.contactName || "-")}
+</span>
+
+</div>
+
+
+<div>
+
+<span>Pickup City</span>
+
+<span>
+${escapeHTML(profile.pickupCity || "-")}
+</span>
+
+</div>
+
+
+<div>
+
+<span>Receiver</span>
+
+<span>
+${escapeHTML(receiverName)}
+</span>
+
+</div>
+
+
+<div>
+
+<span>Receiver Mobile</span>
+
+<span>
+${escapeHTML(receiverMobile)}
+</span>
+
+</div>
+
+
+<div>
+
+<span>Delivery Address</span>
+
+<span>
+${escapeHTML(deliveryAddress)}
+</span>
+
+</div>
+
+
+<div>
+
+<span>Delivery City</span>
+
+<span>
+${escapeHTML(deliveryCity)}
+</span>
+
+</div>
+
+
+<div>
+
+<span>Delivery Pincode</span>
+
+<span>
+${escapeHTML(deliveryPincode)}
+</span>
+
+</div>
+
+
+<div>
+
+<span>Zone</span>
+
+<span>
+${escapeHTML(zone)}
+</span>
+
+</div>
+
+
+<div>
+
+<span>Payment</span>
+
+<span>
+${escapeHTML(payment)}
+</span>
+
+</div>
+
+
+<div>
+
+<span>COD Amount</span>
+
+<span>
+₹${escapeHTML(codAmount)}
+</span>
+
+</div>
+
+
+<div>
+
+<span>Weight</span>
+
+<span>
+${escapeHTML(weight)} g
+</span>
+
+</div>
+
+
+<div>
+
+<span>Dimensions</span>
+
+<span>
+${escapeHTML(length)}
+×
+${escapeHTML(width)}
+×
+${escapeHTML(height)}
+cm
+</span>
+
+</div>
+
+
+<div>
+
+<span>Estimated Charge</span>
+
+<span id="reviewCharge">
+Calculating...
+</span>
+
+</div>
+
+`;
+
+
+calculateReviewCharge();
+
+}
+
+
+
+/* ================= REVIEW CHARGE ================= */
+
+function calculateReviewCharge(){
+
+const weight =
+parseFloat(
+document
+.getElementById("actualWeight")
+.value
+) || 0;
+
+
+const length =
+parseFloat(
+document
+.getElementById("length")
+.value
+) || 0;
+
+
+const width =
+parseFloat(
+document
+.getElementById("width")
+.value
+) || 0;
+
+
+const height =
+parseFloat(
+document
+.getElementById("height")
+.value
+) || 0;
+
+
+const zone =
+document
+.getElementById("zone")
+.value;
+
+
+const actualKg =
+weight / 1000;
+
+
+const volumetricKg =
+(length * width * height) / 5000;
+
+
+const chargeableKg =
+Math.max(
+actualKg,
+volumetricKg
+);
+
+
+let shipping = 0;
+
+
+if(zone === "Maharashtra"){
+
+shipping =
+50 + chargeableKg * 20;
+
+}
+
+
+if(zone === "Pan India"){
+
+shipping =
+70 + chargeableKg * 30;
+
+}
+
+
+const codCharge =
+paymentType.value === "COD"
+? 30
+: 0;
+
 
 const total =
 shipping + codCharge;
+
+
+const reviewCharge =
+document
+.getElementById("reviewCharge");
+
+
+if(reviewCharge){
+
+reviewCharge.innerHTML =
+"₹" + total.toFixed(2);
+
+}
+
+}
+
+
+
+/* ================= BACK PROFILE ================= */
+
+backProfile.addEventListener(
+"click",
+function(){
+
+showPage(1);
+
+});
+
+
+
+/* ================= BACK SHIPMENT ================= */
+
+backShipment.addEventListener(
+"click",
+function(){
+
+showPage(2);
+
+});
+
+
+
+/* ================= BOOK SHIPMENT ================= */
+
+bookBtn.addEventListener(
+"click",
+function(){
+
+const profile =
+JSON.parse(
+localStorage.getItem(
+"bhagwatiProfile"
+) || "{}"
+);
+
+
+let orderNumber =
+parseInt(
+localStorage.getItem(
+"bhagwatiOrderNumber"
+) || "0"
+);
+
+
+orderNumber++;
+
+
+localStorage.setItem(
+"bhagwatiOrderNumber",
+orderNumber
+);
+
+
+let name =
+profile.contactName ||
+profile.clientName ||
+"CLIENT";
+
+
+name =
+name
+.replace(
+/[^a-zA-Z0-9]/g,
+""
+)
+.toUpperCase();
+
+
+const orderId =
+name +
+"-" +
+String(orderNumber)
+.padStart(2,"0");
+
+
+const successBox =
+document
+.getElementById("successBox");
+
+
+successBox.innerHTML = `
+
+<strong>
+Shipment booked successfully ✓
+</strong>
+
+<br><br>
+
+<strong>
+Order ID:
+</strong>
+
+${escapeHTML(orderId)}
+
+<br><br>
+
+<strong>
+Receiver:
+</strong>
+
+${escapeHTML(
+document
+.getElementById("receiverName")
+.value
+)}
+
+<br>
+
+<strong>
+Mobile:
+</strong>
+
+${escapeHTML(
+document
+.getElementById("receiverMobile")
+.value
+)}
+
+<br>
+
+<strong>
+Payment:
+</strong>
+
+${escapeHTML(
+document
+.getElementById("paymentType")
+.value
+)}
+
+<br><br>
+
+Please keep this Order ID for tracking.
+
+`;
+
+
+showPage(4);
+
+});
+
+
+
+/* ================= NEW SHIPMENT ================= */
+
+newBtn.addEventListener(
+"click",
+function(){
+
+const fields = [
+
+"receiverName",
+"receiverMobile",
+"deliveryAddress",
+"deliveryCity",
+"deliveryPincode",
+"zone",
+"paymentType",
+"codAmount",
+"actualWeight",
+"length",
+"width",
+"height"
+
+];
+
+
+fields.forEach(
+function(id){
+
+document
+.getElementById(id)
+.value = "";
+
+});
+
+
+codBox.style.display =
+"none";
+
+
+chargeBox.innerHTML =
+"Enter weight, dimensions and zone to calculate charges.";
+
+
+showPage(2);
+
+});
+
+
+
+/* ================= LOAD PROFILE ================= */
+
+function loadProfile(){
+
+const saved =
+localStorage.getItem(
+"bhagwatiProfile"
+);
+
+
+if(!saved){
+
+return;
+
+}
+
+
+try{
+
+const profile =
+JSON.parse(saved);
+
+
+document
+.getElementById("clientName")
+.value =
+profile.clientName || "";
+
+
+document
+.getElementById("contactName")
+.value =
+profile.contactName || "";
+
+
+document
+.getElementById("mobile")
+.value =
+profile.mobile || "";
+
+
+document
+.getElementById("pickupAddress")
+.value =
+profile.pickupAddress || "";
+
+
+document
+.getElementById("pickupCity")
+.value =
+profile.pickupCity || "";
+
+
+document
+.getElementById("pickupPincode")
+.value =
+profile.pickupPincode || "";
+
+
+document
+.getElementById("bankName")
+.value =
+profile.bankName || "";
+
+
+document
+.getElementById("branch")
+.value =
+profile.branch || "";
+
+
+document
+.getElementById("accountType")
+.value =
+profile.accountType || "";
+
+
+const savedProfile =
+document
+.getElementById("savedProfile");
+
+
+savedProfile.innerHTML =
+
+"<strong>Profile Saved ✓</strong><br>" +
+
+"Business: " +
+
+escapeHTML(
+profile.clientName || ""
+) +
+
+"<br>Mobile: " +
+
+escapeHTML(
+profile.mobile || ""
+);
+
+
+savedProfile.style.display =
+"block";
+
+
+saveBtn.style.display =
+"none";
+
+
+editBtn.style.display =
+"block";
+
+
+}catch(error){
+
+console.log(
+"Profile load error:",
+error
+);
+
+}
+
+}
+
+
+
+/* ================= SECURITY ================= */
+
+function escapeHTML(value){
+
+return String(value)
+
+.replace(
+/&/g,
+"&amp;"
+)
+
+.replace(
+/</g,
+"&lt;"
+)
+
+.replace(
+/>/g,
+"&gt;"
+)
+
+.replace(
+/"/g,
+"&quot;"
+)
+
+.replace(
+/'/g,
+"&#039;"
+);
+
+}
+
+
+
+/* ================= START ================= */
+
+loadProfile();
+
+});
+
+</script>
+
+
+</body>
+
+</html>
