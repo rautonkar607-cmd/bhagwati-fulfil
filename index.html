@@ -1,37 +1,140 @@
 const SHEET_NAME = "Orders";
 
+/* =====================================================
+   RATE CARD
+   इथे तुझे actual rates टाकायचे आहेत.
 
-function doGet(e){
+   Zone:
+   A, B, C, D किंवा तुझ्या system मधले zones.
+
+   Weight slabs KG मध्ये.
+===================================================== */
+
+const RATE_CARD = {
+
+  A: {
+    0.5: 50,
+    1: 60,
+    1.5: 70,
+    2: 80,
+    2.5: 90,
+    3: 100,
+    3.5: 110,
+    4: 120,
+    4.5: 130,
+    5: 140
+  },
+
+  B: {
+    0.5: 55,
+    1: 65,
+    1.5: 75,
+    2: 85,
+    2.5: 95,
+    3: 105,
+    3.5: 115,
+    4: 125,
+    4.5: 135,
+    5: 145
+  },
+
+  C: {
+    0.5: 60,
+    1: 70,
+    1.5: 80,
+    2: 90,
+    2.5: 100,
+    3: 110,
+    3.5: 120,
+    4: 130,
+    4.5: 140,
+    5: 150
+  },
+
+  D: {
+    0.5: 65,
+    1: 75,
+    1.5: 85,
+    2: 95,
+    2.5: 105,
+    3: 115,
+    3.5: 125,
+    4: 135,
+    4.5: 145,
+    5: 155
+  }
+
+};
+
+
+/* =====================================================
+   COD CHARGE
+===================================================== */
+
+const COD_CHARGE = 30;
+
+
+/* =====================================================
+   GET
+===================================================== */
+
+function doGet(e) {
 
   const action =
-    e.parameter.action || "";
+    e && e.parameter
+      ? e.parameter.action || ""
+      : "";
 
+  if (action === "track") {
 
-  if(action === "track"){
-
-    return trackShipment(e.parameter.awb);
+    return trackShipment(
+      e.parameter.awb
+    );
 
   }
 
-
   return jsonResponse({
-    success:true,
-    message:"BHAGWATI FULFIL API is running"
+
+    success: true,
+
+    message:
+      "BHAGWATI FULFIL API is running"
+
   });
 
 }
 
 
+/* =====================================================
+   POST
+===================================================== */
 
-function doPost(e){
+function doPost(e) {
 
-  try{
+  try {
+
+    if (!e || !e.postData) {
+
+      return jsonResponse({
+
+        success: false,
+
+        message: "No data received"
+
+      });
+
+    }
 
     const data =
-      JSON.parse(e.postData.contents);
+      JSON.parse(
+        e.postData.contents
+      );
 
 
-    if(data.action === "createOrder"){
+    if (
+      data.action ===
+      "createOrder"
+    ) {
 
       return createOrder(data);
 
@@ -40,20 +143,20 @@ function doPost(e){
 
     return jsonResponse({
 
-      success:false,
+      success: false,
 
-      message:"Invalid action"
+      message: "Invalid action"
 
     });
 
 
-  }catch(error){
+  } catch (error) {
 
     return jsonResponse({
 
-      success:false,
+      success: false,
 
-      message:error.toString()
+      message: error.toString()
 
     });
 
@@ -62,23 +165,29 @@ function doPost(e){
 }
 
 
+/* =====================================================
+   CREATE ORDER
+===================================================== */
 
-/* ================= CREATE ORDER ================= */
-
-function createOrder(data){
+function createOrder(data) {
 
   const ss =
-    SpreadsheetApp.getActiveSpreadsheet();
+    SpreadsheetApp
+      .getActiveSpreadsheet();
 
 
   let sheet =
-    ss.getSheetByName(SHEET_NAME);
+    ss.getSheetByName(
+      SHEET_NAME
+    );
 
 
-  if(!sheet){
+  if (!sheet) {
 
     sheet =
-      ss.insertSheet(SHEET_NAME);
+      ss.insertSheet(
+        SHEET_NAME
+      );
 
   }
 
@@ -89,25 +198,26 @@ function createOrder(data){
   const profile =
     data.profile || {};
 
+
   const shipment =
     data.shipment || {};
 
 
   const clientName =
-    profile.clientName || "CLIENT";
+    profile.clientName ||
+    "CLIENT";
 
 
-  /*
-  Internal Order ID
-
-  Example:
-  RAHUL-01
-  RAHUL-02
-  */
+  /* =================================================
+     INTERNAL ID
+  ================================================= */
 
   const cleanName =
-    clientName
-      .replace(/[^a-zA-Z0-9]/g,"")
+    String(clientName)
+      .replace(
+        /[^a-zA-Z0-9]/g,
+        ""
+      )
       .toUpperCase();
 
 
@@ -118,19 +228,204 @@ function createOrder(data){
     );
 
 
-  /*
-  Status always starts as PENDING.
-  Admin changes it later.
-  */
+  /* =================================================
+     BASIC DETAILS
+  ================================================= */
+
+  const contactName =
+    profile.contactName || "";
+
+
+  const mobile =
+    profile.mobile || "";
+
+
+  const pickupAddress =
+    profile.pickupAddress || "";
+
+
+  const pickupCity =
+    profile.pickupCity || "";
+
+
+  const pickupPincode =
+    profile.pickupPincode || "";
+
+
+  /* =================================================
+     SHIPMENT DETAILS
+  ================================================= */
+
+  const receiverName =
+    shipment.receiverName || "";
+
+
+  const receiverMobile =
+    shipment.receiverMobile || "";
+
+
+  const deliveryAddress =
+    shipment.deliveryAddress || "";
+
+
+  const deliveryCity =
+    shipment.deliveryCity || "";
+
+
+  const deliveryPincode =
+    shipment.deliveryPincode || "";
+
+
+  const zone =
+    String(
+      shipment.zone || "A"
+    ).toUpperCase();
+
+
+  const paymentType =
+    String(
+      shipment.paymentType ||
+      "PREPAID"
+    ).toUpperCase();
+
+
+  const codAmount =
+    Number(
+      shipment.codAmount || 0
+    );
+
+
+  /* =================================================
+     WEIGHT
+  ================================================= */
+
+  const actualWeightGrams =
+    Number(
+      shipment.actualWeight || 0
+    );
+
+
+  const actualKg =
+    actualWeightGrams / 1000;
+
+
+  const length =
+    Number(
+      shipment.length || 0
+    );
+
+
+  const width =
+    Number(
+      shipment.width || 0
+    );
+
+
+  const height =
+    Number(
+      shipment.height || 0
+    );
+
+
+  /* =================================================
+     VOLUMETRIC WEIGHT
+
+     L × W × H / 5000
+  ================================================= */
+
+  let volumetricKg = 0;
+
+
+  if (
+    length > 0 &&
+    width > 0 &&
+    height > 0
+  ) {
+
+    volumetricKg =
+      (
+        length *
+        width *
+        height
+      ) / 5000;
+
+  }
+
+
+  /* =================================================
+     APPLICABLE WEIGHT
+
+     Actual vs Volumetric
+     जो जास्त तो
+  ================================================= */
+
+  const applicableKg =
+    Math.max(
+      actualKg,
+      volumetricKg
+    );
+
+
+  /* =================================================
+     RATE
+
+     Weight slab वर round-up
+  ================================================= */
+
+  const rate =
+    calculateShippingRate(
+      zone,
+      applicableKg
+    );
+
+
+  /* =================================================
+     COD
+  ================================================= */
+
+  let codCharge = 0;
+
+
+  if (
+    paymentType === "COD"
+  ) {
+
+    codCharge =
+      calculateCodCharge(
+        codAmount
+      );
+
+  }
+
+
+  /* =================================================
+     TOTAL
+
+     Shipping + COD
+  ================================================= */
+
+  const total =
+    rate + codCharge;
+
+
+  /* =================================================
+     INITIAL STATUS
+
+     Admin नंतर change करेल.
+  ================================================= */
 
   const status =
     "PENDING";
 
 
-  /*
-  AWB is empty initially.
-  Admin enters it later.
-  */
+  /* =================================================
+     AWB
+
+     सुरुवातीला blank.
+
+     Admin GenZ वर booking
+     केल्यानंतर manually टाकेल.
+  ================================================= */
 
   const awb = "";
 
@@ -145,6 +440,10 @@ function createOrder(data){
     new Date();
 
 
+  /* =================================================
+     SAVE ROW
+  ================================================= */
+
   const row = [
 
     timestamp,
@@ -153,51 +452,51 @@ function createOrder(data){
 
     clientName,
 
-    profile.contactName || "",
+    contactName,
 
-    profile.mobile || "",
+    mobile,
 
-    profile.pickupAddress || "",
+    pickupAddress,
 
-    profile.pickupCity || "",
+    pickupCity,
 
-    profile.pickupPincode || "",
+    pickupPincode,
 
-    shipment.receiverName || "",
+    receiverName,
 
-    shipment.receiverMobile || "",
+    receiverMobile,
 
-    shipment.deliveryAddress || "",
+    deliveryAddress,
 
-    shipment.deliveryCity || "",
+    deliveryCity,
 
-    shipment.deliveryPincode || "",
+    deliveryPincode,
 
-    shipment.zone || "",
+    zone,
 
-    shipment.paymentType || "",
+    paymentType,
 
-    shipment.codAmount || "",
+    codAmount,
 
-    shipment.actualWeight || "",
+    actualWeightGrams,
 
-    shipment.length || "",
+    length,
 
-    shipment.width || "",
+    width,
 
-    shipment.height || "",
+    height,
 
-    shipment.actualKg || "",
+    actualKg,
 
-    shipment.volumetricKg || "",
+    volumetricKg,
 
-    shipment.applicableKg || "",
+    applicableKg,
 
-    shipment.shipping || "",
+    rate,
 
-    shipment.codCharge || "",
+    codCharge,
 
-    shipment.total || "",
+    total,
 
     status,
 
@@ -213,38 +512,139 @@ function createOrder(data){
   sheet.appendRow(row);
 
 
+  /* =================================================
+     CLIENT RESPONSE
+
+     IMPORTANT:
+     Internal ID / rate details /
+     admin details expose करत नाही.
+  ================================================= */
+
   return jsonResponse({
 
-    success:true,
+    success: true,
 
-    message:"Shipment received",
-
-    /*
-    IMPORTANT:
-    Internal ID is intentionally
-    NOT returned to client.
-    */
+    message:
+      "Shipment booked successfully"
 
   });
 
 }
 
 
+/* =====================================================
+   SHIPPING RATE CALCULATION
+===================================================== */
 
-/* ================= INTERNAL ID ================= */
+function calculateShippingRate(
+  zone,
+  applicableKg
+) {
+
+  const rates =
+    RATE_CARD[zone];
+
+
+  if (!rates) {
+
+    return 0;
+
+  }
+
+
+  const slabs =
+    Object.keys(rates)
+      .map(Number)
+      .sort(
+        function(a, b) {
+          return a - b;
+        }
+      );
+
+
+  for (
+    let i = 0;
+    i < slabs.length;
+    i++
+  ) {
+
+    const slab =
+      slabs[i];
+
+
+    if (
+      applicableKg <= slab
+    ) {
+
+      return Number(
+        rates[slab]
+      );
+
+    }
+
+  }
+
+
+  /*
+    जर weight 5kg पेक्षा जास्त असेल
+    तर 0 return करण्याऐवजी
+    last slab + additional rate
+    ठेवू शकतो.
+
+    तुझा actual rate card मिळाल्यावर
+    हा भाग exact करू.
+  */
+
+  const lastSlab =
+    slabs[slabs.length - 1];
+
+
+  return Number(
+    rates[lastSlab]
+  );
+
+}
+
+
+/* =====================================================
+   COD CALCULATION
+===================================================== */
+
+function calculateCodCharge(
+  codAmount
+) {
+
+  if (codAmount <= 0) {
+
+    return 0;
+
+  }
+
+
+  return COD_CHARGE;
+
+}
+
+
+/* =====================================================
+   INTERNAL ID
+===================================================== */
 
 function generateInternalId(
   sheet,
   cleanName
-){
+) {
 
   const lastRow =
     sheet.getLastRow();
 
 
-  if(lastRow < 2){
+  if (lastRow < 2) {
 
-    return cleanName + "-01";
+    return (
+      cleanName +
+      "-01"
+    );
 
   }
 
@@ -263,55 +663,67 @@ function generateInternalId(
   let maxNumber = 0;
 
 
-  values.forEach(function(row){
+  values.forEach(
+    function(row) {
 
-    const id =
-      String(row[0] || "");
-
-
-    if(
-      id.startsWith(
-        cleanName + "-"
-      )
-    ){
-
-      const number =
-        parseInt(
-          id.split("-").pop()
+      const id =
+        String(
+          row[0] || ""
         );
 
 
-      if(!isNaN(number)){
+      if (
+        id.startsWith(
+          cleanName + "-"
+        )
+      ) {
 
-        maxNumber =
-          Math.max(
-            maxNumber,
-            number
+        const number =
+          parseInt(
+            id
+              .split("-")
+              .pop()
           );
+
+
+        if (!isNaN(number)) {
+
+          maxNumber =
+            Math.max(
+              maxNumber,
+              number
+            );
+
+        }
 
       }
 
     }
-
-  });
+  );
 
 
   return (
+
     cleanName +
     "-" +
-    String(maxNumber + 1)
-      .padStart(2,"0")
+    String(
+      maxNumber + 1
+    ).padStart(2, "0")
+
   );
 
 }
 
 
+/* =====================================================
+   HEADERS
+===================================================== */
 
-/* ================= HEADERS ================= */
+function setupHeaders(sheet) {
 
-function setupHeaders(sheet){
-
-  if(sheet.getLastRow() > 0){
+  if (
+    sheet.getLastRow() > 0
+  ) {
 
     return;
 
@@ -385,18 +797,20 @@ function setupHeaders(sheet){
 }
 
 
+/* =====================================================
+   TRACK SHIPMENT
+===================================================== */
 
-/* ================= TRACK ================= */
+function trackShipment(awb) {
 
-function trackShipment(awb){
-
-  if(!awb){
+  if (!awb) {
 
     return jsonResponse({
 
-      success:false,
+      success: false,
 
-      message:"AWB required"
+      message:
+        "AWB required"
 
     });
 
@@ -404,20 +818,24 @@ function trackShipment(awb){
 
 
   const ss =
-    SpreadsheetApp.getActiveSpreadsheet();
+    SpreadsheetApp
+      .getActiveSpreadsheet();
 
 
   const sheet =
-    ss.getSheetByName(SHEET_NAME);
+    ss.getSheetByName(
+      SHEET_NAME
+    );
 
 
-  if(!sheet){
+  if (!sheet) {
 
     return jsonResponse({
 
-      success:false,
+      success: false,
 
-      message:"No orders"
+      message:
+        "No orders"
 
     });
 
@@ -431,42 +849,52 @@ function trackShipment(awb){
 
 
   /*
-  AWB column = 28
-  because:
-  Date=1
-  Internal ID=2
-  ...
-  AWB=28
+    AWB = column 28
+
+    Array index = 27
   */
 
-  for(let i=1;i<data.length;i++){
+
+  for (
+    let i = 1;
+    i < data.length;
+    i++
+  ) {
 
     const row =
       data[i];
 
 
     const rowAwb =
-      String(row[27] || "")
-        .trim();
+      String(
+        row[27] || ""
+      ).trim();
 
 
-    if(
+    if (
       rowAwb.toLowerCase() ===
-      String(awb).trim().toLowerCase()
-    ){
+      String(awb)
+        .trim()
+        .toLowerCase()
+    ) {
 
       /*
-      IMPORTANT:
+        CLIENT ला फक्त tracking info.
 
-      Do NOT send internal ID
-      or admin information.
+        Internal ID,
+        Client mobile,
+        Pickup address,
+        COD,
+        Shipping rate,
+        Total
+        इ. पाठवत नाही.
       */
 
       return jsonResponse({
 
-        success:true,
+        success: true,
 
-        order:{
+        order: {
 
           receiverName:
             row[8] || "",
@@ -478,7 +906,8 @@ function trackShipment(awb){
             row[27] || "",
 
           status:
-            row[26] || "PENDING",
+            row[26] ||
+            "PENDING",
 
           location:
             row[28] || "",
@@ -497,19 +926,21 @@ function trackShipment(awb){
 
   return jsonResponse({
 
-    success:false,
+    success: false,
 
-    message:"Shipment not found"
+    message:
+      "Shipment not found"
 
   });
 
 }
 
 
+/* =====================================================
+   JSON RESPONSE
+===================================================== */
 
-/* ================= JSON ================= */
-
-function jsonResponse(data){
+function jsonResponse(data) {
 
   return ContentService
 
