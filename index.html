@@ -304,10 +304,27 @@ function escapeHtml(v){return String(v??"").replaceAll("&","&amp;").replaceAll("
 function escapeAttr(v){return escapeHtml(v)}
 function safeUrl(url){try{const u=new URL(url);return["https:","http:"].includes(u.protocol)?u.href:"#"}catch(e){return "#"}}
 
+async function handleEmailVerification(){
+ try{
+  const params=new URLSearchParams(window.location.search);
+  const code=params.get("code");
+  if(code){
+   const {error}=await supabaseClient.auth.exchangeCodeForSession(code);
+   if(error){msg("loginMsg","Email verification failed. Please open the latest confirmation email again or contact support.","error");return;}
+   window.history.replaceState({},document.title,window.location.pathname);
+  }
+  const {data}=await supabaseClient.auth.getSession();
+  if(data.session) await loadUser();
+ }catch(e){console.error(e);}
+}
+
+supabaseClient.auth.onAuthStateChange(async(event,session)=>{
+ if(event==="SIGNED_IN" && session) await loadUser();
+});
+
 document.addEventListener("DOMContentLoaded",async()=>{
  paymentChanged();
- const {data}=await supabaseClient.auth.getSession();
- if(data.session)await loadUser();
+ await handleEmailVerification();
 });
 </script>
 </body>
