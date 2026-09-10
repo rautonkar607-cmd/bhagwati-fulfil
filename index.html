@@ -1,955 +1,257 @@
-const SHEET_NAME = "Orders";
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-/* =====================================================
-   RATE CARD
-   इथे तुझे actual rates टाकायचे आहेत.
+<title>Bhagwati Fulfil | Client Portal</title>
 
-   Zone:
-   A, B, C, D किंवा तुझ्या system मधले zones.
-
-   Weight slabs KG मध्ये.
-===================================================== */
-
-const RATE_CARD = {
-
-  A: {
-    0.5: 50,
-    1: 60,
-    1.5: 70,
-    2: 80,
-    2.5: 90,
-    3: 100,
-    3.5: 110,
-    4: 120,
-    4.5: 130,
-    5: 140
-  },
-
-  B: {
-    0.5: 55,
-    1: 65,
-    1.5: 75,
-    2: 85,
-    2.5: 95,
-    3: 105,
-    3.5: 115,
-    4: 125,
-    4.5: 135,
-    5: 145
-  },
-
-  C: {
-    0.5: 60,
-    1: 70,
-    1.5: 80,
-    2: 90,
-    2.5: 100,
-    3: 110,
-    3.5: 120,
-    4: 130,
-    4.5: 140,
-    5: 150
-  },
-
-  D: {
-    0.5: 65,
-    1: 75,
-    1.5: 85,
-    2: 95,
-    2.5: 105,
-    3: 115,
-    3.5: 125,
-    4: 135,
-    4.5: 145,
-    5: 155
-  }
-
-};
-
-
-/* =====================================================
-   COD CHARGE
-===================================================== */
-
-const COD_CHARGE = 30;
-
-
-/* =====================================================
-   GET
-===================================================== */
-
-function doGet(e) {
-
-  const action =
-    e && e.parameter
-      ? e.parameter.action || ""
-      : "";
-
-  if (action === "track") {
-
-    return trackShipment(
-      e.parameter.awb
-    );
-
-  }
-
-  return jsonResponse({
-
-    success: true,
-
-    message:
-      "BHAGWATI FULFIL API is running"
-
-  });
-
+<style>
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
 }
 
-
-/* =====================================================
-   POST
-===================================================== */
-
-function doPost(e) {
-
-  try {
-
-    if (!e || !e.postData) {
-
-      return jsonResponse({
-
-        success: false,
-
-        message: "No data received"
-
-      });
-
-    }
-
-    const data =
-      JSON.parse(
-        e.postData.contents
-      );
-
-
-    if (
-      data.action ===
-      "createOrder"
-    ) {
-
-      return createOrder(data);
-
-    }
-
-
-    return jsonResponse({
-
-      success: false,
-
-      message: "Invalid action"
-
-    });
-
-
-  } catch (error) {
-
-    return jsonResponse({
-
-      success: false,
-
-      message: error.toString()
-
-    });
-
-  }
-
+body{
+  font-family:Arial, sans-serif;
+  background:#f4f6f9;
+  color:#172033;
 }
 
-
-/* =====================================================
-   CREATE ORDER
-===================================================== */
-
-function createOrder(data) {
-
-  const ss =
-    SpreadsheetApp
-      .getActiveSpreadsheet();
-
-
-  let sheet =
-    ss.getSheetByName(
-      SHEET_NAME
-    );
-
-
-  if (!sheet) {
-
-    sheet =
-      ss.insertSheet(
-        SHEET_NAME
-      );
-
-  }
-
-
-  setupHeaders(sheet);
-
-
-  const profile =
-    data.profile || {};
-
-
-  const shipment =
-    data.shipment || {};
-
-
-  const clientName =
-    profile.clientName ||
-    "CLIENT";
-
-
-  /* =================================================
-     INTERNAL ID
-  ================================================= */
-
-  const cleanName =
-    String(clientName)
-      .replace(
-        /[^a-zA-Z0-9]/g,
-        ""
-      )
-      .toUpperCase();
-
-
-  const internalId =
-    generateInternalId(
-      sheet,
-      cleanName
-    );
-
-
-  /* =================================================
-     BASIC DETAILS
-  ================================================= */
-
-  const contactName =
-    profile.contactName || "";
-
-
-  const mobile =
-    profile.mobile || "";
-
-
-  const pickupAddress =
-    profile.pickupAddress || "";
-
-
-  const pickupCity =
-    profile.pickupCity || "";
-
-
-  const pickupPincode =
-    profile.pickupPincode || "";
-
-
-  /* =================================================
-     SHIPMENT DETAILS
-  ================================================= */
-
-  const receiverName =
-    shipment.receiverName || "";
-
-
-  const receiverMobile =
-    shipment.receiverMobile || "";
-
-
-  const deliveryAddress =
-    shipment.deliveryAddress || "";
-
-
-  const deliveryCity =
-    shipment.deliveryCity || "";
-
-
-  const deliveryPincode =
-    shipment.deliveryPincode || "";
-
-
-  const zone =
-    String(
-      shipment.zone || "A"
-    ).toUpperCase();
-
-
-  const paymentType =
-    String(
-      shipment.paymentType ||
-      "PREPAID"
-    ).toUpperCase();
-
-
-  const codAmount =
-    Number(
-      shipment.codAmount || 0
-    );
-
-
-  /* =================================================
-     WEIGHT
-  ================================================= */
-
-  const actualWeightGrams =
-    Number(
-      shipment.actualWeight || 0
-    );
-
-
-  const actualKg =
-    actualWeightGrams / 1000;
-
-
-  const length =
-    Number(
-      shipment.length || 0
-    );
-
-
-  const width =
-    Number(
-      shipment.width || 0
-    );
-
-
-  const height =
-    Number(
-      shipment.height || 0
-    );
-
-
-  /* =================================================
-     VOLUMETRIC WEIGHT
-
-     L × W × H / 5000
-  ================================================= */
-
-  let volumetricKg = 0;
-
-
-  if (
-    length > 0 &&
-    width > 0 &&
-    height > 0
-  ) {
-
-    volumetricKg =
-      (
-        length *
-        width *
-        height
-      ) / 5000;
-
-  }
-
-
-  /* =================================================
-     APPLICABLE WEIGHT
-
-     Actual vs Volumetric
-     जो जास्त तो
-  ================================================= */
-
-  const applicableKg =
-    Math.max(
-      actualKg,
-      volumetricKg
-    );
-
-
-  /* =================================================
-     RATE
-
-     Weight slab वर round-up
-  ================================================= */
-
-  const rate =
-    calculateShippingRate(
-      zone,
-      applicableKg
-    );
-
-
-  /* =================================================
-     COD
-  ================================================= */
-
-  let codCharge = 0;
-
-
-  if (
-    paymentType === "COD"
-  ) {
-
-    codCharge =
-      calculateCodCharge(
-        codAmount
-      );
-
-  }
-
-
-  /* =================================================
-     TOTAL
-
-     Shipping + COD
-  ================================================= */
-
-  const total =
-    rate + codCharge;
-
-
-  /* =================================================
-     INITIAL STATUS
-
-     Admin नंतर change करेल.
-  ================================================= */
-
-  const status =
-    "PENDING";
-
-
-  /* =================================================
-     AWB
-
-     सुरुवातीला blank.
-
-     Admin GenZ वर booking
-     केल्यानंतर manually टाकेल.
-  ================================================= */
-
-  const awb = "";
-
-
-  const location = "";
-
-
-  const trackingMessage = "";
-
-
-  const timestamp =
-    new Date();
-
-
-  /* =================================================
-     SAVE ROW
-  ================================================= */
-
-  const row = [
-
-    timestamp,
-
-    internalId,
-
-    clientName,
-
-    contactName,
-
-    mobile,
-
-    pickupAddress,
-
-    pickupCity,
-
-    pickupPincode,
-
-    receiverName,
-
-    receiverMobile,
-
-    deliveryAddress,
-
-    deliveryCity,
-
-    deliveryPincode,
-
-    zone,
-
-    paymentType,
-
-    codAmount,
-
-    actualWeightGrams,
-
-    length,
-
-    width,
-
-    height,
-
-    actualKg,
-
-    volumetricKg,
-
-    applicableKg,
-
-    rate,
-
-    codCharge,
-
-    total,
-
-    status,
-
-    awb,
-
-    location,
-
-    trackingMessage
-
-  ];
-
-
-  sheet.appendRow(row);
-
-
-  /* =================================================
-     CLIENT RESPONSE
-
-     IMPORTANT:
-     Internal ID / rate details /
-     admin details expose करत नाही.
-  ================================================= */
-
-  return jsonResponse({
-
-    success: true,
-
-    message:
-      "Shipment booked successfully"
-
-  });
-
+.header{
+  background:#111827;
+  color:white;
+  padding:22px;
+  text-align:center;
 }
 
-
-/* =====================================================
-   SHIPPING RATE CALCULATION
-===================================================== */
-
-function calculateShippingRate(
-  zone,
-  applicableKg
-) {
-
-  const rates =
-    RATE_CARD[zone];
-
-
-  if (!rates) {
-
-    return 0;
-
-  }
-
-
-  const slabs =
-    Object.keys(rates)
-      .map(Number)
-      .sort(
-        function(a, b) {
-          return a - b;
-        }
-      );
-
-
-  for (
-    let i = 0;
-    i < slabs.length;
-    i++
-  ) {
-
-    const slab =
-      slabs[i];
-
-
-    if (
-      applicableKg <= slab
-    ) {
-
-      return Number(
-        rates[slab]
-      );
-
-    }
-
-  }
-
-
-  /*
-    जर weight 5kg पेक्षा जास्त असेल
-    तर 0 return करण्याऐवजी
-    last slab + additional rate
-    ठेवू शकतो.
-
-    तुझा actual rate card मिळाल्यावर
-    हा भाग exact करू.
-  */
-
-  const lastSlab =
-    slabs[slabs.length - 1];
-
-
-  return Number(
-    rates[lastSlab]
-  );
-
+.header h1{
+  font-size:25px;
 }
 
-
-/* =====================================================
-   COD CALCULATION
-===================================================== */
-
-function calculateCodCharge(
-  codAmount
-) {
-
-  if (codAmount <= 0) {
-
-    return 0;
-
-  }
-
-
-  return COD_CHARGE;
-
+.header p{
+  margin-top:6px;
+  font-size:13px;
+  opacity:.8;
 }
 
-
-/* =====================================================
-   INTERNAL ID
-===================================================== */
-
-function generateInternalId(
-  sheet,
-  cleanName
-) {
-
-  const lastRow =
-    sheet.getLastRow();
-
-
-  if (lastRow < 2) {
-
-    return (
-      cleanName +
-      "-01"
-    );
-
-  }
-
-
-  const values =
-    sheet
-      .getRange(
-        2,
-        2,
-        lastRow - 1,
-        1
-      )
-      .getValues();
-
-
-  let maxNumber = 0;
-
-
-  values.forEach(
-    function(row) {
-
-      const id =
-        String(
-          row[0] || ""
-        );
-
-
-      if (
-        id.startsWith(
-          cleanName + "-"
-        )
-      ) {
-
-        const number =
-          parseInt(
-            id
-              .split("-")
-              .pop()
-          );
-
-
-        if (!isNaN(number)) {
-
-          maxNumber =
-            Math.max(
-              maxNumber,
-              number
-            );
-
-        }
-
-      }
-
-    }
-  );
-
-
-  return (
-
-    cleanName +
-    "-" +
-    String(
-      maxNumber + 1
-    ).padStart(2, "0")
-
-  );
-
+.container{
+  max-width:650px;
+  margin:30px auto;
+  padding:20px;
 }
 
-
-/* =====================================================
-   HEADERS
-===================================================== */
-
-function setupHeaders(sheet) {
-
-  if (
-    sheet.getLastRow() > 0
-  ) {
-
-    return;
-
-  }
-
-
-  sheet.appendRow([
-
-    "Date",
-
-    "Internal ID",
-
-    "Client Name",
-
-    "Contact Person",
-
-    "Client Mobile",
-
-    "Pickup Address",
-
-    "Pickup City",
-
-    "Pickup Pincode",
-
-    "Receiver Name",
-
-    "Receiver Mobile",
-
-    "Delivery Address",
-
-    "Delivery City",
-
-    "Delivery Pincode",
-
-    "Zone",
-
-    "Payment Type",
-
-    "COD Amount",
-
-    "Actual Weight (g)",
-
-    "Length",
-
-    "Width",
-
-    "Height",
-
-    "Actual Weight (kg)",
-
-    "Volumetric Weight (kg)",
-
-    "Applicable Weight (kg)",
-
-    "Shipping",
-
-    "COD Charge",
-
-    "Total",
-
-    "Status",
-
-    "AWB",
-
-    "Current Location",
-
-    "Tracking Message"
-
-  ]);
-
+.card{
+  background:white;
+  padding:25px;
+  border-radius:18px;
+  box-shadow:0 8px 30px rgba(0,0,0,.08);
 }
 
-
-/* =====================================================
-   TRACK SHIPMENT
-===================================================== */
-
-function trackShipment(awb) {
-
-  if (!awb) {
-
-    return jsonResponse({
-
-      success: false,
-
-      message:
-        "AWB required"
-
-    });
-
-  }
-
-
-  const ss =
-    SpreadsheetApp
-      .getActiveSpreadsheet();
-
-
-  const sheet =
-    ss.getSheetByName(
-      SHEET_NAME
-    );
-
-
-  if (!sheet) {
-
-    return jsonResponse({
-
-      success: false,
-
-      message:
-        "No orders"
-
-    });
-
-  }
-
-
-  const data =
-    sheet
-      .getDataRange()
-      .getValues();
-
-
-  /*
-    AWB = column 28
-
-    Array index = 27
-  */
-
-
-  for (
-    let i = 1;
-    i < data.length;
-    i++
-  ) {
-
-    const row =
-      data[i];
-
-
-    const rowAwb =
-      String(
-        row[27] || ""
-      ).trim();
-
-
-    if (
-      rowAwb.toLowerCase() ===
-      String(awb)
-        .trim()
-        .toLowerCase()
-    ) {
-
-      /*
-        CLIENT ला फक्त tracking info.
-
-        Internal ID,
-        Client mobile,
-        Pickup address,
-        COD,
-        Shipping rate,
-        Total
-        इ. पाठवत नाही.
-      */
-
-      return jsonResponse({
-
-        success: true,
-
-        order: {
-
-          receiverName:
-            row[8] || "",
-
-          deliveryCity:
-            row[11] || "",
-
-          awb:
-            row[27] || "",
-
-          status:
-            row[26] ||
-            "PENDING",
-
-          location:
-            row[28] || "",
-
-          trackingMessage:
-            row[29] || ""
-
-        }
-
-      });
-
-    }
-
-  }
-
-
-  return jsonResponse({
-
-    success: false,
-
-    message:
-      "Shipment not found"
-
-  });
-
+.section-title{
+  font-size:18px;
+  font-weight:bold;
+  margin:22px 0 15px;
 }
 
-
-/* =====================================================
-   JSON RESPONSE
-===================================================== */
-
-function jsonResponse(data) {
-
-  return ContentService
-
-    .createTextOutput(
-      JSON.stringify(data)
-    )
-
-    .setMimeType(
-      ContentService.MimeType.JSON
-    );
-
+label{
+  display:block;
+  font-size:13px;
+  font-weight:bold;
+  margin-bottom:6px;
 }
+
+input, textarea, select{
+  width:100%;
+  padding:13px;
+  border:1px solid #d5d9e0;
+  border-radius:10px;
+  margin-bottom:15px;
+  font-size:15px;
+}
+
+textarea{
+  min-height:90px;
+  resize:vertical;
+}
+
+button{
+  width:100%;
+  padding:15px;
+  border:0;
+  border-radius:11px;
+  background:#111827;
+  color:white;
+  font-size:16px;
+  font-weight:bold;
+  cursor:pointer;
+}
+
+button:hover{
+  opacity:.9;
+}
+
+.success{
+  display:none;
+  margin-top:20px;
+  padding:18px;
+  border-radius:12px;
+  background:#ecfdf3;
+  border:1px solid #b7ebc9;
+  color:#146c35;
+}
+
+.footer{
+  text-align:center;
+  margin-top:25px;
+  color:#777;
+  font-size:12px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="header">
+  <h1>BHAGWATI FULFIL</h1>
+  <p>D2C Fulfillment & Logistics</p>
+</div>
+
+<div class="container">
+
+<div class="card">
+
+<form id="shipmentForm">
+
+<div class="section-title">
+Client Details
+</div>
+
+<label>Business / Client Name</label>
+<input type="text" id="clientName" required>
+
+<div class="section-title">
+Pickup Details
+</div>
+
+<label>Pickup Person Name</label>
+<input type="text" id="pickupName" required>
+
+<label>Pickup Mobile</label>
+<input type="tel" id="pickupMobile" required>
+
+<label>Pickup Address</label>
+<textarea id="pickupAddress" required></textarea>
+
+<label>Pickup Pincode</label>
+<input type="text" id="pickupPincode" required>
+
+<div class="section-title">
+Delivery Details
+</div>
+
+<label>Customer Name</label>
+<input type="text" id="customerName" required>
+
+<label>Customer Mobile</label>
+<input type="tel" id="customerMobile" required>
+
+<label>Delivery Address</label>
+<textarea id="deliveryAddress" required></textarea>
+
+<label>Delivery Pincode</label>
+<input type="text" id="deliveryPincode" required>
+
+<div class="section-title">
+Shipment Details
+</div>
+
+<label>Payment Mode</label>
+
+<select id="paymentMode" required>
+<option value="">Select</option>
+<option value="Prepaid">Prepaid</option>
+<option value="COD">COD</option>
+</select>
+
+<label>Order Value ₹</label>
+<input type="number" id="orderValue" required>
+
+<label>Weight</label>
+<select id="weight" required>
+<option value="">Select Weight</option>
+<option>Up to 250g</option>
+<option>Up to 500g</option>
+<option>Up to 750g</option>
+<option>Up to 1kg</option>
+<option>Up to 1.5kg</option>
+<option>Up to 2kg</option>
+<option>Above 2kg</option>
+</select>
+
+<label>Dimensions (Optional)</label>
+<input type="text" id="dimensions"
+placeholder="Example: 15 x 16 x 15 cm">
+
+<button type="submit">
+SUBMIT SHIPMENT REQUEST
+</button>
+
+</form>
+
+<div class="success" id="successBox">
+
+<strong>Shipment Request Received ✅</strong>
+
+<br><br>
+
+Order ID:
+<strong id="orderId"></strong>
+
+<br><br>
+
+Status:
+<strong>Processing</strong>
+
+<br><br>
+
+Bhagwati Fulfil will process the shipment and share the AWB/tracking details.
+
+</div>
+
+</div>
+
+<div class="footer">
+Bhagwati Fulfil • Store • Pick • Pack • Ship
+</div>
+
+</div>
+
+<script>
+
+document.getElementById("shipmentForm")
+.addEventListener("submit", function(e){
+
+e.preventDefault();
+
+let number =
+Math.floor(100000 + Math.random() * 900000);
+
+let orderID = "BF-" + number;
+
+document.getElementById("orderId")
+.innerText = orderID;
+
+document.getElementById("successBox")
+.style.display = "block";
+
+document.getElementById("shipmentForm")
+.style.display = "none";
+
+});
+
+</script>
+
+</body>
+</html>
