@@ -1,492 +1,1158 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>BHAGWATI FULFIL</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+
+<title>BHAGWATI FULFIL | Client Portal</title>
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+
+body{
+font-family:Arial,sans-serif;
+background:#f4f6f9;
+color:#172033;
+}
+
+.header{
+background:#111827;
+color:#fff;
+padding:22px 15px;
+text-align:center;
+border-bottom:4px solid #ff6a00;
+}
+
+.logo{
+font-size:28px;
+font-weight:900;
+}
+
+.logo span{color:#ff6a00}
+
+.tagline{
+font-size:12px;
+color:#d1d5db;
+margin-top:5px;
+}
+
+.container{
+max-width:720px;
+margin:20px auto;
+padding:0 14px;
+}
+
+.card{
+background:#fff;
+border-radius:18px;
+padding:20px;
+margin-bottom:18px;
+box-shadow:0 5px 20px rgba(0,0,0,.07);
+}
+
+.page{display:none}
+.page.active{display:block}
+
+h2{
+font-size:21px;
+margin-bottom:18px;
+}
+
+h3{
+font-size:16px;
+margin:22px 0 8px;
+}
+
+label{
+display:block;
+font-size:13px;
+font-weight:bold;
+margin:13px 0 6px;
+}
+
+input,select,textarea{
+width:100%;
+padding:13px;
+border:1px solid #d6dbe3;
+border-radius:10px;
+font-size:15px;
+outline:none;
+}
+
+input:focus,select:focus,textarea:focus{
+border-color:#ff6a00;
+}
+
+textarea{
+min-height:80px;
+resize:vertical;
+}
+
+.row{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:12px;
+}
+
+button{
+width:100%;
+border:0;
+border-radius:11px;
+padding:14px;
+margin-top:16px;
+background:#111827;
+color:white;
+font-size:15px;
+font-weight:bold;
+cursor:pointer;
+}
+
+button.orange{background:#ff6a00}
+
+button.gray{
+background:#667085;
+}
+
+button.green{
+background:#087443;
+}
+
+button:disabled{
+opacity:.5;
+cursor:not-allowed;
+}
+
+.stepbar{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:6px;
+margin-bottom:18px;
+}
+
+.step{
+padding:10px 5px;
+text-align:center;
+border-radius:8px;
+background:#e5e7eb;
+font-size:12px;
+font-weight:bold;
+}
+
+.step.active{
+background:#ff6a00;
+color:#fff;
+}
+
+.notice{
+background:#fff7ed;
+border:1px solid #fed7aa;
+padding:12px;
+border-radius:10px;
+margin-top:14px;
+font-size:13px;
+line-height:1.5;
+}
+
+.success{
+display:none;
+background:#ecfdf3;
+color:#067647;
+padding:15px;
+border-radius:11px;
+margin-top:15px;
+line-height:1.6;
+}
+
+.rate-box{
+background:#f8fafc;
+border:1px solid #e5e7eb;
+border-radius:14px;
+padding:16px;
+margin-top:18px;
+}
+
+.rate-line{
+display:flex;
+justify-content:space-between;
+padding:7px 0;
+font-size:14px;
+}
+
+.rate-line.total{
+border-top:1px solid #ddd;
+margin-top:8px;
+padding-top:13px;
+font-size:22px;
+font-weight:900;
+}
+
+.chargeable{
+background:#ecfdf3;
+border:1px solid #a7f3d0;
+padding:13px;
+border-radius:11px;
+margin-top:12px;
+font-size:14px;
+}
+
+.profile-saved{
+background:#eff6ff;
+border:1px solid #bfdbfe;
+padding:13px;
+border-radius:11px;
+line-height:1.6;
+font-size:13px;
+}
+
+.booking{
+border:1px solid #e5e7eb;
+border-radius:12px;
+padding:14px;
+margin-top:10px;
+}
+
+.status{
+display:inline-block;
+background:#fff7ed;
+color:#c2410c;
+padding:5px 9px;
+border-radius:20px;
+font-size:11px;
+font-weight:bold;
+}
+
+.stats{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:8px;
+}
+
+.stat{
+background:#f8fafc;
+border-radius:12px;
+padding:14px 5px;
+text-align:center;
+}
+
+.stat b{
+display:block;
+font-size:21px;
+}
+
+.stat small{
+color:#667085;
+}
+
+.footer{
+text-align:center;
+padding:25px;
+font-size:12px;
+color:#667085;
+}
+
+#loading{
+display:none;
+text-align:center;
+padding:10px;
+font-weight:bold;
+color:#ff6a00;
+}
+
+@media(max-width:520px){
+.row{grid-template-columns:1fr}
+}
+</style>
 </head>
 
 <body>
 
-  <h1>BHAGWATI FULFIL</h1>
+<header class="header">
+<div class="logo">BHAGWATI <span>FULFIL</span></div>
+<div class="tagline">D2C FULFILLMENT & LOGISTICS</div>
+</header>
 
-  <h2>Client Details</h2>
+<div class="container">
 
-  <label>Client Name</label><br>
-  <input type="text" id="clientName"><br><br>
-
-  <label>Client Mobile</label><br>
-  <input type="tel" id="clientMobile"><br><br>
-
-
-  <h2>Pickup Details</h2>
-
-  <label>Pickup Name</label><br>
-  <input type="text" id="pickupName"><br><br>
-
-  <label>Pickup Mobile</label><br>
-  <input type="tel" id="pickupMobile"><br><br>
-
-  <label>Pickup Address</label><br>
-  <textarea id="pickupAddress"></textarea><br><br>
-
-  <label>Pickup PIN Code</label><br>
-  <input type="tel" id="pickupPin" maxlength="6"><br><br>
+<div class="stepbar">
+<div id="step1" class="step active">1. CLIENT</div>
+<div id="step2" class="step">2. SHIPMENT</div>
+<div id="step3" class="step">3. PACKAGE & RATE</div>
+</div>
 
 
-  <h2>Customer Details</h2>
+<!-- ================= PAGE 1 ================= -->
 
-  <label>Customer Name</label><br>
-  <input type="text" id="customerName"><br><br>
+<div id="page1" class="page active">
 
-  <label>Customer Mobile</label><br>
-  <input type="tel" id="customerMobile"><br><br>
+<div class="card">
 
-  <label>Delivery Address</label><br>
-  <textarea id="deliveryAddress"></textarea><br><br>
+<h2>👤 Client Profile</h2>
 
-  <label>Delivery PIN Code</label><br>
-  <input type="tel" id="deliveryPin" maxlength="6"><br><br>
+<div id="savedProfile" class="profile-saved" style="display:none"></div>
 
+<div id="profileForm">
 
-  <h2>Shipment Details</h2>
+<label>Client / Business Name</label>
+<input id="client" type="text" placeholder="Business name">
 
-  <label>Weight</label><br>
-  <select id="weight">
-    <option value="">Select Weight</option>
-    <option value="0.25">250 gm</option>
-    <option value="0.5">500 gm</option>
-    <option value="0.75">750 gm</option>
-    <option value="1">1 kg</option>
-    <option value="1.5">1.5 kg</option>
-    <option value="2">2 kg</option>
-    <option value="3">Above 2 kg</option>
-  </select>
+<label>Mobile Number</label>
+<input id="clientMobile" type="tel" maxlength="10" placeholder="10 digit mobile">
 
-  <br><br>
+<h3>🏦 COD Settlement Details</h3>
 
-  <label>Payment</label><br>
-  <select id="payment">
-    <option value="">Select Payment</option>
-    <option value="Prepaid">Prepaid</option>
-    <option value="COD">COD (+₹25)</option>
-  </select>
+<label>Account Holder Name</label>
+<input id="holder" type="text">
 
-  <br><br>
+<label>Bank Account Number</label>
+<input id="account" type="text">
 
-  <h2>Package Size</h2>
+<label>IFSC Code</label>
+<input id="ifsc" type="text">
 
-  <label>Length (cm)</label><br>
-  <input type="number" id="length"><br><br>
+<label>Bank Name</label>
+<input id="bank" type="text">
 
-  <label>Width (cm)</label><br>
-  <input type="number" id="width"><br><br>
+<div class="row">
 
-  <label>Height (cm)</label><br>
-  <input type="number" id="height"><br><br>
+<div>
+<label>Branch</label>
+<input id="branch" type="text">
+</div>
 
+<div>
+<label>Account Type</label>
+<select id="accountType">
+<option value="">Select</option>
+<option>Saving</option>
+<option>Current</option>
+</select>
+</div>
 
-  <h2>Charges</h2>
+</div>
 
-  <p>Zone: <b id="zone">-</b></p>
+<button class="orange" onclick="saveProfile()">
+SAVE CLIENT & CONTINUE
+</button>
 
-  <p>Volumetric Weight:
-    <b id="volumetric">0 kg</b>
-  </p>
+</div>
 
-  <p>Shipping Rate:
-    <b id="rate">₹0</b>
-  </p>
+<button id="editProfileBtn"
+class="gray"
+style="display:none"
+onclick="editProfile()">
+✏️ EDIT CLIENT DETAILS
+</button>
 
-  <p>COD:
-    <b id="cod">₹0</b>
-  </p>
-
-  <h2>Total: ₹<span id="total">0</span></h2>
+</div>
+</div>
 
 
-  <button type="button" onclick="saveData()">
-    SAVE & CONTINUE
-  </button>
+<!-- ================= PAGE 2 ================= -->
 
-  <br><br>
+<div id="page2" class="page">
 
-  <button type="button" onclick="editData()">
-    EDIT SAVED DETAILS
-  </button>
+<div class="card">
 
-  <br><br>
+<h2>📦 Shipment Details</h2>
 
-  <button type="button" onclick="bookShipment()">
-    BOOK SHIPMENT
-  </button>
+<label>Order ID</label>
+<input id="orderId" type="text">
+
+<h3>📍 Pickup Details</h3>
+
+<label>Pickup Name</label>
+<input id="pickupName" type="text">
+
+<label>Pickup Mobile</label>
+<input id="pickupMobile" type="tel" maxlength="10">
+
+<label>Pickup Address</label>
+<textarea id="pickupAddress"></textarea>
+
+<label>Pickup Pincode</label>
+<input id="pickupPin" type="text" maxlength="6">
+
+<h3>📍 Delivery Details</h3>
+
+<label>Customer Name</label>
+<input id="customerName" type="text">
+
+<label>Customer Mobile</label>
+<input id="customerMobile" type="tel" maxlength="10">
+
+<label>Delivery Address</label>
+<textarea id="deliveryAddress"></textarea>
+
+<label>Delivery Pincode</label>
+<input id="deliveryPin" type="text" maxlength="6">
+
+<h3>🚚 Service</h3>
+
+<label>Service Zone</label>
+<select id="zone">
+<option value="">Select Service</option>
+<option value="MH">Maharashtra</option>
+<option value="PAN">Pan India</option>
+</select>
+
+<h3>💳 Payment</h3>
+
+<select id="payment" onchange="paymentChanged()">
+<option value="">Select Payment Type</option>
+<option value="Prepaid">Prepaid</option>
+<option value="COD">COD</option>
+</select>
+
+<label>COD Amount</label>
+<input id="codAmount"
+type="number"
+placeholder="Enter COD amount"
+disabled>
+
+<button class="gray" onclick="showPage(1)">
+← BACK
+</button>
+
+<button class="orange" onclick="goToPackage()">
+CONTINUE TO PACKAGE →
+</button>
+
+</div>
+</div>
+
+
+<!-- ================= PAGE 3 ================= -->
+
+<div id="page3" class="page">
+
+<div class="card">
+
+<h2>📦 Package & Automatic Rate</h2>
+
+<div class="notice">
+Shipping charge will be calculated automatically using
+<strong>Actual Weight or Volumetric Weight — whichever is higher.</strong>
+</div>
+
+<h3>⚖️ Actual Weight</h3>
+
+<label>Weight in grams</label>
+<input id="weight"
+type="number"
+min="1"
+placeholder="Example: 750"
+oninput="calculateRate()">
+
+<h3>📐 Package Dimensions</h3>
+
+<div class="row">
+
+<div>
+<label>Length (cm)</label>
+<input id="length"
+type="number"
+min="1"
+placeholder="L"
+oninput="calculateRate()">
+</div>
+
+<div>
+<label>Width (cm)</label>
+<input id="width"
+type="number"
+min="1"
+placeholder="W"
+oninput="calculateRate()">
+</div>
+
+</div>
+
+<label>Height (cm)</label>
+<input id="height"
+type="number"
+min="1"
+placeholder="H"
+oninput="calculateRate()">
+
+
+<div class="chargeable">
+
+<div>Volumetric Weight:
+<strong id="volWeight">0 g</strong></div>
+
+<div style="margin-top:6px">
+Chargeable Weight:
+<strong id="chargeWeight">0 g</strong>
+</div>
+
+</div>
+
+
+<div class="rate-box">
+
+<div class="rate-line">
+<span>Service</span>
+<b id="serviceText">-</b>
+</div>
+
+<div class="rate-line">
+<span>Shipping Charge</span>
+<b id="shipping">₹0</b>
+</div>
+
+<div class="rate-line">
+<span>COD Handling</span>
+<b id="codCharge">₹0</b>
+</div>
+
+<div class="rate-line">
+<span>RTO Charge if returned</span>
+<b id="rtoCharge">₹0</b>
+</div>
+
+<div class="rate-line total">
+<span>Booking Total</span>
+<b id="total">₹0</b>
+</div>
+
+</div>
+
+<div class="notice">
+<strong>RTO:</strong> If shipment is returned, RTO charge will be
+equal to the applicable forward shipping charge.
+</div>
+
+<div id="loading">⏳ Booking shipment...</div>
+
+<button class="gray" onclick="showPage(2)">
+← BACK
+</button>
+
+<button class="orange" onclick="bookShipment()">
+📦 BOOK SHIPMENT
+</button>
+
+<div id="success" class="success"></div>
+
+</div>
+</div>
+
+
+<!-- ================= DASHBOARD ================= -->
+
+<div class="card">
+
+<h2>📊 My Bookings</h2>
+
+<div class="stats">
+
+<div class="stat">
+<b id="totalBookings">0</b>
+<small>Total</small>
+</div>
+
+<div class="stat">
+<b id="pending">0</b>
+<small>Pending</small>
+</div>
+
+<div class="stat">
+<b id="delivered">0</b>
+<small>Delivered</small>
+</div>
+
+</div>
+
+<div id="bookingList"></div>
+
+</div>
+
+
+<div class="card" style="background:#111827;color:#fff;text-align:center">
+
+<h3 style="margin-top:0">Need Help?</h3>
+
+<p style="margin-top:8px">
+📞 +91 97566 17662
+</p>
+
+<p style="margin-top:6px">
+📧 bhagwatifulfil@gmail.com
+</p>
+
+</div>
+
+</div>
+
+<footer class="footer">
+© 2026 BHAGWATI FULFIL
+</footer>
 
 
 <script>
 
-var rates = {
-  Maharashtra: {
-    "0.25": 40,
-    "0.5": 45,
-    "0.75": 55,
-    "1": 70,
-    "1.5": 95,
-    "2": 105
-  },
+/* =====================================================
+   GOOGLE APPS SCRIPT URL
+   Paste your deployed Apps Script URL here
+===================================================== */
 
-  India: {
-    "0.25": 50,
-    "0.5": 60,
-    "0.75": 75,
-    "1": 90,
-    "1.5": 115,
-    "2": 125
-  }
+const GOOGLE_SCRIPT_URL =
+"https://script.google.com/macros/s/PASTE_YOUR_SCRIPT_URL_HERE/exec";
+
+
+/* =====================================================
+   PROFILE
+===================================================== */
+
+let profile =
+JSON.parse(localStorage.getItem("bhagwatiProfile") || "null");
+
+let bookings =
+JSON.parse(localStorage.getItem("bhagwatiBookings") || "[]");
+
+
+function loadProfile(){
+
+if(!profile) return;
+
+document.getElementById("profileForm").style.display="none";
+document.getElementById("editProfileBtn").style.display="block";
+
+document.getElementById("savedProfile").style.display="block";
+
+document.getElementById("savedProfile").innerHTML=
+"<strong>Client Saved</strong><br>"+
+profile.client+
+"<br>📞 "+profile.clientMobile+
+"<br>🏦 "+profile.bank+
+" • "+profile.branch;
+
+}
+
+
+function saveProfile(){
+
+let data={
+client:document.getElementById("client").value.trim(),
+clientMobile:document.getElementById("clientMobile").value.trim(),
+holder:document.getElementById("holder").value.trim(),
+account:document.getElementById("account").value.trim(),
+ifsc:document.getElementById("ifsc").value.trim(),
+bank:document.getElementById("bank").value.trim(),
+branch:document.getElementById("branch").value.trim(),
+accountType:document.getElementById("accountType").value
+};
+
+if(!data.client ||
+!data.clientMobile ||
+!data.holder ||
+!data.account ||
+!data.ifsc ||
+!data.bank ||
+!data.branch ||
+!data.accountType){
+
+alert("Please fill all client details.");
+return;
+}
+
+if(!/^[0-9]{10}$/.test(data.clientMobile)){
+alert("Enter valid 10 digit mobile number.");
+return;
+}
+
+profile=data;
+
+localStorage.setItem(
+"bhagwatiProfile",
+JSON.stringify(profile)
+);
+
+loadProfile();
+showPage(2);
+
+}
+
+
+function editProfile(){
+
+document.getElementById("profileForm").style.display="block";
+document.getElementById("editProfileBtn").style.display="none";
+document.getElementById("savedProfile").style.display="none";
+
+document.getElementById("client").value=profile.client;
+document.getElementById("clientMobile").value=profile.clientMobile;
+document.getElementById("holder").value=profile.holder;
+document.getElementById("account").value=profile.account;
+document.getElementById("ifsc").value=profile.ifsc;
+document.getElementById("bank").value=profile.bank;
+document.getElementById("branch").value=profile.branch;
+document.getElementById("accountType").value=profile.accountType;
+
+showPage(1);
+
+}
+
+
+/* =====================================================
+   PAGE NAVIGATION
+===================================================== */
+
+function showPage(page){
+
+document.querySelectorAll(".page")
+.forEach(p=>p.classList.remove("active"));
+
+document.getElementById("page"+page)
+.classList.add("active");
+
+document.querySelectorAll(".step")
+.forEach(s=>s.classList.remove("active"));
+
+document.getElementById("step"+page)
+.classList.add("active");
+
+window.scrollTo({
+top:0,
+behavior:"smooth"
+});
+
+}
+
+
+function goToPackage(){
+
+let required=[
+"orderId",
+"pickupName",
+"pickupMobile",
+"pickupAddress",
+"pickupPin",
+"customerName",
+"customerMobile",
+"deliveryAddress",
+"deliveryPin",
+"zone",
+"payment"
+];
+
+for(let id of required){
+
+let el=document.getElementById(id);
+
+if(!el.value.trim()){
+
+alert("Please fill all shipment details.");
+el.focus();
+return;
+
+}
+
+}
+
+if(!/^[0-9]{10}$/.test(
+document.getElementById("pickupMobile").value.trim()
+)){
+alert("Enter valid pickup mobile.");
+return;
+}
+
+if(!/^[0-9]{10}$/.test(
+document.getElementById("customerMobile").value.trim()
+)){
+alert("Enter valid customer mobile.");
+return;
+}
+
+if(!/^[0-9]{6}$/.test(
+document.getElementById("pickupPin").value.trim()
+)){
+alert("Enter valid pickup pincode.");
+return;
+}
+
+if(!/^[0-9]{6}$/.test(
+document.getElementById("deliveryPin").value.trim()
+)){
+alert("Enter valid delivery pincode.");
+return;
+}
+
+if(document.getElementById("payment").value==="COD"){
+
+let cod=document.getElementById("codAmount").value;
+
+if(!cod || Number(cod)<=0){
+
+alert("Please enter COD amount.");
+return;
+
+}
+
+}
+
+showPage(3);
+
+calculateRate();
+
+}
+
+
+/* =====================================================
+   PAYMENT
+===================================================== */
+
+function paymentChanged(){
+
+let payment=
+document.getElementById("payment").value;
+
+let cod=
+document.getElementById("codAmount");
+
+if(payment==="COD"){
+
+cod.disabled=false;
+
+}else{
+
+cod.disabled=true;
+cod.value="";
+
+}
+
+calculateRate();
+
+}
+
+
+/* =====================================================
+   RATE CALCULATION
+===================================================== */
+
+function getShippingRate(zone,grams){
+
+let rate=0;
+
+if(zone==="MH"){
+
+if(grams<=250) rate=40;
+else if(grams<=500) rate=45;
+else if(grams<=750) rate=55;
+else if(grams<=1000) rate=70;
+else if(grams<=1500) rate=95;
+else if(grams<=2000) rate=105;
+else rate=105+
+Math.ceil((grams-2000)/500)*20;
+
+}
+
+if(zone==="PAN"){
+
+if(grams<=250) rate=50;
+else if(grams<=500) rate=60;
+else if(grams<=750) rate=75;
+else if(grams<=1000) rate=90;
+else if(grams<=1500) rate=115;
+else if(grams<=2000) rate=125;
+else rate=125+
+Math.ceil((grams-2000)/500)*25;
+
+}
+
+return rate;
+
+}
+
+
+function calculateRate(){
+
+let zone=
+document.getElementById("zone").value;
+
+let actual=
+Number(document.getElementById("weight").value)||0;
+
+let L=
+Number(document.getElementById("length").value)||0;
+
+let W=
+Number(document.getElementById("width").value)||0;
+
+let H=
+Number(document.getElementById("height").value)||0;
+
+let volumetric=0;
+
+if(L>0 && W>0 && H>0){
+
+volumetric=(L*W*H)/5000;
+
+}
+
+let chargeable=
+Math.max(actual,volumetric);
+
+document.getElementById("volWeight").innerText=
+volumetric ?
+Math.ceil(volumetric)+" g":"0 g";
+
+document.getElementById("chargeWeight").innerText=
+chargeable ?
+Math.ceil(chargeable)+" g":"0 g";
+
+let shipping=
+zone && chargeable ?
+getShippingRate(zone,chargeable):0;
+
+let payment=
+document.getElementById("payment").value;
+
+let codCharge=
+payment==="COD" ? 25:0;
+
+let total=
+shipping+codCharge;
+
+document.getElementById("shipping").innerText=
+"₹"+shipping;
+
+document.getElementById("codCharge").innerText=
+"₹"+codCharge;
+
+document.getElementById("rtoCharge").innerText=
+"₹"+shipping;
+
+document.getElementById("total").innerText=
+"₹"+total;
+
+document.getElementById("serviceText").innerText=
+zone==="MH" ?
+"Maharashtra":
+zone==="PAN" ?
+"Pan India":"-";
+
+return {
+actualWeight:actual,
+volumetricWeight:Math.ceil(volumetric),
+chargeableWeight:Math.ceil(chargeable),
+shipping:shipping,
+codCharge:codCharge,
+total:total,
+rtoCharge:shipping
+};
+
+}
+
+
+/* =====================================================
+   BOOK SHIPMENT
+===================================================== */
+
+async function bookShipment(){
+
+if(!profile){
+
+alert("Please save client profile first.");
+showPage(1);
+return;
+
+}
+
+let calc=calculateRate();
+
+if(calc.chargeableWeight<=0){
+
+alert("Please enter weight and dimensions.");
+return;
+
+}
+
+let data={
+
+orderId:
+document.getElementById("orderId").value.trim(),
+
+client:profile.client,
+clientMobile:profile.clientMobile,
+
+pickupName:
+document.getElementById("pickupName").value.trim(),
+
+pickupMobile:
+document.getElementById("pickupMobile").value.trim(),
+
+pickupAddress:
+document.getElementById("pickupAddress").value.trim(),
+
+pickupPin:
+document.getElementById("pickupPin").value.trim(),
+
+customerName:
+document.getElementById("customerName").value.trim(),
+
+customerMobile:
+document.getElementById("customerMobile").value.trim(),
+
+deliveryAddress:
+document.getElementById("deliveryAddress").value.trim(),
+
+deliveryPin:
+document.getElementById("deliveryPin").value.trim(),
+
+zone:
+document.getElementById("zone").value,
+
+payment:
+document.getElementById("payment").value,
+
+codAmount:
+document.getElementById("codAmount").value || 0,
+
+actualWeight:calc.actualWeight,
+volumetricWeight:calc.volumetricWeight,
+chargeableWeight:calc.chargeableWeight,
+
+length:
+document.getElementById("length").value,
+
+width:
+document.getElementById("width").value,
+
+height:
+document.getElementById("height").value,
+
+shipping:calc.shipping,
+codCharge:calc.codCharge,
+total:calc.total,
+rtoCharge:calc.rtoCharge,
+
+status:"BOOKED",
+
+createdAt:new Date().toLocaleString("en-IN")
+
 };
 
 
-function getZone() {
+/* Local backup */
 
-  var pin = document.getElementById("deliveryPin").value;
+bookings.unshift(data);
 
-  if (pin.length != 6) {
-    return "";
-  }
+localStorage.setItem(
+"bhagwatiBookings",
+JSON.stringify(bookings)
+);
 
-  var first = pin.substring(0,2);
+updateDashboard();
 
-  if (
-    first == "40" ||
-    first == "41" ||
-    first == "42" ||
-    first == "43" ||
-    first == "44"
-  ) {
-    return "Maharashtra";
-  }
 
-  return "India";
+/* Send to Google Sheet */
+
+document.getElementById("loading").style.display="block";
+
+try{
+
+if(!GOOGLE_SCRIPT_URL.includes("PASTE_")){
+
+await fetch(GOOGLE_SCRIPT_URL,{
+method:"POST",
+mode:"no-cors",
+body:JSON.stringify(data)
+});
+
 }
 
+document.getElementById("loading").style.display="none";
 
-function calculate() {
+document.getElementById("success").style.display="block";
 
-  var weight =
-    document.getElementById("weight").value;
+document.getElementById("success").innerHTML=
+"✅ <strong>Shipment Booked Successfully!</strong><br><br>"+
+"Order ID: <strong>"+data.orderId+"</strong><br>"+
+"Chargeable Weight: <strong>"+data.chargeableWeight+" g</strong><br>"+
+"Shipping: <strong>₹"+data.shipping+"</strong><br>"+
+"COD: <strong>₹"+data.codCharge+"</strong><br>"+
+"Total: <strong>₹"+data.total+"</strong><br><br>"+
+"Status: <strong>BOOKED</strong>";
 
-  var payment =
-    document.getElementById("payment").value;
+}catch(error){
 
-  var zone = getZone();
+document.getElementById("loading").style.display="none";
 
-  var l =
-    Number(document.getElementById("length").value) || 0;
+document.getElementById("success").style.display="block";
 
-  var w =
-    Number(document.getElementById("width").value) || 0;
+document.getElementById("success").innerHTML=
+"✅ Booking saved on this device.<br>"+
+"Google Sheet connection is not configured yet.";
 
-  var h =
-    Number(document.getElementById("height").value) || 0;
-
-
-  var volumetric =
-    (l * w * h) / 5000;
-
-
-  document.getElementById("zone").innerText =
-    zone || "-";
-
-
-  document.getElementById("volumetric").innerText =
-    volumetric.toFixed(2) + " kg";
-
-
-  if (!weight || !zone) {
-
-    document.getElementById("rate").innerText = "₹0";
-    document.getElementById("cod").innerText = "₹0";
-    document.getElementById("total").innerText = "0";
-
-    return;
-  }
-
-
-  var actual =
-    Number(weight);
-
-
-  var chargeable =
-    Math.max(actual, volumetric);
-
-
-  var rate = 0;
-
-
-  if (chargeable <= 0.25) {
-
-    rate = rates[zone]["0.25"];
-
-  } else if (chargeable <= 0.5) {
-
-    rate = rates[zone]["0.5"];
-
-  } else if (chargeable <= 0.75) {
-
-    rate = rates[zone]["0.75"];
-
-  } else if (chargeable <= 1) {
-
-    rate = rates[zone]["1"];
-
-  } else if (chargeable <= 1.5) {
-
-    rate = rates[zone]["1.5"];
-
-  } else if (chargeable <= 2) {
-
-    rate = rates[zone]["2"];
-
-  } else {
-
-    if (zone == "Maharashtra") {
-      rate = 105 + 20;
-    } else {
-      rate = 125 + 25;
-    }
-
-  }
-
-
-  var cod = 0;
-
-  if (payment == "COD") {
-    cod = 25;
-  }
-
-
-  document.getElementById("rate").innerText =
-    "₹" + rate;
-
-  document.getElementById("cod").innerText =
-    "₹" + cod;
-
-  document.getElementById("total").innerText =
-    rate + cod;
 }
-
-
-function saveData() {
-
-  var data = {
-
-    clientName:
-      document.getElementById("clientName").value,
-
-    clientMobile:
-      document.getElementById("clientMobile").value,
-
-    pickupName:
-      document.getElementById("pickupName").value,
-
-    pickupMobile:
-      document.getElementById("pickupMobile").value,
-
-    pickupAddress:
-      document.getElementById("pickupAddress").value,
-
-    pickupPin:
-      document.getElementById("pickupPin").value,
-
-    customerName:
-      document.getElementById("customerName").value,
-
-    customerMobile:
-      document.getElementById("customerMobile").value,
-
-    deliveryAddress:
-      document.getElementById("deliveryAddress").value,
-
-    deliveryPin:
-      document.getElementById("deliveryPin").value,
-
-    weight:
-      document.getElementById("weight").value,
-
-    payment:
-      document.getElementById("payment").value,
-
-    length:
-      document.getElementById("length").value,
-
-    width:
-      document.getElementById("width").value,
-
-    height:
-      document.getElementById("height").value
-
-  };
-
-
-  localStorage.setItem(
-    "bhagwatiFulfilData",
-    JSON.stringify(data)
-  );
-
-
-  alert("Details Saved Successfully");
-
-  calculate();
-}
-
-
-function editData() {
-
-  var saved =
-    localStorage.getItem("bhagwatiFulfilData");
-
-
-  if (!saved) {
-
-    alert("No saved details found");
-
-    return;
-  }
-
-
-  var data =
-    JSON.parse(saved);
-
-
-  document.getElementById("clientName").value =
-    data.clientName || "";
-
-  document.getElementById("clientMobile").value =
-    data.clientMobile || "";
-
-  document.getElementById("pickupName").value =
-    data.pickupName || "";
-
-  document.getElementById("pickupMobile").value =
-    data.pickupMobile || "";
-
-  document.getElementById("pickupAddress").value =
-    data.pickupAddress || "";
-
-  document.getElementById("pickupPin").value =
-    data.pickupPin || "";
-
-  document.getElementById("customerName").value =
-    data.customerName || "";
-
-  document.getElementById("customerMobile").value =
-    data.customerMobile || "";
-
-  document.getElementById("deliveryAddress").value =
-    data.deliveryAddress || "";
-
-  document.getElementById("deliveryPin").value =
-    data.deliveryPin || "";
-
-  document.getElementById("weight").value =
-    data.weight || "";
-
-  document.getElementById("payment").value =
-    data.payment || "";
-
-  document.getElementById("length").value =
-    data.length || "";
-
-  document.getElementById("width").value =
-    data.width || "";
-
-  document.getElementById("height").value =
-    data.height || "";
-
-
-  calculate();
-
-  alert("Saved Details Loaded");
 
 }
 
 
-function bookShipment() {
+/* =====================================================
+   DASHBOARD
+===================================================== */
 
-  var customer =
-    document.getElementById("customerName").value;
+function updateDashboard(){
 
-  var mobile =
-    document.getElementById("customerMobile").value;
+let total=bookings.length;
 
-  var address =
-    document.getElementById("deliveryAddress").value;
+let delivered=
+bookings.filter(x=>x.status==="DELIVERED").length;
 
-  var pin =
-    document.getElementById("deliveryPin").value;
+let pending=
+bookings.filter(x=>x.status!=="DELIVERED").length;
 
+document.getElementById("totalBookings").innerText=total;
+document.getElementById("pending").innerText=pending;
+document.getElementById("delivered").innerText=delivered;
 
-  if (
-    !customer ||
-    !mobile ||
-    !address ||
-    !pin
-  ) {
+let list=document.getElementById("bookingList");
 
-    alert(
-      "Please fill Customer Name, Mobile, Delivery Address and PIN Code."
-    );
+list.innerHTML="";
 
-    return;
-  }
+bookings.slice(0,10).forEach(b=>{
 
+let div=document.createElement("div");
 
-  calculate();
+div.className="booking";
 
+div.innerHTML=
+"<strong>"+b.orderId+"</strong>"+
+"<br>"+b.customerName+
+"<br>₹"+b.total+
+" • "+b.payment+
+"<br><span class='status'>"+b.status+"</span>";
 
-  var bookingId =
-    "BF" + Date.now();
+list.appendChild(div);
 
-
-  localStorage.setItem(
-    "BHAGWATI_LAST_BOOKING",
-    bookingId
-  );
-
-
-  alert(
-    "Shipment Booked Successfully!\n\nBooking ID: " +
-    bookingId +
-    "\nStatus: PENDING"
-  );
+});
 
 }
 
 
-/* Automatic calculation */
+/* =====================================================
+   AUTO ORDER ID
+===================================================== */
 
-document
-  .getElementById("deliveryPin")
-  .addEventListener("input", calculate);
+function generateOrderId(){
 
-document
-  .getElementById("weight")
-  .addEventListener("change", calculate);
+let id=
+"BF-"+Date.now().toString().slice(-8);
 
-document
-  .getElementById("payment")
-  .addEventListener("change", calculate);
+document.getElementById("orderId").value=id;
 
-document
-  .getElementById("length")
-  .addEventListener("input", calculate);
+}
 
-document
-  .getElementById("width")
-  .addEventListener("input", calculate);
 
-document
-  .getElementById("height")
-  .addEventListener("input", calculate);
+/* =====================================================
+   START
+===================================================== */
+
+loadProfile();
+updateDashboard();
+generateOrderId();
 
 </script>
 
