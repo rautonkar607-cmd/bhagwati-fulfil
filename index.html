@@ -1,257 +1,71 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+/* BHAGWATI FULFIL FINAL RATE CARD */
 
-<title>Bhagwati Fulfil | Client Portal</title>
+let shipping = 0;
 
-<style>
-*{
-  box-sizing:border-box;
-  margin:0;
-  padding:0;
+if(zone === "Maharashtra"){
+
+  if(chargeableKg <= 0.25){
+    shipping = 40;
+  }
+  else if(chargeableKg <= 0.50){
+    shipping = 45;
+  }
+  else if(chargeableKg <= 0.75){
+    shipping = 55;
+  }
+  else if(chargeableKg <= 1.00){
+    shipping = 70;
+  }
+  else if(chargeableKg <= 1.50){
+    shipping = 95;
+  }
+  else if(chargeableKg <= 2.00){
+    shipping = 105;
+  }
+  else{
+    shipping = 105 + Math.ceil(chargeableKg - 2) * 20;
+  }
+
 }
 
-body{
-  font-family:Arial, sans-serif;
-  background:#f4f6f9;
-  color:#172033;
+
+if(zone === "Pan India"){
+
+  if(chargeableKg <= 0.25){
+    shipping = 50;
+  }
+  else if(chargeableKg <= 0.50){
+    shipping = 60;
+  }
+  else if(chargeableKg <= 0.75){
+    shipping = 75;
+  }
+  else if(chargeableKg <= 1.00){
+    shipping = 90;
+  }
+  else if(chargeableKg <= 1.50){
+    shipping = 115;
+  }
+  else if(chargeableKg <= 2.00){
+    shipping = 125;
+  }
+  else{
+    shipping = 125 + Math.ceil(chargeableKg - 2) * 25;
+  }
+
 }
 
-.header{
-  background:#111827;
-  color:white;
-  padding:22px;
-  text-align:center;
+
+/* COD EXTRA CHARGE */
+
+let codCharge = 0;
+
+if(paymentType.value === "COD"){
+  codCharge = 25;
 }
 
-.header h1{
-  font-size:25px;
-}
 
-.header p{
-  margin-top:6px;
-  font-size:13px;
-  opacity:.8;
-}
+/* FINAL TOTAL */
 
-.container{
-  max-width:650px;
-  margin:30px auto;
-  padding:20px;
-}
-
-.card{
-  background:white;
-  padding:25px;
-  border-radius:18px;
-  box-shadow:0 8px 30px rgba(0,0,0,.08);
-}
-
-.section-title{
-  font-size:18px;
-  font-weight:bold;
-  margin:22px 0 15px;
-}
-
-label{
-  display:block;
-  font-size:13px;
-  font-weight:bold;
-  margin-bottom:6px;
-}
-
-input, textarea, select{
-  width:100%;
-  padding:13px;
-  border:1px solid #d5d9e0;
-  border-radius:10px;
-  margin-bottom:15px;
-  font-size:15px;
-}
-
-textarea{
-  min-height:90px;
-  resize:vertical;
-}
-
-button{
-  width:100%;
-  padding:15px;
-  border:0;
-  border-radius:11px;
-  background:#111827;
-  color:white;
-  font-size:16px;
-  font-weight:bold;
-  cursor:pointer;
-}
-
-button:hover{
-  opacity:.9;
-}
-
-.success{
-  display:none;
-  margin-top:20px;
-  padding:18px;
-  border-radius:12px;
-  background:#ecfdf3;
-  border:1px solid #b7ebc9;
-  color:#146c35;
-}
-
-.footer{
-  text-align:center;
-  margin-top:25px;
-  color:#777;
-  font-size:12px;
-}
-</style>
-</head>
-
-<body>
-
-<div class="header">
-  <h1>BHAGWATI FULFIL</h1>
-  <p>D2C Fulfillment & Logistics</p>
-</div>
-
-<div class="container">
-
-<div class="card">
-
-<form id="shipmentForm">
-
-<div class="section-title">
-Client Details
-</div>
-
-<label>Business / Client Name</label>
-<input type="text" id="clientName" required>
-
-<div class="section-title">
-Pickup Details
-</div>
-
-<label>Pickup Person Name</label>
-<input type="text" id="pickupName" required>
-
-<label>Pickup Mobile</label>
-<input type="tel" id="pickupMobile" required>
-
-<label>Pickup Address</label>
-<textarea id="pickupAddress" required></textarea>
-
-<label>Pickup Pincode</label>
-<input type="text" id="pickupPincode" required>
-
-<div class="section-title">
-Delivery Details
-</div>
-
-<label>Customer Name</label>
-<input type="text" id="customerName" required>
-
-<label>Customer Mobile</label>
-<input type="tel" id="customerMobile" required>
-
-<label>Delivery Address</label>
-<textarea id="deliveryAddress" required></textarea>
-
-<label>Delivery Pincode</label>
-<input type="text" id="deliveryPincode" required>
-
-<div class="section-title">
-Shipment Details
-</div>
-
-<label>Payment Mode</label>
-
-<select id="paymentMode" required>
-<option value="">Select</option>
-<option value="Prepaid">Prepaid</option>
-<option value="COD">COD</option>
-</select>
-
-<label>Order Value ₹</label>
-<input type="number" id="orderValue" required>
-
-<label>Weight</label>
-<select id="weight" required>
-<option value="">Select Weight</option>
-<option>Up to 250g</option>
-<option>Up to 500g</option>
-<option>Up to 750g</option>
-<option>Up to 1kg</option>
-<option>Up to 1.5kg</option>
-<option>Up to 2kg</option>
-<option>Above 2kg</option>
-</select>
-
-<label>Dimensions (Optional)</label>
-<input type="text" id="dimensions"
-placeholder="Example: 15 x 16 x 15 cm">
-
-<button type="submit">
-SUBMIT SHIPMENT REQUEST
-</button>
-
-</form>
-
-<div class="success" id="successBox">
-
-<strong>Shipment Request Received ✅</strong>
-
-<br><br>
-
-Order ID:
-<strong id="orderId"></strong>
-
-<br><br>
-
-Status:
-<strong>Processing</strong>
-
-<br><br>
-
-Bhagwati Fulfil will process the shipment and share the AWB/tracking details.
-
-</div>
-
-</div>
-
-<div class="footer">
-Bhagwati Fulfil • Store • Pick • Pack • Ship
-</div>
-
-</div>
-
-<script>
-
-document.getElementById("shipmentForm")
-.addEventListener("submit", function(e){
-
-e.preventDefault();
-
-let number =
-Math.floor(100000 + Math.random() * 900000);
-
-let orderID = "BF-" + number;
-
-document.getElementById("orderId")
-.innerText = orderID;
-
-document.getElementById("successBox")
-.style.display = "block";
-
-document.getElementById("shipmentForm")
-.style.display = "none";
-
-});
-
-</script>
-
-</body>
-</html>
+const total =
+shipping + codCharge;
