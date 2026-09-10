@@ -1,47 +1,140 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>BHAGWATI FULFIL</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BHAGWATI FULFIL | Client Portal</title>
 
 <style>
+*{box-sizing:border-box}
 body{
   margin:0;
-  font-family:Arial;
-  background:#f4f6f9;
+  font-family:Arial,sans-serif;
+  background:#f4f6f8;
+  color:#222;
 }
 .header{
-  background:#111827;
+  background:#111;
   color:white;
-  padding:30px;
+  padding:18px;
   text-align:center;
 }
-h1{
-  margin:0;
-}
-.orange{
-  color:#ff6a00;
+.header h1{margin:0;font-size:25px}
+.orange{color:#ff7900}
+
+.container{
+  max-width:850px;
+  margin:25px auto;
+  padding:0 15px;
 }
 .card{
   background:white;
-  max-width:600px;
-  margin:25px auto;
-  padding:25px;
-  border-radius:15px;
+  border-radius:14px;
+  padding:22px;
+  margin-bottom:20px;
+  box-shadow:0 3px 15px rgba(0,0,0,.08);
 }
-input,button{
+h2{margin-top:0}
+.step{
+  display:none;
+}
+.step.active{
+  display:block;
+}
+label{
+  display:block;
+  font-weight:bold;
+  margin-top:14px;
+  margin-bottom:6px;
+}
+input,select,textarea{
   width:100%;
-  padding:14px;
-  margin-top:12px;
-  box-sizing:border-box;
+  padding:12px;
+  border:1px solid #ccc;
+  border-radius:8px;
+  font-size:15px;
+}
+textarea{
+  min-height:80px;
+  resize:vertical;
+}
+.row{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:12px;
+}
+.row3{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:12px;
 }
 button{
-  background:#ff6a00;
-  color:white;
   border:0;
-  border-radius:8px;
+  border-radius:9px;
+  padding:13px 20px;
+  font-size:15px;
   font-weight:bold;
+  cursor:pointer;
+  margin-top:18px;
+}
+.primary{
+  background:#ff7900;
+  color:white;
+}
+.secondary{
+  background:#222;
+  color:white;
+}
+.green{
+  background:#16883d;
+  color:white;
+}
+button:active{
+  transform:scale(.98);
+}
+.nav{
+  display:flex;
+  justify-content:space-between;
+  gap:10px;
+}
+.info{
+  background:#fff7ed;
+  border-left:4px solid #ff7900;
+  padding:12px;
+  border-radius:6px;
+  margin:15px 0;
+}
+.ratebox{
+  background:#f7f7f7;
+  padding:15px;
+  border-radius:10px;
+  margin-top:15px;
+}
+.price{
+  font-size:27px;
+  font-weight:bold;
+  color:#16883d;
+}
+.success{
+  text-align:center;
+  background:#ecfff2;
+  border:1px solid #a8e5bb;
+  padding:20px;
+  border-radius:12px;
+}
+.small{
+  color:#666;
+  font-size:13px;
+}
+.hidden{display:none}
+
+@media(max-width:600px){
+  .row,.row3{
+    grid-template-columns:1fr;
+  }
+  .nav{
+    flex-direction:column;
+  }
 }
 </style>
 </head>
@@ -50,45 +143,12 @@ button{
 
 <div class="header">
   <h1>BHAGWATI <span class="orange">FULFIL</span></h1>
-  <p>D2C FULFILLMENT & LOGISTICS</p>
+  <div>Client Booking Portal</div>
 </div>
 
-<div class="card">
+<div class="container">
 
-<h2>Client Portal</h2>
+<!-- ================= STEP 1 ================= -->
 
-<input id="name" placeholder="Client / Business Name">
-
-<input id="mobile" placeholder="Mobile Number">
-
-<button onclick="testBooking()">
-SAVE & CONTINUE
-</button>
-
-<div id="result"></div>
-
-</div>
-
-<script>
-
-function testBooking(){
-
-  let name=document.getElementById("name").value;
-  let mobile=document.getElementById("mobile").value;
-
-  if(name==="" || mobile===""){
-    alert("Please fill details");
-    return;
-  }
-
-  document.getElementById("result").innerHTML=
-  "<h3>✅ Page Working</h3>"+
-  "<p>Client: "+name+"</p>"+
-  "<p>Mobile: "+mobile+"</p>";
-
-}
-
-</script>
-
-</body>
-</html>
+<div id="step1" class="step active">
+<div
