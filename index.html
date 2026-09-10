@@ -3,111 +3,217 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>BHAGWATI FULFIL | Client Portal</title>
 
 <style>
-*{box-sizing:border-box}
+*{
+  box-sizing:border-box;
+}
+
 body{
   margin:0;
-  font-family:Arial,sans-serif;
+  font-family:Arial, sans-serif;
   background:#f4f6f8;
   color:#222;
 }
-.container{
-  max-width:850px;
-  margin:30px auto;
-  padding:15px;
+
+header{
+  background:#111827;
+  color:white;
+  text-align:center;
+  padding:22px 15px;
 }
-.card{
-  background:#fff;
-  padding:25px;
-  border-radius:15px;
-  box-shadow:0 4px 18px rgba(0,0,0,.08);
+
+header h1{
+  margin:0;
+  font-size:26px;
+}
+
+header p{
+  margin:7px 0 0;
+  color:#d1d5db;
+}
+
+.container{
+  width:94%;
+  max-width:850px;
+  margin:25px auto;
+}
+
+.step{
+  display:none;
+  background:white;
+  padding:22px;
+  border-radius:14px;
+  box-shadow:0 3px 15px rgba(0,0,0,.08);
   margin-bottom:20px;
 }
-h1{text-align:center;margin:5px 0 8px}
-h2{margin-top:0}
-.subtitle{text-align:center;color:#666;margin-bottom:25px}
 
-.step{display:none}
-.step.active{display:block}
-
-.grid{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:14px;
+.step.active{
+  display:block;
 }
-.full{grid-column:1/-1}
+
+h2{
+  margin-top:0;
+  font-size:21px;
+}
+
+h3{
+  margin-top:25px;
+  font-size:17px;
+  border-bottom:1px solid #ddd;
+  padding-bottom:8px;
+}
 
 label{
   display:block;
   font-weight:bold;
+  margin-top:14px;
   margin-bottom:6px;
 }
-input,select,textarea{
+
+input,
+select,
+textarea{
   width:100%;
   padding:12px;
   border:1px solid #ccc;
   border-radius:8px;
   font-size:15px;
+  outline:none;
 }
-textarea{min-height:85px;resize:vertical}
 
-button{
-  width:100%;
-  padding:13px;
-  border:0;
-  border-radius:8px;
-  font-size:16px;
-  font-weight:bold;
-  cursor:pointer;
-  margin-top:10px;
+input:focus,
+select:focus,
+textarea:focus{
+  border-color:#111827;
 }
-.primary{background:#111;color:white}
-.green{background:#16833b;color:white}
-.gray{background:#ddd;color:#222}
+
+textarea{
+  min-height:85px;
+  resize:vertical;
+}
 
 .row{
   display:grid;
   grid-template-columns:1fr 1fr;
-  gap:12px;
+  gap:15px;
 }
 
-.ratebox{
-  background:#f7f7f7;
+.row3{
+  display:grid;
+  grid-template-columns:1fr 1fr 1fr;
+  gap:15px;
+}
+
+button{
+  width:100%;
+  padding:14px;
+  margin-top:20px;
+  border:0;
+  border-radius:9px;
+  background:#111827;
+  color:white;
+  font-size:16px;
+  font-weight:bold;
+  cursor:pointer;
+}
+
+button:hover{
+  opacity:.9;
+}
+
+.secondary{
+  background:#6b7280;
+}
+
+.success{
+  text-align:center;
+}
+
+.success h2{
+  color:green;
+}
+
+.order-box{
+  background:#f3f4f6;
   padding:15px;
   border-radius:10px;
-  margin-top:18px;
+  margin-top:15px;
 }
-.ratebox p{
-  margin:8px 0;
+
+.rate-box{
+  margin-top:20px;
+  background:#eef2ff;
+  padding:18px;
+  border-radius:12px;
+}
+
+.rate-line{
   display:flex;
   justify-content:space-between;
+  padding:6px 0;
 }
+
 .total{
-  font-size:22px;
-  font-weight:bold;
-  border-top:2px solid #ddd;
-  padding-top:12px;
-}
-.success{
-  background:#eaf8ee;
-  border:1px solid #8bd09d;
-  padding:18px;
-  border-radius:10px;
-}
-.error{
-  color:#c00;
-  font-weight:bold;
-  margin-top:10px;
-}
-.small{
-  font-size:13px;
-  color:#666;
-}
-.order{
+  border-top:2px solid #555;
+  margin-top:8px;
+  padding-top:10px;
   font-size:20px;
   font-weight:bold;
 }
+
+.small{
+  color:#666;
+  font-size:13px;
+  margin-top:5px;
+}
+
+.hidden{
+  display:none;
+}
+
+.badge{
+  display:inline-block;
+  padding:7px 12px;
+  border-radius:20px;
+  background:#dbeafe;
+  color:#1e40af;
+  font-weight:bold;
+}
+
 @media(max-width:600px){
-  .grid,.row{grid-template-columns:1fr}
+  .row,
+  .row3{
+    grid-template-columns:1fr;
+    gap:0;
+  }
+
+  .step{
+    padding:17px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <h1>BHAGWATI FULFIL</h1>
+  <p>Client Booking Portal</p>
+</header>
+
+<div class="container">
+
+<!-- ================= STEP 1 ================= -->
+
+<section id="step1" class="step active">
+
+  <h2>Step 1 — Client Details</h2>
+
+  <label>Business / Client Name</label>
+  <input id="clientName" type="text" placeholder="Enter business name">
+
+  <label>Mobile Number</label>
+  <input id="clientMobile" type="tel
