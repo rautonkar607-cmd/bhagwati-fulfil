@@ -42,6 +42,14 @@ textarea{min-height:90px;resize:vertical}label{font-weight:600;font-size:14px}bu
 <button class="secondary" onclick="showLogin()">BACK TO LOGIN</button>
 </section>
 
+<section id="resetSection" class="card hidden">
+<h2>Reset Password</h2><div id="resetMsg"></div>
+<label>New Password</label><input id="newPassword" type="password" placeholder="Minimum 6 characters">
+<label>Confirm Password</label><input id="confirmPassword" type="password" placeholder="Confirm password">
+<button class="success" onclick="updatePassword()">UPDATE PASSWORD</button>
+<button class="secondary" onclick="showLogin()">BACK TO LOGIN</button>
+</section>
+
 <section id="clientArea" class="hidden">
 <div class="card"><div class="topbar"><div><h2>Client Dashboard</h2><div id="clientWelcome"></div></div><button class="danger" onclick="logout()">LOGOUT</button></div></div>
 
@@ -130,9 +138,9 @@ const volumetricWeight=document.getElementById("volumetricWeight"), chargeableWe
 const adminMsg=document.getElementById("adminMsg"), adminClients=document.getElementById("adminClients"), adminBookings=document.getElementById("adminBookings"), todayDelivered=document.getElementById("todayDelivered"), weekDelivered=document.getElementById("weekDelivered"), monthDelivered=document.getElementById("monthDelivered"), totalBookings=document.getElementById("totalBookings");
 let currentUser=null,currentProfile=null,currentClient=null,adminProfiles=[];
 
-function showLogin(){loginSection.classList.remove("hidden");signupSection.classList.add("hidden");resetSection.classList.add("hidden")}
-function showSignup(){loginSection.classList.add("hidden");signupSection.classList.remove("hidden");resetSection.classList.add("hidden")}
-function showReset(){loginSection.classList.add("hidden");signupSection.classList.add("hidden");resetSection.classList.remove("hidden");clientArea.classList.add("hidden");adminArea.classList.add("hidden")}
+function showLogin(){loginSection.classList.remove("hidden");signupSection.classList.add("hidden");if(resetSection)resetSection.classList.add("hidden")}
+function showSignup(){loginSection.classList.add("hidden");signupSection.classList.remove("hidden");if(resetSection)resetSection.classList.add("hidden")}
+function showReset(){loginSection.classList.add("hidden");signupSection.classList.add("hidden");if(resetSection)resetSection.classList.remove("hidden");clientArea.classList.add("hidden");adminArea.classList.add("hidden")}
 function hideAuth(){loginSection.classList.add("hidden");signupSection.classList.add("hidden")}
 function msg(id,text,type="notice"){document.getElementById(id).innerHTML=`<div class="notice ${type}">${text}</div>`}
 
@@ -214,10 +222,14 @@ async function loadUser(){
 
 async function loadClient(){
  clientWelcome.innerHTML=`<b>${escapeHtml(currentProfile.full_name||"")}</b>`;
- const {data,error}=await supabaseClient.from("clients").select("*").eq("id",currentProfile.client_id).single();
+ const clientId=Number(currentProfile.client_id);
+ if(!Number.isInteger(clientId)||clientId<=0){
+  return msg("loginMsg","Client profile is not linked to this account. Please run the profile-link SQL once in Supabase.","error");
+ }
+ const {data,error}=await supabaseClient.from("clients").select("*").eq("id",clientId).single();
  if(error)return msg("loginMsg","Client profile loading error: "+error.message,"error");
  currentClient=data;
- profileName.value=data.client_name||"";profileMobile.value=data.mobile||"";profileEmail.value=data.email||currentUser.email||"";
+ profileName.value=data.Client_name||"";profileMobile.value=data.mobile||"";profileEmail.value=data.email||currentUser.email||"";
  bankHolder.value=data.bank_holder_name||"";accountNumber.value=data.account_number||"";ifsc.value=data.ifsc||"";upiId.value=data.upi_id||"";
  clientProfileBox.classList.remove("hidden");
  bookingBox.classList.remove("hidden");
@@ -226,7 +238,7 @@ async function loadClient(){
 }
 
 async function saveProfile(){
- const updates={client_name:profileName.value.trim(),mobile:profileMobile.value.trim(),bank_holder_name:bankHolder.value.trim(),account_number:accountNumber.value.trim(),ifsc:ifsc.value.trim(),upi_id:upiId.value.trim()};
+ const updates={"Client_name":profileName.value.trim(),mobile:profileMobile.value.trim(),bank_holder_name:bankHolder.value.trim(),account_number:accountNumber.value.trim(),ifsc:ifsc.value.trim(),upi_id:upiId.value.trim()};
  const {error}=await supabaseClient.from("clients").update(updates).eq("id",currentProfile.client_id);
  if(error)return msg("profileMsg",error.message,"error");
  currentClient={...currentClient,...updates};msg("profileMsg","Profile saved successfully.","ok");
@@ -268,7 +280,7 @@ async function bookShipment(){
  if(payment==="COD"&&!ca)return msg("bookingMsg","Enter COD amount.","error");
  calculateRate();
  const vol=(l*w*h)/5000,charge=Math.max(aw/1000,vol),shipping=Number(shippingCharge.textContent),cod=Number(codCharge.textContent),total=Number(totalCharge.textContent),zoneName=zone.textContent;
- const clientShort=(currentClient.client_name||"CLIENT").replace(/[^a-zA-Z0-9]/g,"-").toUpperCase().substring(0,20);
+ const clientShort=(currentClient.Client_name||"CLIENT").replace(/[^a-zA-Z0-9]/g,"-").toUpperCase().substring(0,20);
  const orderId=clientShort+"-"+new Date().toISOString().slice(0,10).replaceAll("-","")+"-"+Date.now().toString().slice(-5);
  const booking={client_id:currentProfile.client_id,order_id:orderId,payment_type:payment,parcel_value:payment==="Prepaid"?pv:0,cod_amount:payment==="COD"?ca:0,pickup_name:pn,pickup_mobile:pm,pickup_address:pa,pickup_pincode:pp,customer_name:cn,customer_mobile:cm,delivery_address:da,delivery_pincode:dp,zone:zoneName,length_cm:l,width_cm:w,height_cm:h,actual_weight_g:aw,volumetric_weight_kg:Number(vol.toFixed(3)),chargeable_weight_kg:Number(charge.toFixed(3)),shipping_charge:shipping,cod_charge:cod,total_charge:total,rto_charge:shipping,status:"Booked"};
  msg("bookingMsg","Saving booking...");
@@ -303,10 +315,10 @@ async function getAdminProfiles(){
 }
 
 async function loadAdminClients(){
- const {data,error}=await supabaseClient.from("clients").select("id,client_name,mobile,email,created_at").order("created_at",{ascending:false});
+ const {data,error}=await supabaseClient.from("clients").select('id,"Client_name",mobile,email,created_at').order("created_at",{ascending:false});
  if(error){adminClients.innerHTML=`<div class="notice error">${escapeHtml(error.message)}</div>`;return;}
  if(!data?.length){adminClients.innerHTML='<div class="notice">No client accounts found.</div>';return;}
- adminClients.innerHTML=data.map(c=>`<div class="order"><b>${escapeHtml(c.client_name||"Client")}</b><p>Mobile: ${escapeHtml(c.mobile||"")}</p><p>Email: ${escapeHtml(c.email||"")}</p><p>Client ID: ${escapeHtml(String(c.id||""))}</p></div>`).join("");
+ adminClients.innerHTML=data.map(c=>`<div class="order"><b>${escapeHtml(c.Client_name||"Client")}</b><p>Mobile: ${escapeHtml(c.mobile||"")}</p><p>Email: ${escapeHtml(c.email||"")}</p><p>Client ID: ${escapeHtml(String(c.id||""))}</p></div>`).join("");
 }
 
 async function loadAdminBookings(){
