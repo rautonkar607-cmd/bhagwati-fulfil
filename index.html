@@ -5,386 +5,2942 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>BHAGWATI FULFIL | Client Portal</title>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
 <style>
-*{box-sizing:border-box}body{margin:0;font-family:Arial,sans-serif;background:#f4f7fb;color:#172033}
-.container{width:95%;max-width:1100px;margin:25px auto}header{background:#111827;color:white;padding:20px;border-radius:14px;margin-bottom:20px}
-header h1{margin:0;font-size:25px}header p{margin:6px 0 0;opacity:.8}.card{background:white;padding:22px;border-radius:14px;box-shadow:0 5px 20px rgba(0,0,0,.08);margin-bottom:20px}
-h2{margin-top:0}input,select,textarea{width:100%;padding:12px;border:1px solid #d1d5db;border-radius:8px;margin-top:6px;margin-bottom:14px;font-size:15px}
-textarea{min-height:90px;resize:vertical}label{font-weight:600;font-size:14px}button{border:0;padding:12px 18px;border-radius:8px;cursor:pointer;font-weight:bold;font-size:15px;margin:4px}
-.primary{background:#111827;color:white}.success{background:#15803d;color:white}.danger{background:#dc2626;color:white}.secondary{background:#e5e7eb;color:#111827}
-.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:15px}@media(max-width:700px){.grid{grid-template-columns:1fr}}
-.hidden{display:none!important}.notice{padding:13px;border-radius:8px;background:#eff6ff;margin-bottom:15px}.error{background:#fee2e2;color:#991b1b}.ok{background:#dcfce7;color:#166534}
-.ratebox{background:#f8fafc;border:1px solid #e5e7eb;border-radius:10px;padding:15px;margin:15px 0}.total{font-size:24px;font-weight:bold}
-.order{border:1px solid #ddd;border-radius:10px;padding:15px;margin-bottom:12px}.badge{display:inline-block;padding:5px 9px;border-radius:20px;background:#e5e7eb;font-size:12px;font-weight:bold}
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,sans-serif;background:#f4f7fb;color:#172033}
+.container{width:95%;max-width:1150px;margin:25px auto}
+header{background:#111827;color:white;padding:20px;border-radius:14px;margin-bottom:20px}
+header h1{margin:0;font-size:25px}
+header p{margin:6px 0 0;opacity:.8}
+.card{background:white;padding:22px;border-radius:14px;box-shadow:0 5px 20px rgba(0,0,0,.08);margin-bottom:20px}
+h2{margin-top:0}
+h3{margin-top:20px}
+input,select,textarea{width:100%;padding:12px;border:1px solid #d1d5db;border-radius:8px;margin-top:6px;margin-bottom:14px;font-size:15px}
+textarea{min-height:90px;resize:vertical}
+label{font-weight:600;font-size:14px}
+button{border:0;padding:12px 18px;border-radius:8px;cursor:pointer;font-weight:bold;font-size:15px;margin:4px}
+.primary{background:#111827;color:white}
+.success{background:#15803d;color:white}
+.danger{background:#dc2626;color:white}
+.secondary{background:#e5e7eb;color:#111827}
+.info{background:#2563eb;color:white}
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:15px}
+.filterGrid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+@media(max-width:800px){.filterGrid{grid-template-columns:1fr}}
+@media(max-width:700px){.grid{grid-template-columns:1fr}}
+.hidden{display:none!important}
+.notice{padding:13px;border-radius:8px;background:#eff6ff;margin-bottom:15px}
+.error{background:#fee2e2;color:#991b1b}
+.ok{background:#dcfce7;color:#166534}
+.ratebox{background:#f8fafc;border:1px solid #e5e7eb;border-radius:10px;padding:15px;margin:15px 0}
+.total{font-size:24px;font-weight:bold}
+.order{border:1px solid #ddd;border-radius:10px;padding:15px;margin-bottom:12px}
+.badge{display:inline-block;padding:5px 9px;border-radius:20px;background:#e5e7eb;font-size:12px;font-weight:bold}
 .topbar{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+.monthTitle{background:#111827;color:white;padding:10px 14px;border-radius:8px;margin:18px 0 10px;font-weight:bold}
+.bankBox{margin-top:10px;padding:14px;background:#f8fafc;border:1px solid #e5e7eb;border-radius:10px}
+.bankToggle{background:#e5e7eb;color:#111827}
+.fileBox{background:#f8fafc;padding:12px;border-radius:8px;border:1px dashed #aaa;margin-bottom:12px}
+.small{font-size:13px;color:#64748b}
+a{color:#2563eb;font-weight:bold;text-decoration:none}
 </style>
 </head>
-<body>
-<div class="container">
-<header><h1>BHAGWATI FULFIL</h1><p>Client Fulfillment & Delivery Portal</p></header>
 
+<body>
+
+<div class="container">
+
+<header>
+<h1>BHAGWATI FULFIL</h1>
+<p>Client Fulfillment & Delivery Portal</p>
+</header>
+
+<!-- LOGIN -->
 <section id="loginSection" class="card">
-<h2>Client / Admin Login</h2><div id="loginMsg"></div>
-<label>Email</label><input id="loginEmail" type="email" placeholder="Enter email">
-<label>Password</label><input id="loginPassword" type="password" placeholder="Enter password">
+<h2>Client / Admin Login</h2>
+<div id="loginMsg"></div>
+
+<label>Email</label>
+<input id="loginEmail" type="email" placeholder="Enter email">
+
+<label>Password</label>
+<input id="loginPassword" type="password" placeholder="Enter password">
+
 <button class="primary" onclick="login()">LOGIN</button>
 <button class="secondary" onclick="showSignup()">CREATE NEW CLIENT ACCOUNT</button>
 <button class="secondary" onclick="sendReset()">FORGOT PASSWORD?</button>
 </section>
 
+<!-- SIGNUP -->
 <section id="signupSection" class="card hidden">
-<h2>Create Client Account</h2><div id="signupMsg"></div>
-<label>Business / Client Name</label><input id="signupName" placeholder="Business name">
-<label>Mobile Number</label><input id="signupMobile" placeholder="Mobile number">
-<label>Email</label><input id="signupEmail" type="email" placeholder="Email">
-<label>Password</label><input id="signupPassword" type="password" placeholder="Minimum 6 characters">
+<h2>Create Client Account</h2>
+<div id="signupMsg"></div>
+
+<label>Business / Client Name</label>
+<input id="signupName" placeholder="Business name">
+
+<label>Mobile Number</label>
+<input id="signupMobile" placeholder="Mobile number">
+
+<label>Email</label>
+<input id="signupEmail" type="email" placeholder="Email">
+
+<label>Password</label>
+<input id="signupPassword" type="password" placeholder="Minimum 6 characters">
+
 <button class="primary" onclick="signup()">CREATE ACCOUNT</button>
 <button class="secondary" onclick="showLogin()">BACK TO LOGIN</button>
 </section>
 
+<!-- RESET -->
 <section id="resetSection" class="card hidden">
-<h2>Reset Password</h2><div id="resetMsg"></div>
-<label>New Password</label><input id="newPassword" type="password" placeholder="Minimum 6 characters">
-<label>Confirm Password</label><input id="confirmPassword" type="password" placeholder="Confirm password">
+<h2>Reset Password</h2>
+<div id="resetMsg"></div>
+
+<label>New Password</label>
+<input id="newPassword" type="password">
+
+<label>Confirm Password</label>
+<input id="confirmPassword" type="password">
+
 <button class="success" onclick="updatePassword()">UPDATE PASSWORD</button>
 <button class="secondary" onclick="showLogin()">BACK TO LOGIN</button>
 </section>
 
+<!-- CLIENT -->
 <section id="clientArea" class="hidden">
-<div class="card"><div class="topbar"><div><h2>Client Dashboard</h2><div id="clientWelcome"></div></div><button class="danger" onclick="logout()">LOGOUT</button></div></div>
 
+<div class="card">
+<div class="topbar">
+<div>
+<h2>Client Dashboard</h2>
+<div id="clientWelcome"></div>
+</div>
+<button class="danger" onclick="logout()">LOGOUT</button>
+</div>
+</div>
+
+<!-- CLIENT PROFILE -->
 <div id="clientProfileBox" class="card hidden">
-<h2>Client Profile</h2><div class="grid">
-<div><label>Business / Client Name</label><input id="profileName"></div>
-<div><label>Mobile</label><input id="profileMobile"></div>
-<div><label>Email</label><input id="profileEmail" disabled></div>
-</div>
-<h3>COD Settlement Bank Details</h3><div class="notice">These details are stored once and are used for COD settlement.</div>
+
+<h2>Client Profile</h2>
+
 <div class="grid">
-<div><label>Account Holder Name</label><input id="bankHolder"></div>
-<div><label>Account Number</label><input id="accountNumber"></div>
-<div><label>IFSC</label><input id="ifsc"></div>
-<div><label>UPI ID (Optional)</label><input id="upiId"></div>
-</div>
-<button class="success" onclick="saveProfile()">SAVE PROFILE</button><div id="profileMsg"></div>
+
+<div>
+<label>Business / Client Name</label>
+<input id="profileName">
 </div>
 
+<div>
+<label>Mobile</label>
+<input id="profileMobile">
+</div>
+
+<div>
+<label>Email</label>
+<input id="profileEmail" disabled>
+</div>
+
+</div>
+
+<h3>COD Settlement Bank Details</h3>
+
+<div class="notice">
+These details are stored once and are used for COD settlement.
+</div>
+
+<div class="grid">
+
+<div>
+<label>Account Holder Name</label>
+<input id="bankHolder">
+</div>
+
+<div>
+<label>Account Number</label>
+<input id="accountNumber">
+</div>
+
+<div>
+<label>IFSC</label>
+<input id="ifsc">
+</div>
+
+<div>
+<label>UPI ID (Optional)</label>
+<input id="upiId">
+</div>
+
+</div>
+
+<button class="success" onclick="saveProfile()">SAVE PROFILE</button>
+<div id="profileMsg"></div>
+
+</div>
+
+<!-- BOOKING -->
 <div id="bookingBox" class="card hidden">
-<h2>Book New Shipment</h2><div id="bookingMsg"></div>
-<h3>Shipment Details</h3><div class="grid">
-<div><label>Order ID</label><input id="orderId" disabled placeholder="Auto generated"></div>
-<div><label>Payment Type</label><select id="paymentType" onchange="paymentChanged()"><option value="Prepaid">Prepaid</option><option value="COD">COD</option></select></div>
+
+<h2>Book New Shipment</h2>
+<div id="bookingMsg"></div>
+
+<h3>Shipment Details</h3>
+
+<div class="grid">
+
+<div>
+<label>Order ID</label>
+<input id="orderId" disabled placeholder="Auto generated">
 </div>
-<h3>Pickup Details</h3><div class="grid">
-<div><label>Pickup Name</label><input id="pickupName"></div><div><label>Pickup Mobile</label><input id="pickupMobile"></div>
+
+<div>
+<label>Payment Type</label>
+<select id="paymentType" onchange="paymentChanged()">
+<option value="Prepaid">Prepaid</option>
+<option value="COD">COD</option>
+</select>
 </div>
-<label>Pickup Address</label><textarea id="pickupAddress"></textarea>
-<label>Pickup Pincode</label><input id="pickupPincode" maxlength="6">
-<h3>Customer / Delivery Details</h3><div class="grid">
-<div><label>Customer Name</label><input id="customerName"></div><div><label>Customer Mobile</label><input id="customerMobile"></div>
+
 </div>
-<label>Delivery Address</label><textarea id="deliveryAddress"></textarea>
-<div><label>Delivery Pincode</label><input id="deliveryPincode" maxlength="6" oninput="calculateRate()"></div>
-<div><label>Service Zone *</label><select id="zoneType" onchange="calculateRate()"><option value="Maharashtra">Maharashtra</option><option value="Pan India">Pan India</option></select></div>
-<div id="valueBox"><label>Parcel / Order Value ₹</label><input id="parcelValue" type="number" min="0"></div>
-<div id="codBox" class="hidden"><label>COD Amount ₹</label><input id="codAmount" type="number" min="0"></div>
-<h3>Package Details</h3><div class="grid">
-<div><label>Length cm</label><input id="length" type="number" min="0" oninput="calculateRate()"></div>
-<div><label>Width cm</label><input id="width" type="number" min="0" oninput="calculateRate()"></div>
-<div><label>Height cm</label><input id="height" type="number" min="0" oninput="calculateRate()"></div>
-<div><label>Actual Weight grams</label><input id="actualWeight" type="number" min="0" oninput="calculateRate()"></div>
+
+<h3>Pickup Details</h3>
+
+<div class="grid">
+
+<div>
+<label>Pickup Name</label>
+<input id="pickupName">
 </div>
+
+<div>
+<label>Pickup Mobile</label>
+<input id="pickupMobile">
+</div>
+
+</div>
+
+<label>Pickup Address</label>
+<textarea id="pickupAddress"></textarea>
+
+<label>Pickup Pincode</label>
+<input id="pickupPincode" maxlength="6">
+
+<h3>Customer / Delivery Details</h3>
+
+<div class="grid">
+
+<div>
+<label>Customer Name</label>
+<input id="customerName">
+</div>
+
+<div>
+<label>Customer Mobile</label>
+<input id="customerMobile">
+</div>
+
+</div>
+
+<label>Delivery Address</label>
+<textarea id="deliveryAddress"></textarea>
+
+<div class="grid">
+
+<div>
+<label>Delivery Pincode</label>
+<input id="deliveryPincode" maxlength="6" oninput="calculateRate()">
+</div>
+
+<div>
+<label>Service Zone</label>
+<select id="zoneType" onchange="calculateRate()">
+<option value="Auto">Auto Detect</option>
+<option value="Maharashtra">Maharashtra</option>
+<option value="Pan India">Pan India</option>
+</select>
+</div>
+
+</div>
+
+<label>Parcel / Order Value ₹</label>
+<input id="parcelValue" type="number" min="0">
+
+<div id="codBox" class="hidden">
+<label>COD Amount ₹</label>
+<input id="codAmount" type="number" min="0">
+</div>
+
+<h3>Package Details</h3>
+
+<div class="grid">
+
+<div>
+<label>Length cm</label>
+<input id="length" type="number" min="0" oninput="calculateRate()">
+</div>
+
+<div>
+<label>Width cm</label>
+<input id="width" type="number" min="0" oninput="calculateRate()">
+</div>
+
+<div>
+<label>Height cm</label>
+<input id="height" type="number" min="0" oninput="calculateRate()">
+</div>
+
+<div>
+<label>Actual Weight grams</label>
+<input id="actualWeight" type="number" min="0" oninput="calculateRate()">
+</div>
+
+</div>
+
 <div class="ratebox">
+
 <p><b>Volumetric Weight:</b> <span id="volumetricWeight">0</span> kg</p>
+
 <p><b>Chargeable Weight:</b> <span id="chargeableWeight">0</span> kg</p>
+
 <p><b>Zone:</b> <span id="zone">Pan India</span></p>
+
 <p><b>Shipping Charge:</b> ₹<span id="shippingCharge">0</span></p>
-<p><b>COD Charge:</b> ₹<span id="codCharge">0</span></p><hr>
-<p class="total">Total: ₹<span id="totalCharge">0</span></p>
-<p><b>RTO Charge:</b> ₹<span id="rtoCharge">0</span></p>
+
+<p><b>COD Charge:</b> ₹<span id="codCharge">0</span></p>
+
+<hr>
+
+<p class="total">
+Total: ₹<span id="totalCharge">0</span>
+</p>
+
+<p>
+<b>RTO Charge:</b> ₹<span id="rtoCharge">0</span>
+</p>
+
 </div>
+
 <button class="success" onclick="bookShipment()">BOOK SHIPMENT</button>
 <button class="secondary" onclick="clearBooking()">CLEAR</button>
+
 </div>
 
-<div id="ordersBox" class="card hidden"><h2>My Shipments</h2><div id="ordersList">Loading...</div></div>
+<!-- CLIENT ORDERS -->
+<div id="ordersBox" class="card hidden">
+
+<h2>My Shipments</h2>
+
+<div class="filterGrid">
+
+<div>
+<label>Search</label>
+<input id="clientSearch"
+placeholder="Order / customer / mobile / tracking"
+oninput="renderClientOrders()">
+</div>
+
+<div>
+<label>Month</label>
+<select id="clientMonthFilter" onchange="renderClientOrders()">
+<option value="">All Months</option>
+</select>
+</div>
+
+<div>
+<label>Status</label>
+<select id="clientStatusFilter" onchange="renderClientOrders()">
+<option value="">All Status</option>
+<option>Booked</option>
+<option>Picked Up</option>
+<option>In Transit</option>
+<option>Out for Delivery</option>
+<option>Delivered</option>
+<option>RTO</option>
+<option>Cancelled</option>
+<option>Cancellation Requested</option>
+</select>
+</div>
+
+<div>
+<label>Payment</label>
+<select id="clientPaymentFilter" onchange="renderClientOrders()">
+<option value="">All Payment</option>
+<option>Prepaid</option>
+<option>COD</option>
+</select>
+</div>
+
+</div>
+
+<div id="ordersList">Loading...</div>
+
+</div>
+
 </section>
 
+<!-- ADMIN -->
 <section id="adminArea" class="hidden">
-<div class="card"><div class="topbar"><h2>Admin Dashboard</h2><button class="danger" onclick="logout()">LOGOUT</button></div><div id="adminMsg"></div></div>
-<div class="card"><h2>Admin Stats</h2><div class="grid">
-<div class="ratebox"><b>Today Delivered</b><h2 id="todayDelivered">0</h2></div>
-<div class="ratebox"><b>This Week Delivered</b><h2 id="weekDelivered">0</h2></div>
-<div class="ratebox"><b>This Month Delivered</b><h2 id="monthDelivered">0</h2></div>
-<div class="ratebox"><b>Total Bookings</b><h2 id="totalBookings">0</h2></div>
-</div></div>
-<div class="card"><h2>Client Accounts</h2><div id="adminClients">Loading...</div></div>
-<div class="card"><h2>All Bookings</h2><div id="adminBookings">Loading...</div></div>
+
+<div class="card">
+
+<div class="topbar">
+
+<h2>Admin Dashboard</h2>
+
+<button class="danger" onclick="logout()">LOGOUT</button>
+
+</div>
+
+<div id="adminMsg"></div>
+
+</div>
+
+<!-- ADMIN STATUS -->
+<div class="card">
+
+<h2>Admin Status</h2>
+
+<div class="grid">
+
+<div class="ratebox">
+<b>Today Delivered</b>
+<h2 id="todayDelivered">0</h2>
+</div>
+
+<div class="ratebox">
+<b>This Week Delivered</b>
+<h2 id="weekDelivered">0</h2>
+</div>
+
+<div class="ratebox">
+<b>This Month Delivered</b>
+<h2 id="monthDelivered">0</h2>
+</div>
+
+<div class="ratebox">
+<b>Total Bookings</b>
+<h2 id="totalBookings">0</h2>
+</div>
+
+</div>
+
+</div>
+
+<!-- CLIENT ACCOUNTS -->
+<div class="card">
+
+<h2>Client Accounts</h2>
+
+<div id="adminClients">
+Loading...
+</div>
+
+</div>
+
+<!-- SHIPMENT HISTORY -->
+<div class="card">
+
+<h2>Shipment History</h2>
+
+<div class="filterGrid">
+
+<div>
+<label>Search</label>
+<input id="adminSearch"
+placeholder="Order / customer / mobile / tracking"
+oninput="renderAdminBookings()">
+</div>
+
+<div>
+<label>Month</label>
+<select id="adminMonthFilter" onchange="renderAdminBookings()">
+<option value="">All Months</option>
+</select>
+</div>
+
+<div>
+<label>Client</label>
+<select id="adminClientFilter" onchange="renderAdminBookings()">
+<option value="">All Clients</option>
+</select>
+</div>
+
+<div>
+<label>Status</label>
+<select id="adminStatusFilter" onchange="renderAdminBookings()">
+<option value="">All Status</option>
+<option>Booked</option>
+<option>Picked Up</option>
+<option>In Transit</option>
+<option>Out for Delivery</option>
+<option>Delivered</option>
+<option>RTO</option>
+<option>Cancelled</option>
+<option>Cancellation Requested</option>
+</select>
+</div>
+
+<div>
+<label>Payment</label>
+<select id="adminPaymentFilter" onchange="renderAdminBookings()">
+<option value="">All Payment</option>
+<option>Prepaid</option>
+<option>COD</option>
+</select>
+</div>
+
+<div>
+<label>Exact Date</label>
+<input id="adminDateFilter"
+type="date"
+onchange="renderAdminBookings()">
+</div>
+
+</div>
+
+<div id="adminBookings">
+Loading...
+</div>
+
+</div>
+
 </section>
+
 </div>
 
 <script>
-const SUPABASE_URL="https://zldgzojzsoxpyhlhkive.supabase.co";
-const SUPABASE_ANON_KEY="sb_publishable_Tj40IsAUEeHLzr07ZYyxGg_Uo2KxCT9";
-const supabaseClient=supabase.createClient(SUPABASE_URL,SUPABASE_ANON_KEY);
 
-// Explicit DOM references - keeps buttons/functions working reliably on GitHub Pages
-const loginSection=document.getElementById("loginSection"), signupSection=document.getElementById("signupSection"), resetSection=document.getElementById("resetSection"), clientArea=document.getElementById("clientArea"), adminArea=document.getElementById("adminArea");
-const loginEmail=document.getElementById("loginEmail"), loginPassword=document.getElementById("loginPassword"), signupName=document.getElementById("signupName"), signupMobile=document.getElementById("signupMobile"), signupEmail=document.getElementById("signupEmail"), signupPassword=document.getElementById("signupPassword");
-const newPassword=document.getElementById("newPassword"), confirmPassword=document.getElementById("confirmPassword");
-const clientWelcome=document.getElementById("clientWelcome"), clientProfileBox=document.getElementById("clientProfileBox"), bookingBox=document.getElementById("bookingBox"), ordersBox=document.getElementById("ordersBox"), ordersList=document.getElementById("ordersList");
-const profileName=document.getElementById("profileName"), profileMobile=document.getElementById("profileMobile"), profileEmail=document.getElementById("profileEmail"), bankHolder=document.getElementById("bankHolder"), accountNumber=document.getElementById("accountNumber"), ifsc=document.getElementById("ifsc"), upiId=document.getElementById("upiId");
-const paymentType=document.getElementById("paymentType"), zoneType=document.getElementById("zoneType"), codBox=document.getElementById("codBox"), pickupName=document.getElementById("pickupName"), pickupMobile=document.getElementById("pickupMobile"), pickupAddress=document.getElementById("pickupAddress"), pickupPincode=document.getElementById("pickupPincode"), customerName=document.getElementById("customerName"), customerMobile=document.getElementById("customerMobile"), deliveryAddress=document.getElementById("deliveryAddress"), deliveryPincode=document.getElementById("deliveryPincode"), parcelValue=document.getElementById("parcelValue"), codAmount=document.getElementById("codAmount"), length=document.getElementById("length"), width=document.getElementById("width"), height=document.getElementById("height"), actualWeight=document.getElementById("actualWeight");
-const volumetricWeight=document.getElementById("volumetricWeight"), chargeableWeight=document.getElementById("chargeableWeight"), zone=document.getElementById("zone"), shippingCharge=document.getElementById("shippingCharge"), codCharge=document.getElementById("codCharge"), totalCharge=document.getElementById("totalCharge"), rtoCharge=document.getElementById("rtoCharge");
-const adminMsg=document.getElementById("adminMsg"), adminClients=document.getElementById("adminClients"), adminBookings=document.getElementById("adminBookings"), todayDelivered=document.getElementById("todayDelivered"), weekDelivered=document.getElementById("weekDelivered"), monthDelivered=document.getElementById("monthDelivered"), totalBookings=document.getElementById("totalBookings");
-let currentUser=null,currentProfile=null,currentClient=null,adminProfiles=[];
+/* =========================
+SUPABASE
+========================= */
 
-function showLogin(){loginSection.classList.remove("hidden");signupSection.classList.add("hidden");if(resetSection)resetSection.classList.add("hidden")}
-function showSignup(){loginSection.classList.add("hidden");signupSection.classList.remove("hidden");if(resetSection)resetSection.classList.add("hidden")}
-function showReset(){loginSection.classList.add("hidden");signupSection.classList.add("hidden");if(resetSection)resetSection.classList.remove("hidden");clientArea.classList.add("hidden");adminArea.classList.add("hidden")}
-function hideAuth(){loginSection.classList.add("hidden");signupSection.classList.add("hidden")}
-function msg(id,text,type="notice"){document.getElementById(id).innerHTML=`<div class="notice ${type}">${text}</div>`}
+const SUPABASE_URL =
+"https://zldgzojzsoxpyhlhkive.supabase.co";
+
+const SUPABASE_ANON_KEY =
+"sb_publishable_Tj40IsAUEeHLzr07ZYyxGg_Uo2KxCT9";
+
+const supabaseClient =
+supabase.createClient(
+SUPABASE_URL,
+SUPABASE_ANON_KEY
+);
+
+
+/* =========================
+GLOBAL
+========================= */
+
+let currentUser=null;
+let currentProfile=null;
+let currentClient=null;
+
+let adminClientsData=[];
+let adminBookingsData=[];
+let clientBookingsData=[];
+
+
+/* =========================
+HELPERS
+========================= */
+
+function $(id){
+return document.getElementById(id);
+}
+
+function showLogin(){
+$("loginSection").classList.remove("hidden");
+$("signupSection").classList.add("hidden");
+$("resetSection").classList.add("hidden");
+}
+
+function showSignup(){
+$("loginSection").classList.add("hidden");
+$("signupSection").classList.remove("hidden");
+$("resetSection").classList.add("hidden");
+}
+
+function showReset(){
+$("loginSection").classList.add("hidden");
+$("signupSection").classList.add("hidden");
+$("resetSection").classList.remove("hidden");
+$("clientArea").classList.add("hidden");
+$("adminArea").classList.add("hidden");
+}
+
+function hideAuth(){
+$("loginSection").classList.add("hidden");
+$("signupSection").classList.add("hidden");
+$("resetSection").classList.add("hidden");
+}
+
+function msg(id,text,type="notice"){
+const el=$(id);
+if(el){
+el.innerHTML=
+`<div class="notice ${type}">${text}</div>`;
+}
+}
+
+function escapeHtml(v){
+return String(v??"")
+.replaceAll("&","&amp;")
+.replaceAll("<","&lt;")
+.replaceAll(">","&gt;")
+.replaceAll('"',"&quot;")
+.replaceAll("'","&#039;");
+}
+
+function escapeAttr(v){
+return escapeHtml(v);
+}
+
+function safeUrl(url){
+try{
+const u=new URL(url);
+return ["https:","http:"].includes(u.protocol)
+?u.href:"#";
+}catch(e){
+return "#";
+}
+}
+
+
+/* =========================
+SIGNUP
+========================= */
 
 async function signup(){
- const name=signupName.value.trim(),mobile=signupMobile.value.trim(),email=signupEmail.value.trim(),password=signupPassword.value;
- if(!name||!mobile||!email||!password)return msg("signupMsg","Please fill all details.","error");
- if(password.length<6)return msg("signupMsg","Password must be at least 6 characters.","error");
- msg("signupMsg","Creating account...");
- const {data,error}=await supabaseClient.auth.signUp({email,password,options:{data:{full_name:name,mobile}}});
- if(error)return msg("signupMsg",error.message,"error");
- if(data?.session){
-  await loadUser();
-  return;
- }
- msg("signupMsg","Account created. Please login with your email and password.","ok");
- setTimeout(showLogin,1200);
+
+const name=$("signupName").value.trim();
+const mobile=$("signupMobile").value.trim();
+const email=$("signupEmail").value.trim();
+const password=$("signupPassword").value;
+
+if(!name||!mobile||!email||!password){
+return msg(
+"signupMsg",
+"Please fill all details.",
+"error"
+);
 }
 
-async function sendReset(){
- const email=loginEmail.value.trim();
- if(!email)return msg("loginMsg","Enter your email first.","error");
- msg("loginMsg","Sending password reset email...");
- const {error}=await supabaseClient.auth.resetPasswordForEmail(email,{redirectTo:window.location.origin+window.location.pathname});
- if(error)return msg("loginMsg",error.message,"error");
- msg("loginMsg","Password reset email sent. Check your Inbox / Spam / Promotions.","ok");
+if(password.length<6){
+return msg(
+"signupMsg",
+"Password must be at least 6 characters.",
+"error"
+);
 }
 
-async function updatePassword(){
- const password=newPassword.value,confirm=confirmPassword.value;
- if(!password||!confirm)return msg("resetMsg","Enter and confirm your new password.","error");
- if(password.length<6)return msg("resetMsg","Password must be at least 6 characters.","error");
- if(password!==confirm)return msg("resetMsg","Passwords do not match.","error");
- msg("resetMsg","Updating password...");
- const {error}=await supabaseClient.auth.updateUser({password});
- if(error)return msg("resetMsg",error.message,"error");
- await supabaseClient.auth.signOut();
- newPassword.value="";confirmPassword.value="";
- history.replaceState(null,"",window.location.pathname);
- showLogin();
- msg("loginMsg","Password updated successfully. Please login.","ok");
+msg("signupMsg","Creating account...");
+
+const {data,error} =
+await supabaseClient.auth.signUp({
+email,
+password,
+options:{
+data:{
+full_name:name,
+mobile:mobile
 }
+}
+});
+
+if(error){
+return msg(
+"signupMsg",
+error.message,
+"error"
+);
+}
+
+if(data?.session){
+await loadUser();
+return;
+}
+
+msg(
+"signupMsg",
+"Account created. Please login with your email and password.",
+"ok"
+);
+
+setTimeout(showLogin,1200);
+}
+
+
+/* =========================
+LOGIN
+========================= */
 
 async function login(){
- const email=loginEmail.value.trim(),password=loginPassword.value;
- if(!email||!password)return msg("loginMsg","Enter email and password.","error");
- msg("loginMsg","Logging in...");
- const {data,error}=await supabaseClient.auth.signInWithPassword({email,password});
- if(error)return msg("loginMsg",error.message,"error");
- await loadUser();
+
+const email=$("loginEmail").value.trim();
+const password=$("loginPassword").value;
+
+if(!email||!password){
+return msg(
+"loginMsg",
+"Enter email and password.",
+"error"
+);
 }
+
+msg("loginMsg","Logging in...");
+
+const {data,error} =
+await supabaseClient.auth.signInWithPassword({
+email,
+password
+});
+
+if(error){
+return msg(
+"loginMsg",
+error.message,
+"error"
+);
+}
+
+await loadUser();
+}
+
+
+/* =========================
+RESET
+========================= */
+
+async function sendReset(){
+
+const email=$("loginEmail").value.trim();
+
+if(!email){
+return msg(
+"loginMsg",
+"Enter your email first.",
+"error"
+);
+}
+
+msg(
+"loginMsg",
+"Sending password reset email..."
+);
+
+const {error} =
+await supabaseClient.auth.resetPasswordForEmail(
+email,
+{
+redirectTo:
+window.location.origin+
+window.location.pathname
+}
+);
+
+if(error){
+return msg(
+"loginMsg",
+error.message,
+"error"
+);
+}
+
+msg(
+"loginMsg",
+"Password reset email sent. Check your Inbox / Spam / Promotions.",
+"ok"
+);
+}
+
+
+async function updatePassword(){
+
+const password=$("newPassword").value;
+const confirm=$("confirmPassword").value;
+
+if(!password||!confirm){
+return msg(
+"resetMsg",
+"Enter and confirm your new password.",
+"error"
+);
+}
+
+if(password.length<6){
+return msg(
+"resetMsg",
+"Password must be at least 6 characters.",
+"error"
+);
+}
+
+if(password!==confirm){
+return msg(
+"resetMsg",
+"Passwords do not match.",
+"error"
+);
+}
+
+const {error} =
+await supabaseClient.auth.updateUser({
+password:password
+});
+
+if(error){
+return msg(
+"resetMsg",
+error.message,
+"error"
+);
+}
+
+await supabaseClient.auth.signOut();
+
+$("newPassword").value="";
+$("confirmPassword").value="";
+
+showLogin();
+
+msg(
+"loginMsg",
+"Password updated successfully. Please login.",
+"ok"
+);
+}
+
+
+/* =========================
+LOAD USER
+========================= */
 
 async function loadUser(){
- const {data,error}=await supabaseClient.auth.getUser();
- if(error||!data||!data.user){
-  return msg("loginMsg","Unable to load user. Please login again.","error");
- }
- currentUser=data.user;
- let {data:profile,error:profileError}=await supabaseClient.rpc("get_my_profile");
- if(profileError){
-  console.error("Profile RPC Error:",profileError);
-  return msg("loginMsg","Profile loading error: "+profileError.message,"error");
- }
- if(!profile){
-  const repair=await supabaseClient.rpc("ensure_my_client_profile");
-  if(repair.error){
-   console.error("Profile Repair Error:",repair.error);
-   return msg("loginMsg","Profile loading error: "+repair.error.message,"error");
-  }
-  profile=repair.data;
- }
- if(!profile){
-  return msg("loginMsg","Your account profile is missing. Please contact BHAGWATI FULFIL support.","error");
- }
- currentProfile=profile;
- if(profile.role==="admin"){
-  hideAuth();
-  clientArea.classList.add("hidden");
-  adminArea.classList.remove("hidden");
-  await loadAdmin();
-  return;
- }
- hideAuth();
- adminArea.classList.add("hidden");
- clientArea.classList.remove("hidden");
- await loadClient();
+
+const {data,error} =
+await supabaseClient.auth.getUser();
+
+if(error||!data?.user){
+return msg(
+"loginMsg",
+"Unable to load user. Please login again.",
+"error"
+);
 }
+
+currentUser=data.user;
+
+
+/*
+Get profile directly.
+No get_my_profile RPC.
+*/
+
+let {data:profile,error:profileError} =
+await supabaseClient
+.from("profiles")
+.select("*")
+.eq("id",currentUser.id)
+.maybeSingle();
+
+
+if(profileError){
+
+console.error(profileError);
+
+return msg(
+"loginMsg",
+"Profile loading error: "+
+profileError.message,
+"error"
+);
+}
+
+
+/*
+If profile doesn't exist,
+create client + profile.
+*/
+
+if(!profile){
+
+const fullName =
+currentUser.user_metadata?.full_name ||
+currentUser.email?.split("@")[0] ||
+"Client";
+
+const mobile =
+currentUser.user_metadata?.mobile ||
+"";
+
+
+const {data:newClient,error:newClientError} =
+await supabaseClient
+.from("clients")
+.insert({
+client_name:fullName,
+mobile:mobile,
+email:currentUser.email
+})
+.select()
+.single();
+
+
+if(newClientError){
+
+console.error(newClientError);
+
+return msg(
+"loginMsg",
+"Unable to create client profile: "+
+newClientError.message,
+"error"
+);
+}
+
+
+const {data:newProfile,error:newProfileError} =
+await supabaseClient
+.from("profiles")
+.insert({
+id:currentUser.id,
+full_name:fullName,
+role:"client",
+client_id:newClient.id,
+approved:true
+})
+.select()
+.single();
+
+
+if(newProfileError){
+
+console.error(newProfileError);
+
+return msg(
+"loginMsg",
+"Unable to create user profile: "+
+newProfileError.message,
+"error"
+);
+}
+
+profile=newProfile;
+}
+
+
+currentProfile=profile;
+
+
+/* ADMIN */
+
+if(profile.role==="admin"){
+
+hideAuth();
+
+$("clientArea").classList.add("hidden");
+$("adminArea").classList.remove("hidden");
+
+await loadAdmin();
+
+return;
+}
+
+
+/* CLIENT */
+
+hideAuth();
+
+$("adminArea").classList.add("hidden");
+$("clientArea").classList.remove("hidden");
+
+await loadClient();
+}
+
+
+/* =========================
+CLIENT
+========================= */
 
 async function loadClient(){
- clientWelcome.innerHTML=`<b>${escapeHtml(currentProfile.full_name||"")}</b>`;
- const clientId=Number(currentProfile.client_id);
- if(!Number.isInteger(clientId)||clientId<=0){
-  return msg("clientWelcome","Client profile is not linked to this account.","error");
- }
- const {data,error}=await supabaseClient.from("clients").select("*").eq("id",clientId).single();
- if(error)return msg("clientWelcome","Client profile loading error: "+error.message,"error");
- currentClient=data;
- profileName.value=data.Client_name||"";profileMobile.value=data.mobile||"";profileEmail.value=data.email||currentUser.email||"";
- bankHolder.value=data.bank_holder_name||"";accountNumber.value=data.account_number||"";ifsc.value=data.ifsc||"";upiId.value=data.upi_id||"";
- clientProfileBox.classList.remove("hidden");
- bookingBox.classList.remove("hidden");
- ordersBox.classList.remove("hidden");
- await loadOrders();
+
+const clientId =
+Number(currentProfile.client_id);
+
+if(!Number.isInteger(clientId)||clientId<=0){
+
+return $("clientWelcome").innerHTML=
+`<div class="notice error">
+Client profile is not linked to this account.
+</div>`;
 }
+
+
+const {data,error} =
+await supabaseClient
+.from("clients")
+.select("*")
+.eq("id",clientId)
+.single();
+
+
+if(error){
+
+return $("clientWelcome").innerHTML=
+`<div class="notice error">
+${escapeHtml(error.message)}
+</div>`;
+}
+
+
+currentClient=data;
+
+const name =
+data.client_name ||
+data.Client_name ||
+"Client";
+
+$("clientWelcome").innerHTML=
+`<b>${escapeHtml(name)}</b>`;
+
+
+$("profileName").value =
+data.client_name ||
+data.Client_name ||
+"";
+
+$("profileMobile").value =
+data.mobile||"";
+
+$("profileEmail").value =
+data.email||
+currentUser.email||
+"";
+
+$("bankHolder").value =
+data.bank_holder_name||"";
+
+$("accountNumber").value =
+data.account_number||"";
+
+$("ifsc").value =
+data.ifsc||"";
+
+$("upiId").value =
+data.upi_id||"";
+
+
+$("clientProfileBox").classList.remove("hidden");
+$("bookingBox").classList.remove("hidden");
+$("ordersBox").classList.remove("hidden");
+
+await loadOrders();
+}
+
+
+/* =========================
+SAVE PROFILE
+========================= */
 
 async function saveProfile(){
- const updates={"Client_name":profileName.value.trim(),mobile:profileMobile.value.trim(),bank_holder_name:bankHolder.value.trim(),account_number:accountNumber.value.trim(),ifsc:ifsc.value.trim(),upi_id:upiId.value.trim()};
- const {error}=await supabaseClient.from("clients").update(updates).eq("id",currentProfile.client_id);
- if(error)return msg("profileMsg",error.message,"error");
- currentClient={...currentClient,...updates};msg("profileMsg","Profile saved successfully.","ok");
+
+const name =
+$("profileName").value.trim();
+
+const mobile =
+$("profileMobile").value.trim();
+
+const updates={
+client_name:name,
+mobile:mobile,
+bank_holder_name:
+$("bankHolder").value.trim(),
+account_number:
+$("accountNumber").value.trim(),
+ifsc:
+$("ifsc").value.trim(),
+upi_id:
+$("upiId").value.trim()
+};
+
+
+let {error} =
+await supabaseClient
+.from("clients")
+.update(updates)
+.eq("id",currentProfile.client_id);
+
+
+/*
+Fallback old Client_name column.
+*/
+
+if(error){
+
+const oldUpdates={
+"Client_name":name,
+mobile:mobile,
+bank_holder_name:
+$("bankHolder").value.trim(),
+account_number:
+$("accountNumber").value.trim(),
+ifsc:
+$("ifsc").value.trim(),
+upi_id:
+$("upiId").value.trim()
+};
+
+const retry =
+await supabaseClient
+.from("clients")
+.update(oldUpdates)
+.eq("id",currentProfile.client_id);
+
+if(retry.error){
+
+return msg(
+"profileMsg",
+retry.error.message,
+"error"
+);
 }
+
+currentClient={
+...currentClient,
+...oldUpdates
+};
+
+}else{
+
+currentClient={
+...currentClient,
+...updates
+};
+
+}
+
+msg(
+"profileMsg",
+"Profile saved successfully.",
+"ok"
+);
+}
+
+
+/* =========================
+PAYMENT
+========================= */
 
 function paymentChanged(){
- if(paymentType.value==="COD")codBox.classList.remove("hidden");else codBox.classList.add("hidden");
- calculateRate();
+
+if($("paymentType").value==="COD"){
+$("codBox").classList.remove("hidden");
+}else{
+$("codBox").classList.add("hidden");
 }
+
+calculateRate();
+}
+
+
+/* =========================
+RATE
+========================= */
 
 function calculateRate(){
- const l=Number(length.value)||0,w=Number(width.value)||0,h=Number(height.value)||0,actualG=Number(actualWeight.value)||0,pin=deliveryPincode.value.trim();
- const vol=(l*w*h)/5000,actualKg=actualG/1000,charge=Math.max(actualKg,vol);
- let zoneName="Pan India";
- if(pin.length===6&&["40","41","42","43","44"].includes(pin.substring(0,2)))zoneName="Maharashtra";
- let shipping=0;
- if(charge<=.25)shipping=zoneName==="Maharashtra"?40:50;
- else if(charge<=.5)shipping=zoneName==="Maharashtra"?45:60;
- else if(charge<=.75)shipping=zoneName==="Maharashtra"?55:75;
- else if(charge<=1)shipping=zoneName==="Maharashtra"?70:90;
- else if(charge<=1.5)shipping=zoneName==="Maharashtra"?95:115;
- else if(charge<=2)shipping=zoneName==="Maharashtra"?105:125;
- else shipping=(zoneName==="Maharashtra"?105:125)+Math.ceil((charge-2)/.5)*(zoneName==="Maharashtra"?20:25);
- const cod=paymentType.value==="COD"?25:0,total=shipping+cod;
- volumetricWeight.textContent=vol.toFixed(2);chargeableWeight.textContent=charge.toFixed(2);zone.textContent=zoneName;
- shippingCharge.textContent=shipping;codCharge.textContent=cod;totalCharge.textContent=total;rtoCharge.textContent=shipping;
+
+const l=Number($("length").value)||0;
+const w=Number($("width").value)||0;
+const h=Number($("height").value)||0;
+const actualG=Number($("actualWeight").value)||0;
+
+const pin=$("deliveryPincode").value.trim();
+
+const vol=(l*w*h)/5000;
+const actualKg=actualG/1000;
+
+const charge=Math.max(actualKg,vol);
+
+let zoneName="Pan India";
+
+const selected =
+$("zoneType").value;
+
+if(selected==="Maharashtra"){
+
+zoneName="Maharashtra";
+
+}else if(selected==="Pan India"){
+
+zoneName="Pan India";
+
+}else{
+
+if(
+pin.length===6 &&
+["40","41","42","43","44"]
+.includes(pin.substring(0,2))
+){
+zoneName="Maharashtra";
 }
+
+}
+
+
+let shipping=0;
+
+if(charge<=.25)
+shipping=zoneName==="Maharashtra"?40:50;
+
+else if(charge<=.5)
+shipping=zoneName==="Maharashtra"?45:60;
+
+else if(charge<=.75)
+shipping=zoneName==="Maharashtra"?55:75;
+
+else if(charge<=1)
+shipping=zoneName==="Maharashtra"?70:90;
+
+else if(charge<=1.5)
+shipping=zoneName==="Maharashtra"?95:115;
+
+else if(charge<=2)
+shipping=zoneName==="Maharashtra"?105:125;
+
+else
+shipping=
+(zoneName==="Maharashtra"?105:125)+
+Math.ceil((charge-2)/.5)*
+(zoneName==="Maharashtra"?20:25);
+
+
+const cod =
+$("paymentType").value==="COD"
+?25
+:0;
+
+const total =
+shipping+cod;
+
+
+$("volumetricWeight").textContent =
+vol.toFixed(2);
+
+$("chargeableWeight").textContent =
+charge.toFixed(2);
+
+$("zone").textContent =
+zoneName;
+
+$("shippingCharge").textContent =
+shipping;
+
+$("codCharge").textContent =
+cod;
+
+$("totalCharge").textContent =
+total;
+
+$("rtoCharge").textContent =
+shipping;
+}
+
+
+/* =========================
+ORDER ID
+========================= */
+
+async function generateOrderId(){
+
+const clientId =
+Number(currentProfile.client_id);
+
+const clientNumber =
+currentClient?.client_number ||
+`BF-${String(clientId).padStart(3,"0")}`;
+
+const datePart =
+new Date()
+.toISOString()
+.slice(0,10)
+.replaceAll("-","");
+
+let nextNumber=1;
+
+
+/*
+Use existing RPC if available.
+*/
+
+const rpc =
+await supabaseClient.rpc(
+"get_next_order_sequence",
+{
+p_client_id:clientId
+}
+);
+
+
+if(!rpc.error && rpc.data){
+
+nextNumber =
+Number(rpc.data);
+
+}else{
+
+/*
+Fallback.
+*/
+
+const {data} =
+await supabaseClient
+.from("bookings")
+.select("order_sequence")
+.eq("client_id",clientId)
+.order("order_sequence",
+{ascending:false})
+.limit(1);
+
+
+if(data?.length){
+
+nextNumber =
+Number(
+data[0].order_sequence||0
+)+1;
+
+}
+
+}
+
+
+return `${clientNumber}-${datePart}-${String(nextNumber).padStart(4,"0")}`;
+}
+
+
+/* =========================
+BOOK SHIPMENT
+========================= */
 
 async function bookShipment(){
- if(!currentProfile?.client_id)return msg("bookingMsg","Client profile is not available. Please login again.","error");
- const payment=paymentType.value;
- const fields=[pickupName.value.trim(),pickupMobile.value.trim(),pickupAddress.value.trim(),pickupPincode.value.trim(),customerName.value.trim(),customerMobile.value.trim(),deliveryAddress.value.trim(),deliveryPincode.value.trim()];
- const [pn,pm,pa,pp,cn,cm,da,dp]=fields;
- const l=Number(length.value),w=Number(width.value),h=Number(height.value),aw=Number(actualWeight.value);
- if(fields.some(x=>!x)||!l||!w||!h||!aw)return msg("bookingMsg","Please fill all shipment and package details.","error");
- if(dp.length!==6)return msg("bookingMsg","Enter valid delivery pincode.","error");
- const pv=Number(parcelValue.value)||0,ca=Number(codAmount.value)||0;
- if(payment==="Prepaid"&&!pv)return msg("bookingMsg","Enter parcel/order value for Prepaid shipment.","error");
- if(payment==="COD"&&!ca)return msg("bookingMsg","Enter COD amount.","error");
- calculateRate();
- const vol=(l*w*h)/5000,charge=Math.max(aw/1000,vol),shipping=Number(shippingCharge.textContent),cod=Number(codCharge.textContent),total=Number(totalCharge.textContent),zoneName=zone.textContent;
- const clientShort=(currentClient.Client_name||"CLIENT").replace(/[^a-zA-Z0-9]/g,"-").toUpperCase().substring(0,20);
- const orderId=clientShort+"-"+new Date().toISOString().slice(0,10).replaceAll("-","")+"-"+Date.now().toString().slice(-5);
- const booking={client_id:currentProfile.client_id,order_id:orderId,payment_type:payment,parcel_value:payment==="Prepaid"?pv:0,cod_amount:payment==="COD"?ca:0,pickup_name:pn,pickup_mobile:pm,pickup_address:pa,pickup_pincode:pp,customer_name:cn,customer_mobile:cm,delivery_address:da,delivery_pincode:dp,zone:zoneName,length_cm:l,width_cm:w,height_cm:h,actual_weight_g:aw,volumetric_weight_kg:Number(vol.toFixed(3)),chargeable_weight_kg:Number(charge.toFixed(3)),shipping_charge:shipping,cod_charge:cod,total_charge:total,rto_charge:shipping,status:"Booked"};
- msg("bookingMsg","Saving booking...");
- const {error}=await supabaseClient.from("bookings").insert(booking);
- if(error)return msg("bookingMsg",error.message,"error");
- msg("bookingMsg",`Booking successful! Order ID: <b>${escapeHtml(orderId)}</b>`,"ok");orderIdInput.value=orderId;await loadOrders();setTimeout(clearBooking,1500);
+
+if(!currentProfile?.client_id){
+
+return msg(
+"bookingMsg",
+"Client profile is not available.",
+"error"
+);
 }
 
-const orderIdInput=document.getElementById("orderId");
-function clearBooking(){
- ["pickupName","pickupMobile","pickupAddress","pickupPincode","customerName","customerMobile","deliveryAddress","deliveryPincode","parcelValue","codAmount","length","width","height","actualWeight"].forEach(id=>{const e=document.getElementById(id);if(e)e.value=""});
- paymentType.value="Prepaid";codBox.classList.add("hidden");orderIdInput.value="";calculateRate();
+
+const payment =
+$("paymentType").value;
+
+const fields=[
+
+$("pickupName").value.trim(),
+$("pickupMobile").value.trim(),
+$("pickupAddress").value.trim(),
+$("pickupPincode").value.trim(),
+
+$("customerName").value.trim(),
+$("customerMobile").value.trim(),
+$("deliveryAddress").value.trim(),
+$("deliveryPincode").value.trim()
+
+];
+
+const [
+pn,pm,pa,pp,
+cn,cm,da,dp
+]=fields;
+
+
+const l=Number($("length").value);
+const w=Number($("width").value);
+const h=Number($("height").value);
+const aw=Number($("actualWeight").value);
+
+
+if(
+fields.some(x=>!x)||
+!l||!w||!h||!aw
+){
+
+return msg(
+"bookingMsg",
+"Please fill all shipment and package details.",
+"error"
+);
 }
+
+
+if(pp.length!==6||dp.length!==6){
+
+return msg(
+"bookingMsg",
+"Enter valid 6 digit pincode.",
+"error"
+);
+}
+
+
+const pv =
+Number($("parcelValue").value)||0;
+
+const ca =
+Number($("codAmount").value)||0;
+
+
+if(!pv){
+
+return msg(
+"bookingMsg",
+"Enter parcel/order value.",
+"error"
+);
+}
+
+
+if(payment==="COD"&&!ca){
+
+return msg(
+"bookingMsg",
+"Enter COD amount.",
+"error"
+);
+}
+
+
+calculateRate();
+
+
+const vol =
+(l*w*h)/5000;
+
+const charge =
+Math.max(
+aw/1000,
+vol
+);
+
+const shipping =
+Number($("shippingCharge").textContent);
+
+const cod =
+Number($("codCharge").textContent);
+
+const total =
+Number($("totalCharge").textContent);
+
+const zoneName =
+$("zone").textContent;
+
+
+const orderId =
+await generateOrderId();
+
+
+const sequence =
+Number(orderId.split("-").pop());
+
+
+const booking={
+
+client_id:
+currentProfile.client_id,
+
+order_id:
+orderId,
+
+order_sequence:
+sequence,
+
+payment_type:
+payment,
+
+parcel_value:
+pv,
+
+cod_amount:
+payment==="COD"
+?ca
+:0,
+
+pickup_name:
+pn,
+
+pickup_mobile:
+pm,
+
+pickup_address:
+pa,
+
+pickup_pincode:
+pp,
+
+customer_name:
+cn,
+
+customer_mobile:
+cm,
+
+delivery_address:
+da,
+
+delivery_pincode:
+dp,
+
+zone:
+zoneName,
+
+length_cm:
+l,
+
+width_cm:
+w,
+
+height_cm:
+h,
+
+actual_weight_g:
+aw,
+
+volumetric_weight_kg:
+Number(vol.toFixed(3)),
+
+chargeable_weight_kg:
+Number(charge.toFixed(3)),
+
+shipping_charge:
+shipping,
+
+cod_charge:
+cod,
+
+total_charge:
+total,
+
+rto_charge:
+shipping,
+
+status:
+"Booked"
+
+};
+
+
+msg(
+"bookingMsg",
+"Saving booking..."
+);
+
+
+const {error} =
+await supabaseClient
+.from("bookings")
+.insert(booking);
+
+
+if(error){
+
+return msg(
+"bookingMsg",
+error.message,
+"error"
+);
+}
+
+
+$("orderId").value =
+orderId;
+
+
+msg(
+"bookingMsg",
+`Booking successful! Order ID: <b>${escapeHtml(orderId)}</b>`,
+"ok"
+);
+
+
+await loadOrders();
+
+
+setTimeout(
+clearBooking,
+1500
+);
+}
+
+
+/* =========================
+CLEAR BOOKING
+========================= */
+
+function clearBooking(){
+
+[
+"pickupName",
+"pickupMobile",
+"pickupAddress",
+"pickupPincode",
+"customerName",
+"customerMobile",
+"deliveryAddress",
+"deliveryPincode",
+"parcelValue",
+"codAmount",
+"length",
+"width",
+"height",
+"actualWeight"
+]
+.forEach(id=>{
+
+const el=$(id);
+
+if(el)el.value="";
+
+});
+
+
+$("paymentType").value="Prepaid";
+
+$("zoneType").value="Auto";
+
+$("codBox").classList.add("hidden");
+
+$("orderId").value="";
+
+calculateRate();
+}
+
+
+/* =========================
+CLIENT ORDERS
+========================= */
 
 async function loadOrders(){
- const {data,error}=await supabaseClient.from("bookings").select("*").eq("client_id",currentProfile.client_id).order("created_at",{ascending:false});
- if(error)return ordersList.innerHTML=`<div class="notice error">${escapeHtml(error.message)}</div>`;
- if(!data?.length)return ordersList.innerHTML='<div class="notice">No shipments booked yet.</div>';
- ordersList.innerHTML=data.map(o=>{
-  let links="";
-  if(o.tracking_link)links+=`<a href="${safeUrl(o.tracking_link)}" target="_blank">Track Shipment</a> `;
-  if(o.label_link)links+=`<a href="${safeUrl(o.label_link)}" target="_blank">Download Label</a>`;
-  return `<div class="order"><b>${escapeHtml(o.order_id||"")}</b><p>Status: <span class="badge">${escapeHtml(o.status||"Booked")}</span></p><p>Customer: ${escapeHtml(o.customer_name||"")}</p><p>Amount: ₹${Number(o.total_charge||0)}</p>${o.tracking_number?`<p>Tracking No: ${escapeHtml(o.tracking_number)}</p>`:""}<p>${links}</p></div>`;
- }).join("");
+
+const {data,error} =
+await supabaseClient
+.from("bookings")
+.select("*")
+.eq(
+"client_id",
+currentProfile.client_id
+)
+.order(
+"created_at",
+{ascending:false}
+);
+
+
+if(error){
+
+return $("ordersList").innerHTML=
+`<div class="notice error">
+${escapeHtml(error.message)}
+</div>`;
 }
 
-async function loadAdmin(){await getAdminProfiles();await loadAdminClients();await loadAdminBookings();await loadAdminStats()}
 
-async function getAdminProfiles(){
- const {data,error}=await supabaseClient.from("profiles").select("*").eq("role","client");
- if(!error)adminProfiles=data||[];
+clientBookingsData =
+data||[];
+
+populateClientMonths();
+
+renderClientOrders();
 }
+
+
+function populateClientMonths(){
+
+const select =
+$("clientMonthFilter");
+
+const current =
+select.value;
+
+const months=[
+...new Set(
+clientBookingsData
+.map(o=>
+o.created_at
+?new Date(o.created_at)
+.toISOString()
+.slice(0,7)
+:""
+)
+.filter(Boolean)
+)
+];
+
+
+select.innerHTML =
+`<option value="">All Months</option>`+
+months
+.map(m=>
+`<option value="${m}">${m}</option>`
+)
+.join("");
+
+select.value=current;
+}
+
+
+function renderClientOrders(){
+
+const search =
+$("clientSearch")
+.value
+.trim()
+.toLowerCase();
+
+const month =
+$("clientMonthFilter")
+.value;
+
+const status =
+$("clientStatusFilter")
+.value;
+
+const payment =
+$("clientPaymentFilter")
+.value;
+
+
+const data =
+clientBookingsData.filter(o=>{
+
+const text=[
+o.order_id,
+o.customer_name,
+o.customer_mobile,
+o.tracking_number
+]
+.join(" ")
+.toLowerCase();
+
+
+if(search&&!text.includes(search))
+return false;
+
+if(
+month&&
+(!o.created_at||
+!o.created_at.startsWith(month))
+)
+return false;
+
+if(status&&o.status!==status)
+return false;
+
+if(payment&&o.payment_type!==payment)
+return false;
+
+return true;
+});
+
+
+if(!data.length){
+
+return $("ordersList").innerHTML=
+`<div class="notice">
+No shipments found.
+</div>`;
+}
+
+
+const groups={};
+
+
+data.forEach(o=>{
+
+const month=o.created_at
+?new Date(o.created_at)
+.toLocaleString(
+"en-IN",
+{
+month:"long",
+year:"numeric"
+}
+)
+:"Unknown Month";
+
+
+if(!groups[month])
+groups[month]=[];
+
+groups[month].push(o);
+
+});
+
+
+$("ordersList").innerHTML =
+Object.entries(groups)
+.map(([month,orders])=>{
+
+return `
+<div class="monthTitle">
+${escapeHtml(month)}
+</div>
+
+${orders
+.map(renderClientOrderCard)
+.join("")}
+`;
+
+})
+.join("");
+}
+
+
+function renderClientOrderCard(o){
+
+let links="";
+
+
+if(o.tracking_link){
+
+links+=`
+<a href="${safeUrl(o.tracking_link)}"
+target="_blank"
+rel="noopener">
+Track Shipment
+</a>
+`;
+}
+
+
+if(o.label_file_path){
+
+links+=`
+<button
+class="info"
+onclick="downloadLabel('${escapeAttr(o.label_file_path)}')">
+DOWNLOAD LABEL
+</button>
+`;
+}
+
+
+let cancelButton="";
+
+
+if(
+o.status!=="Delivered"&&
+o.status!=="Cancelled"&&
+o.status!=="Cancellation Requested"
+){
+
+cancelButton=`
+<button
+class="danger"
+onclick="requestCancellation(${o.id})">
+REQUEST CANCELLATION
+</button>
+`;
+}
+
+
+return `
+<div class="order">
+
+<b>${escapeHtml(o.order_id||"")}</b>
+
+<p>
+Status:
+<span class="badge">
+${escapeHtml(o.status||"Booked")}
+</span>
+</p>
+
+<p>
+Customer:
+${escapeHtml(o.customer_name||"")}
+</p>
+
+<p>
+Customer Mobile:
+${escapeHtml(o.customer_mobile||"")}
+</p>
+
+<p>
+Payment:
+${escapeHtml(o.payment_type||"")}
+</p>
+
+<p>
+Amount:
+₹${Number(o.total_charge||0)}
+</p>
+
+${
+o.tracking_number
+?
+`<p>
+Tracking No:
+${escapeHtml(o.tracking_number)}
+</p>`
+:""
+}
+
+<p>${links}</p>
+
+${cancelButton}
+
+</div>
+`;
+}
+
+
+/* =========================
+DOWNLOAD LABEL
+========================= */
+
+async function downloadLabel(path){
+
+if(!path){
+
+return alert(
+"Label is not available."
+);
+}
+
+
+const {data,error} =
+await supabaseClient
+.storage
+.from("shipping-labels")
+.createSignedUrl(
+path,
+300
+);
+
+
+if(error){
+
+return alert(
+"Unable to open label: "+
+error.message
+);
+}
+
+
+window.open(
+data.signedUrl,
+"_blank"
+);
+}
+
+
+/* =========================
+CANCELLATION
+========================= */
+
+async function requestCancellation(id){
+
+const reason =
+prompt(
+"Why do you want to cancel this shipment?"
+);
+
+
+if(reason===null)return;
+
+
+const {error} =
+await supabaseClient
+.from("bookings")
+.update({
+
+cancellation_requested:true,
+
+cancellation_reason:
+reason,
+
+status:
+"Cancellation Requested"
+
+})
+.eq("id",id)
+.eq(
+"client_id",
+currentProfile.client_id
+);
+
+
+if(error){
+
+return alert(
+error.message
+);
+}
+
+
+alert(
+"Cancellation request sent to BHAGWATI FULFIL."
+);
+
+
+await loadOrders();
+}
+
+
+/* =========================
+ADMIN
+========================= */
+
+async function loadAdmin(){
+
+await loadAdminClients();
+
+await loadAdminBookings();
+
+await loadAdminStats();
+}
+
+
+/* =========================
+ADMIN CLIENTS
+========================= */
 
 async function loadAdminClients(){
- const {data,error}=await supabaseClient.from("clients").select('id,"Client_name",mobile,email,created_at').order("created_at",{ascending:false});
- if(error){adminClients.innerHTML=`<div class="notice error">${escapeHtml(error.message)}</div>`;return;}
- if(!data?.length){adminClients.innerHTML='<div class="notice">No client accounts found.</div>';return;}
- adminClients.innerHTML=data.map(c=>`<div class="order"><b>${escapeHtml(c.Client_name||"Client")}</b><p>Mobile: ${escapeHtml(c.mobile||"")}</p><p>Email: ${escapeHtml(c.email||"")}</p><p>Client ID: ${escapeHtml(String(c.id||""))}</p></div>`).join("");
+
+const {data,error} =
+await supabaseClient
+.from("clients")
+.select("*")
+.order(
+"created_at",
+{ascending:false}
+);
+
+
+if(error){
+
+adminClients.innerHTML=
+`<div class="notice error">
+${escapeHtml(error.message)}
+</div>`;
+
+return;
 }
+
+
+adminClientsData =
+data||[];
+
+
+if(!adminClientsData.length){
+
+adminClients.innerHTML=
+`<div class="notice">
+No client accounts found.
+</div>`;
+
+return;
+}
+
+
+/*
+BANK DETAILS ARE HIDDEN.
+*/
+
+adminClients.innerHTML =
+adminClientsData
+.map(c=>{
+
+const name =
+c.client_name||
+c.Client_name||
+"Client";
+
+const bankId =
+"bank-"+c.id;
+
+
+return `
+<div class="order">
+
+<b>
+${escapeHtml(name)}
+</b>
+
+<p>
+Mobile:
+${escapeHtml(c.mobile||"")}
+</p>
+
+<p>
+Email:
+${escapeHtml(c.email||"")}
+</p>
+
+<p>
+Client ID:
+${escapeHtml(String(c.id||""))}
+</p>
+
+${
+c.client_number
+?
+`<p>
+Client Number:
+<b>${escapeHtml(c.client_number)}</b>
+</p>`
+:""
+}
+
+<button
+class="bankToggle"
+onclick="toggleBank('${bankId}')">
+⋮ Bank Details
+</button>
+
+<div
+id="${bankId}"
+class="bankBox hidden">
+
+<p>
+<b>Account Holder:</b>
+${escapeHtml(
+c.bank_holder_name||
+"Not added"
+)}
+</p>
+
+<p>
+<b>Account Number:</b>
+${escapeHtml(
+c.account_number||
+"Not added"
+)}
+</p>
+
+<p>
+<b>IFSC:</b>
+${escapeHtml(
+c.ifsc||
+"Not added"
+)}
+</p>
+
+<p>
+<b>UPI:</b>
+${escapeHtml(
+c.upi_id||
+"Not added"
+)}
+</p>
+
+</div>
+
+</div>
+`;
+
+})
+.join("");
+}
+
+
+function toggleBank(id){
+
+const box=$(id);
+
+if(!box)return;
+
+box.classList.toggle("hidden");
+}
+
+
+/* =========================
+ADMIN BOOKINGS
+========================= */
 
 async function loadAdminBookings(){
- const {data,error}=await supabaseClient.from("bookings").select("*").order("created_at",{ascending:false});
- if(error)return adminBookings.innerHTML=`<div class="notice error">${escapeHtml(error.message)}</div>`;
- if(!data?.length)return adminBookings.innerHTML='<div class="notice">No bookings found.</div>';
- adminBookings.innerHTML=data.map(o=>`<div class="order"><b>${escapeHtml(o.order_id||"")}</b><p>Client ID: ${escapeHtml(String(o.client_id||""))}</p><p>Customer: ${escapeHtml(o.customer_name||"")}</p><p>Customer Mobile: ${escapeHtml(o.customer_mobile||"")}</p><p>Delivery Pincode: ${escapeHtml(o.delivery_pincode||"")}</p><p>Amount: ₹${Number(o.total_charge||0)}</p>
-<label>Status</label><select id="status-${o.id}"><option ${o.status==="Booked"?"selected":""}>Booked</option><option ${o.status==="Picked Up"?"selected":""}>Picked Up</option><option ${o.status==="In Transit"?"selected":""}>In Transit</option><option ${o.status==="Out for Delivery"?"selected":""}>Out for Delivery</option><option ${o.status==="Delivered"?"selected":""}>Delivered</option><option ${o.status==="RTO"?"selected":""}>RTO</option></select>
-<label>Tracking Number</label><input id="tracking-${o.id}" value="${escapeAttr(o.tracking_number||"")}">
-<label>Tracking Link</label><input id="trackingLink-${o.id}" value="${escapeAttr(o.tracking_link||"")}">
-<label>Label Link</label><input id="label-${o.id}" value="${escapeAttr(o.label_link||"")}">
-<button class="success" onclick="updateBooking(${o.id})">SAVE UPDATE</button></div>`).join("");
+
+const {data,error} =
+await supabaseClient
+.from("bookings")
+.select("*")
+.order(
+"created_at",
+{ascending:false}
+);
+
+
+if(error){
+
+return adminBookings.innerHTML=
+`<div class="notice error">
+${escapeHtml(error.message)}
+</div>`;
 }
+
+
+adminBookingsData =
+data||[];
+
+populateAdminClientFilter();
+
+populateAdminMonthFilter();
+
+renderAdminBookings();
+}
+
+
+/* =========================
+CLIENT FILTER
+========================= */
+
+function populateAdminClientFilter(){
+
+const select =
+$("adminClientFilter");
+
+const current =
+select.value;
+
+
+select.innerHTML =
+`<option value="">All Clients</option>`+
+adminClientsData
+.map(c=>{
+
+const name =
+c.client_name||
+c.Client_name||
+"Client";
+
+const number =
+c.client_number
+?` - ${c.client_number}`
+:"";
+
+return `
+<option value="${c.id}">
+${escapeHtml(
+(number+ " " +name)
+)}
+</option>
+`;
+
+})
+.join("");
+
+
+select.value=current;
+}
+
+
+/* =========================
+MONTH FILTER
+========================= */
+
+function populateAdminMonthFilter(){
+
+const select =
+$("adminMonthFilter");
+
+const current =
+select.value;
+
+
+const months=[
+...new Set(
+adminBookingsData
+.map(o=>
+o.created_at
+?new Date(o.created_at)
+.toISOString()
+.slice(0,7)
+:""
+)
+.filter(Boolean)
+)
+];
+
+
+select.innerHTML =
+`<option value="">All Months</option>`+
+months
+.map(m=>
+`<option value="${m}">${m}</option>`
+)
+.join("");
+
+select.value=current;
+}
+
+
+/* =========================
+ADMIN RENDER
+========================= */
+
+function renderAdminBookings(){
+
+const search =
+$("adminSearch")
+.value
+.trim()
+.toLowerCase();
+
+const month =
+$("adminMonthFilter")
+.value;
+
+const client =
+$("adminClientFilter")
+.value;
+
+const status =
+$("adminStatusFilter")
+.value;
+
+const payment =
+$("adminPaymentFilter")
+.value;
+
+const exactDate =
+$("adminDateFilter")
+.value;
+
+
+const data =
+adminBookingsData.filter(o=>{
+
+const text=[
+o.order_id,
+o.customer_name,
+o.customer_mobile,
+o.tracking_number
+]
+.join(" ")
+.toLowerCase();
+
+
+if(
+search&&
+!text.includes(search)
+)
+return false;
+
+
+if(
+month&&
+(!o.created_at||
+!o.created_at.startsWith(month))
+)
+return false;
+
+
+if(
+client&&
+String(o.client_id)!==
+String(client)
+)
+return false;
+
+
+if(
+status&&
+o.status!==status
+)
+return false;
+
+
+if(
+payment&&
+o.payment_type!==payment
+)
+return false;
+
+
+if(exactDate){
+
+const date =
+o.created_at
+?new Date(o.created_at)
+.toISOString()
+.slice(0,10)
+:"";
+
+if(date!==exactDate)
+return false;
+
+}
+
+
+return true;
+});
+
+
+if(!data.length){
+
+return adminBookings.innerHTML=
+`<div class="notice">
+No bookings match the selected filters.
+</div>`;
+}
+
+
+adminBookings.innerHTML =
+data
+.map(renderAdminBookingCard)
+.join("");
+}
+
+
+/* =========================
+ADMIN BOOKING CARD
+========================= */
+
+function renderAdminBookingCard(o){
+
+const client =
+adminClientsData.find(
+c=>
+String(c.id)===
+String(o.client_id)
+);
+
+
+const clientName =
+client
+?
+(
+client.client_name||
+client.Client_name||
+"Client"
+)
+:
+`Client ${o.client_id}`;
+
+
+return `
+<div class="order">
+
+<b>
+${escapeHtml(o.order_id||"")}
+</b>
+
+<p>
+Client:
+<b>${escapeHtml(clientName)}</b>
+
+${
+client?.client_number
+?
+` (${escapeHtml(client.client_number)})`
+:""
+}
+
+</p>
+
+<p>
+Customer:
+${escapeHtml(o.customer_name||"")}
+</p>
+
+<p>
+Customer Mobile:
+${escapeHtml(o.customer_mobile||"")}
+</p>
+
+<p>
+Delivery Pincode:
+${escapeHtml(o.delivery_pincode||"")}
+</p>
+
+<p>
+Payment:
+${escapeHtml(o.payment_type||"")}
+</p>
+
+<p>
+Amount:
+₹${Number(o.total_charge||0)}
+</p>
+
+
+${
+o.cancellation_requested
+?
+`
+<div class="notice">
+<b>Cancellation Requested</b>
+<br>
+Reason:
+${escapeHtml(
+o.cancellation_reason||""
+)}
+</div>
+`
+:""
+}
+
+
+<label>Status</label>
+
+<select id="status-${o.id}">
+
+<option ${
+o.status==="Booked"
+?"selected":""
+}>
+Booked
+</option>
+
+<option ${
+o.status==="Picked Up"
+?"selected":""
+}>
+Picked Up
+</option>
+
+<option ${
+o.status==="In Transit"
+?"selected":""
+}>
+In Transit
+</option>
+
+<option ${
+o.status==="Out for Delivery"
+?"selected":""
+}>
+Out for Delivery
+</option>
+
+<option ${
+o.status==="Delivered"
+?"selected":""
+}>
+Delivered
+</option>
+
+<option ${
+o.status==="RTO"
+?"selected":""
+}>
+RTO
+</option>
+
+<option ${
+o.status==="Cancelled"
+?"selected":""
+}>
+Cancelled
+</option>
+
+<option ${
+o.status==="Cancellation Requested"
+?"selected":""
+}>
+Cancellation Requested
+</option>
+
+</select>
+
+
+<label>Tracking Number</label>
+
+<input
+id="tracking-${o.id}"
+value="${escapeAttr(
+o.tracking_number||""
+)}"
+placeholder="Actual courier tracking number">
+
+
+<label>Tracking Link</label>
+
+<input
+id="trackingLink-${o.id}"
+value="${escapeAttr(
+o.tracking_link||""
+)}"
+placeholder="Actual tracking URL">
+
+
+<div class="fileBox">
+
+<label>
+Shipping Label PDF
+</label>
+
+<input
+type="file"
+id="labelFile-${o.id}"
+accept="application/pdf">
+
+<p class="small">
+Only PDF. Maximum 50 MB.
+</p>
+
+${
+o.label_file_path
+?
+`<p class="small">
+✓ Label already uploaded
+</p>`
+:""
+}
+
+</div>
+
+
+<button
+class="success"
+onclick="updateBooking(${o.id})">
+SAVE UPDATE
+</button>
+
+</div>
+`;
+}
+
+
+/* =========================
+UPDATE BOOKING
+========================= */
 
 async function updateBooking(id){
- const status=document.getElementById(`status-${id}`).value,tracking=document.getElementById(`tracking-${id}`).value.trim(),trackingLink=document.getElementById(`trackingLink-${id}`).value.trim(),label=document.getElementById(`label-${id}`).value.trim();
- const updates={status,tracking_number:tracking,tracking_link:trackingLink,label_link:label,delivered_at:status==="Delivered"?new Date().toISOString():null};
- const {error}=await supabaseClient.from("bookings").update(updates).eq("id",id);
- if(error)return alert(error.message);alert("Booking updated successfully.");await loadAdminBookings();await loadAdminStats();
+
+const status =
+$(`status-${id}`).value;
+
+const tracking =
+$(`tracking-${id}`).value.trim();
+
+const trackingLink =
+$(`trackingLink-${id}`).value.trim();
+
+const fileInput =
+$(`labelFile-${id}`);
+
+
+const booking =
+adminBookingsData.find(
+o=>Number(o.id)===Number(id)
+);
+
+
+if(!booking){
+
+return alert(
+"Booking not found."
+);
 }
+
+
+let labelPath =
+booking.label_file_path||
+null;
+
+
+/*
+PDF UPLOAD
+*/
+
+if(
+fileInput?.files?.length
+){
+
+const file =
+fileInput.files[0];
+
+
+if(
+file.type!=="application/pdf"
+){
+
+return alert(
+"Only PDF shipping label is allowed."
+);
+}
+
+
+if(
+file.size>
+50*1024*1024
+){
+
+return alert(
+"PDF must be 50 MB or smaller."
+);
+}
+
+
+labelPath =
+`${booking.client_id}/${booking.order_id}.pdf`;
+
+
+const {error:uploadError} =
+await supabaseClient
+.storage
+.from("shipping-labels")
+.upload(
+labelPath,
+file,
+{
+contentType:"application/pdf",
+upsert:true
+}
+);
+
+
+if(uploadError){
+
+return alert(
+"Label upload failed: "+
+uploadError.message
+);
+}
+
+}
+
+
+const updates={
+
+status:status,
+
+tracking_number:
+tracking,
+
+tracking_link:
+trackingLink,
+
+label_file_path:
+labelPath,
+
+delivered_at:
+status==="Delivered"
+?
+(
+booking.delivered_at||
+new Date().toISOString()
+)
+:
+null
+
+};
+
+
+if(status==="Cancelled"){
+
+updates.cancellation_requested=false;
+
+updates.cancelled_at =
+booking.cancelled_at||
+new Date().toISOString();
+
+}
+
+
+const {error} =
+await supabaseClient
+.from("bookings")
+.update(updates)
+.eq("id",id);
+
+
+if(error){
+
+return alert(
+error.message
+);
+}
+
+
+alert(
+"Booking updated successfully."
+);
+
+
+await loadAdminBookings();
+
+await loadAdminStats();
+}
+
+
+/* =========================
+ADMIN STATUS
+========================= */
 
 async function loadAdminStats(){
- const {data,error}=await supabaseClient.from("bookings").select("status,created_at,delivered_at");
- if(error)return;
- const today=new Date();today.setHours(0,0,0,0);const week=new Date();week.setDate(week.getDate()-7);const month=new Date();month.setDate(1);month.setHours(0,0,0,0);
- let t=0,w=0,m=0;
- (data||[]).forEach(o=>{if(o.status!=="Delivered")return;const d=new Date(o.delivered_at||o.created_at);if(d>=today)t++;if(d>=week)w++;if(d>=month)m++});
- todayDelivered.textContent=t;weekDelivered.textContent=w;monthDelivered.textContent=m;totalBookings.textContent=(data||[]).length;
+
+const {data,error} =
+await supabaseClient
+.from("bookings")
+.select(
+"status,created_at,delivered_at"
+);
+
+
+if(error)return;
+
+
+const today =
+new Date();
+
+today.setHours(
+0,0,0,0
+);
+
+
+const week =
+new Date();
+
+week.setDate(
+week.getDate()-7
+);
+
+
+const month =
+new Date();
+
+month.setDate(1);
+
+month.setHours(
+0,0,0,0
+);
+
+
+let t=0;
+let w=0;
+let m=0;
+
+
+(data||[])
+.forEach(o=>{
+
+if(o.status!=="Delivered")
+return;
+
+
+const d =
+new Date(
+o.delivered_at||
+o.created_at
+);
+
+
+if(d>=today)t++;
+
+if(d>=week)w++;
+
+if(d>=month)m++;
+
+});
+
+
+$("todayDelivered")
+.textContent=t;
+
+$("weekDelivered")
+.textContent=w;
+
+$("monthDelivered")
+.textContent=m;
+
+$("totalBookings")
+.textContent=
+(data||[]).length;
 }
+
+
+/* =========================
+LOGOUT
+========================= */
 
 async function logout(){
- await supabaseClient.auth.signOut();
- currentUser=null;currentProfile=null;currentClient=null;
- clientArea.classList.add("hidden");adminArea.classList.add("hidden");
- loginEmail.value="";loginPassword.value="";
- document.getElementById("loginMsg").innerHTML="";
- showLogin();
+
+await supabaseClient.auth.signOut();
+
+currentUser=null;
+currentProfile=null;
+currentClient=null;
+
+$("clientArea")
+.classList.add("hidden");
+
+$("adminArea")
+.classList.add("hidden");
+
+$("loginEmail").value="";
+$("loginPassword").value="";
+
+$("loginMsg").innerHTML="";
+
+showLogin();
 }
 
-function escapeHtml(v){return String(v??"").replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;").replaceAll('"',"&quot;").replaceAll("'","&#039;")}
-function escapeAttr(v){return escapeHtml(v)}
-function safeUrl(url){try{const u=new URL(url);return["https:","http:"].includes(u.protocol)?u.href:"#"}catch(e){return "#"}}
 
-supabaseClient.auth.onAuthStateChange(async(event,session)=>{
- if(event==="SIGNED_OUT"){
-  currentUser=null;currentProfile=null;currentClient=null;
-  clientArea.classList.add("hidden");
-  adminArea.classList.add("hidden");
-  showLogin();
- }
-});
+/* =========================
+AUTH STATE
+========================= */
 
-document.addEventListener("DOMContentLoaded",async()=>{
- paymentChanged();
- const {data}=await supabaseClient.auth.getSession();
- if(data.session)await loadUser();
-});
+supabaseClient.auth.onAuthStateChange(
+async(event,session)=>{
+
+if(event==="PASSWORD_RECOVERY"){
+
+showReset();
+
+return;
+}
+
+
+if(event==="SIGNED_OUT"){
+
+currentUser=null;
+currentProfile=null;
+currentClient=null;
+
+$("clientArea")
+.classList.add("hidden");
+
+$("adminArea")
+.classList.add("hidden");
+
+showLogin();
+}
+
+}
+);
+
+
+/* =========================
+START
+========================= */
+
+document.addEventListener(
+"DOMContentLoaded",
+async()=>{
+
+paymentChanged();
+
+const {data} =
+await supabaseClient
+.auth
+.getSession();
+
+if(data.session){
+
+await loadUser();
+
+}
+
+}
+);
+
 </script>
+
 </body>
 </html>
