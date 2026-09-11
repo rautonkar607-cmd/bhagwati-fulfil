@@ -198,10 +198,18 @@ async function loadUser(){
   return msg("loginMsg","Unable to load user. Please login again.","error");
  }
  currentUser=data.user;
- const {data:profile,error:profileError}=await supabaseClient.rpc("ensure_my_client_profile");
+ let {data:profile,error:profileError}=await supabaseClient.rpc("get_my_profile");
  if(profileError){
   console.error("Profile RPC Error:",profileError);
   return msg("loginMsg","Profile loading error: "+profileError.message,"error");
+ }
+ if(!profile){
+  const repair=await supabaseClient.rpc("ensure_my_client_profile");
+  if(repair.error){
+   console.error("Profile Repair Error:",repair.error);
+   return msg("loginMsg","Profile loading error: "+repair.error.message,"error");
+  }
+  profile=repair.data;
  }
  if(!profile){
   return msg("loginMsg","Your account profile is missing. Please contact BHAGWATI FULFIL support.","error");
@@ -224,10 +232,10 @@ async function loadClient(){
  clientWelcome.innerHTML=`<b>${escapeHtml(currentProfile.full_name||"")}</b>`;
  const clientId=Number(currentProfile.client_id);
  if(!Number.isInteger(clientId)||clientId<=0){
-  return msg("loginMsg","Client profile is not linked to this account. Please run the profile-link SQL once in Supabase.","error");
+  return msg("clientWelcome","Client profile is not linked to this account.","error");
  }
  const {data,error}=await supabaseClient.from("clients").select("*").eq("id",clientId).single();
- if(error)return msg("loginMsg","Client profile loading error: "+error.message,"error");
+ if(error)return msg("clientWelcome","Client profile loading error: "+error.message,"error");
  currentClient=data;
  profileName.value=data.Client_name||"";profileMobile.value=data.mobile||"";profileEmail.value=data.email||currentUser.email||"";
  bankHolder.value=data.bank_holder_name||"";accountNumber.value=data.account_number||"";ifsc.value=data.ifsc||"";upiId.value=data.upi_id||"";
@@ -361,6 +369,15 @@ async function logout(){
 function escapeHtml(v){return String(v??"").replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;").replaceAll('"',"&quot;").replaceAll("'","&#039;")}
 function escapeAttr(v){return escapeHtml(v)}
 function safeUrl(url){try{const u=new URL(url);return["https:","http:"].includes(u.protocol)?u.href:"#"}catch(e){return "#"}}
+
+supabaseClient.auth.onAuthStateChange(async(event,session)=>{
+ if(event==="SIGNED_OUT"){
+  currentUser=null;currentProfile=null;currentClient=null;
+  clientArea.classList.add("hidden");
+  adminArea.classList.add("hidden");
+  showLogin();
+ }
+});
 
 document.addEventListener("DOMContentLoaded",async()=>{
  paymentChanged();
