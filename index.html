@@ -198,7 +198,7 @@ async function loadUser(){
   return msg("loginMsg","Unable to load user. Please login again.","error");
  }
  currentUser=data.user;
- const {data:profile,error:profileError}=await supabaseClient.rpc("get_my_profile");
+ const {data:profile,error:profileError}=await supabaseClient.rpc("ensure_my_client_profile");
  if(profileError){
   console.error("Profile RPC Error:",profileError);
   return msg("loginMsg","Profile loading error: "+profileError.message,"error");
@@ -350,7 +350,12 @@ async function loadAdminStats(){
 }
 
 async function logout(){
- await supabaseClient.auth.signOut();currentUser=null;currentProfile=null;currentClient=null;clientArea.classList.add("hidden");adminArea.classList.add("hidden");showLogin();
+ await supabaseClient.auth.signOut();
+ currentUser=null;currentProfile=null;currentClient=null;
+ clientArea.classList.add("hidden");adminArea.classList.add("hidden");
+ loginEmail.value="";loginPassword.value="";
+ document.getElementById("loginMsg").innerHTML="";
+ showLogin();
 }
 
 function escapeHtml(v){return String(v??"").replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;").replaceAll('"',"&quot;").replaceAll("'","&#039;")}
