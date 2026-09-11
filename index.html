@@ -118,6 +118,16 @@ textarea{min-height:90px;resize:vertical}label{font-weight:600;font-size:14px}bu
 const SUPABASE_URL="https://zldgzojzsoxpyhlhkive.supabase.co";
 const SUPABASE_ANON_KEY="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InpsZGd6b2p6c294cHlobGhraXZlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODkwMzQ5NDMsImV4cCI6MjEwNDYxMDk0M30.cyr6fVFej4eNMZnwQfvUGSESMLpyNClHmI9S7tNpe5U";
 const supabaseClient=supabase.createClient(SUPABASE_URL,SUPABASE_ANON_KEY);
+
+// Explicit DOM references - keeps buttons/functions working reliably on GitHub Pages
+const loginSection=document.getElementById("loginSection"), signupSection=document.getElementById("signupSection"), resetSection=document.getElementById("resetSection"), clientArea=document.getElementById("clientArea"), adminArea=document.getElementById("adminArea");
+const loginEmail=document.getElementById("loginEmail"), loginPassword=document.getElementById("loginPassword"), signupName=document.getElementById("signupName"), signupMobile=document.getElementById("signupMobile"), signupEmail=document.getElementById("signupEmail"), signupPassword=document.getElementById("signupPassword");
+const newPassword=document.getElementById("newPassword"), confirmPassword=document.getElementById("confirmPassword");
+const clientWelcome=document.getElementById("clientWelcome"), clientProfileBox=document.getElementById("clientProfileBox"), bookingBox=document.getElementById("bookingBox"), ordersBox=document.getElementById("ordersBox"), ordersList=document.getElementById("ordersList");
+const profileName=document.getElementById("profileName"), profileMobile=document.getElementById("profileMobile"), profileEmail=document.getElementById("profileEmail"), bankHolder=document.getElementById("bankHolder"), accountNumber=document.getElementById("accountNumber"), ifsc=document.getElementById("ifsc"), upiId=document.getElementById("upiId");
+const paymentType=document.getElementById("paymentType"), codBox=document.getElementById("codBox"), pickupName=document.getElementById("pickupName"), pickupMobile=document.getElementById("pickupMobile"), pickupAddress=document.getElementById("pickupAddress"), pickupPincode=document.getElementById("pickupPincode"), customerName=document.getElementById("customerName"), customerMobile=document.getElementById("customerMobile"), deliveryAddress=document.getElementById("deliveryAddress"), deliveryPincode=document.getElementById("deliveryPincode"), parcelValue=document.getElementById("parcelValue"), codAmount=document.getElementById("codAmount"), length=document.getElementById("length"), width=document.getElementById("width"), height=document.getElementById("height"), actualWeight=document.getElementById("actualWeight");
+const volumetricWeight=document.getElementById("volumetricWeight"), chargeableWeight=document.getElementById("chargeableWeight"), zone=document.getElementById("zone"), shippingCharge=document.getElementById("shippingCharge"), codCharge=document.getElementById("codCharge"), totalCharge=document.getElementById("totalCharge"), rtoCharge=document.getElementById("rtoCharge");
+const adminMsg=document.getElementById("adminMsg"), adminClients=document.getElementById("adminClients"), adminBookings=document.getElementById("adminBookings"), todayDelivered=document.getElementById("todayDelivered"), weekDelivered=document.getElementById("weekDelivered"), monthDelivered=document.getElementById("monthDelivered"), totalBookings=document.getElementById("totalBookings");
 let currentUser=null,currentProfile=null,currentClient=null,adminProfiles=[];
 
 function showLogin(){loginSection.classList.remove("hidden");signupSection.classList.add("hidden");resetSection.classList.add("hidden")}
@@ -290,6 +300,13 @@ async function loadAdmin(){await getAdminProfiles();await loadAdminClients();awa
 async function getAdminProfiles(){
  const {data,error}=await supabaseClient.from("profiles").select("*").eq("role","client");
  if(!error)adminProfiles=data||[];
+}
+
+async function loadAdminClients(){
+ const {data,error}=await supabaseClient.from("clients").select("id,client_name,mobile,email,created_at").order("created_at",{ascending:false});
+ if(error){adminClients.innerHTML=`<div class="notice error">${escapeHtml(error.message)}</div>`;return;}
+ if(!data?.length){adminClients.innerHTML='<div class="notice">No client accounts found.</div>';return;}
+ adminClients.innerHTML=data.map(c=>`<div class="order"><b>${escapeHtml(c.client_name||"Client")}</b><p>Mobile: ${escapeHtml(c.mobile||"")}</p><p>Email: ${escapeHtml(c.email||"")}</p><p>Client ID: ${escapeHtml(String(c.id||""))}</p></div>`).join("");
 }
 
 async function loadAdminBookings(){
