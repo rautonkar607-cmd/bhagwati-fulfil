@@ -2,48 +2,454 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <title>BHAGWATI FULFIL | Client Portal</title>
+
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
-*{box-sizing:border-box}
-body{margin:0;font-family:Arial,sans-serif;background:#f4f7fb;color:#172033}
-.container{width:95%;max-width:1150px;margin:25px auto}
-header{background:#111827;color:white;padding:20px;border-radius:14px;margin-bottom:20px}
-header h1{margin:0;font-size:25px}
-header p{margin:6px 0 0;opacity:.8}
-.card{background:white;padding:22px;border-radius:14px;box-shadow:0 5px 20px rgba(0,0,0,.08);margin-bottom:20px}
-h2{margin-top:0}
-h3{margin-top:20px}
-input,select,textarea{width:100%;padding:12px;border:1px solid #d1d5db;border-radius:8px;margin-top:6px;margin-bottom:14px;font-size:15px}
-textarea{min-height:90px;resize:vertical}
-label{font-weight:600;font-size:14px}
-button{border:0;padding:12px 18px;border-radius:8px;cursor:pointer;font-weight:bold;font-size:15px;margin:4px}
-.primary{background:#111827;color:white}
-.success{background:#15803d;color:white}
-.danger{background:#dc2626;color:white}
-.secondary{background:#e5e7eb;color:#111827}
-.info{background:#2563eb;color:white}
-.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:15px}
-.filterGrid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
-@media(max-width:800px){.filterGrid{grid-template-columns:1fr}}
-@media(max-width:700px){.grid{grid-template-columns:1fr}}
-.hidden{display:none!important}
-.notice{padding:13px;border-radius:8px;background:#eff6ff;margin-bottom:15px}
-.error{background:#fee2e2;color:#991b1b}
-.ok{background:#dcfce7;color:#166534}
-.ratebox{background:#f8fafc;border:1px solid #e5e7eb;border-radius:10px;padding:15px;margin:15px 0}
-.total{font-size:24px;font-weight:bold}
-.order{border:1px solid #ddd;border-radius:10px;padding:15px;margin-bottom:12px}
-.badge{display:inline-block;padding:5px 9px;border-radius:20px;background:#e5e7eb;font-size:12px;font-weight:bold}
-.topbar{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
-.monthTitle{background:#111827;color:white;padding:10px 14px;border-radius:8px;margin:18px 0 10px;font-weight:bold}
-.bankBox{margin-top:10px;padding:14px;background:#f8fafc;border:1px solid #e5e7eb;border-radius:10px}
-.bankToggle{background:#e5e7eb;color:#111827}
-.fileBox{background:#f8fafc;padding:12px;border-radius:8px;border:1px dashed #aaa;margin-bottom:12px}
-.small{font-size:13px;color:#64748b}
-a{color:#2563eb;font-weight:bold;text-decoration:none}
+*{
+  box-sizing:border-box;
+}
+
+body{
+  margin:0;
+  font-family:Arial,sans-serif;
+  background:#f4f7fb;
+  color:#172033;
+}
+
+.container{
+  width:95%;
+  max-width:1250px;
+  margin:25px auto;
+}
+
+header{
+  background:#111827;
+  color:#fff;
+  padding:20px;
+  border-radius:14px;
+  margin-bottom:20px;
+}
+
+header h1{
+  margin:0;
+  font-size:25px;
+}
+
+header p{
+  margin:6px 0 0;
+  opacity:.8;
+}
+
+.card{
+  background:#fff;
+  padding:22px;
+  border-radius:14px;
+  box-shadow:0 5px 20px rgba(0,0,0,.07);
+  margin-bottom:20px;
+}
+
+h2{
+  margin-top:0;
+}
+
+h3{
+  margin-bottom:10px;
+}
+
+input,
+select,
+textarea{
+  width:100%;
+  padding:12px;
+  border:1px solid #d1d5db;
+  border-radius:8px;
+  margin-top:6px;
+  margin-bottom:14px;
+  font-size:15px;
+  background:#fff;
+}
+
+textarea{
+  min-height:90px;
+  resize:vertical;
+}
+
+label{
+  font-weight:600;
+  font-size:14px;
+}
+
+button{
+  border:0;
+  padding:11px 16px;
+  border-radius:8px;
+  cursor:pointer;
+  font-weight:bold;
+  font-size:14px;
+  margin:4px;
+}
+
+button:disabled{
+  opacity:.55;
+  cursor:not-allowed;
+}
+
+.primary{
+  background:#111827;
+  color:#fff;
+}
+
+.success{
+  background:#15803d;
+  color:#fff;
+}
+
+.danger{
+  background:#dc2626;
+  color:#fff;
+}
+
+.secondary{
+  background:#e5e7eb;
+  color:#111827;
+}
+
+.info{
+  background:#2563eb;
+  color:#fff;
+}
+
+.warning{
+  background:#d97706;
+  color:#fff;
+}
+
+.grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:15px;
+}
+
+.grid3{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:15px;
+}
+
+.grid4{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:15px;
+}
+
+.hidden{
+  display:none!important;
+}
+
+.notice{
+  padding:13px;
+  border-radius:8px;
+  background:#eff6ff;
+  margin-bottom:15px;
+}
+
+.error{
+  background:#fee2e2;
+  color:#991b1b;
+}
+
+.ok{
+  background:#dcfce7;
+  color:#166534;
+}
+
+.ratebox{
+  background:#f8fafc;
+  border:1px solid #e5e7eb;
+  border-radius:10px;
+  padding:15px;
+  margin:15px 0;
+}
+
+.total{
+  font-size:24px;
+  font-weight:bold;
+}
+
+.topbar{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:10px;
+  flex-wrap:wrap;
+}
+
+.filterbar{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:10px;
+  margin-bottom:15px;
+}
+
+.badge{
+  display:inline-block;
+  padding:5px 10px;
+  border-radius:20px;
+  background:#e5e7eb;
+  font-size:12px;
+  font-weight:bold;
+}
+
+.small{
+  font-size:13px;
+  color:#64748b;
+}
+
+.linkbtn{
+  display:inline-block;
+  padding:9px 12px;
+  background:#111827;
+  color:#fff;
+  border-radius:7px;
+  text-decoration:none;
+  margin:4px 4px 4px 0;
+}
+
+.uploadbox{
+  border:1px dashed #94a3b8;
+  padding:12px;
+  border-radius:8px;
+  background:#f8fafc;
+  margin:8px 0;
+}
+
+.client-bank{
+  background:#f8fafc;
+  padding:12px;
+  border-radius:8px;
+  margin-top:10px;
+}
+
+.client-bank-toggle{
+  background:#f1f5f9;
+  color:#111827;
+  width:100%;
+  text-align:left;
+}
+
+.client-badge{
+  display:inline-block;
+  padding:5px 10px;
+  border-radius:20px;
+  font-size:12px;
+  font-weight:bold;
+}
+
+.day-summary{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  margin-bottom:12px;
+}
+
+.summary-pill{
+  background:#f1f5f9;
+  border:1px solid #e2e8f0;
+  padding:8px 12px;
+  border-radius:20px;
+  font-size:13px;
+  font-weight:bold;
+}
+
+.month-title{
+  background:#111827;
+  color:#fff;
+  padding:12px 15px;
+  border-radius:9px;
+  margin:18px 0 10px;
+}
+
+.date-title{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:10px;
+  font-weight:bold;
+  background:#f1f5f9;
+  padding:10px 12px;
+  border-radius:7px;
+  margin:10px 0;
+}
+
+.shipment-row{
+  border:1px solid #e2e8f0;
+  border-radius:10px;
+  background:#fff;
+  margin-bottom:8px;
+  overflow:hidden;
+}
+
+.shipment-summary{
+  display:grid;
+  grid-template-columns:100px 1.4fr 1.4fr 1.1fr 1fr 100px 100px;
+  gap:10px;
+  align-items:center;
+  padding:12px;
+}
+
+.shipment-summary > div{
+  min-width:0;
+}
+
+.daily-number{
+  font-weight:bold;
+  font-size:15px;
+}
+
+.order-id-small{
+  font-size:11px;
+  color:#64748b;
+  margin-top:3px;
+  word-break:break-all;
+}
+
+.customer-main{
+  font-weight:bold;
+}
+
+.customer-sub{
+  font-size:12px;
+  color:#64748b;
+  margin-top:3px;
+}
+
+.status-badge{
+  display:inline-block;
+  padding:5px 9px;
+  border-radius:20px;
+  background:#e5e7eb;
+  font-size:11px;
+  font-weight:bold;
+}
+
+.details{
+  display:none;
+  border-top:1px solid #e5e7eb;
+  padding:15px;
+  background:#f8fafc;
+}
+
+.details.open{
+  display:block;
+}
+
+.detail-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:12px;
+}
+
+.detail-box{
+  background:#fff;
+  border:1px solid #e5e7eb;
+  border-radius:8px;
+  padding:12px;
+}
+
+.detail-box h4{
+  margin:0 0 8px;
+  font-size:14px;
+}
+
+.detail-box p{
+  margin:5px 0;
+  font-size:13px;
+}
+
+.cancel-alert{
+  border:1px solid #f59e0b;
+  background:#fffbeb;
+  color:#92400e;
+  padding:15px;
+  border-radius:10px;
+  margin-bottom:20px;
+}
+
+.cancel-alert-title{
+  font-weight:bold;
+  font-size:16px;
+  margin-bottom:8px;
+}
+
+.cancel-item{
+  background:#fff;
+  border:1px solid #fde68a;
+  border-radius:8px;
+  padding:12px;
+  margin-top:8px;
+}
+
+.admin-actions{
+  margin-top:12px;
+}
+
+@media(max-width:1000px){
+  .shipment-summary{
+    grid-template-columns:90px 1fr 1fr 1fr;
+  }
+}
+
+@media(max-width:800px){
+  .filterbar{
+    grid-template-columns:1fr 1fr;
+  }
+
+  .grid3,
+  .grid4{
+    grid-template-columns:1fr 1fr;
+  }
+
+  .shipment-summary{
+    grid-template-columns:90px 1fr 1fr;
+  }
+
+  .detail-grid{
+    grid-template-columns:1fr;
+  }
+}
+
+@media(max-width:500px){
+  .container{
+    width:96%;
+    margin:12px auto;
+  }
+
+  .card{
+    padding:15px;
+  }
+
+  .grid,
+  .grid3,
+  .grid4,
+  .filterbar{
+    grid-template-columns:1fr;
+  }
+
+  .shipment-summary{
+    grid-template-columns:1fr 1fr;
+  }
+
+  .shipment-summary .full-mobile{
+    grid-column:1/-1;
+  }
+
+  button{
+    width:auto;
+  }
+}
 </style>
 </head>
 
@@ -52,469 +458,588 @@ a{color:#2563eb;font-weight:bold;text-decoration:none}
 <div class="container">
 
 <header>
-<h1>BHAGWATI FULFIL</h1>
-<p>Client Fulfillment & Delivery Portal</p>
+  <h1>BHAGWATI FULFIL</h1>
+  <p>Client Fulfillment & Delivery Portal</p>
 </header>
+
 
 <!-- LOGIN -->
 <section id="loginSection" class="card">
-<h2>Client / Admin Login</h2>
-<div id="loginMsg"></div>
 
-<label>Email</label>
-<input id="loginEmail" type="email" placeholder="Enter email">
+  <h2>Client / Admin Login</h2>
 
-<label>Password</label>
-<input id="loginPassword" type="password" placeholder="Enter password">
+  <div id="loginMsg"></div>
 
-<button class="primary" onclick="login()">LOGIN</button>
-<button class="secondary" onclick="showSignup()">CREATE NEW CLIENT ACCOUNT</button>
-<button class="secondary" onclick="sendReset()">FORGOT PASSWORD?</button>
+  <label>Email</label>
+  <input id="loginEmail" type="email" placeholder="Enter email">
+
+  <label>Password</label>
+  <input id="loginPassword" type="password" placeholder="Enter password">
+
+  <button class="primary" onclick="login()">LOGIN</button>
+
+  <button class="secondary" onclick="showSignup()">
+    CREATE NEW CLIENT ACCOUNT
+  </button>
+
+  <button class="secondary" onclick="sendReset()">
+    FORGOT PASSWORD?
+  </button>
+
 </section>
+
 
 <!-- SIGNUP -->
 <section id="signupSection" class="card hidden">
-<h2>Create Client Account</h2>
-<div id="signupMsg"></div>
 
-<label>Business / Client Name</label>
-<input id="signupName" placeholder="Business name">
+  <h2>Create Client Account</h2>
 
-<label>Mobile Number</label>
-<input id="signupMobile" placeholder="Mobile number">
+  <div id="signupMsg"></div>
 
-<label>Email</label>
-<input id="signupEmail" type="email" placeholder="Email">
+  <label>Business / Client Name</label>
+  <input id="signupName" placeholder="Business name">
 
-<label>Password</label>
-<input id="signupPassword" type="password" placeholder="Minimum 6 characters">
+  <label>Mobile Number</label>
+  <input id="signupMobile" placeholder="Mobile number">
 
-<button class="primary" onclick="signup()">CREATE ACCOUNT</button>
-<button class="secondary" onclick="showLogin()">BACK TO LOGIN</button>
+  <label>Email</label>
+  <input id="signupEmail" type="email" placeholder="Email">
+
+  <label>Password</label>
+  <input id="signupPassword" type="password" placeholder="Minimum 6 characters">
+
+  <button class="primary" onclick="signup()">
+    CREATE ACCOUNT
+  </button>
+
+  <button class="secondary" onclick="showLogin()">
+    BACK TO LOGIN
+  </button>
+
 </section>
+
 
 <!-- RESET -->
 <section id="resetSection" class="card hidden">
-<h2>Reset Password</h2>
-<div id="resetMsg"></div>
 
-<label>New Password</label>
-<input id="newPassword" type="password">
+  <h2>Reset Password</h2>
 
-<label>Confirm Password</label>
-<input id="confirmPassword" type="password">
+  <div id="resetMsg"></div>
 
-<button class="success" onclick="updatePassword()">UPDATE PASSWORD</button>
-<button class="secondary" onclick="showLogin()">BACK TO LOGIN</button>
+  <label>New Password</label>
+  <input id="newPassword" type="password" placeholder="Minimum 6 characters">
+
+  <label>Confirm Password</label>
+  <input id="confirmPassword" type="password" placeholder="Confirm password">
+
+  <button class="success" onclick="updatePassword()">
+    UPDATE PASSWORD
+  </button>
+
+  <button class="secondary" onclick="showLogin()">
+    BACK TO LOGIN
+  </button>
+
 </section>
+
 
 <!-- CLIENT -->
 <section id="clientArea" class="hidden">
 
-<div class="card">
-<div class="topbar">
-<div>
-<h2>Client Dashboard</h2>
-<div id="clientWelcome"></div>
-</div>
-<button class="danger" onclick="logout()">LOGOUT</button>
-</div>
-</div>
+  <div class="card">
 
-<!-- CLIENT PROFILE -->
-<div id="clientProfileBox" class="card hidden">
+    <div class="topbar">
 
-<h2>Client Profile</h2>
+      <div>
+        <h2>Client Dashboard</h2>
+        <div id="clientWelcome"></div>
+      </div>
 
-<div class="grid">
+      <button class="danger" onclick="logout()">LOGOUT</button>
 
-<div>
-<label>Business / Client Name</label>
-<input id="profileName">
-</div>
+    </div>
 
-<div>
-<label>Mobile</label>
-<input id="profileMobile">
-</div>
+  </div>
 
-<div>
-<label>Email</label>
-<input id="profileEmail" disabled>
-</div>
 
-</div>
+  <!-- PROFILE -->
+  <div id="clientProfileBox" class="card hidden">
 
-<h3>COD Settlement Bank Details</h3>
+    <h2>Client Profile</h2>
 
-<div class="notice">
-These details are stored once and are used for COD settlement.
-</div>
+    <div class="grid">
 
-<div class="grid">
+      <div>
+        <label>Business / Client Name</label>
+        <input id="profileName">
+      </div>
 
-<div>
-<label>Account Holder Name</label>
-<input id="bankHolder">
-</div>
+      <div>
+        <label>Mobile</label>
+        <input id="profileMobile">
+      </div>
 
-<div>
-<label>Account Number</label>
-<input id="accountNumber">
-</div>
+      <div>
+        <label>Email</label>
+        <input id="profileEmail" disabled>
+      </div>
 
-<div>
-<label>IFSC</label>
-<input id="ifsc">
-</div>
+    </div>
 
-<div>
-<label>UPI ID (Optional)</label>
-<input id="upiId">
-</div>
 
-</div>
+    <h3>COD Settlement Bank Details</h3>
 
-<button class="success" onclick="saveProfile()">SAVE PROFILE</button>
-<div id="profileMsg"></div>
+    <div class="notice">
+      These details are stored once and are used for COD settlement.
+    </div>
 
-</div>
+    <div class="grid">
 
-<!-- BOOKING -->
-<div id="bookingBox" class="card hidden">
+      <div>
+        <label>Account Holder Name</label>
+        <input id="bankHolder">
+      </div>
 
-<h2>Book New Shipment</h2>
-<div id="bookingMsg"></div>
+      <div>
+        <label>Account Number</label>
+        <input id="accountNumber">
+      </div>
 
-<h3>Shipment Details</h3>
+      <div>
+        <label>IFSC</label>
+        <input id="ifsc">
+      </div>
 
-<div class="grid">
+      <div>
+        <label>UPI ID (Optional)</label>
+        <input id="upiId">
+      </div>
 
-<div>
-<label>Order ID</label>
-<input id="orderId" disabled placeholder="Auto generated">
-</div>
+    </div>
 
-<div>
-<label>Payment Type</label>
-<select id="paymentType" onchange="paymentChanged()">
-<option value="Prepaid">Prepaid</option>
-<option value="COD">COD</option>
-</select>
-</div>
+    <button class="success" onclick="saveProfile()">
+      SAVE PROFILE
+    </button>
 
-</div>
+    <div id="profileMsg"></div>
 
-<h3>Pickup Details</h3>
+  </div>
 
-<div class="grid">
 
-<div>
-<label>Pickup Name</label>
-<input id="pickupName">
-</div>
+  <!-- BOOKING -->
+  <div id="bookingBox" class="card hidden">
 
-<div>
-<label>Pickup Mobile</label>
-<input id="pickupMobile">
-</div>
+    <h2>Book New Shipment</h2>
 
-</div>
+    <div id="bookingMsg"></div>
 
-<label>Pickup Address</label>
-<textarea id="pickupAddress"></textarea>
+    <h3>Shipment Details</h3>
 
-<label>Pickup Pincode</label>
-<input id="pickupPincode" maxlength="6">
+    <div class="grid">
 
-<h3>Customer / Delivery Details</h3>
+      <div>
+        <label>Order ID</label>
+        <input id="orderId" disabled placeholder="Auto generated">
+      </div>
 
-<div class="grid">
+      <div>
+        <label>Payment Type</label>
 
-<div>
-<label>Customer Name</label>
-<input id="customerName">
-</div>
+        <select id="paymentType" onchange="paymentChanged()">
+          <option>Prepaid</option>
+          <option>COD</option>
+        </select>
+      </div>
+
+    </div>
+
+
+    <h3>Pickup Details</h3>
+
+    <div class="grid">
+
+      <div>
+        <label>Pickup Name</label>
+        <input id="pickupName">
+      </div>
 
-<div>
-<label>Customer Mobile</label>
-<input id="customerMobile">
-</div>
+      <div>
+        <label>Pickup Mobile</label>
+        <input id="pickupMobile">
+      </div>
+
+    </div>
+
+    <label>Pickup Address</label>
+    <textarea id="pickupAddress"></textarea>
+
+    <label>Pickup Pincode</label>
+    <input id="pickupPincode" maxlength="6">
+
+
+    <h3>Customer / Delivery Details</h3>
+
+    <div class="grid">
+
+      <div>
+        <label>Customer Name</label>
+        <input id="customerName">
+      </div>
+
+      <div>
+        <label>Customer Mobile</label>
+        <input id="customerMobile">
+      </div>
+
+    </div>
+
+    <label>Delivery Address</label>
+    <textarea id="deliveryAddress"></textarea>
+
+    <label>Delivery Pincode</label>
+    <input
+      id="deliveryPincode"
+      maxlength="6"
+      oninput="calculateRate()"
+    >
 
-</div>
+    <label>Parcel / Order Value ₹</label>
+    <input
+      id="parcelValue"
+      type="number"
+      min="0"
+      placeholder="Enter order value"
+    >
 
-<label>Delivery Address</label>
-<textarea id="deliveryAddress"></textarea>
 
-<div class="grid">
+    <h3>Package Details</h3>
 
-<div>
-<label>Delivery Pincode</label>
-<input id="deliveryPincode" maxlength="6" oninput="calculateRate()">
-</div>
+    <div class="grid">
 
-<div>
-<label>Service Zone</label>
-<select id="zoneType" onchange="calculateRate()">
-<option value="Auto">Auto Detect</option>
-<option value="Maharashtra">Maharashtra</option>
-<option value="Pan India">Pan India</option>
-</select>
-</div>
+      <div>
+        <label>Length cm</label>
+        <input
+          id="length"
+          type="number"
+          min="0"
+          oninput="calculateRate()"
+        >
+      </div>
 
-</div>
+      <div>
+        <label>Width cm</label>
+        <input
+          id="width"
+          type="number"
+          min="0"
+          oninput="calculateRate()"
+        >
+      </div>
 
-<label>Parcel / Order Value ₹</label>
-<input id="parcelValue" type="number" min="0">
+      <div>
+        <label>Height cm</label>
+        <input
+          id="height"
+          type="number"
+          min="0"
+          oninput="calculateRate()"
+        >
+      </div>
 
-<div id="codBox" class="hidden">
-<label>COD Amount ₹</label>
-<input id="codAmount" type="number" min="0">
-</div>
-
-<h3>Package Details</h3>
-
-<div class="grid">
-
-<div>
-<label>Length cm</label>
-<input id="length" type="number" min="0" oninput="calculateRate()">
-</div>
-
-<div>
-<label>Width cm</label>
-<input id="width" type="number" min="0" oninput="calculateRate()">
-</div>
-
-<div>
-<label>Height cm</label>
-<input id="height" type="number" min="0" oninput="calculateRate()">
-</div>
-
-<div>
-<label>Actual Weight grams</label>
-<input id="actualWeight" type="number" min="0" oninput="calculateRate()">
-</div>
-
-</div>
-
-<div class="ratebox">
-
-<p><b>Volumetric Weight:</b> <span id="volumetricWeight">0</span> kg</p>
-
-<p><b>Chargeable Weight:</b> <span id="chargeableWeight">0</span> kg</p>
-
-<p><b>Zone:</b> <span id="zone">Pan India</span></p>
-
-<p><b>Shipping Charge:</b> ₹<span id="shippingCharge">0</span></p>
-
-<p><b>COD Charge:</b> ₹<span id="codCharge">0</span></p>
-
-<hr>
-
-<p class="total">
-Total: ₹<span id="totalCharge">0</span>
-</p>
-
-<p>
-<b>RTO Charge:</b> ₹<span id="rtoCharge">0</span>
-</p>
-
-</div>
-
-<button class="success" onclick="bookShipment()">BOOK SHIPMENT</button>
-<button class="secondary" onclick="clearBooking()">CLEAR</button>
-
-</div>
-
-<!-- CLIENT ORDERS -->
-<div id="ordersBox" class="card hidden">
-
-<h2>My Shipments</h2>
-
-<div class="filterGrid">
-
-<div>
-<label>Search</label>
-<input id="clientSearch"
-placeholder="Order / customer / mobile / tracking"
-oninput="renderClientOrders()">
-</div>
-
-<div>
-<label>Month</label>
-<select id="clientMonthFilter" onchange="renderClientOrders()">
-<option value="">All Months</option>
-</select>
-</div>
-
-<div>
-<label>Status</label>
-<select id="clientStatusFilter" onchange="renderClientOrders()">
-<option value="">All Status</option>
-<option>Booked</option>
-<option>Picked Up</option>
-<option>In Transit</option>
-<option>Out for Delivery</option>
-<option>Delivered</option>
-<option>RTO</option>
-<option>Cancelled</option>
-<option>Cancellation Requested</option>
-</select>
-</div>
-
-<div>
-<label>Payment</label>
-<select id="clientPaymentFilter" onchange="renderClientOrders()">
-<option value="">All Payment</option>
-<option>Prepaid</option>
-<option>COD</option>
-</select>
-</div>
-
-</div>
-
-<div id="ordersList">Loading...</div>
-
-</div>
+      <div>
+        <label>Actual Weight grams</label>
+        <input
+          id="actualWeight"
+          type="number"
+          min="0"
+          oninput="calculateRate()"
+        >
+      </div>
+
+    </div>
+
+
+    <div class="ratebox">
+
+      <p>
+        <b>Volumetric Weight:</b>
+        <span id="volumetricWeight">0</span> kg
+      </p>
+
+      <p>
+        <b>Chargeable Weight:</b>
+        <span id="chargeableWeight">0</span> kg
+      </p>
+
+      <p>
+        <b>Zone:</b>
+        <span id="zone">Pan India</span>
+      </p>
+
+      <p>
+        <b>Shipping Charge:</b>
+        ₹<span id="shippingCharge">0</span>
+      </p>
+
+      <p>
+        <b>COD Charge:</b>
+        ₹<span id="codCharge">0</span>
+      </p>
+
+      <hr>
+
+      <p class="total">
+        Total: ₹<span id="totalCharge">0</span>
+      </p>
+
+      <p>
+        <b>RTO Charge:</b>
+        ₹<span id="rtoCharge">0</span>
+      </p>
+
+    </div>
+
+
+    <button class="success" onclick="bookShipment()">
+      BOOK SHIPMENT
+    </button>
+
+    <button class="secondary" onclick="clearBooking()">
+      CLEAR
+    </button>
+
+  </div>
+
+
+  <!-- CLIENT HISTORY -->
+  <div id="ordersBox" class="card hidden">
+
+    <h2>My Shipment History</h2>
+
+    <div class="notice">
+      Shipment history is permanent. Delivered and Cancelled shipments remain visible.
+    </div>
+
+    <div id="clientDailySummary" class="day-summary"></div>
+
+
+    <div class="filterbar">
+
+      <div>
+        <label>Search</label>
+        <input
+          id="clientSearch"
+          placeholder="Order / Customer / Mobile / Tracking"
+          oninput="renderClientOrders()"
+        >
+      </div>
+
+      <div>
+        <label>Month</label>
+        <select id="clientMonth" onchange="renderClientOrders()">
+          <option value="">All Months</option>
+        </select>
+      </div>
+
+      <div>
+        <label>Status</label>
+        <select id="clientStatus" onchange="renderClientOrders()">
+          <option value="">All Status</option>
+          <option>Booked</option>
+          <option>Picked Up</option>
+          <option>In Transit</option>
+          <option>Out for Delivery</option>
+          <option>Delivered</option>
+          <option>RTO</option>
+          <option>Cancelled</option>
+          <option>Cancellation Requested</option>
+        </select>
+      </div>
+
+      <div>
+        <label>Payment</label>
+        <select id="clientPayment" onchange="renderClientOrders()">
+          <option value="">All Payments</option>
+          <option>Prepaid</option>
+          <option>COD</option>
+        </select>
+      </div>
+
+    </div>
+
+    <div id="ordersList">Loading...</div>
+
+  </div>
 
 </section>
+
 
 <!-- ADMIN -->
 <section id="adminArea" class="hidden">
 
-<div class="card">
 
-<div class="topbar">
+  <div class="card">
 
-<h2>Admin Dashboard</h2>
+    <div class="topbar">
 
-<button class="danger" onclick="logout()">LOGOUT</button>
+      <h2>Admin Dashboard</h2>
 
-</div>
+      <button class="danger" onclick="logout()">
+        LOGOUT
+      </button>
 
-<div id="adminMsg"></div>
+    </div>
 
-</div>
+    <div id="adminMsg"></div>
 
-<!-- ADMIN STATUS -->
-<div class="card">
+  </div>
 
-<h2>Admin Status</h2>
 
-<div class="grid">
+  <!-- CANCELLATION ALERT -->
+  <div id="adminCancellationAlert" class="cancel-alert hidden">
+    <div class="cancel-alert-title">
+      ⚠️ Cancellation Request
+    </div>
 
-<div class="ratebox">
-<b>Today Delivered</b>
-<h2 id="todayDelivered">0</h2>
-</div>
+    <div id="adminCancellationList"></div>
+  </div>
 
-<div class="ratebox">
-<b>This Week Delivered</b>
-<h2 id="weekDelivered">0</h2>
-</div>
 
-<div class="ratebox">
-<b>This Month Delivered</b>
-<h2 id="monthDelivered">0</h2>
-</div>
+  <!-- ADMIN STATUS -->
+  <div class="card">
 
-<div class="ratebox">
-<b>Total Bookings</b>
-<h2 id="totalBookings">0</h2>
-</div>
+    <h2>Admin Status</h2>
 
-</div>
+    <div class="grid4">
 
-</div>
+      <div class="ratebox">
+        <b>Today Delivered</b>
+        <h2 id="todayDelivered">0</h2>
+      </div>
 
-<!-- CLIENT ACCOUNTS -->
-<div class="card">
+      <div class="ratebox">
+        <b>This Week Delivered</b>
+        <h2 id="weekDelivered">0</h2>
+      </div>
 
-<h2>Client Accounts</h2>
+      <div class="ratebox">
+        <b>This Month Delivered</b>
+        <h2 id="monthDelivered">0</h2>
+      </div>
 
-<div id="adminClients">
-Loading...
-</div>
+      <div class="ratebox">
+        <b>Total Bookings</b>
+        <h2 id="totalBookings">0</h2>
+      </div>
 
-</div>
+    </div>
 
-<!-- SHIPMENT HISTORY -->
-<div class="card">
+  </div>
 
-<h2>Shipment History</h2>
 
-<div class="filterGrid">
+  <!-- CLIENT ACCOUNTS -->
+  <div class="card">
 
-<div>
-<label>Search</label>
-<input id="adminSearch"
-placeholder="Order / customer / mobile / tracking"
-oninput="renderAdminBookings()">
-</div>
+    <h2>Client Accounts</h2>
 
-<div>
-<label>Month</label>
-<select id="adminMonthFilter" onchange="renderAdminBookings()">
-<option value="">All Months</option>
-</select>
-</div>
+    <div id="adminClients">
+      Loading...
+    </div>
 
-<div>
-<label>Client</label>
-<select id="adminClientFilter" onchange="renderAdminBookings()">
-<option value="">All Clients</option>
-</select>
-</div>
+  </div>
 
-<div>
-<label>Status</label>
-<select id="adminStatusFilter" onchange="renderAdminBookings()">
-<option value="">All Status</option>
-<option>Booked</option>
-<option>Picked Up</option>
-<option>In Transit</option>
-<option>Out for Delivery</option>
-<option>Delivered</option>
-<option>RTO</option>
-<option>Cancelled</option>
-<option>Cancellation Requested</option>
-</select>
-</div>
 
-<div>
-<label>Payment</label>
-<select id="adminPaymentFilter" onchange="renderAdminBookings()">
-<option value="">All Payment</option>
-<option>Prepaid</option>
-<option>COD</option>
-</select>
-</div>
+  <!-- ADMIN HISTORY -->
+  <div class="card">
 
-<div>
-<label>Exact Date</label>
-<input id="adminDateFilter"
-type="date"
-onchange="renderAdminBookings()">
-</div>
+    <h2>All Shipment History</h2>
 
-</div>
+    <div id="adminDailySummary" class="day-summary"></div>
 
-<div id="adminBookings">
-Loading...
-</div>
 
-</div>
+    <div class="filterbar">
+
+      <div>
+        <label>Search</label>
+        <input
+          id="adminSearch"
+          placeholder="Order / Customer / Mobile / Tracking"
+          oninput="renderAdminBookings()"
+        >
+      </div>
+
+      <div>
+        <label>Month</label>
+        <select id="adminMonth" onchange="renderAdminBookings()">
+          <option value="">All Months</option>
+        </select>
+      </div>
+
+      <div>
+        <label>Client</label>
+        <select id="adminClientFilter" onchange="renderAdminBookings()">
+          <option value="">All Clients</option>
+        </select>
+      </div>
+
+      <div>
+        <label>Status</label>
+        <select id="adminStatus" onchange="renderAdminBookings()">
+          <option value="">All Status</option>
+          <option>Booked</option>
+          <option>Picked Up</option>
+          <option>In Transit</option>
+          <option>Out for Delivery</option>
+          <option>Delivered</option>
+          <option>RTO</option>
+          <option>Cancelled</option>
+          <option>Cancellation Requested</option>
+        </select>
+      </div>
+
+    </div>
+
+
+    <div class="grid">
+
+      <div>
+        <label>Payment</label>
+
+        <select id="adminPayment" onchange="renderAdminBookings()">
+          <option value="">All Payments</option>
+          <option>Prepaid</option>
+          <option>COD</option>
+        </select>
+      </div>
+
+      <div>
+        <label>Exact Date</label>
+        <input
+          id="adminDate"
+          type="date"
+          onchange="renderAdminBookings()"
+        >
+      </div>
+
+    </div>
+
+
+    <div id="adminBookings">
+      Loading...
+    </div>
+
+  </div>
 
 </section>
 
 </div>
 
+
 <script>
 
-/* =========================
-SUPABASE
-========================= */
+/* =========================================================
+   SUPABASE
+========================================================= */
 
 const SUPABASE_URL =
 "https://zldgzojzsoxpyhlhkive.supabase.co";
@@ -524,2420 +1049,4154 @@ const SUPABASE_ANON_KEY =
 
 const supabaseClient =
 supabase.createClient(
-SUPABASE_URL,
-SUPABASE_ANON_KEY
+  SUPABASE_URL,
+  SUPABASE_ANON_KEY
 );
 
 
-/* =========================
-GLOBAL
-========================= */
+/* =========================================================
+   HELPERS
+========================================================= */
 
-let currentUser=null;
-let currentProfile=null;
-let currentClient=null;
+const $ = id => document.getElementById(id);
 
-let adminClientsData=[];
-let adminBookingsData=[];
-let clientBookingsData=[];
+const loginSection = $("loginSection");
+const signupSection = $("signupSection");
+const resetSection = $("resetSection");
+const clientArea = $("clientArea");
+const adminArea = $("adminArea");
+
+const orderIdInput = $("orderId");
+const paymentType = $("paymentType");
+const lengthInput = $("length");
+const widthInput = $("width");
+const heightInput = $("height");
+const actualWeightInput = $("actualWeight");
+const deliveryPincode = $("deliveryPincode");
+
+let currentUser = null;
+let currentProfile = null;
+let currentClient = null;
+
+let clientOrders = [];
+let adminBookingData = [];
+let adminClientData = [];
+
+let adminRefreshTimer = null;
+let knownCancellationIds = new Set();
+let firstAdminCancellationLoad = true;
 
 
-/* =========================
-HELPERS
-========================= */
+/* =========================================================
+   MESSAGE
+========================================================= */
 
-function $(id){
-return document.getElementById(id);
+function msg(id,text,type="notice"){
+
+  const el = $(id);
+
+  if(!el) return;
+
+  el.innerHTML =
+  `<div class="notice ${type}">${esc(text)}</div>`;
 }
 
+
+/* =========================================================
+   AUTH UI
+========================================================= */
+
 function showLogin(){
-$("loginSection").classList.remove("hidden");
-$("signupSection").classList.add("hidden");
-$("resetSection").classList.add("hidden");
+
+  loginSection.classList.remove("hidden");
+  signupSection.classList.add("hidden");
+  resetSection.classList.add("hidden");
+
 }
 
 function showSignup(){
-$("loginSection").classList.add("hidden");
-$("signupSection").classList.remove("hidden");
-$("resetSection").classList.add("hidden");
+
+  loginSection.classList.add("hidden");
+  signupSection.classList.remove("hidden");
+  resetSection.classList.add("hidden");
+
 }
 
 function showReset(){
-$("loginSection").classList.add("hidden");
-$("signupSection").classList.add("hidden");
-$("resetSection").classList.remove("hidden");
-$("clientArea").classList.add("hidden");
-$("adminArea").classList.add("hidden");
+
+  loginSection.classList.add("hidden");
+  signupSection.classList.add("hidden");
+  resetSection.classList.remove("hidden");
+
+  clientArea.classList.add("hidden");
+  adminArea.classList.add("hidden");
+
 }
 
 function hideAuth(){
-$("loginSection").classList.add("hidden");
-$("signupSection").classList.add("hidden");
-$("resetSection").classList.add("hidden");
-}
 
-function msg(id,text,type="notice"){
-const el=$(id);
-if(el){
-el.innerHTML=
-`<div class="notice ${type}">${text}</div>`;
-}
-}
+  loginSection.classList.add("hidden");
+  signupSection.classList.add("hidden");
+  resetSection.classList.add("hidden");
 
-function escapeHtml(v){
-return String(v??"")
-.replaceAll("&","&amp;")
-.replaceAll("<","&lt;")
-.replaceAll(">","&gt;")
-.replaceAll('"',"&quot;")
-.replaceAll("'","&#039;");
-}
-
-function escapeAttr(v){
-return escapeHtml(v);
-}
-
-function safeUrl(url){
-try{
-const u=new URL(url);
-return ["https:","http:"].includes(u.protocol)
-?u.href:"#";
-}catch(e){
-return "#";
-}
 }
 
 
-/* =========================
-SIGNUP
-========================= */
+/* =========================================================
+   INDIA DATE
+========================================================= */
+
+function getIndiaDate(){
+
+  const parts =
+  new Intl.DateTimeFormat(
+    "en-CA",
+    {
+      timeZone:"Asia/Kolkata",
+      year:"numeric",
+      month:"2-digit",
+      day:"2-digit"
+    }
+  ).formatToParts(new Date());
+
+  const obj = {};
+
+  parts.forEach(p=>{
+    if(p.type!=="literal"){
+      obj[p.type]=p.value;
+    }
+  });
+
+  return `${obj.year}-${obj.month}-${obj.day}`;
+}
+
+
+function formatDateIndia(dateString){
+
+  if(!dateString) return "";
+
+  const parts =
+  String(dateString).split("-");
+
+  if(parts.length!==3) return dateString;
+
+  const y = Number(parts[0]);
+  const m = Number(parts[1]);
+  const d = Number(parts[2]);
+
+  if(!y || !m || !d) return dateString;
+
+  return new Date(
+    y,
+    m-1,
+    d
+  ).toLocaleDateString(
+    "en-IN",
+    {
+      day:"2-digit",
+      month:"short",
+      year:"numeric"
+    }
+  );
+}
+
+
+function getOrderDate(o){
+
+  if(o.order_date){
+    return String(o.order_date).slice(0,10);
+  }
+
+  if(o.created_at){
+
+    const parts =
+    new Intl.DateTimeFormat(
+      "en-CA",
+      {
+        timeZone:"Asia/Kolkata",
+        year:"numeric",
+        month:"2-digit",
+        day:"2-digit"
+      }
+    ).formatToParts(new Date(o.created_at));
+
+    const obj={};
+
+    parts.forEach(p=>{
+      if(p.type!=="literal"){
+        obj[p.type]=p.value;
+      }
+    });
+
+    return `${obj.year}-${obj.month}-${obj.day}`;
+  }
+
+  return getIndiaDate();
+}
+
+
+/* =========================================================
+   SIGNUP
+========================================================= */
 
 async function signup(){
 
-const name=$("signupName").value.trim();
-const mobile=$("signupMobile").value.trim();
-const email=$("signupEmail").value.trim();
-const password=$("signupPassword").value;
+  const name =
+  $("signupName").value.trim();
 
-if(!name||!mobile||!email||!password){
-return msg(
-"signupMsg",
-"Please fill all details.",
-"error"
-);
-}
+  const mobile =
+  $("signupMobile").value.trim();
 
-if(password.length<6){
-return msg(
-"signupMsg",
-"Password must be at least 6 characters.",
-"error"
-);
-}
+  const email =
+  $("signupEmail").value.trim();
 
-msg("signupMsg","Creating account...");
+  const password =
+  $("signupPassword").value;
 
-const {data,error} =
-await supabaseClient.auth.signUp({
-email,
-password,
-options:{
-data:{
-full_name:name,
-mobile:mobile
-}
-}
-});
+  if(!name || !mobile || !email || !password){
 
-if(error){
-return msg(
-"signupMsg",
-error.message,
-"error"
-);
-}
+    return msg(
+      "signupMsg",
+      "Please fill all details.",
+      "error"
+    );
 
-if(data?.session){
-await loadUser();
-return;
-}
+  }
 
-msg(
-"signupMsg",
-"Account created. Please login with your email and password.",
-"ok"
-);
+  if(password.length < 6){
 
-setTimeout(showLogin,1200);
-}
+    return msg(
+      "signupMsg",
+      "Password must be at least 6 characters.",
+      "error"
+    );
 
+  }
 
-/* =========================
-LOGIN
-========================= */
+  msg(
+    "signupMsg",
+    "Creating account..."
+  );
 
-async function login(){
+  const {
+    data,
+    error
+  } =
+  await supabaseClient.auth.signUp({
 
-const email=$("loginEmail").value.trim();
-const password=$("loginPassword").value;
+    email,
+    password,
 
-if(!email||!password){
-return msg(
-"loginMsg",
-"Enter email and password.",
-"error"
-);
-}
+    options:{
+      data:{
+        full_name:name,
+        mobile
+      }
+    }
 
-msg("loginMsg","Logging in...");
+  });
 
-const {data,error} =
-await supabaseClient.auth.signInWithPassword({
-email,
-password
-});
+  if(error){
 
-if(error){
-return msg(
-"loginMsg",
-error.message,
-"error"
-);
-}
+    return msg(
+      "signupMsg",
+      error.message,
+      "error"
+    );
 
-await loadUser();
+  }
+
+  if(data?.session){
+
+    await loadUser();
+    return;
+
+  }
+
+  msg(
+    "signupMsg",
+    "Account created. Please login with your email and password.",
+    "ok"
+  );
+
+  setTimeout(showLogin,1200);
+
 }
 
 
-/* =========================
-RESET
-========================= */
+/* =========================================================
+   RESET PASSWORD
+========================================================= */
 
 async function sendReset(){
 
-const email=$("loginEmail").value.trim();
+  const email =
+  $("loginEmail").value.trim();
 
-if(!email){
-return msg(
-"loginMsg",
-"Enter your email first.",
-"error"
-);
-}
+  if(!email){
 
-msg(
-"loginMsg",
-"Sending password reset email..."
-);
+    return msg(
+      "loginMsg",
+      "Enter your email first.",
+      "error"
+    );
 
-const {error} =
-await supabaseClient.auth.resetPasswordForEmail(
-email,
-{
-redirectTo:
-window.location.origin+
-window.location.pathname
-}
-);
+  }
 
-if(error){
-return msg(
-"loginMsg",
-error.message,
-"error"
-);
-}
+  msg(
+    "loginMsg",
+    "Sending password reset email..."
+  );
 
-msg(
-"loginMsg",
-"Password reset email sent. Check your Inbox / Spam / Promotions.",
-"ok"
-);
+  const {
+    error
+  } =
+  await supabaseClient.auth
+  .resetPasswordForEmail(
+    email,
+    {
+      redirectTo:
+      location.origin +
+      location.pathname
+    }
+  );
+
+  if(error){
+
+    return msg(
+      "loginMsg",
+      error.message,
+      "error"
+    );
+
+  }
+
+  msg(
+    "loginMsg",
+    "Password reset email sent. Check Inbox / Spam / Promotions.",
+    "ok"
+  );
+
 }
 
 
 async function updatePassword(){
 
-const password=$("newPassword").value;
-const confirm=$("confirmPassword").value;
+  const password =
+  $("newPassword").value;
 
-if(!password||!confirm){
-return msg(
-"resetMsg",
-"Enter and confirm your new password.",
-"error"
-);
+  const confirm =
+  $("confirmPassword").value;
+
+  if(!password || !confirm){
+
+    return msg(
+      "resetMsg",
+      "Enter and confirm your new password.",
+      "error"
+    );
+
+  }
+
+  if(password.length<6){
+
+    return msg(
+      "resetMsg",
+      "Password must be at least 6 characters.",
+      "error"
+    );
+
+  }
+
+  if(password!==confirm){
+
+    return msg(
+      "resetMsg",
+      "Passwords do not match.",
+      "error"
+    );
+
+  }
+
+  const {
+    error
+  } =
+  await supabaseClient.auth
+  .updateUser({
+    password
+  });
+
+  if(error){
+
+    return msg(
+      "resetMsg",
+      error.message,
+      "error"
+    );
+
+  }
+
+  await supabaseClient.auth.signOut();
+
+  history.replaceState(
+    null,
+    "",
+    location.pathname
+  );
+
+  showLogin();
+
+  msg(
+    "loginMsg",
+    "Password updated successfully. Please login.",
+    "ok"
+  );
+
 }
 
-if(password.length<6){
-return msg(
-"resetMsg",
-"Password must be at least 6 characters.",
-"error"
-);
+
+/* =========================================================
+   LOGIN
+========================================================= */
+
+async function login(){
+
+  const email =
+  $("loginEmail").value.trim();
+
+  const password =
+  $("loginPassword").value;
+
+  if(!email || !password){
+
+    return msg(
+      "loginMsg",
+      "Enter email and password.",
+      "error"
+    );
+
+  }
+
+  msg(
+    "loginMsg",
+    "Logging in..."
+  );
+
+  const {
+    error
+  } =
+  await supabaseClient.auth
+  .signInWithPassword({
+    email,
+    password
+  });
+
+  if(error){
+
+    return msg(
+      "loginMsg",
+      error.message,
+      "error"
+    );
+
+  }
+
+  await loadUser();
+
 }
 
-if(password!==confirm){
-return msg(
-"resetMsg",
-"Passwords do not match.",
-"error"
-);
-}
 
-const {error} =
-await supabaseClient.auth.updateUser({
-password:password
-});
-
-if(error){
-return msg(
-"resetMsg",
-error.message,
-"error"
-);
-}
-
-await supabaseClient.auth.signOut();
-
-$("newPassword").value="";
-$("confirmPassword").value="";
-
-showLogin();
-
-msg(
-"loginMsg",
-"Password updated successfully. Please login.",
-"ok"
-);
-}
-
-
-/* =========================
-LOAD USER
-========================= */
+/* =========================================================
+   LOAD USER
+========================================================= */
 
 async function loadUser(){
 
-const {data,error} =
-await supabaseClient.auth.getUser();
+  const {
+    data,
+    error
+  } =
+  await supabaseClient.auth.getUser();
 
-if(error||!data?.user){
-return msg(
-"loginMsg",
-"Unable to load user. Please login again.",
-"error"
-);
-}
+  if(error || !data?.user){
 
-currentUser=data.user;
+    return msg(
+      "loginMsg",
+      "Unable to load user. Please login again.",
+      "error"
+    );
 
+  }
 
-/*
-Get profile directly.
-No get_my_profile RPC.
-*/
-
-let {data:profile,error:profileError} =
-await supabaseClient
-.from("profiles")
-.select("*")
-.eq("id",currentUser.id)
-.maybeSingle();
+  currentUser =
+  data.user;
 
 
-if(profileError){
-
-console.error(profileError);
-
-return msg(
-"loginMsg",
-"Profile loading error: "+
-profileError.message,
-"error"
-);
-}
+  let {
+    data:profile,
+    error:pe
+  } =
+  await supabaseClient
+  .rpc("get_my_profile");
 
 
-/*
-If profile doesn't exist,
-create client + profile.
-*/
+  if(pe){
 
-if(!profile){
+    return msg(
+      "loginMsg",
+      "Profile loading error: " + pe.message,
+      "error"
+    );
 
-const fullName =
-currentUser.user_metadata?.full_name ||
-currentUser.email?.split("@")[0] ||
-"Client";
-
-const mobile =
-currentUser.user_metadata?.mobile ||
-"";
+  }
 
 
-const {data:newClient,error:newClientError} =
-await supabaseClient
-.from("clients")
-.insert({
-client_name:fullName,
-mobile:mobile,
-email:currentUser.email
-})
-.select()
-.single();
+  if(!profile){
+
+    const r =
+    await supabaseClient
+    .rpc("ensure_my_client_profile");
+
+    if(r.error){
+
+      return msg(
+        "loginMsg",
+        "Profile loading error: " +
+        r.error.message,
+        "error"
+      );
+
+    }
+
+    profile =
+    r.data;
+
+  }
 
 
-if(newClientError){
+  if(!profile){
 
-console.error(newClientError);
+    return msg(
+      "loginMsg",
+      "Your account profile is missing. Please contact BHAGWATI FULFIL support.",
+      "error"
+    );
 
-return msg(
-"loginMsg",
-"Unable to create client profile: "+
-newClientError.message,
-"error"
-);
-}
+  }
 
 
-const {data:newProfile,error:newProfileError} =
-await supabaseClient
-.from("profiles")
-.insert({
-id:currentUser.id,
-full_name:fullName,
-role:"client",
-client_id:newClient.id,
-approved:true
-})
-.select()
-.single();
+  currentProfile =
+  profile;
 
 
-if(newProfileError){
+  if(profile.role==="admin"){
 
-console.error(newProfileError);
+    hideAuth();
 
-return msg(
-"loginMsg",
-"Unable to create user profile: "+
-newProfileError.message,
-"error"
-);
-}
+    clientArea.classList.add("hidden");
 
-profile=newProfile;
+    adminArea.classList.remove("hidden");
+
+    await loadAdmin();
+
+    startAdminAutoRefresh();
+
+    return;
+
+  }
+
+
+  hideAuth();
+
+  adminArea.classList.add("hidden");
+
+  clientArea.classList.remove("hidden");
+
+  await loadClient();
+
 }
 
 
-currentProfile=profile;
-
-
-/* ADMIN */
-
-if(profile.role==="admin"){
-
-hideAuth();
-
-$("clientArea").classList.add("hidden");
-$("adminArea").classList.remove("hidden");
-
-await loadAdmin();
-
-return;
-}
-
-
-/* CLIENT */
-
-hideAuth();
-
-$("adminArea").classList.add("hidden");
-$("clientArea").classList.remove("hidden");
-
-await loadClient();
-}
-
-
-/* =========================
-CLIENT
-========================= */
+/* =========================================================
+   CLIENT
+========================================================= */
 
 async function loadClient(){
 
-const clientId =
-Number(currentProfile.client_id);
+  $("clientWelcome").innerHTML =
+  `<b>${esc(currentProfile.full_name||"")}</b>`;
 
-if(!Number.isInteger(clientId)||clientId<=0){
+  const cid =
+  Number(currentProfile.client_id);
 
-return $("clientWelcome").innerHTML=
-`<div class="notice error">
-Client profile is not linked to this account.
-</div>`;
+  if(!Number.isInteger(cid) || cid<=0){
+
+    return msg(
+      "clientWelcome",
+      "Client profile is not linked to this account.",
+      "error"
+    );
+
+  }
+
+
+  const {
+    data,
+    error
+  } =
+  await supabaseClient
+  .from("clients")
+  .select("*")
+  .eq("id",cid)
+  .single();
+
+
+  if(error){
+
+    return msg(
+      "clientWelcome",
+      "Client profile loading error: " +
+      error.message,
+      "error"
+    );
+
+  }
+
+
+  currentClient =
+  data;
+
+
+  $("profileName").value =
+  data.Client_name || "";
+
+  $("profileMobile").value =
+  data.mobile || "";
+
+  $("profileEmail").value =
+  data.email ||
+  currentUser.email ||
+  "";
+
+  $("bankHolder").value =
+  data.bank_holder_name || "";
+
+  $("accountNumber").value =
+  data.account_number || "";
+
+  $("ifsc").value =
+  data.ifsc || "";
+
+  $("upiId").value =
+  data.upi_id || "";
+
+
+  $("clientProfileBox")
+  .classList.remove("hidden");
+
+  $("bookingBox")
+  .classList.remove("hidden");
+
+  $("ordersBox")
+  .classList.remove("hidden");
+
+
+  await loadOrders();
+
 }
 
 
-const {data,error} =
-await supabaseClient
-.from("clients")
-.select("*")
-.eq("id",clientId)
-.single();
-
-
-if(error){
-
-return $("clientWelcome").innerHTML=
-`<div class="notice error">
-${escapeHtml(error.message)}
-</div>`;
-}
-
-
-currentClient=data;
-
-const name =
-data.client_name ||
-data.Client_name ||
-"Client";
-
-$("clientWelcome").innerHTML=
-`<b>${escapeHtml(name)}</b>`;
-
-
-$("profileName").value =
-data.client_name ||
-data.Client_name ||
-"";
-
-$("profileMobile").value =
-data.mobile||"";
-
-$("profileEmail").value =
-data.email||
-currentUser.email||
-"";
-
-$("bankHolder").value =
-data.bank_holder_name||"";
-
-$("accountNumber").value =
-data.account_number||"";
-
-$("ifsc").value =
-data.ifsc||"";
-
-$("upiId").value =
-data.upi_id||"";
-
-
-$("clientProfileBox").classList.remove("hidden");
-$("bookingBox").classList.remove("hidden");
-$("ordersBox").classList.remove("hidden");
-
-await loadOrders();
-}
-
-
-/* =========================
-SAVE PROFILE
-========================= */
+/* =========================================================
+   SAVE PROFILE
+========================================================= */
 
 async function saveProfile(){
 
-const name =
-$("profileName").value.trim();
+  const updates = {
 
-const mobile =
-$("profileMobile").value.trim();
+    Client_name:
+    $("profileName").value.trim(),
 
-const updates={
-client_name:name,
-mobile:mobile,
-bank_holder_name:
-$("bankHolder").value.trim(),
-account_number:
-$("accountNumber").value.trim(),
-ifsc:
-$("ifsc").value.trim(),
-upi_id:
-$("upiId").value.trim()
-};
+    mobile:
+    $("profileMobile").value.trim(),
 
+    bank_holder_name:
+    $("bankHolder").value.trim(),
 
-let {error} =
-await supabaseClient
-.from("clients")
-.update(updates)
-.eq("id",currentProfile.client_id);
+    account_number:
+    $("accountNumber").value.trim(),
+
+    ifsc:
+    $("ifsc").value.trim(),
+
+    upi_id:
+    $("upiId").value.trim()
+
+  };
 
 
-/*
-Fallback old Client_name column.
-*/
+  const {
+    error
+  } =
+  await supabaseClient
+  .from("clients")
+  .update(updates)
+  .eq("id",currentProfile.client_id);
 
-if(error){
 
-const oldUpdates={
-"Client_name":name,
-mobile:mobile,
-bank_holder_name:
-$("bankHolder").value.trim(),
-account_number:
-$("accountNumber").value.trim(),
-ifsc:
-$("ifsc").value.trim(),
-upi_id:
-$("upiId").value.trim()
-};
+  if(error){
 
-const retry =
-await supabaseClient
-.from("clients")
-.update(oldUpdates)
-.eq("id",currentProfile.client_id);
+    return msg(
+      "profileMsg",
+      error.message,
+      "error"
+    );
 
-if(retry.error){
+  }
 
-return msg(
-"profileMsg",
-retry.error.message,
-"error"
-);
-}
 
-currentClient={
-...currentClient,
-...oldUpdates
-};
+  currentClient =
+  {
+    ...currentClient,
+    ...updates
+  };
 
-}else{
 
-currentClient={
-...currentClient,
-...updates
-};
+  msg(
+    "profileMsg",
+    "Profile saved successfully.",
+    "ok"
+  );
 
 }
 
-msg(
-"profileMsg",
-"Profile saved successfully.",
-"ok"
-);
-}
 
-
-/* =========================
-PAYMENT
-========================= */
+/* =========================================================
+   RATE CALCULATION
+========================================================= */
 
 function paymentChanged(){
 
-if($("paymentType").value==="COD"){
-$("codBox").classList.remove("hidden");
-}else{
-$("codBox").classList.add("hidden");
+  calculateRate();
+
 }
 
-calculateRate();
-}
-
-
-/* =========================
-RATE
-========================= */
 
 function calculateRate(){
 
-const l=Number($("length").value)||0;
-const w=Number($("width").value)||0;
-const h=Number($("height").value)||0;
-const actualG=Number($("actualWeight").value)||0;
+  const l =
+  Number(lengthInput.value)||0;
 
-const pin=$("deliveryPincode").value.trim();
+  const w =
+  Number(widthInput.value)||0;
 
-const vol=(l*w*h)/5000;
-const actualKg=actualG/1000;
+  const h =
+  Number(heightInput.value)||0;
 
-const charge=Math.max(actualKg,vol);
+  const ag =
+  Number(actualWeightInput.value)||0;
 
-let zoneName="Pan India";
+  const pin =
+  deliveryPincode.value.trim();
 
-const selected =
-$("zoneType").value;
 
-if(selected==="Maharashtra"){
+  const vol =
+  l*w*h/5000;
 
-zoneName="Maharashtra";
+  const charge =
+  Math.max(
+    ag/1000,
+    vol
+  );
 
-}else if(selected==="Pan India"){
 
-zoneName="Pan India";
+  let zn =
+  "Pan India";
 
-}else{
 
-if(
-pin.length===6 &&
-["40","41","42","43","44"]
-.includes(pin.substring(0,2))
+  if(
+    pin.length===6 &&
+    ["40","41","42","43","44"]
+    .includes(pin.substring(0,2))
+  ){
+
+    zn="Maharashtra";
+
+  }
+
+
+  let ship=0;
+
+
+  if(charge<=.25){
+
+    ship =
+    zn==="Maharashtra"
+    ?40
+    :50;
+
+  }
+
+  else if(charge<=.5){
+
+    ship =
+    zn==="Maharashtra"
+    ?45
+    :60;
+
+  }
+
+  else if(charge<=.75){
+
+    ship =
+    zn==="Maharashtra"
+    ?55
+    :75;
+
+  }
+
+  else if(charge<=1){
+
+    ship =
+    zn==="Maharashtra"
+    ?70
+    :90;
+
+  }
+
+  else if(charge<=1.5){
+
+    ship =
+    zn==="Maharashtra"
+    ?95
+    :115;
+
+  }
+
+  else if(charge<=2){
+
+    ship =
+    zn==="Maharashtra"
+    ?105
+    :125;
+
+  }
+
+  else{
+
+    ship =
+    (
+      zn==="Maharashtra"
+      ?105
+      :125
+    ) +
+    Math.ceil(
+      (charge-2)/.5
+    ) *
+    (
+      zn==="Maharashtra"
+      ?20
+      :25
+    );
+
+  }
+
+
+  const cod =
+  paymentType.value==="COD"
+  ?25
+  :0;
+
+
+  $("volumetricWeight")
+  .textContent =
+  vol.toFixed(2);
+
+  $("chargeableWeight")
+  .textContent =
+  charge.toFixed(2);
+
+  $("zone")
+  .textContent =
+  zn;
+
+  $("shippingCharge")
+  .textContent =
+  ship;
+
+  $("codCharge")
+  .textContent =
+  cod;
+
+  $("totalCharge")
+  .textContent =
+  ship+cod;
+
+  $("rtoCharge")
+  .textContent =
+  ship;
+
+}
+
+
+/* =========================================================
+   DAILY ORDER SEQUENCE
+========================================================= */
+
+async function getNextOrderSequence(
+  orderDate
 ){
-zoneName="Maharashtra";
-}
+
+  const {
+    data,
+    error
+  } =
+  await supabaseClient
+  .rpc(
+    "get_next_order_sequence",
+    {
+      p_client_id:
+      currentProfile.client_id,
+
+      p_order_date:
+      orderDate
+    }
+  );
+
+
+  if(
+    !error &&
+    Number.isInteger(Number(data))
+  ){
+
+    return Number(data);
+
+  }
+
+
+  /*
+    Fallback only if RPC is unavailable.
+  */
+
+  const {
+    data:d
+  } =
+  await supabaseClient
+  .from("bookings")
+  .select(
+    "order_sequence"
+  )
+  .eq(
+    "client_id",
+    currentProfile.client_id
+  )
+  .eq(
+    "order_date",
+    orderDate
+  )
+  .order(
+    "order_sequence",
+    {
+      ascending:false
+    }
+  )
+  .limit(1);
+
+
+  return Number(
+    d?.[0]?.order_sequence||0
+  )+1;
 
 }
 
 
-let shipping=0;
-
-if(charge<=.25)
-shipping=zoneName==="Maharashtra"?40:50;
-
-else if(charge<=.5)
-shipping=zoneName==="Maharashtra"?45:60;
-
-else if(charge<=.75)
-shipping=zoneName==="Maharashtra"?55:75;
-
-else if(charge<=1)
-shipping=zoneName==="Maharashtra"?70:90;
-
-else if(charge<=1.5)
-shipping=zoneName==="Maharashtra"?95:115;
-
-else if(charge<=2)
-shipping=zoneName==="Maharashtra"?105:125;
-
-else
-shipping=
-(zoneName==="Maharashtra"?105:125)+
-Math.ceil((charge-2)/.5)*
-(zoneName==="Maharashtra"?20:25);
-
-
-const cod =
-$("paymentType").value==="COD"
-?25
-:0;
-
-const total =
-shipping+cod;
-
-
-$("volumetricWeight").textContent =
-vol.toFixed(2);
-
-$("chargeableWeight").textContent =
-charge.toFixed(2);
-
-$("zone").textContent =
-zoneName;
-
-$("shippingCharge").textContent =
-shipping;
-
-$("codCharge").textContent =
-cod;
-
-$("totalCharge").textContent =
-total;
-
-$("rtoCharge").textContent =
-shipping;
-}
-
-
-/* =========================
-ORDER ID
-========================= */
-
-async function generateOrderId(){
-
-const clientId =
-Number(currentProfile.client_id);
-
-const clientNumber =
-currentClient?.client_number ||
-`BF-${String(clientId).padStart(3,"0")}`;
-
-const datePart =
-new Date()
-.toISOString()
-.slice(0,10)
-.replaceAll("-","");
-
-let nextNumber=1;
-
-
-/*
-Use existing RPC if available.
-*/
-
-const rpc =
-await supabaseClient.rpc(
-"get_next_order_sequence",
-{
-p_client_id:clientId
-}
-);
-
-
-if(!rpc.error && rpc.data){
-
-nextNumber =
-Number(rpc.data);
-
-}else{
-
-/*
-Fallback.
-*/
-
-const {data} =
-await supabaseClient
-.from("bookings")
-.select("order_sequence")
-.eq("client_id",clientId)
-.order("order_sequence",
-{ascending:false})
-.limit(1);
-
-
-if(data?.length){
-
-nextNumber =
-Number(
-data[0].order_sequence||0
-)+1;
-
-}
-
-}
-
-
-return `${clientNumber}-${datePart}-${String(nextNumber).padStart(4,"0")}`;
-}
-
-
-/* =========================
-BOOK SHIPMENT
-========================= */
+/* =========================================================
+   BOOK SHIPMENT
+========================================================= */
 
 async function bookShipment(){
 
-if(!currentProfile?.client_id){
+  if(!currentProfile?.client_id){
 
-return msg(
-"bookingMsg",
-"Client profile is not available.",
-"error"
-);
+    return msg(
+      "bookingMsg",
+      "Client profile is not available. Please login again.",
+      "error"
+    );
+
+  }
+
+
+  const fields = [
+
+    "pickupName",
+    "pickupMobile",
+    "pickupAddress",
+    "pickupPincode",
+    "customerName",
+    "customerMobile",
+    "deliveryAddress",
+    "deliveryPincode"
+
+  ].map(
+    id => $(id).value.trim()
+  );
+
+
+  const [
+    pn,
+    pm,
+    pa,
+    pp,
+    cn,
+    cm,
+    da,
+    dp
+  ] = fields;
+
+
+  const l =
+  Number(lengthInput.value);
+
+  const w =
+  Number(widthInput.value);
+
+  const h =
+  Number(heightInput.value);
+
+  const aw =
+  Number(actualWeightInput.value);
+
+  const pv =
+  Number($("parcelValue").value)||0;
+
+
+  if(
+    fields.some(x=>!x) ||
+    !l ||
+    !w ||
+    !h ||
+    !aw
+  ){
+
+    return msg(
+      "bookingMsg",
+      "Please fill all shipment and package details.",
+      "error"
+    );
+
+  }
+
+
+  if(
+    pp.length!==6 ||
+    dp.length!==6
+  ){
+
+    return msg(
+      "bookingMsg",
+      "Enter valid pickup and delivery pincodes.",
+      "error"
+    );
+
+  }
+
+
+  if(!pv){
+
+    return msg(
+      "bookingMsg",
+      "Enter parcel/order value.",
+      "error"
+    );
+
+  }
+
+
+  calculateRate();
+
+
+  const vol =
+  l*w*h/5000;
+
+  const charge =
+  Math.max(
+    aw/1000,
+    vol
+  );
+
+  const shipping =
+  Number(
+    $("shippingCharge").textContent
+  );
+
+  const cod =
+  Number(
+    $("codCharge").textContent
+  );
+
+  const total =
+  Number(
+    $("totalCharge").textContent
+  );
+
+
+  /*
+    INDIA LOCAL DATE
+  */
+
+  const orderDate =
+  getIndiaDate();
+
+
+  /*
+    Daily sequence
+  */
+
+  const seq =
+  await getNextOrderSequence(
+    orderDate
+  );
+
+
+  const clientNo =
+  currentClient.client_number ||
+  (
+    "BF-" +
+    String(
+      currentProfile.client_id
+    ).padStart(3,"0")
+  );
+
+
+  const dateCompact =
+  orderDate.replaceAll("-","");
+
+
+  const orderId =
+  `${clientNo}-${dateCompact}-${String(seq).padStart(4,"0")}`;
+
+
+  const booking = {
+
+    client_id:
+    currentProfile.client_id,
+
+    order_id:
+    orderId,
+
+    order_sequence:
+    seq,
+
+    order_date:
+    orderDate,
+
+    payment_type:
+    paymentType.value,
+
+    parcel_value:
+    pv,
+
+    pickup_name:
+    pn,
+
+    pickup_mobile:
+    pm,
+
+    pickup_address:
+    pa,
+
+    pickup_pincode:
+    pp,
+
+    customer_name:
+    cn,
+
+    customer_mobile:
+    cm,
+
+    delivery_address:
+    da,
+
+    delivery_pincode:
+    dp,
+
+    zone:
+    $("zone").textContent,
+
+    length_cm:
+    l,
+
+    width_cm:
+    w,
+
+    height_cm:
+    h,
+
+    actual_weight_g:
+    aw,
+
+    volumetric_weight_kg:
+    Number(
+      vol.toFixed(3)
+    ),
+
+    chargeable_weight_kg:
+    Number(
+      charge.toFixed(3)
+    ),
+
+    shipping_charge:
+    shipping,
+
+    cod_charge:
+    cod,
+
+    total_charge:
+    total,
+
+    rto_charge:
+    shipping,
+
+    status:
+    "Booked",
+
+    cancellation_requested:
+    false
+
+  };
+
+
+  msg(
+    "bookingMsg",
+    "Saving booking..."
+  );
+
+
+  const {
+    error
+  } =
+  await supabaseClient
+  .from("bookings")
+  .insert(booking);
+
+
+  if(error){
+
+    return msg(
+      "bookingMsg",
+      error.message,
+      "error"
+    );
+
+  }
+
+
+  orderIdInput.value =
+  orderId;
+
+
+  msg(
+    "bookingMsg",
+    `Booking successful! Order ID: ${orderId}`,
+    "ok"
+  );
+
+
+  await loadOrders();
+
+
+  setTimeout(
+    clearBooking,
+    1500
+  );
+
 }
 
 
-const payment =
-$("paymentType").value;
-
-const fields=[
-
-$("pickupName").value.trim(),
-$("pickupMobile").value.trim(),
-$("pickupAddress").value.trim(),
-$("pickupPincode").value.trim(),
-
-$("customerName").value.trim(),
-$("customerMobile").value.trim(),
-$("deliveryAddress").value.trim(),
-$("deliveryPincode").value.trim()
-
-];
-
-const [
-pn,pm,pa,pp,
-cn,cm,da,dp
-]=fields;
-
-
-const l=Number($("length").value);
-const w=Number($("width").value);
-const h=Number($("height").value);
-const aw=Number($("actualWeight").value);
-
-
-if(
-fields.some(x=>!x)||
-!l||!w||!h||!aw
-){
-
-return msg(
-"bookingMsg",
-"Please fill all shipment and package details.",
-"error"
-);
-}
-
-
-if(pp.length!==6||dp.length!==6){
-
-return msg(
-"bookingMsg",
-"Enter valid 6 digit pincode.",
-"error"
-);
-}
-
-
-const pv =
-Number($("parcelValue").value)||0;
-
-const ca =
-Number($("codAmount").value)||0;
-
-
-if(!pv){
-
-return msg(
-"bookingMsg",
-"Enter parcel/order value.",
-"error"
-);
-}
-
-
-if(payment==="COD"&&!ca){
-
-return msg(
-"bookingMsg",
-"Enter COD amount.",
-"error"
-);
-}
-
-
-calculateRate();
-
-
-const vol =
-(l*w*h)/5000;
-
-const charge =
-Math.max(
-aw/1000,
-vol
-);
-
-const shipping =
-Number($("shippingCharge").textContent);
-
-const cod =
-Number($("codCharge").textContent);
-
-const total =
-Number($("totalCharge").textContent);
-
-const zoneName =
-$("zone").textContent;
-
-
-const orderId =
-await generateOrderId();
-
-
-const sequence =
-Number(orderId.split("-").pop());
-
-
-const booking={
-
-client_id:
-currentProfile.client_id,
-
-order_id:
-orderId,
-
-order_sequence:
-sequence,
-
-payment_type:
-payment,
-
-parcel_value:
-pv,
-
-cod_amount:
-payment==="COD"
-?ca
-:0,
-
-pickup_name:
-pn,
-
-pickup_mobile:
-pm,
-
-pickup_address:
-pa,
-
-pickup_pincode:
-pp,
-
-customer_name:
-cn,
-
-customer_mobile:
-cm,
-
-delivery_address:
-da,
-
-delivery_pincode:
-dp,
-
-zone:
-zoneName,
-
-length_cm:
-l,
-
-width_cm:
-w,
-
-height_cm:
-h,
-
-actual_weight_g:
-aw,
-
-volumetric_weight_kg:
-Number(vol.toFixed(3)),
-
-chargeable_weight_kg:
-Number(charge.toFixed(3)),
-
-shipping_charge:
-shipping,
-
-cod_charge:
-cod,
-
-total_charge:
-total,
-
-rto_charge:
-shipping,
-
-status:
-"Booked"
-
-};
-
-
-msg(
-"bookingMsg",
-"Saving booking..."
-);
-
-
-const {error} =
-await supabaseClient
-.from("bookings")
-.insert(booking);
-
-
-if(error){
-
-return msg(
-"bookingMsg",
-error.message,
-"error"
-);
-}
-
-
-$("orderId").value =
-orderId;
-
-
-msg(
-"bookingMsg",
-`Booking successful! Order ID: <b>${escapeHtml(orderId)}</b>`,
-"ok"
-);
-
-
-await loadOrders();
-
-
-setTimeout(
-clearBooking,
-1500
-);
-}
-
-
-/* =========================
-CLEAR BOOKING
-========================= */
+/* =========================================================
+   CLEAR BOOKING
+========================================================= */
 
 function clearBooking(){
 
-[
-"pickupName",
-"pickupMobile",
-"pickupAddress",
-"pickupPincode",
-"customerName",
-"customerMobile",
-"deliveryAddress",
-"deliveryPincode",
-"parcelValue",
-"codAmount",
-"length",
-"width",
-"height",
-"actualWeight"
-]
-.forEach(id=>{
+  [
 
-const el=$(id);
+    "pickupName",
+    "pickupMobile",
+    "pickupAddress",
+    "pickupPincode",
+    "customerName",
+    "customerMobile",
+    "deliveryAddress",
+    "deliveryPincode",
+    "parcelValue",
+    "length",
+    "width",
+    "height",
+    "actualWeight"
 
-if(el)el.value="";
-
-});
+  ].forEach(
+    id => $(id).value=""
+  );
 
 
-$("paymentType").value="Prepaid";
+  paymentType.value =
+  "Prepaid";
 
-$("zoneType").value="Auto";
+  orderIdInput.value =
+  "";
 
-$("codBox").classList.add("hidden");
+  calculateRate();
 
-$("orderId").value="";
-
-calculateRate();
 }
 
 
-/* =========================
-CLIENT ORDERS
-========================= */
+/* =========================================================
+   LOAD CLIENT ORDERS
+========================================================= */
 
 async function loadOrders(){
 
-const {data,error} =
-await supabaseClient
-.from("bookings")
-.select("*")
-.eq(
-"client_id",
-currentProfile.client_id
-)
-.order(
-"created_at",
-{ascending:false}
-);
+  const {
+    data,
+    error
+  } =
+  await supabaseClient
+  .from("bookings")
+  .select("*")
+  .eq(
+    "client_id",
+    currentProfile.client_id
+  )
+  .order(
+    "created_at",
+    {
+      ascending:false
+    }
+  );
 
 
-if(error){
+  if(error){
 
-return $("ordersList").innerHTML=
-`<div class="notice error">
-${escapeHtml(error.message)}
-</div>`;
+    $("ordersList").innerHTML =
+    `<div class="notice error">${esc(error.message)}</div>`;
+
+    return;
+
+  }
+
+
+  clientOrders =
+  data || [];
+
+
+  populateMonth(
+    "clientMonth",
+    clientOrders
+  );
+
+
+  renderClientOrders();
+
 }
 
 
-clientBookingsData =
-data||[];
+/* =========================================================
+   MONTH FILTER
+========================================================= */
 
-populateClientMonths();
+function populateMonth(
+  id,
+  rows
+){
 
-renderClientOrders();
+  const s =
+  $(id);
+
+  if(!s) return;
+
+
+  const old =
+  s.value;
+
+
+  const ms =
+  [
+    ...new Set(
+      rows.map(
+        o => getOrderDate(o).slice(0,7)
+      )
+    )
+  ]
+  .sort()
+  .reverse();
+
+
+  s.innerHTML =
+  '<option value="">All Months</option>' +
+
+  ms.map(
+    m => {
+
+      const [
+        y,
+        mo
+      ] =
+      m.split("-");
+
+      const n =
+      new Date(
+        Number(y),
+        Number(mo)-1,
+        1
+      ).toLocaleString(
+        "en-IN",
+        {
+          month:"long",
+          year:"numeric"
+        }
+      );
+
+      return `
+        <option value="${escAttr(m)}">
+          ${esc(n)}
+        </option>
+      `;
+
+    }
+  ).join("");
+
+
+  if(
+    ms.includes(old)
+  ){
+
+    s.value =
+    old;
+
+  }
+
 }
 
 
-function populateClientMonths(){
+/* =========================================================
+   DAILY SUMMARY
+========================================================= */
 
-const select =
-$("clientMonthFilter");
+function renderDailySummary(
+  targetId,
+  rows
+){
 
-const current =
-select.value;
+  const el =
+  $(targetId);
 
-const months=[
-...new Set(
-clientBookingsData
-.map(o=>
-o.created_at
-?new Date(o.created_at)
-.toISOString()
-.slice(0,7)
-:""
-)
-.filter(Boolean)
-)
+  if(!el) return;
+
+
+  const today =
+  getIndiaDate();
+
+
+  const yesterdayDate =
+  new Date(
+    today+"T00:00:00"
+  );
+
+  yesterdayDate.setDate(
+    yesterdayDate.getDate()-1
+  );
+
+
+  const yesterday =
+  [
+    yesterdayDate.getFullYear(),
+    String(
+      yesterdayDate.getMonth()+1
+    ).padStart(2,"0"),
+    String(
+      yesterdayDate.getDate()
+    ).padStart(2,"0")
+  ].join("-");
+
+
+  const todayCount =
+  rows.filter(
+    o => getOrderDate(o)===today
+  ).length;
+
+
+  const yesterdayCount =
+  rows.filter(
+    o => getOrderDate(o)===yesterday
+  ).length;
+
+
+  el.innerHTML = `
+
+    <div class="summary-pill">
+      Today: ${todayCount} Orders
+    </div>
+
+    <div class="summary-pill">
+      Yesterday: ${yesterdayCount} Orders
+    </div>
+
+    <div class="summary-pill">
+      Total: ${rows.length} Orders
+    </div>
+
+  `;
+
+}
+
+
+/* =========================================================
+   DAY LABEL
+========================================================= */
+
+function dayLabel(
+  dateString
+){
+
+  const today =
+  getIndiaDate();
+
+
+  const d =
+  new Date(
+    today+"T00:00:00"
+  );
+
+  d.setDate(
+    d.getDate()-1
+  );
+
+
+  const yesterday =
+  [
+    d.getFullYear(),
+    String(
+      d.getMonth()+1
+    ).padStart(2,"0"),
+    String(
+      d.getDate()
+    ).padStart(2,"0")
+  ].join("-");
+
+
+  if(dateString===today)
+    return "Today";
+
+  if(dateString===yesterday)
+    return "Yesterday";
+
+  return formatDateIndia(
+    dateString
+  );
+
+}
+
+
+/* =========================================================
+   CLIENT BADGE
+========================================================= */
+
+const clientColors = [
+
+  ["#dbeafe","#1e3a8a"],
+  ["#dcfce7","#166534"],
+  ["#fef3c7","#92400e"],
+  ["#fce7f3","#9d174d"],
+  ["#ede9fe","#5b21b6"],
+  ["#cffafe","#155e75"],
+  ["#ffedd5","#9a3412"]
+
 ];
 
 
-select.innerHTML =
-`<option value="">All Months</option>`+
-months
-.map(m=>
-`<option value="${m}">${m}</option>`
-)
-.join("");
+function clientBadge(
+  clientId,
+  name,
+  number
+){
 
-select.value=current;
+  const index =
+  Math.abs(
+    Number(clientId)||0
+  ) %
+  clientColors.length;
+
+
+  const [
+    bg,
+    color
+  ] =
+  clientColors[index];
+
+
+  return `
+    <span
+      class="client-badge"
+      style="background:${bg};color:${color}"
+    >
+      ${esc(number||"Client")}
+      ${name ? " · "+esc(name) : ""}
+    </span>
+  `;
+
 }
 
+
+/* =========================================================
+   CLIENT HISTORY
+========================================================= */
 
 function renderClientOrders(){
 
-const search =
-$("clientSearch")
-.value
-.trim()
-.toLowerCase();
-
-const month =
-$("clientMonthFilter")
-.value;
-
-const status =
-$("clientStatusFilter")
-.value;
-
-const payment =
-$("clientPaymentFilter")
-.value;
+  const q =
+  $("clientSearch")
+  .value
+  .trim()
+  .toLowerCase();
 
 
-const data =
-clientBookingsData.filter(o=>{
-
-const text=[
-o.order_id,
-o.customer_name,
-o.customer_mobile,
-o.tracking_number
-]
-.join(" ")
-.toLowerCase();
+  const mo =
+  $("clientMonth")
+  .value;
 
 
-if(search&&!text.includes(search))
-return false;
-
-if(
-month&&
-(!o.created_at||
-!o.created_at.startsWith(month))
-)
-return false;
-
-if(status&&o.status!==status)
-return false;
-
-if(payment&&o.payment_type!==payment)
-return false;
-
-return true;
-});
+  const st =
+  $("clientStatus")
+  .value;
 
 
-if(!data.length){
+  const pay =
+  $("clientPayment")
+  .value;
 
-return $("ordersList").innerHTML=
-`<div class="notice">
-No shipments found.
-</div>`;
+
+  const rows =
+  clientOrders.filter(o=>{
+
+    const orderDate =
+    getOrderDate(o);
+
+
+    const ym =
+    orderDate.slice(0,7);
+
+
+    const hay =
+    [
+
+      o.order_id,
+      o.customer_name,
+      o.customer_mobile,
+      o.tracking_number,
+      o.delivery_pincode
+
+    ]
+    .join(" ")
+    .toLowerCase();
+
+
+    return (
+
+      (!q || hay.includes(q)) &&
+
+      (!mo || ym===mo) &&
+
+      (
+        !st ||
+        (
+          st==="Cancellation Requested"
+          ? (
+            o.cancellation_requested===true
+          )
+          : o.status===st
+        )
+      ) &&
+
+      (!pay || o.payment_type===pay)
+
+    );
+
+  });
+
+
+  renderDailySummary(
+    "clientDailySummary",
+    rows
+  );
+
+
+  if(!rows.length){
+
+    $("ordersList").innerHTML =
+    `<div class="notice">
+      No shipments match your filters.
+    </div>`;
+
+    return;
+
+  }
+
+
+  /*
+    Group by month + day
+  */
+
+  const groups = {};
+
+
+  rows.forEach(o=>{
+
+    const date =
+    getOrderDate(o);
+
+    const ym =
+    date.slice(0,7);
+
+
+    const monthName =
+    new Date(
+      Number(date.slice(0,4)),
+      Number(date.slice(5,7))-1,
+      1
+    ).toLocaleString(
+      "en-IN",
+      {
+        month:"long",
+        year:"numeric"
+      }
+    );
+
+
+    groups[ym] ??=
+    {
+      name:monthName,
+      dates:{}
+    };
+
+
+    groups[ym].dates[date] ??=
+    [];
+
+
+    groups[ym].dates[date]
+    .push(o);
+
+  });
+
+
+  let html="";
+
+
+  Object.keys(groups)
+  .sort()
+  .reverse()
+  .forEach(ym=>{
+
+    html +=
+    `
+      <div class="month-title">
+        📁 ${esc(groups[ym].name)}
+      </div>
+    `;
+
+
+    Object.keys(
+      groups[ym].dates
+    )
+    .sort()
+    .reverse()
+    .forEach(date=>{
+
+      const dayRows =
+      groups[ym].dates[date];
+
+
+      html += `
+
+        <div class="date-title">
+
+          <span>
+            📅 ${esc(dayLabel(date))}
+          </span>
+
+          <span class="small">
+            ${dayRows.length} Orders
+          </span>
+
+        </div>
+
+      `;
+
+
+      html +=
+      dayRows
+      .map(clientCard)
+      .join("");
+
+    });
+
+  });
+
+
+  $("ordersList").innerHTML =
+  html;
+
 }
 
 
-const groups={};
+/* =========================================================
+   CLIENT CARD
+========================================================= */
+
+function clientCard(o){
+
+  const dailyNo =
+  Number(
+    o.order_sequence||0
+  );
 
 
-data.forEach(o=>{
+  const cancellationText =
+  o.cancellation_requested
+  ? `
+    <div class="notice error">
+      <b>Cancellation request submitted.</b>
+      ${
+        o.cancellation_reason
+        ? "<br>Reason: "+
+          esc(o.cancellation_reason)
+        : ""
+      }
+    </div>
+  `
+  : "";
 
-const month=o.created_at
-?new Date(o.created_at)
-.toLocaleString(
-"en-IN",
-{
-month:"long",
-year:"numeric"
+
+  let links="";
+
+
+  if(o.tracking_number){
+
+    links += `
+      <p>
+        <b>Tracking No:</b>
+        ${esc(o.tracking_number)}
+      </p>
+    `;
+
+  }
+
+
+  if(o.tracking_link){
+
+    links += `
+      <a
+        class="linkbtn"
+        href="${safe(o.tracking_link)}"
+        target="_blank"
+        rel="noopener"
+      >
+        Track Shipment
+      </a>
+    `;
+
+  }
+
+
+  if(o.label_file_path){
+
+    links += `
+      <button
+        class="info"
+        onclick="downloadLabel(${o.id})"
+      >
+        DOWNLOAD SHIPPING LABEL
+      </button>
+    `;
+
+  }
+
+
+  const canCancel =
+  o.status==="Booked" &&
+  !o.cancellation_requested;
+
+
+  return `
+
+    <div class="shipment-row">
+
+      <div class="shipment-summary">
+
+        <div>
+          <div class="daily-number">
+            #${String(dailyNo).padStart(4,"0")}
+          </div>
+
+          <div class="order-id-small">
+            ${esc(o.order_id||"")}
+          </div>
+        </div>
+
+
+        <div class="full-mobile">
+
+          <div class="customer-main">
+            ${esc(o.customer_name||"")}
+          </div>
+
+          <div class="customer-sub">
+            ${esc(o.customer_mobile||"")}
+          </div>
+
+        </div>
+
+
+        <div>
+
+          <div>
+            ${clientBadge(
+              currentProfile.client_id,
+              currentClient?.Client_name,
+              currentClient?.client_number
+            )}
+          </div>
+
+          <div class="customer-sub">
+            ${esc(o.delivery_pincode||"")}
+          </div>
+
+        </div>
+
+
+        <div>
+
+          <span class="status-badge">
+            ${esc(
+              o.cancellation_requested
+              ? "Cancellation Requested"
+              : (o.status||"Booked")
+            )}
+          </span>
+
+        </div>
+
+
+        <div>
+
+          ${esc(o.payment_type||"")}
+
+          <div class="customer-sub">
+            ₹${Number(o.total_charge||0)}
+          </div>
+
+        </div>
+
+
+        <div>
+
+          <button
+            class="secondary"
+            onclick="toggleDetails('client-${o.id}')"
+          >
+            VIEW DETAILS
+          </button>
+
+        </div>
+
+      </div>
+
+
+      <div
+        id="client-${o.id}"
+        class="details"
+      >
+
+        ${cancellationText}
+
+        <div class="detail-grid">
+
+          <div class="detail-box">
+
+            <h4>Shipment</h4>
+
+            <p>
+              <b>Order:</b>
+              ${esc(o.order_id||"")}
+            </p>
+
+            <p>
+              <b>Daily No:</b>
+              #${String(dailyNo).padStart(4,"0")}
+            </p>
+
+            <p>
+              <b>Date:</b>
+              ${esc(formatDateIndia(getOrderDate(o)))}
+            </p>
+
+            <p>
+              <b>Status:</b>
+              ${esc(o.status||"Booked")}
+            </p>
+
+          </div>
+
+
+          <div class="detail-box">
+
+            <h4>Customer / Delivery</h4>
+
+            <p>
+              <b>Name:</b>
+              ${esc(o.customer_name||"")}
+            </p>
+
+            <p>
+              <b>Mobile:</b>
+              ${esc(o.customer_mobile||"")}
+            </p>
+
+            <p>
+              <b>Address:</b>
+              ${esc(o.delivery_address||"")}
+            </p>
+
+            <p>
+              <b>Pincode:</b>
+              ${esc(o.delivery_pincode||"")}
+            </p>
+
+          </div>
+
+
+          <div class="detail-box">
+
+            <h4>Pickup</h4>
+
+            <p>
+              <b>Name:</b>
+              ${esc(o.pickup_name||"")}
+            </p>
+
+            <p>
+              <b>Mobile:</b>
+              ${esc(o.pickup_mobile||"")}
+            </p>
+
+            <p>
+              <b>Address:</b>
+              ${esc(o.pickup_address||"")}
+            </p>
+
+            <p>
+              <b>Pincode:</b>
+              ${esc(o.pickup_pincode||"")}
+            </p>
+
+          </div>
+
+
+          <div class="detail-box">
+
+            <h4>Charges</h4>
+
+            <p>
+              <b>Parcel Value:</b>
+              ₹${Number(o.parcel_value||0)}
+            </p>
+
+            <p>
+              <b>Shipping:</b>
+              ₹${Number(o.shipping_charge||0)}
+            </p>
+
+            <p>
+              <b>COD:</b>
+              ₹${Number(o.cod_charge||0)}
+            </p>
+
+            <p>
+              <b>Total:</b>
+              ₹${Number(o.total_charge||0)}
+            </p>
+
+            <p>
+              <b>RTO:</b>
+              ₹${Number(o.rto_charge||0)}
+            </p>
+
+          </div>
+
+
+          <div class="detail-box">
+
+            <h4>Package</h4>
+
+            <p>
+              <b>Weight:</b>
+              ${Number(o.actual_weight_g||0)} g
+            </p>
+
+            <p>
+              <b>Volumetric:</b>
+              ${Number(o.volumetric_weight_kg||0)} kg
+            </p>
+
+            <p>
+              <b>Chargeable:</b>
+              ${Number(o.chargeable_weight_kg||0)} kg
+            </p>
+
+            <p>
+              <b>Size:</b>
+              ${Number(o.length_cm||0)} ×
+              ${Number(o.width_cm||0)} ×
+              ${Number(o.height_cm||0)} cm
+            </p>
+
+          </div>
+
+        </div>
+
+
+        <div class="admin-actions">
+
+          ${links}
+
+          ${
+            canCancel
+            ?
+            `<button
+              class="danger"
+              onclick="requestCancellation(${o.id})"
+            >
+              REQUEST CANCELLATION
+            </button>`
+            :
+            ""
+          }
+
+        </div>
+
+      </div>
+
+    </div>
+
+  `;
+
 }
-)
-:"Unknown Month";
 
 
-if(!groups[month])
-groups[month]=[];
+/* =========================================================
+   TOGGLE DETAILS
+========================================================= */
 
-groups[month].push(o);
+function toggleDetails(id){
 
-});
+  const el =
+  $(id);
 
+  if(!el) return;
 
-$("ordersList").innerHTML =
-Object.entries(groups)
-.map(([month,orders])=>{
+  el.classList.toggle("open");
 
-return `
-<div class="monthTitle">
-${escapeHtml(month)}
-</div>
-
-${orders
-.map(renderClientOrderCard)
-.join("")}
-`;
-
-})
-.join("");
 }
 
 
-function renderClientOrderCard(o){
-
-let links="";
-
-
-if(o.tracking_link){
-
-links+=`
-<a href="${safeUrl(o.tracking_link)}"
-target="_blank"
-rel="noopener">
-Track Shipment
-</a>
-`;
-}
-
-
-if(o.label_file_path){
-
-links+=`
-<button
-class="info"
-onclick="downloadLabel('${escapeAttr(o.label_file_path)}')">
-DOWNLOAD LABEL
-</button>
-`;
-}
-
-
-let cancelButton="";
-
-
-if(
-o.status!=="Delivered"&&
-o.status!=="Cancelled"&&
-o.status!=="Cancellation Requested"
-){
-
-cancelButton=`
-<button
-class="danger"
-onclick="requestCancellation(${o.id})">
-REQUEST CANCELLATION
-</button>
-`;
-}
-
-
-return `
-<div class="order">
-
-<b>${escapeHtml(o.order_id||"")}</b>
-
-<p>
-Status:
-<span class="badge">
-${escapeHtml(o.status||"Booked")}
-</span>
-</p>
-
-<p>
-Customer:
-${escapeHtml(o.customer_name||"")}
-</p>
-
-<p>
-Customer Mobile:
-${escapeHtml(o.customer_mobile||"")}
-</p>
-
-<p>
-Payment:
-${escapeHtml(o.payment_type||"")}
-</p>
-
-<p>
-Amount:
-₹${Number(o.total_charge||0)}
-</p>
-
-${
-o.tracking_number
-?
-`<p>
-Tracking No:
-${escapeHtml(o.tracking_number)}
-</p>`
-:""
-}
-
-<p>${links}</p>
-
-${cancelButton}
-
-</div>
-`;
-}
-
-
-/* =========================
-DOWNLOAD LABEL
-========================= */
-
-async function downloadLabel(path){
-
-if(!path){
-
-return alert(
-"Label is not available."
-);
-}
-
-
-const {data,error} =
-await supabaseClient
-.storage
-.from("shipping-labels")
-.createSignedUrl(
-path,
-300
-);
-
-
-if(error){
-
-return alert(
-"Unable to open label: "+
-error.message
-);
-}
-
-
-window.open(
-data.signedUrl,
-"_blank"
-);
-}
-
-
-/* =========================
-CANCELLATION
-========================= */
+/* =========================================================
+   CANCELLATION REQUEST
+========================================================= */
 
 async function requestCancellation(id){
 
-const reason =
-prompt(
-"Why do you want to cancel this shipment?"
-);
+  const reason =
+  prompt(
+    "Cancellation reason (optional):"
+  );
 
 
-if(reason===null)return;
+  if(reason===null)
+    return;
 
 
-const {error} =
-await supabaseClient
-.from("bookings")
-.update({
+  const {
+    error
+  } =
+  await supabaseClient
+  .from("bookings")
+  .update({
 
-cancellation_requested:true,
+    cancellation_requested:
+    true,
 
-cancellation_reason:
-reason,
+    cancellation_reason:
+    reason.trim(),
 
-status:
-"Cancellation Requested"
+    status:
+    "Cancellation Requested"
 
-})
-.eq("id",id)
-.eq(
-"client_id",
-currentProfile.client_id
-);
+  })
+  .eq(
+    "id",
+    id
+  )
+  .eq(
+    "client_id",
+    currentProfile.client_id
+  )
+  .eq(
+    "status",
+    "Booked"
+  );
 
 
-if(error){
+  if(error){
 
-return alert(
-error.message
-);
+    return alert(
+      error.message
+    );
+
+  }
+
+
+  alert(
+    "Cancellation request submitted."
+  );
+
+
+  await loadOrders();
+
 }
 
 
-alert(
-"Cancellation request sent to BHAGWATI FULFIL."
-);
+/* =========================================================
+   DOWNLOAD PRIVATE LABEL
+========================================================= */
+
+async function downloadLabel(id){
+
+  const o =
+  clientOrders.find(
+    x => Number(x.id)===Number(id)
+  );
 
 
-await loadOrders();
+  if(!o?.label_file_path){
+
+    return alert(
+      "Shipping label is not available yet."
+    );
+
+  }
+
+
+  const {
+    data,
+    error
+  } =
+  await supabaseClient
+  .storage
+  .from("shipping-labels")
+  .createSignedUrl(
+    o.label_file_path,
+    300
+  );
+
+
+  if(error){
+
+    return alert(
+      error.message
+    );
+
+  }
+
+
+  if(data?.signedUrl){
+
+    window.open(
+      data.signedUrl,
+      "_blank"
+    );
+
+  }
+
 }
 
 
-/* =========================
-ADMIN
-========================= */
+/* =========================================================
+   ADMIN
+========================================================= */
 
 async function loadAdmin(){
 
-await loadAdminClients();
+  await loadAdminClients();
 
-await loadAdminBookings();
+  await loadAdminBookings();
 
-await loadAdminStats();
+  await loadAdminStats();
+
 }
 
 
-/* =========================
-ADMIN CLIENTS
-========================= */
+/* =========================================================
+   ADMIN CLIENTS
+========================================================= */
 
 async function loadAdminClients(){
 
-const {data,error} =
-await supabaseClient
-.from("clients")
-.select("*")
-.order(
-"created_at",
-{ascending:false}
-);
+  const {
+    data,
+    error
+  } =
+  await supabaseClient
+  .from("clients")
+  .select(
+    'id,"Client_name",mobile,email,created_at,client_number,bank_holder_name,account_number,ifsc,upi_id'
+  )
+  .order(
+    "created_at",
+    {
+      ascending:false
+    }
+  );
 
 
-if(error){
+  if(error){
 
-adminClients.innerHTML=
-`<div class="notice error">
-${escapeHtml(error.message)}
-</div>`;
+    $("adminClients").innerHTML =
+    `<div class="notice error">
+      ${esc(error.message)}
+    </div>`;
 
-return;
+    return;
+
+  }
+
+
+  adminClientData =
+  data || [];
+
+
+  const f =
+  $("adminClientFilter");
+
+
+  const old =
+  f.value;
+
+
+  f.innerHTML =
+  '<option value="">All Clients</option>' +
+
+  adminClientData
+  .map(
+    c => `
+
+      <option value="${escAttr(c.id)}">
+        ${esc(
+          c.client_number ||
+          "Client "+c.id
+        )}
+        -
+        ${esc(c.Client_name||"")}
+      </option>
+
+    `
+  )
+  .join("");
+
+
+  if(
+    [
+      ...f.options
+    ]
+    .some(
+      x=>x.value===old
+    )
+  ){
+
+    f.value =
+    old;
+
+  }
+
+
+  $("adminClients").innerHTML =
+
+  adminClientData.length
+
+  ?
+
+  adminClientData
+  .map(
+    c => `
+
+      <div class="order">
+
+        <b>
+          ${clientBadge(
+            c.id,
+            c.Client_name,
+            c.client_number
+          )}
+        </b>
+
+        <p>
+          Mobile:
+          ${esc(c.mobile||"")}
+        </p>
+
+        <p>
+          Email:
+          ${esc(c.email||"")}
+        </p>
+
+        <p>
+          Client ID:
+          ${esc(c.id)}
+        </p>
+
+
+        <button
+          class="client-bank-toggle"
+          onclick="toggleBankDetails('bank-${c.id}')"
+        >
+          ⋮ Bank Details
+        </button>
+
+
+        <div
+          id="bank-${c.id}"
+          class="client-bank hidden"
+        >
+
+          <b>COD Bank Details</b>
+
+          <p>
+            Account Holder:
+            ${esc(
+              c.bank_holder_name ||
+              "Not added"
+            )}
+          </p>
+
+          <p>
+            Account Number:
+            ${esc(
+              c.account_number ||
+              "Not added"
+            )}
+          </p>
+
+          <p>
+            IFSC:
+            ${esc(
+              c.ifsc ||
+              "Not added"
+            )}
+          </p>
+
+          <p>
+            UPI:
+            ${esc(
+              c.upi_id ||
+              "Not added"
+            )}
+          </p>
+
+        </div>
+
+      </div>
+
+    `
+  )
+  .join("")
+
+  :
+
+  '<div class="notice">No client accounts found.</div>';
+
 }
 
 
-adminClientsData =
-data||[];
+/* =========================================================
+   TOGGLE BANK
+========================================================= */
 
+function toggleBankDetails(id){
 
-if(!adminClientsData.length){
+  const el =
+  $(id);
 
-adminClients.innerHTML=
-`<div class="notice">
-No client accounts found.
-</div>`;
+  if(!el) return;
 
-return;
+  el.classList.toggle(
+    "hidden"
+  );
+
 }
 
 
-/*
-BANK DETAILS ARE HIDDEN.
-*/
-
-adminClients.innerHTML =
-adminClientsData
-.map(c=>{
-
-const name =
-c.client_name||
-c.Client_name||
-"Client";
-
-const bankId =
-"bank-"+c.id;
-
-
-return `
-<div class="order">
-
-<b>
-${escapeHtml(name)}
-</b>
-
-<p>
-Mobile:
-${escapeHtml(c.mobile||"")}
-</p>
-
-<p>
-Email:
-${escapeHtml(c.email||"")}
-</p>
-
-<p>
-Client ID:
-${escapeHtml(String(c.id||""))}
-</p>
-
-${
-c.client_number
-?
-`<p>
-Client Number:
-<b>${escapeHtml(c.client_number)}</b>
-</p>`
-:""
-}
-
-<button
-class="bankToggle"
-onclick="toggleBank('${bankId}')">
-⋮ Bank Details
-</button>
-
-<div
-id="${bankId}"
-class="bankBox hidden">
-
-<p>
-<b>Account Holder:</b>
-${escapeHtml(
-c.bank_holder_name||
-"Not added"
-)}
-</p>
-
-<p>
-<b>Account Number:</b>
-${escapeHtml(
-c.account_number||
-"Not added"
-)}
-</p>
-
-<p>
-<b>IFSC:</b>
-${escapeHtml(
-c.ifsc||
-"Not added"
-)}
-</p>
-
-<p>
-<b>UPI:</b>
-${escapeHtml(
-c.upi_id||
-"Not added"
-)}
-</p>
-
-</div>
-
-</div>
-`;
-
-})
-.join("");
-}
-
-
-function toggleBank(id){
-
-const box=$(id);
-
-if(!box)return;
-
-box.classList.toggle("hidden");
-}
-
-
-/* =========================
-ADMIN BOOKINGS
-========================= */
+/* =========================================================
+   ADMIN BOOKINGS
+========================================================= */
 
 async function loadAdminBookings(){
 
-const {data,error} =
-await supabaseClient
-.from("bookings")
-.select("*")
-.order(
-"created_at",
-{ascending:false}
-);
+  const {
+    data,
+    error
+  } =
+  await supabaseClient
+  .from("bookings")
+  .select("*")
+  .order(
+    "created_at",
+    {
+      ascending:false
+    }
+  );
 
 
-if(error){
+  if(error){
 
-return adminBookings.innerHTML=
-`<div class="notice error">
-${escapeHtml(error.message)}
-</div>`;
+    $("adminBookings").innerHTML =
+    `<div class="notice error">
+      ${esc(error.message)}
+    </div>`;
+
+    return;
+
+  }
+
+
+  adminBookingData =
+  data || [];
+
+
+  populateMonth(
+    "adminMonth",
+    adminBookingData
+  );
+
+
+  renderAdminBookings();
+
+
+  renderCancellationAlerts();
+
 }
 
 
-adminBookingsData =
-data||[];
+/* =========================================================
+   CLIENT NAME / NUMBER
+========================================================= */
 
-populateAdminClientFilter();
+function clientName(id){
 
-populateAdminMonthFilter();
+  return (
+    adminClientData.find(
+      c =>
+      Number(c.id)===Number(id)
+    )?.Client_name ||
+    "Client "+id
+  );
 
-renderAdminBookings();
 }
 
 
-/* =========================
-CLIENT FILTER
-========================= */
+function clientNo(id){
 
-function populateAdminClientFilter(){
+  return (
+    adminClientData.find(
+      c =>
+      Number(c.id)===Number(id)
+    )?.client_number ||
+    ""
+  );
 
-const select =
-$("adminClientFilter");
-
-const current =
-select.value;
-
-
-select.innerHTML =
-`<option value="">All Clients</option>`+
-adminClientsData
-.map(c=>{
-
-const name =
-c.client_name||
-c.Client_name||
-"Client";
-
-const number =
-c.client_number
-?` - ${c.client_number}`
-:"";
-
-return `
-<option value="${c.id}">
-${escapeHtml(
-(number+ " " +name)
-)}
-</option>
-`;
-
-})
-.join("");
-
-
-select.value=current;
 }
 
 
-/* =========================
-MONTH FILTER
-========================= */
-
-function populateAdminMonthFilter(){
-
-const select =
-$("adminMonthFilter");
-
-const current =
-select.value;
-
-
-const months=[
-...new Set(
-adminBookingsData
-.map(o=>
-o.created_at
-?new Date(o.created_at)
-.toISOString()
-.slice(0,7)
-:""
-)
-.filter(Boolean)
-)
-];
-
-
-select.innerHTML =
-`<option value="">All Months</option>`+
-months
-.map(m=>
-`<option value="${m}">${m}</option>`
-)
-.join("");
-
-select.value=current;
-}
-
-
-/* =========================
-ADMIN RENDER
-========================= */
+/* =========================================================
+   ADMIN DAILY SUMMARY
+========================================================= */
 
 function renderAdminBookings(){
 
-const search =
-$("adminSearch")
-.value
-.trim()
-.toLowerCase();
-
-const month =
-$("adminMonthFilter")
-.value;
-
-const client =
-$("adminClientFilter")
-.value;
-
-const status =
-$("adminStatusFilter")
-.value;
-
-const payment =
-$("adminPaymentFilter")
-.value;
-
-const exactDate =
-$("adminDateFilter")
-.value;
+  const q =
+  $("adminSearch")
+  .value
+  .trim()
+  .toLowerCase();
 
 
-const data =
-adminBookingsData.filter(o=>{
-
-const text=[
-o.order_id,
-o.customer_name,
-o.customer_mobile,
-o.tracking_number
-]
-.join(" ")
-.toLowerCase();
+  const mo =
+  $("adminMonth")
+  .value;
 
 
-if(
-search&&
-!text.includes(search)
-)
-return false;
+  const cid =
+  $("adminClientFilter")
+  .value;
 
 
-if(
-month&&
-(!o.created_at||
-!o.created_at.startsWith(month))
-)
-return false;
+  const st =
+  $("adminStatus")
+  .value;
 
 
-if(
-client&&
-String(o.client_id)!==
-String(client)
-)
-return false;
+  const pay =
+  $("adminPayment")
+  .value;
 
 
-if(
-status&&
-o.status!==status
-)
-return false;
+  const dt =
+  $("adminDate")
+  .value;
 
 
-if(
-payment&&
-o.payment_type!==payment
-)
-return false;
+  const rows =
+  adminBookingData.filter(o=>{
+
+    const orderDate =
+    getOrderDate(o);
 
 
-if(exactDate){
+    const ym =
+    orderDate.slice(0,7);
 
-const date =
-o.created_at
-?new Date(o.created_at)
-.toISOString()
-.slice(0,10)
-:"";
 
-if(date!==exactDate)
-return false;
+    const hay =
+    [
+
+      o.order_id,
+      o.customer_name,
+      o.customer_mobile,
+      o.tracking_number,
+      o.pickup_mobile,
+      o.pickup_pincode,
+      o.delivery_pincode
+
+    ]
+    .join(" ")
+    .toLowerCase();
+
+
+    const statusMatch =
+    !st ||
+
+    (
+      st==="Cancellation Requested"
+      ?
+      o.cancellation_requested===true
+      :
+      o.status===st
+    );
+
+
+    return (
+
+      (!q || hay.includes(q)) &&
+
+      (!mo || ym===mo) &&
+
+      (!cid ||
+       String(o.client_id)===cid) &&
+
+      statusMatch &&
+
+      (!pay ||
+       o.payment_type===pay) &&
+
+      (!dt ||
+       orderDate===dt)
+
+    );
+
+  });
+
+
+  renderDailySummary(
+    "adminDailySummary",
+    rows
+  );
+
+
+  if(!rows.length){
+
+    $("adminBookings").innerHTML =
+    `<div class="notice">
+      No shipments match your filters.
+    </div>`;
+
+    return;
+
+  }
+
+
+  /*
+    Group by date
+  */
+
+  const groups={};
+
+
+  rows.forEach(o=>{
+
+    const date =
+    getOrderDate(o);
+
+
+    groups[date] ??=
+    [];
+
+
+    groups[date]
+    .push(o);
+
+  });
+
+
+  let html="";
+
+
+  Object.keys(groups)
+  .sort()
+  .reverse()
+  .forEach(date=>{
+
+    const dayRows =
+    groups[date];
+
+
+    html += `
+
+      <div class="date-title">
+
+        <span>
+          📅 ${esc(dayLabel(date))}
+        </span>
+
+        <span class="small">
+          ${dayRows.length} Orders
+        </span>
+
+      </div>
+
+    `;
+
+
+    html +=
+    dayRows
+    .map(adminCard)
+    .join("");
+
+  });
+
+
+  $("adminBookings").innerHTML =
+  html;
 
 }
 
 
-return true;
-});
+/* =========================================================
+   ADMIN CARD
+========================================================= */
+
+function adminCard(o){
+
+  const dailyNo =
+  Number(
+    o.order_sequence||0
+  );
 
 
-if(!data.length){
+  const client =
+  adminClientData.find(
+    c =>
+    Number(c.id)===
+    Number(o.client_id)
+  );
 
-return adminBookings.innerHTML=
-`<div class="notice">
-No bookings match the selected filters.
-</div>`;
+
+  const cancelNotice =
+  o.cancellation_requested
+  ?
+
+  `
+    <div class="notice error">
+
+      <b>
+        ⚠️ Cancellation requested
+      </b>
+
+      <br>
+
+      Client:
+      ${esc(
+        client?.Client_name ||
+        "Client "+o.client_id
+      )}
+
+      <br>
+
+      Reason:
+      ${esc(
+        o.cancellation_reason ||
+        "Not specified"
+      )}
+
+    </div>
+  `
+
+  :
+
+  "";
+
+
+  const statuses = [
+
+    "Booked",
+    "Picked Up",
+    "In Transit",
+    "Out for Delivery",
+    "Delivered",
+    "RTO",
+    "Cancelled",
+    "Cancellation Requested"
+
+  ];
+
+
+  return `
+
+    <div
+      id="admin-order-${o.id}"
+      class="shipment-row"
+    >
+
+      <div class="shipment-summary">
+
+        <div>
+
+          <div class="daily-number">
+            #${String(dailyNo).padStart(4,"0")}
+          </div>
+
+          <div class="order-id-small">
+            ${esc(o.order_id||"")}
+          </div>
+
+        </div>
+
+
+        <div>
+
+          ${clientBadge(
+            o.client_id,
+            client?.Client_name,
+            client?.client_number
+          )}
+
+          <div class="customer-sub">
+            Client ID: ${esc(o.client_id)}
+          </div>
+
+        </div>
+
+
+        <div>
+
+          <div class="customer-main">
+            ${esc(o.customer_name||"")}
+          </div>
+
+          <div class="customer-sub">
+            ${esc(o.customer_mobile||"")}
+          </div>
+
+        </div>
+
+
+        <div>
+
+          <span class="status-badge">
+            ${esc(
+              o.cancellation_requested
+              ? "Cancellation Requested"
+              : (o.status||"Booked")
+            )}
+          </span>
+
+        </div>
+
+
+        <div>
+
+          ${esc(o.payment_type||"")}
+
+          <div class="customer-sub">
+            ₹${Number(o.total_charge||0)}
+          </div>
+
+        </div>
+
+
+        <div>
+
+          <button
+            class="secondary"
+            onclick="toggleDetails('admin-${o.id}')"
+          >
+            VIEW DETAILS
+          </button>
+
+        </div>
+
+      </div>
+
+
+      <div
+        id="admin-${o.id}"
+        class="details"
+      >
+
+        ${cancelNotice}
+
+
+        <div class="detail-grid">
+
+
+          <!-- PICKUP -->
+
+          <div class="detail-box">
+
+            <h4>📦 Pickup Details</h4>
+
+            <p>
+              <b>Name:</b>
+              ${esc(o.pickup_name||"")}
+            </p>
+
+            <p>
+              <b>Mobile:</b>
+              ${esc(o.pickup_mobile||"")}
+            </p>
+
+            <p>
+              <b>Address:</b>
+              ${esc(o.pickup_address||"")}
+            </p>
+
+            <p>
+              <b>Pincode:</b>
+              ${esc(o.pickup_pincode||"")}
+            </p>
+
+          </div>
+
+
+          <!-- DELIVERY -->
+
+          <div class="detail-box">
+
+            <h4>🚚 Customer / Delivery</h4>
+
+            <p>
+              <b>Customer:</b>
+              ${esc(o.customer_name||"")}
+            </p>
+
+            <p>
+              <b>Mobile:</b>
+              ${esc(o.customer_mobile||"")}
+            </p>
+
+            <p>
+              <b>Address:</b>
+              ${esc(o.delivery_address||"")}
+            </p>
+
+            <p>
+              <b>Pincode:</b>
+              ${esc(o.delivery_pincode||"")}
+            </p>
+
+          </div>
+
+
+          <!-- PACKAGE -->
+
+          <div class="detail-box">
+
+            <h4>📐 Package Details</h4>
+
+            <p>
+              <b>Actual:</b>
+              ${Number(o.actual_weight_g||0)} g
+            </p>
+
+            <p>
+              <b>Volumetric:</b>
+              ${Number(o.volumetric_weight_kg||0)} kg
+            </p>
+
+            <p>
+              <b>Chargeable:</b>
+              ${Number(o.chargeable_weight_kg||0)} kg
+            </p>
+
+            <p>
+              <b>Size:</b>
+              ${Number(o.length_cm||0)} ×
+              ${Number(o.width_cm||0)} ×
+              ${Number(o.height_cm||0)} cm
+            </p>
+
+            <p>
+              <b>Zone:</b>
+              ${esc(o.zone||"")}
+            </p>
+
+          </div>
+
+
+          <!-- PAYMENT -->
+
+          <div class="detail-box">
+
+            <h4>💰 Payment</h4>
+
+            <p>
+              <b>Payment:</b>
+              ${esc(o.payment_type||"")}
+            </p>
+
+            <p>
+              <b>Parcel Value:</b>
+              ₹${Number(o.parcel_value||0)}
+            </p>
+
+            <p>
+              <b>Shipping:</b>
+              ₹${Number(o.shipping_charge||0)}
+            </p>
+
+            <p>
+              <b>COD:</b>
+              ₹${Number(o.cod_charge||0)}
+            </p>
+
+            <p>
+              <b>Total:</b>
+              ₹${Number(o.total_charge||0)}
+            </p>
+
+            <p>
+              <b>RTO:</b>
+              ₹${Number(o.rto_charge||0)}
+            </p>
+
+          </div>
+
+
+          <!-- TRACKING -->
+
+          <div class="detail-box">
+
+            <h4>🔎 Tracking</h4>
+
+            <p>
+              <b>Tracking No:</b>
+              ${esc(o.tracking_number||"Not added")}
+            </p>
+
+            ${
+              o.tracking_link
+              ?
+              `
+                <a
+                  class="linkbtn"
+                  href="${safe(o.tracking_link)}"
+                  target="_blank"
+                  rel="noopener"
+                >
+                  OPEN TRACKING
+                </a>
+              `
+              :
+              ""
+            }
+
+            ${
+              o.label_file_path
+              ?
+              `
+                <p class="small">
+                  Shipping label PDF uploaded.
+                </p>
+              `
+              :
+              `
+                <p class="small">
+                  Shipping label not uploaded yet.
+                </p>
+              `
+            }
+
+          </div>
+
+
+          <!-- ORDER -->
+
+          <div class="detail-box">
+
+            <h4>🧾 Order Information</h4>
+
+            <p>
+              <b>Order ID:</b>
+              ${esc(o.order_id||"")}
+            </p>
+
+            <p>
+              <b>Daily Number:</b>
+              #${String(dailyNo).padStart(4,"0")}
+            </p>
+
+            <p>
+              <b>Order Date:</b>
+              ${esc(formatDateIndia(getOrderDate(o)))}
+            </p>
+
+            <p>
+              <b>Client:</b>
+              ${esc(client?.Client_name||"")}
+            </p>
+
+            <p>
+              <b>Client No:</b>
+              ${esc(client?.client_number||"")}
+            </p>
+
+          </div>
+
+        </div>
+
+
+        <!-- ADMIN UPDATE -->
+
+        <div class="admin-actions">
+
+          <label>Status</label>
+
+          <select id="status-${o.id}">
+
+            ${statuses.map(
+              s =>
+              `
+                <option
+                  ${
+                    (
+                      o.cancellation_requested &&
+                      s==="Cancellation Requested"
+                    )
+                    ||
+                    (
+                      !o.cancellation_requested &&
+                      o.status===s
+                    )
+                    ? "selected"
+                    : ""
+                  }
+                >
+                  ${s}
+                </option>
+              `
+            ).join("")}
+
+          </select>
+
+
+          <label>Actual Tracking Number</label>
+
+          <input
+            id="tracking-${o.id}"
+            value="${escAttr(o.tracking_number||"")}"
+            placeholder="Enter actual Genz tracking number"
+          >
+
+
+          <label>Tracking Link</label>
+
+          <input
+            id="trackingLink-${o.id}"
+            value="${escAttr(o.tracking_link||"")}"
+            placeholder="https://..."
+          >
+
+
+          <div class="uploadbox">
+
+            <label>
+              BHAGWATI FULFIL Shipping Label PDF
+            </label>
+
+            <input
+              id="labelFile-${o.id}"
+              type="file"
+              accept="application/pdf"
+            >
+
+            ${
+              o.label_file_path
+              ?
+              `
+                <div class="small">
+                  PDF label already uploaded.
+                  Upload again to replace it.
+                </div>
+              `
+              :
+              `
+                <div class="small">
+                  Only PDF. Maximum 50 MB.
+                </div>
+              `
+            }
+
+          </div>
+
+
+          <button
+            class="success"
+            onclick="updateBooking(${o.id})"
+          >
+            SAVE UPDATE
+          </button>
+
+
+          ${
+            o.cancellation_requested
+            ?
+            `
+              <button
+                class="danger"
+                onclick="approveCancellation(${o.id})"
+              >
+                APPROVE CANCELLATION
+              </button>
+
+              <button
+                class="secondary"
+                onclick="rejectCancellation(${o.id})"
+              >
+                REJECT CANCELLATION
+              </button>
+            `
+            :
+            ""
+          }
+
+        </div>
+
+      </div>
+
+    </div>
+
+  `;
+
 }
 
 
-adminBookings.innerHTML =
-data
-.map(renderAdminBookingCard)
-.join("");
+/* =========================================================
+   CANCELLATION ALERT
+========================================================= */
+
+function renderCancellationAlerts(){
+
+  const alertBox =
+  $("adminCancellationAlert");
+
+  const list =
+  $("adminCancellationList");
+
+
+  const pending =
+  adminBookingData.filter(
+    o =>
+      o.cancellation_requested &&
+      o.status!=="Cancelled"
+  );
+
+
+  if(!pending.length){
+
+    alertBox.classList.add(
+      "hidden"
+    );
+
+    list.innerHTML="";
+
+    return;
+
+  }
+
+
+  /*
+    New cancellation detection
+  */
+
+  if(!firstAdminCancellationLoad){
+
+    const newlyAdded =
+    pending.filter(
+      o =>
+      !knownCancellationIds
+      .has(String(o.id))
+    );
+
+
+    if(newlyAdded.length){
+
+      const first =
+      newlyAdded[0];
+
+
+      alert(
+        `⚠️ New cancellation request\n\n` +
+        `${clientName(first.client_id)}\n` +
+        `${first.order_id}`
+      );
+
+    }
+
+  }
+
+
+  knownCancellationIds =
+  new Set(
+    pending.map(
+      o=>String(o.id)
+    )
+  );
+
+
+  firstAdminCancellationLoad =
+  false;
+
+
+  alertBox.classList.remove(
+    "hidden"
+  );
+
+
+  list.innerHTML =
+
+  `
+    <b>
+      ${pending.length}
+      cancellation request${
+        pending.length>1 ? "s" : ""
+      } pending.
+    </b>
+  ` +
+
+  pending.map(
+    o => `
+
+      <div class="cancel-item">
+
+        <b>
+          ${clientBadge(
+            o.client_id,
+            clientName(o.client_id),
+            clientNo(o.client_id)
+          )}
+        </b>
+
+        <p>
+          <b>Order:</b>
+          ${esc(o.order_id||"")}
+        </p>
+
+        <p>
+          <b>Customer:</b>
+          ${esc(o.customer_name||"")}
+        </p>
+
+        <p>
+          <b>Pickup:</b>
+          ${esc(o.pickup_name||"")}
+          |
+          ${esc(o.pickup_mobile||"")}
+        </p>
+
+        <p>
+          <b>Reason:</b>
+          ${esc(
+            o.cancellation_reason ||
+            "Not specified"
+          )}
+        </p>
+
+        <button
+          class="danger"
+          onclick="focusAdminOrder(${o.id})"
+        >
+          VIEW ORDER
+        </button>
+
+      </div>
+
+    `
+  )
+  .join("");
+
 }
 
 
-/* =========================
-ADMIN BOOKING CARD
-========================= */
+/* =========================================================
+   FOCUS ADMIN ORDER
+========================================================= */
 
-function renderAdminBookingCard(o){
+function focusAdminOrder(id){
 
-const client =
-adminClientsData.find(
-c=>
-String(c.id)===
-String(o.client_id)
-);
+  const el =
+  $(`admin-order-${id}`);
+
+  if(!el) return;
 
 
-const clientName =
-client
-?
-(
-client.client_name||
-client.Client_name||
-"Client"
-)
-:
-`Client ${o.client_id}`;
+  el.scrollIntoView({
+    behavior:"smooth",
+    block:"center"
+  });
 
 
-return `
-<div class="order">
+  const details =
+  $(`admin-${id}`);
 
-<b>
-${escapeHtml(o.order_id||"")}
-</b>
+  if(details){
 
-<p>
-Client:
-<b>${escapeHtml(clientName)}</b>
+    details.classList.add(
+      "open"
+    );
 
-${
-client?.client_number
-?
-` (${escapeHtml(client.client_number)})`
-:""
-}
+  }
 
-</p>
-
-<p>
-Customer:
-${escapeHtml(o.customer_name||"")}
-</p>
-
-<p>
-Customer Mobile:
-${escapeHtml(o.customer_mobile||"")}
-</p>
-
-<p>
-Delivery Pincode:
-${escapeHtml(o.delivery_pincode||"")}
-</p>
-
-<p>
-Payment:
-${escapeHtml(o.payment_type||"")}
-</p>
-
-<p>
-Amount:
-₹${Number(o.total_charge||0)}
-</p>
-
-
-${
-o.cancellation_requested
-?
-`
-<div class="notice">
-<b>Cancellation Requested</b>
-<br>
-Reason:
-${escapeHtml(
-o.cancellation_reason||""
-)}
-</div>
-`
-:""
 }
 
 
-<label>Status</label>
+/* =========================================================
+   UPLOAD LABEL PDF
+========================================================= */
 
-<select id="status-${o.id}">
+async function uploadLabelFile(
+  id,
+  file
+){
 
-<option ${
-o.status==="Booked"
-?"selected":""
-}>
-Booked
-</option>
-
-<option ${
-o.status==="Picked Up"
-?"selected":""
-}>
-Picked Up
-</option>
-
-<option ${
-o.status==="In Transit"
-?"selected":""
-}>
-In Transit
-</option>
-
-<option ${
-o.status==="Out for Delivery"
-?"selected":""
-}>
-Out for Delivery
-</option>
-
-<option ${
-o.status==="Delivered"
-?"selected":""
-}>
-Delivered
-</option>
-
-<option ${
-o.status==="RTO"
-?"selected":""
-}>
-RTO
-</option>
-
-<option ${
-o.status==="Cancelled"
-?"selected":""
-}>
-Cancelled
-</option>
-
-<option ${
-o.status==="Cancellation Requested"
-?"selected":""
-}>
-Cancellation Requested
-</option>
-
-</select>
+  if(!file)
+    return null;
 
 
-<label>Tracking Number</label>
+  if(
+    file.type!=="application/pdf"
+  ){
 
-<input
-id="tracking-${o.id}"
-value="${escapeAttr(
-o.tracking_number||""
-)}"
-placeholder="Actual courier tracking number">
+    throw Error(
+      "Only PDF shipping labels are allowed."
+    );
 
-
-<label>Tracking Link</label>
-
-<input
-id="trackingLink-${o.id}"
-value="${escapeAttr(
-o.tracking_link||""
-)}"
-placeholder="Actual tracking URL">
+  }
 
 
-<div class="fileBox">
+  if(
+    file.size >
+    50*1024*1024
+  ){
 
-<label>
-Shipping Label PDF
-</label>
+    throw Error(
+      "PDF must be 50 MB or smaller."
+    );
 
-<input
-type="file"
-id="labelFile-${o.id}"
-accept="application/pdf">
-
-<p class="small">
-Only PDF. Maximum 50 MB.
-</p>
-
-${
-o.label_file_path
-?
-`<p class="small">
-✓ Label already uploaded
-</p>`
-:""
-}
-
-</div>
+  }
 
 
-<button
-class="success"
-onclick="updateBooking(${o.id})">
-SAVE UPDATE
-</button>
+  const o =
+  adminBookingData.find(
+    x =>
+    Number(x.id)===Number(id)
+  );
 
-</div>
-`;
+
+  if(!o){
+
+    throw Error(
+      "Booking not found."
+    );
+
+  }
+
+
+  const path =
+  `${o.client_id}/${o.order_id}.pdf`;
+
+
+  const {
+    error
+  } =
+  await supabaseClient
+  .storage
+  .from("shipping-labels")
+  .upload(
+    path,
+    file,
+    {
+      upsert:true,
+      contentType:"application/pdf"
+    }
+  );
+
+
+  if(error)
+    throw error;
+
+
+  return path;
+
 }
 
 
-/* =========================
-UPDATE BOOKING
-========================= */
+/* =========================================================
+   UPDATE BOOKING
+========================================================= */
 
 async function updateBooking(id){
 
-const status =
-$(`status-${id}`).value;
-
-const tracking =
-$(`tracking-${id}`).value.trim();
-
-const trackingLink =
-$(`trackingLink-${id}`).value.trim();
-
-const fileInput =
-$(`labelFile-${id}`);
+  const o =
+  adminBookingData.find(
+    x =>
+    Number(x.id)===Number(id)
+  );
 
 
-const booking =
-adminBookingsData.find(
-o=>Number(o.id)===Number(id)
-);
+  const status =
+  $(`status-${id}`).value;
 
 
-if(!booking){
+  const file =
+  $(`labelFile-${id}`)
+  ?.files?.[0];
 
-return alert(
-"Booking not found."
-);
+
+  try{
+
+    let fp =
+    o?.label_file_path ||
+    null;
+
+
+    if(file){
+
+      msg(
+        "adminMsg",
+        "Uploading shipping label PDF..."
+      );
+
+
+      fp =
+      await uploadLabelFile(
+        id,
+        file
+      );
+
+    }
+
+
+    let finalStatus =
+    status;
+
+
+    let cancellationRequested =
+    o?.cancellation_requested ||
+    false;
+
+
+    if(
+      status==="Cancellation Requested"
+    ){
+
+      cancellationRequested =
+      true;
+
+      finalStatus =
+      "Cancellation Requested";
+
+    }
+
+
+    const updates = {
+
+      status:
+      finalStatus,
+
+      cancellation_requested:
+      cancellationRequested,
+
+      tracking_number:
+      $(`tracking-${id}`)
+      .value
+      .trim(),
+
+      tracking_link:
+      $(`trackingLink-${id}`)
+      .value
+      .trim(),
+
+      label_file_path:
+      fp,
+
+      delivered_at:
+      finalStatus==="Delivered"
+      ?
+      (
+        o?.delivered_at ||
+        new Date().toISOString()
+      )
+      :
+      null
+
+    };
+
+
+    if(
+      finalStatus==="Cancelled"
+    ){
+
+      updates.cancelled_at =
+      o?.cancelled_at ||
+      new Date().toISOString();
+
+      updates.cancellation_requested =
+      false;
+
+    }
+
+
+    const {
+      error
+    } =
+    await supabaseClient
+    .from("bookings")
+    .update(updates)
+    .eq(
+      "id",
+      id
+    );
+
+
+    if(error)
+      throw error;
+
+
+    msg(
+      "adminMsg",
+      "Booking updated successfully.",
+      "ok"
+    );
+
+
+    await loadAdminBookings();
+
+    await loadAdminStats();
+
+  }
+
+  catch(e){
+
+    msg(
+      "adminMsg",
+      e.message ||
+      String(e),
+      "error"
+    );
+
+  }
+
 }
 
 
-let labelPath =
-booking.label_file_path||
-null;
+/* =========================================================
+   APPROVE CANCELLATION
+========================================================= */
+
+async function approveCancellation(id){
+
+  const {
+    error
+  } =
+  await supabaseClient
+  .from("bookings")
+  .update({
+
+    status:
+    "Cancelled",
+
+    cancelled_at:
+    new Date().toISOString(),
+
+    cancellation_requested:
+    false
+
+  })
+  .eq(
+    "id",
+    id
+  )
+  .eq(
+    "status",
+    "Cancellation Requested"
+  );
 
 
-/*
-PDF UPLOAD
-*/
+  if(error){
 
-if(
-fileInput?.files?.length
-){
+    return alert(
+      error.message
+    );
 
-const file =
-fileInput.files[0];
+  }
 
 
-if(
-file.type!=="application/pdf"
-){
-
-return alert(
-"Only PDF shipping label is allowed."
-);
-}
+  alert(
+    "Cancellation approved."
+  );
 
 
-if(
-file.size>
-50*1024*1024
-){
+  await loadAdminBookings();
 
-return alert(
-"PDF must be 50 MB or smaller."
-);
-}
-
-
-labelPath =
-`${booking.client_id}/${booking.order_id}.pdf`;
-
-
-const {error:uploadError} =
-await supabaseClient
-.storage
-.from("shipping-labels")
-.upload(
-labelPath,
-file,
-{
-contentType:"application/pdf",
-upsert:true
-}
-);
-
-
-if(uploadError){
-
-return alert(
-"Label upload failed: "+
-uploadError.message
-);
-}
+  await loadAdminStats();
 
 }
 
 
-const updates={
+/* =========================================================
+   REJECT CANCELLATION
+========================================================= */
 
-status:status,
+async function rejectCancellation(id){
 
-tracking_number:
-tracking,
+  const {
+    error
+  } =
+  await supabaseClient
+  .from("bookings")
+  .update({
 
-tracking_link:
-trackingLink,
+    cancellation_requested:
+    false,
 
-label_file_path:
-labelPath,
+    cancellation_reason:
+    null,
 
-delivered_at:
-status==="Delivered"
-?
-(
-booking.delivered_at||
-new Date().toISOString()
-)
-:
-null
+    status:
+    "Booked"
 
-};
+  })
+  .eq(
+    "id",
+    id
+  );
 
 
-if(status==="Cancelled"){
+  if(error){
 
-updates.cancellation_requested=false;
+    return alert(
+      error.message
+    );
 
-updates.cancelled_at =
-booking.cancelled_at||
-new Date().toISOString();
+  }
+
+
+  alert(
+    "Cancellation request rejected."
+  );
+
+
+  await loadAdminBookings();
 
 }
 
 
-const {error} =
-await supabaseClient
-.from("bookings")
-.update(updates)
-.eq("id",id);
-
-
-if(error){
-
-return alert(
-error.message
-);
-}
-
-
-alert(
-"Booking updated successfully."
-);
-
-
-await loadAdminBookings();
-
-await loadAdminStats();
-}
-
-
-/* =========================
-ADMIN STATUS
-========================= */
+/* =========================================================
+   ADMIN STATS
+========================================================= */
 
 async function loadAdminStats(){
 
-const {data,error} =
-await supabaseClient
-.from("bookings")
-.select(
-"status,created_at,delivered_at"
-);
+  const {
+    data,
+    error
+  } =
+  await supabaseClient
+  .from("bookings")
+  .select(
+    "status,created_at,delivered_at,order_date"
+  );
 
 
-if(error)return;
+  if(error)
+    return;
 
 
-const today =
-new Date();
-
-today.setHours(
-0,0,0,0
-);
+  const today =
+  getIndiaDate();
 
 
-const week =
-new Date();
-
-week.setDate(
-week.getDate()-7
-);
+  const todayDate =
+  new Date(
+    today+"T00:00:00"
+  );
 
 
-const month =
-new Date();
+  const weekDate =
+  new Date(todayDate);
 
-month.setDate(1);
-
-month.setHours(
-0,0,0,0
-);
+  weekDate.setDate(
+    weekDate.getDate()-7
+  );
 
 
-let t=0;
-let w=0;
-let m=0;
+  const monthDate =
+  new Date(
+    todayDate.getFullYear(),
+    todayDate.getMonth(),
+    1
+  );
 
 
-(data||[])
-.forEach(o=>{
-
-if(o.status!=="Delivered")
-return;
+  let t=0;
+  let w=0;
+  let m=0;
 
 
-const d =
-new Date(
-o.delivered_at||
-o.created_at
-);
+  (data||[])
+  .forEach(o=>{
+
+    if(o.status!=="Delivered")
+      return;
 
 
-if(d>=today)t++;
-
-if(d>=week)w++;
-
-if(d>=month)m++;
-
-});
+    const dateString =
+    getOrderDate(
+      o
+    );
 
 
-$("todayDelivered")
-.textContent=t;
+    const d =
+    new Date(
+      dateString+"T00:00:00"
+    );
 
-$("weekDelivered")
-.textContent=w;
 
-$("monthDelivered")
-.textContent=m;
+    if(
+      dateString===today
+    ){
 
-$("totalBookings")
-.textContent=
-(data||[]).length;
+      t++;
+
+    }
+
+
+    if(
+      d>=weekDate
+    ){
+
+      w++;
+
+    }
+
+
+    if(
+      d>=monthDate
+    ){
+
+      m++;
+
+    }
+
+  });
+
+
+  $("todayDelivered")
+  .textContent=t;
+
+  $("weekDelivered")
+  .textContent=w;
+
+  $("monthDelivered")
+  .textContent=m;
+
+  $("totalBookings")
+  .textContent=
+  (data||[]).length;
+
 }
 
 
-/* =========================
-LOGOUT
-========================= */
+/* =========================================================
+   ADMIN AUTO REFRESH
+========================================================= */
+
+function startAdminAutoRefresh(){
+
+  stopAdminAutoRefresh();
+
+
+  adminRefreshTimer =
+  setInterval(
+    async ()=>{
+
+      if(
+        currentProfile?.role!=="admin"
+      ){
+
+        return;
+
+      }
+
+
+      await loadAdminBookings();
+
+      await loadAdminStats();
+
+    },
+    15000
+  );
+
+}
+
+
+function stopAdminAutoRefresh(){
+
+  if(adminRefreshTimer){
+
+    clearInterval(
+      adminRefreshTimer
+    );
+
+    adminRefreshTimer =
+    null;
+
+  }
+
+}
+
+
+/* =========================================================
+   LOGOUT
+========================================================= */
 
 async function logout(){
 
-await supabaseClient.auth.signOut();
+  stopAdminAutoRefresh();
 
-currentUser=null;
-currentProfile=null;
-currentClient=null;
 
-$("clientArea")
-.classList.add("hidden");
+  await supabaseClient
+  .auth
+  .signOut();
 
-$("adminArea")
-.classList.add("hidden");
 
-$("loginEmail").value="";
-$("loginPassword").value="";
+  currentUser=null;
 
-$("loginMsg").innerHTML="";
+  currentProfile=null;
 
-showLogin();
+  currentClient=null;
+
+  clientOrders=[];
+
+  adminBookingData=[];
+
+  adminClientData=[];
+
+  knownCancellationIds =
+  new Set();
+
+  firstAdminCancellationLoad =
+  true;
+
+
+  clientArea
+  .classList
+  .add("hidden");
+
+  adminArea
+  .classList
+  .add("hidden");
+
+
+  $("loginEmail").value="";
+
+  $("loginPassword").value="";
+
+  $("loginMsg").innerHTML="";
+
+
+  showLogin();
+
+}
+
+
+/* =========================================================
+   ESCAPE HTML
+========================================================= */
+
+function esc(v){
+
+  return String(
+    v ?? ""
+  )
+  .replaceAll(
+    "&",
+    "&amp;"
+  )
+  .replaceAll(
+    "<",
+    "&lt;"
+  )
+  .replaceAll(
+    ">",
+    "&gt;"
+  )
+  .replaceAll(
+    '"',
+    "&quot;"
+  )
+  .replaceAll(
+    "'",
+    "&#039;"
+  );
+
 }
 
 
-/* =========================
-AUTH STATE
-========================= */
+function escAttr(v){
 
-supabaseClient.auth.onAuthStateChange(
-async(event,session)=>{
+  return esc(v);
 
-if(event==="PASSWORD_RECOVERY"){
+}
 
-showReset();
 
-return;
+/* =========================================================
+   SAFE URL
+========================================================= */
+
+function safe(url){
+
+  try{
+
+    const u =
+    new URL(url);
+
+
+    return [
+      "https:",
+      "http:"
+    ]
+    .includes(
+      u.protocol
+    )
+    ?
+    u.href
+    :
+    "#";
+
+  }
+
+  catch(e){
+
+    return "#";
+
+  }
+
 }
 
 
-if(event==="SIGNED_OUT"){
+/* =========================================================
+   AUTH STATE
+========================================================= */
 
-currentUser=null;
-currentProfile=null;
-currentClient=null;
+supabaseClient
+.auth
+.onAuthStateChange(
+  async e=>{
 
-$("clientArea")
-.classList.add("hidden");
+    if(
+      e==="SIGNED_OUT"
+    ){
 
-$("adminArea")
-.classList.add("hidden");
+      stopAdminAutoRefresh();
 
-showLogin();
-}
+      currentUser=null;
 
-}
+      currentProfile=null;
+
+      currentClient=null;
+
+      clientArea
+      .classList
+      .add("hidden");
+
+      adminArea
+      .classList
+      .add("hidden");
+
+      showLogin();
+
+    }
+
+  }
 );
 
 
-/* =========================
-START
-========================= */
+/* =========================================================
+   PAGE LOAD
+========================================================= */
 
 document.addEventListener(
-"DOMContentLoaded",
-async()=>{
+  "DOMContentLoaded",
+  async ()=>{
 
-paymentChanged();
+    paymentChanged();
 
-const {data} =
-await supabaseClient
-.auth
-.getSession();
 
-if(data.session){
+    const {
+      data
+    } =
+    await supabaseClient
+    .auth
+    .getSession();
 
-await loadUser();
 
-}
+    if(data.session){
 
-}
+      await loadUser();
+
+    }
+
+  }
 );
 
 </script>
