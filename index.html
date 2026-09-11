@@ -4,255 +4,4256 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>BHAGWATI FULFIL | Client Portal</title>
+
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
 <style>
-*{box-sizing:border-box}body{margin:0;font-family:Arial,sans-serif;background:#f4f7fb;color:#172033}.container{width:95%;max-width:1200px;margin:25px auto}
-header{background:#111827;color:#fff;padding:20px;border-radius:14px;margin-bottom:20px}header h1{margin:0;font-size:25px}header p{margin:6px 0 0;opacity:.8}
-.card{background:#fff;padding:22px;border-radius:14px;box-shadow:0 5px 20px rgba(0,0,0,.08);margin-bottom:20px}h2{margin-top:0}h3{margin-bottom:10px}
-input,select,textarea{width:100%;padding:12px;border:1px solid #d1d5db;border-radius:8px;margin-top:6px;margin-bottom:14px;font-size:15px}textarea{min-height:90px;resize:vertical}label{font-weight:600;font-size:14px}
-button{border:0;padding:12px 18px;border-radius:8px;cursor:pointer;font-weight:bold;font-size:15px;margin:4px}.primary{background:#111827;color:#fff}.success{background:#15803d;color:#fff}.danger{background:#dc2626;color:#fff}.secondary{background:#e5e7eb;color:#111827}.info{background:#2563eb;color:#fff}
-.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:15px}@media(max-width:700px){.grid{grid-template-columns:1fr}}.hidden{display:none!important}
-.notice{padding:13px;border-radius:8px;background:#eff6ff;margin-bottom:15px}.error{background:#fee2e2;color:#991b1b}.ok{background:#dcfce7;color:#166534}
-.ratebox{background:#f8fafc;border:1px solid #e5e7eb;border-radius:10px;padding:15px;margin:15px 0}.total{font-size:24px;font-weight:bold}
-.order{border:1px solid #ddd;border-radius:10px;padding:15px;margin-bottom:12px}.badge{display:inline-block;padding:5px 9px;border-radius:20px;background:#e5e7eb;font-size:12px;font-weight:bold}
-.topbar{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}.filterbar{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:15px}
-@media(max-width:800px){.filterbar{grid-template-columns:1fr 1fr}}@media(max-width:500px){.filterbar{grid-template-columns:1fr}}
-.month-title{background:#111827;color:#fff;padding:12px 15px;border-radius:9px;margin:18px 0 10px}.date-title{font-weight:bold;background:#f1f5f9;padding:8px 12px;border-radius:7px;margin:10px 0}.small{font-size:13px;color:#64748b}
-.linkbtn{display:inline-block;padding:9px 12px;background:#111827;color:#fff;border-radius:7px;text-decoration:none;margin:4px 4px 4px 0}.uploadbox{border:1px dashed #94a3b8;padding:12px;border-radius:8px;background:#f8fafc;margin:8px 0}.client-bank{background:#f8fafc;padding:12px;border-radius:8px}
+*{
+  box-sizing:border-box
+}
+
+body{
+  margin:0;
+  font-family:Arial,sans-serif;
+  background:#f4f7fb;
+  color:#172033
+}
+
+.container{
+  width:95%;
+  max-width:1200px;
+  margin:25px auto
+}
+
+header{
+  background:#111827;
+  color:#fff;
+  padding:20px;
+  border-radius:14px;
+  margin-bottom:20px
+}
+
+header h1{
+  margin:0;
+  font-size:25px
+}
+
+header p{
+  margin:6px 0 0;
+  opacity:.8
+}
+
+.card{
+  background:#fff;
+  padding:22px;
+  border-radius:14px;
+  box-shadow:0 5px 20px rgba(0,0,0,.08);
+  margin-bottom:20px
+}
+
+h2{
+  margin-top:0
+}
+
+h3{
+  margin-bottom:10px
+}
+
+input,
+select,
+textarea{
+  width:100%;
+  padding:12px;
+  border:1px solid #d1d5db;
+  border-radius:8px;
+  margin-top:6px;
+  margin-bottom:14px;
+  font-size:15px
+}
+
+textarea{
+  min-height:90px;
+  resize:vertical
+}
+
+label{
+  font-weight:600;
+  font-size:14px
+}
+
+button{
+  border:0;
+  padding:12px 18px;
+  border-radius:8px;
+  cursor:pointer;
+  font-weight:bold;
+  font-size:15px;
+  margin:4px
+}
+
+.primary{
+  background:#111827;
+  color:#fff
+}
+
+.success{
+  background:#15803d;
+  color:#fff
+}
+
+.danger{
+  background:#dc2626;
+  color:#fff
+}
+
+.secondary{
+  background:#e5e7eb;
+  color:#111827
+}
+
+.info{
+  background:#2563eb;
+  color:#fff
+}
+
+.grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:15px
+}
+
+@media(max-width:700px){
+  .grid{
+    grid-template-columns:1fr
+  }
+}
+
+.hidden{
+  display:none!important
+}
+
+.notice{
+  padding:13px;
+  border-radius:8px;
+  background:#eff6ff;
+  margin-bottom:15px
+}
+
+.error{
+  background:#fee2e2;
+  color:#991b1b
+}
+
+.ok{
+  background:#dcfce7;
+  color:#166534
+}
+
+.ratebox{
+  background:#f8fafc;
+  border:1px solid #e5e7eb;
+  border-radius:10px;
+  padding:15px;
+  margin:15px 0
+}
+
+.total{
+  font-size:24px;
+  font-weight:bold
+}
+
+.order{
+  border:1px solid #ddd;
+  border-radius:10px;
+  padding:15px;
+  margin-bottom:12px
+}
+
+.badge{
+  display:inline-block;
+  padding:5px 9px;
+  border-radius:20px;
+  background:#e5e7eb;
+  font-size:12px;
+  font-weight:bold
+}
+
+.topbar{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:10px;
+  flex-wrap:wrap
+}
+
+.filterbar{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:10px;
+  margin-bottom:15px
+}
+
+@media(max-width:800px){
+  .filterbar{
+    grid-template-columns:1fr 1fr
+  }
+}
+
+@media(max-width:500px){
+  .filterbar{
+    grid-template-columns:1fr
+  }
+}
+
+.month-title{
+  background:#111827;
+  color:#fff;
+  padding:12px 15px;
+  border-radius:9px;
+  margin:18px 0 10px
+}
+
+.date-title{
+  font-weight:bold;
+  background:#f1f5f9;
+  padding:8px 12px;
+  border-radius:7px;
+  margin:10px 0
+}
+
+.small{
+  font-size:13px;
+  color:#64748b
+}
+
+.linkbtn{
+  display:inline-block;
+  padding:9px 12px;
+  background:#111827;
+  color:#fff;
+  border-radius:7px;
+  text-decoration:none;
+  margin:4px 4px 4px 0
+}
+
+.uploadbox{
+  border:1px dashed #94a3b8;
+  padding:12px;
+  border-radius:8px;
+  background:#f8fafc;
+  margin:8px 0
+}
+
+.client-bank{
+  margin-top:10px
+}
+
+.bank-toggle{
+  background:#f1f5f9;
+  color:#111827;
+  border:1px solid #cbd5e1;
+  width:auto
+}
+
+.bank-details{
+  background:#f8fafc;
+  border:1px solid #e2e8f0;
+  padding:14px;
+  border-radius:10px;
+  margin-top:8px
+}
+
+.bank-details p{
+  margin:7px 0
+}
 </style>
 </head>
+
 <body>
+
 <div class="container">
-<header><h1>BHAGWATI FULFIL</h1><p>Client Fulfillment & Delivery Portal</p></header>
+
+<header>
+  <h1>BHAGWATI FULFIL</h1>
+  <p>Client Fulfillment & Delivery Portal</p>
+</header>
+
+<!-- LOGIN -->
 
 <section id="loginSection" class="card">
-<h2>Client / Admin Login</h2><div id="loginMsg"></div>
-<label>Email</label><input id="loginEmail" type="email" placeholder="Enter email">
-<label>Password</label><input id="loginPassword" type="password" placeholder="Enter password">
-<button class="primary" onclick="login()">LOGIN</button><button class="secondary" onclick="showSignup()">CREATE NEW CLIENT ACCOUNT</button><button class="secondary" onclick="sendReset()">FORGOT PASSWORD?</button>
+
+<h2>Client / Admin Login</h2>
+
+<div id="loginMsg"></div>
+
+<label>Email</label>
+<input
+  id="loginEmail"
+  type="email"
+  placeholder="Enter email">
+
+<label>Password</label>
+<input
+  id="loginPassword"
+  type="password"
+  placeholder="Enter password">
+
+<button class="primary" onclick="login()">LOGIN</button>
+
+<button
+  class="secondary"
+  onclick="showSignup()">
+  CREATE NEW CLIENT ACCOUNT
+</button>
+
+<button
+  class="secondary"
+  onclick="sendReset()">
+  FORGOT PASSWORD?
+</button>
+
 </section>
 
-<section id="signupSection" class="card hidden"><h2>Create Client Account</h2><div id="signupMsg"></div>
-<label>Business / Client Name</label><input id="signupName" placeholder="Business name"><label>Mobile Number</label><input id="signupMobile" placeholder="Mobile number"><label>Email</label><input id="signupEmail" type="email" placeholder="Email"><label>Password</label><input id="signupPassword" type="password" placeholder="Minimum 6 characters">
-<button class="primary" onclick="signup()">CREATE ACCOUNT</button><button class="secondary" onclick="showLogin()">BACK TO LOGIN</button>
+
+<!-- SIGNUP -->
+
+<section id="signupSection" class="card hidden">
+
+<h2>Create Client Account</h2>
+
+<div id="signupMsg"></div>
+
+<label>Business / Client Name</label>
+<input
+  id="signupName"
+  placeholder="Business name">
+
+<label>Mobile Number</label>
+<input
+  id="signupMobile"
+  placeholder="Mobile number">
+
+<label>Email</label>
+<input
+  id="signupEmail"
+  type="email"
+  placeholder="Email">
+
+<label>Password</label>
+<input
+  id="signupPassword"
+  type="password"
+  placeholder="Minimum 6 characters">
+
+<button
+  class="primary"
+  onclick="signup()">
+  CREATE ACCOUNT
+</button>
+
+<button
+  class="secondary"
+  onclick="showLogin()">
+  BACK TO LOGIN
+</button>
+
 </section>
 
-<section id="resetSection" class="card hidden"><h2>Reset Password</h2><div id="resetMsg"></div>
-<label>New Password</label><input id="newPassword" type="password" placeholder="Minimum 6 characters"><label>Confirm Password</label><input id="confirmPassword" type="password" placeholder="Confirm password">
-<button class="success" onclick="updatePassword()">UPDATE PASSWORD</button><button class="secondary" onclick="showLogin()">BACK TO LOGIN</button>
+
+<!-- RESET -->
+
+<section id="resetSection" class="card hidden">
+
+<h2>Reset Password</h2>
+
+<div id="resetMsg"></div>
+
+<label>New Password</label>
+<input
+  id="newPassword"
+  type="password"
+  placeholder="Minimum 6 characters">
+
+<label>Confirm Password</label>
+<input
+  id="confirmPassword"
+  type="password"
+  placeholder="Confirm password">
+
+<button
+  class="success"
+  onclick="updatePassword()">
+  UPDATE PASSWORD
+</button>
+
+<button
+  class="secondary"
+  onclick="showLogin()">
+  BACK TO LOGIN
+</button>
+
 </section>
+
+
+<!-- CLIENT AREA -->
 
 <section id="clientArea" class="hidden">
-<div class="card"><div class="topbar"><div><h2>Client Dashboard</h2><div id="clientWelcome"></div></div><button class="danger" onclick="logout()">LOGOUT</button></div></div>
 
-<div id="clientProfileBox" class="card hidden"><h2>Client Profile</h2>
-<div class="grid"><div><label>Business / Client Name</label><input id="profileName"></div><div><label>Mobile</label><input id="profileMobile"></div><div><label>Email</label><input id="profileEmail" disabled></div></div>
-<h3>COD Settlement Bank Details</h3><div class="notice">These details are stored once and are used for COD settlement.</div>
-<div class="grid"><div><label>Account Holder Name</label><input id="bankHolder"></div><div><label>Account Number</label><input id="accountNumber"></div><div><label>IFSC</label><input id="ifsc"></div><div><label>UPI ID (Optional)</label><input id="upiId"></div></div>
-<button class="success" onclick="saveProfile()">SAVE PROFILE</button><div id="profileMsg"></div></div>
+<div class="card">
 
-<div id="bookingBox" class="card hidden"><h2>Book New Shipment</h2><div id="bookingMsg"></div>
-<h3>Shipment Details</h3><div class="grid"><div><label>Order ID</label><input id="orderId" disabled placeholder="Auto generated"></div><div><label>Payment Type</label><select id="paymentType" onchange="paymentChanged()"><option>Prepaid</option><option>COD</option></select></div></div>
-<h3>Pickup Details</h3><div class="grid"><div><label>Pickup Name</label><input id="pickupName"></div><div><label>Pickup Mobile</label><input id="pickupMobile"></div></div>
-<label>Pickup Address</label><textarea id="pickupAddress"></textarea><label>Pickup Pincode</label><input id="pickupPincode" maxlength="6">
-<h3>Customer / Delivery Details</h3><div class="grid"><div><label>Customer Name</label><input id="customerName"></div><div><label>Customer Mobile</label><input id="customerMobile"></div></div>
-<label>Delivery Address</label><textarea id="deliveryAddress"></textarea><label>Delivery Pincode</label><input id="deliveryPincode" maxlength="6" oninput="calculateRate()">
-<label>Parcel / Order Value ₹</label><input id="parcelValue" type="number" min="0" placeholder="Enter order value">
-<h3>Package Details</h3><div class="grid"><div><label>Length cm</label><input id="length" type="number" min="0" oninput="calculateRate()"></div><div><label>Width cm</label><input id="width" type="number" min="0" oninput="calculateRate()"></div><div><label>Height cm</label><input id="height" type="number" min="0" oninput="calculateRate()"></div><div><label>Actual Weight grams</label><input id="actualWeight" type="number" min="0" oninput="calculateRate()"></div></div>
-<div class="ratebox"><p><b>Volumetric Weight:</b> <span id="volumetricWeight">0</span> kg</p><p><b>Chargeable Weight:</b> <span id="chargeableWeight">0</span> kg</p><p><b>Zone:</b> <span id="zone">Pan India</span></p><p><b>Shipping Charge:</b> ₹<span id="shippingCharge">0</span></p><p><b>COD Charge:</b> ₹<span id="codCharge">0</span></p><hr><p class="total">Total: ₹<span id="totalCharge">0</span></p><p><b>RTO Charge:</b> ₹<span id="rtoCharge">0</span></p></div>
-<button class="success" onclick="bookShipment()">BOOK SHIPMENT</button><button class="secondary" onclick="clearBooking()">CLEAR</button></div>
+<div class="topbar">
 
-<div id="ordersBox" class="card hidden"><h2>My Shipment History</h2><div class="notice">Shipment history is permanent. Delivered and Cancelled shipments remain visible.</div>
-<div class="filterbar"><div><label>Search</label><input id="clientSearch" placeholder="Order / Customer / Tracking" oninput="renderClientOrders()"></div><div><label>Month</label><select id="clientMonth" onchange="renderClientOrders()"><option value="">All Months</option></select></div><div><label>Status</label><select id="clientStatus" onchange="renderClientOrders()"><option value="">All Status</option><option>Booked</option><option>Picked Up</option><option>In Transit</option><option>Out for Delivery</option><option>Delivered</option><option>RTO</option><option>Cancelled</option></select></div><div><label>Payment</label><select id="clientPayment" onchange="renderClientOrders()"><option value="">All Payments</option><option>Prepaid</option><option>COD</option></select></div></div>
-<div id="ordersList">Loading...</div></div>
-</section>
-
-<section id="adminArea" class="hidden">
-<div class="card"><div class="topbar"><h2>Admin Dashboard</h2><button class="danger" onclick="logout()">LOGOUT</button></div><div id="adminMsg"></div></div>
-<div class="card"><h2>Admin Stats</h2><div class="grid"><div class="ratebox"><b>Today Delivered</b><h2 id="todayDelivered">0</h2></div><div class="ratebox"><b>This Week Delivered</b><h2 id="weekDelivered">0</h2></div><div class="ratebox"><b>This Month Delivered</b><h2 id="monthDelivered">0</h2></div><div class="ratebox"><b>Total Bookings</b><h2 id="totalBookings">0</h2></div></div></div>
-<div class="card"><h2>Client Accounts</h2><div id="adminClients">Loading...</div></div>
-<div class="card"><h2>All Shipment History</h2>
-<div class="filterbar"><div><label>Search</label><input id="adminSearch" placeholder="Order / Customer / Mobile / Tracking" oninput="renderAdminBookings()"></div><div><label>Month</label><select id="adminMonth" onchange="renderAdminBookings()"><option value="">All Months</option></select></div><div><label>Client</label><select id="adminClientFilter" onchange="renderAdminBookings()"><option value="">All Clients</option></select></div><div><label>Status</label><select id="adminStatus" onchange="renderAdminBookings()"><option value="">All Status</option><option>Booked</option><option>Picked Up</option><option>In Transit</option><option>Out for Delivery</option><option>Delivered</option><option>RTO</option><option>Cancelled</option></select></div></div>
-<div class="grid"><div><label>Payment</label><select id="adminPayment" onchange="renderAdminBookings()"><option value="">All Payments</option><option>Prepaid</option><option>COD</option></select></div><div><label>Exact Date</label><input id="adminDate" type="date" onchange="renderAdminBookings()"></div></div>
-<div id="adminBookings">Loading...</div></div>
-</section>
+<div>
+<h2>Client Dashboard</h2>
+<div id="clientWelcome"></div>
 </div>
 
+<button
+  class="danger"
+  onclick="logout()">
+  LOGOUT
+</button>
+
+</div>
+
+</div>
+
+
+<!-- CLIENT PROFILE -->
+
+<div
+  id="clientProfileBox"
+  class="card hidden">
+
+<h2>Client Profile</h2>
+
+<div class="grid">
+
+<div>
+<label>Business / Client Name</label>
+<input id="profileName">
+</div>
+
+<div>
+<label>Mobile</label>
+<input id="profileMobile">
+</div>
+
+<div>
+<label>Email</label>
+<input id="profileEmail" disabled>
+</div>
+
+</div>
+
+<h3>COD Settlement Bank Details</h3>
+
+<div class="notice">
+These details are stored once and are used for COD settlement.
+</div>
+
+<div class="grid">
+
+<div>
+<label>Account Holder Name</label>
+<input id="bankHolder">
+</div>
+
+<div>
+<label>Account Number</label>
+<input id="accountNumber">
+</div>
+
+<div>
+<label>IFSC</label>
+<input id="ifsc">
+</div>
+
+<div>
+<label>UPI ID (Optional)</label>
+<input id="upiId">
+</div>
+
+</div>
+
+<button
+  class="success"
+  onclick="saveProfile()">
+  SAVE PROFILE
+</button>
+
+<div id="profileMsg"></div>
+
+</div>
+
+
+<!-- BOOKING -->
+
+<div
+  id="bookingBox"
+  class="card hidden">
+
+<h2>Book New Shipment</h2>
+
+<div id="bookingMsg"></div>
+
+<h3>Shipment Details</h3>
+
+<div class="grid">
+
+<div>
+<label>Order ID</label>
+<input
+  id="orderId"
+  disabled
+  placeholder="Auto generated">
+</div>
+
+<div>
+<label>Payment Type</label>
+<select
+  id="paymentType"
+  onchange="paymentChanged()">
+
+<option>Prepaid</option>
+<option>COD</option>
+
+</select>
+</div>
+
+</div>
+
+
+<h3>Pickup Details</h3>
+
+<div class="grid">
+
+<div>
+<label>Pickup Name</label>
+<input id="pickupName">
+</div>
+
+<div>
+<label>Pickup Mobile</label>
+<input id="pickupMobile">
+</div>
+
+</div>
+
+<label>Pickup Address</label>
+<textarea id="pickupAddress"></textarea>
+
+<label>Pickup Pincode</label>
+<input
+  id="pickupPincode"
+  maxlength="6">
+
+
+<h3>Customer / Delivery Details</h3>
+
+<div class="grid">
+
+<div>
+<label>Customer Name</label>
+<input id="customerName">
+</div>
+
+<div>
+<label>Customer Mobile</label>
+<input id="customerMobile">
+</div>
+
+</div>
+
+<label>Delivery Address</label>
+<textarea id="deliveryAddress"></textarea>
+
+<label>Delivery Pincode</label>
+<input
+  id="deliveryPincode"
+  maxlength="6"
+  oninput="calculateRate()">
+
+<label>Parcel / Order Value ₹</label>
+
+<input
+  id="parcelValue"
+  type="number"
+  min="0"
+  placeholder="Enter order value">
+
+
+<h3>Package Details</h3>
+
+<div class="grid">
+
+<div>
+<label>Length cm</label>
+<input
+  id="length"
+  type="number"
+  min="0"
+  oninput="calculateRate()">
+</div>
+
+<div>
+<label>Width cm</label>
+<input
+  id="width"
+  type="number"
+  min="0"
+  oninput="calculateRate()">
+</div>
+
+<div>
+<label>Height cm</label>
+<input
+  id="height"
+  type="number"
+  min="0"
+  oninput="calculateRate()">
+</div>
+
+<div>
+<label>Actual Weight grams</label>
+<input
+  id="actualWeight"
+  type="number"
+  min="0"
+  oninput="calculateRate()">
+</div>
+
+</div>
+
+
+<div class="ratebox">
+
+<p>
+<b>Volumetric Weight:</b>
+<span id="volumetricWeight">0</span> kg
+</p>
+
+<p>
+<b>Chargeable Weight:</b>
+<span id="chargeableWeight">0</span> kg
+</p>
+
+<p>
+<b>Zone:</b>
+<span id="zone">Pan India</span>
+</p>
+
+<p>
+<b>Shipping Charge:</b>
+₹<span id="shippingCharge">0</span>
+</p>
+
+<p>
+<b>COD Charge:</b>
+₹<span id="codCharge">0</span>
+</p>
+
+<hr>
+
+<p class="total">
+Total:
+₹<span id="totalCharge">0</span>
+</p>
+
+<p>
+<b>RTO Charge:</b>
+₹<span id="rtoCharge">0</span>
+</p>
+
+</div>
+
+
+<button
+  class="success"
+  onclick="bookShipment()">
+  BOOK SHIPMENT
+</button>
+
+<button
+  class="secondary"
+  onclick="clearBooking()">
+  CLEAR
+</button>
+
+</div>
+
+
+<!-- CLIENT SHIPMENT HISTORY -->
+
+<div
+  id="ordersBox"
+  class="card hidden">
+
+<h2>My Shipment History</h2>
+
+<div class="notice">
+Shipment history is permanent. Delivered and Cancelled shipments remain visible.
+</div>
+
+<div class="filterbar">
+
+<div>
+<label>Search</label>
+<input
+  id="clientSearch"
+  placeholder="Order / Customer / Tracking"
+  oninput="renderClientOrders()">
+</div>
+
+<div>
+<label>Month</label>
+<select
+  id="clientMonth"
+  onchange="renderClientOrders()">
+
+<option value="">All Months</option>
+
+</select>
+</div>
+
+<div>
+<label>Status</label>
+<select
+  id="clientStatus"
+  onchange="renderClientOrders()">
+
+<option value="">All Status</option>
+<option>Booked</option>
+<option>Picked Up</option>
+<option>In Transit</option>
+<option>Out for Delivery</option>
+<option>Delivered</option>
+<option>RTO</option>
+<option>Cancelled</option>
+
+</select>
+</div>
+
+<div>
+<label>Payment</label>
+<select
+  id="clientPayment"
+  onchange="renderClientOrders()">
+
+<option value="">All Payments</option>
+<option>Prepaid</option>
+<option>COD</option>
+
+</select>
+</div>
+
+</div>
+
+<div id="ordersList">
+Loading...
+</div>
+
+</div>
+
+</section>
+
+
+<!-- ADMIN AREA -->
+
+<section id="adminArea" class="hidden">
+
+<div class="card">
+
+<div class="topbar">
+
+<h2>Admin Dashboard</h2>
+
+<button
+  class="danger"
+  onclick="logout()">
+  LOGOUT
+</button>
+
+</div>
+
+<div id="adminMsg"></div>
+
+</div>
+
+
+<!-- ADMIN STATUS -->
+
+<div class="card">
+
+<h2>Admin Status</h2>
+
+<div class="grid">
+
+<div class="ratebox">
+<b>Today Delivered</b>
+<h2 id="todayDelivered">0</h2>
+</div>
+
+<div class="ratebox">
+<b>This Week Delivered</b>
+<h2 id="weekDelivered">0</h2>
+</div>
+
+<div class="ratebox">
+<b>This Month Delivered</b>
+<h2 id="monthDelivered">0</h2>
+</div>
+
+<div class="ratebox">
+<b>Total Bookings</b>
+<h2 id="totalBookings">0</h2>
+</div>
+
+</div>
+
+</div>
+
+
+<!-- CLIENT ACCOUNTS -->
+
+<div class="card">
+
+<h2>Client Accounts</h2>
+
+<div id="adminClients">
+Loading...
+</div>
+
+</div>
+
+
+<!-- ALL SHIPMENT HISTORY -->
+
+<div class="card">
+
+<h2>All Shipment History</h2>
+
+
+<!-- ADMIN FILTERS -->
+
+<div class="filterbar">
+
+<div>
+<label>Search</label>
+
+<input
+  id="adminSearch"
+  placeholder="Order / Customer / Mobile / Tracking"
+  oninput="renderAdminBookings()">
+
+</div>
+
+
+<div>
+<label>Month</label>
+
+<select
+  id="adminMonth"
+  onchange="renderAdminBookings()">
+
+<option value="">All Months</option>
+
+</select>
+
+</div>
+
+
+<div>
+<label>Client</label>
+
+<select
+  id="adminClientFilter"
+  onchange="renderAdminBookings()">
+
+<option value="">All Clients</option>
+
+</select>
+
+</div>
+
+
+<div>
+<label>Status</label>
+
+<select
+  id="adminStatus"
+  onchange="renderAdminBookings()">
+
+<option value="">All Status</option>
+<option>Booked</option>
+<option>Picked Up</option>
+<option>In Transit</option>
+<option>Out for Delivery</option>
+<option>Delivered</option>
+<option>RTO</option>
+<option>Cancelled</option>
+
+</select>
+
+</div>
+
+</div>
+
+
+<div class="grid">
+
+<div>
+
+<label>Payment</label>
+
+<select
+  id="adminPayment"
+  onchange="renderAdminBookings()">
+
+<option value="">All Payments</option>
+<option>Prepaid</option>
+<option>COD</option>
+
+</select>
+
+</div>
+
+
+<div>
+
+<label>Exact Date</label>
+
+<input
+  id="adminDate"
+  type="date"
+  onchange="renderAdminBookings()">
+
+</div>
+
+</div>
+
+
+<div id="adminBookings">
+Loading...
+</div>
+
+</div>
+
+</section>
+
+</div>
+
+
 <script>
-const SUPABASE_URL="https://zldgzojzsoxpyhlhkive.supabase.co";
-const SUPABASE_ANON_KEY="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXAiLCJyb2xlIjoiYW5vbiIsImlhdCI6MTc4OTAzNDk0MywiZXhwIjoyMTA0NjEwOTQzfQ.cyr6fVFej4eNMZnwQfvUGSESMLpyNClHmI9S7tNpe5U";
-const supabaseClient=supabase.createClient(SUPABASE_URL,SUPABASE_ANON_KEY);
 
-const $=id=>document.getElementById(id);
-const loginSection=$("loginSection"),signupSection=$("signupSection"),resetSection=$("resetSection"),clientArea=$("clientArea"),adminArea=$("adminArea");
-const orderIdInput=$("orderId"),paymentType=$("paymentType"),length=$("length"),width=$("width"),height=$("height"),actualWeight=$("actualWeight"),deliveryPincode=$("deliveryPincode");
-let currentUser=null,currentProfile=null,currentClient=null,clientOrders=[],adminBookingData=[],adminClientData=[];
+/* ==============================
+   SUPABASE
+============================== */
 
-function msg(id,text,type="notice"){if($(id))$(id).innerHTML=`<div class="notice ${type}">${text}</div>`}
-function showLogin(){loginSection.classList.remove("hidden");signupSection.classList.add("hidden");resetSection.classList.add("hidden")}
-function showSignup(){loginSection.classList.add("hidden");signupSection.classList.remove("hidden");resetSection.classList.add("hidden")}
-function showReset(){loginSection.classList.add("hidden");signupSection.classList.add("hidden");resetSection.classList.remove("hidden");clientArea.classList.add("hidden");adminArea.classList.add("hidden")}
-function hideAuth(){loginSection.classList.add("hidden");signupSection.classList.add("hidden")}
+const SUPABASE_URL =
+"https://zldgzojzsoxpyhlhkive.supabase.co";
+
+const SUPABASE_ANON_KEY =
+"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXAiLCJyb2xlIjoiYW5vbiIsImlhdCI6MTc4OTAzNDk0MywiZXhwIjoyMTA0NjEwOTQzfQ.cyr6fVFej4eNMZnwQfvUGSESMLpyNClHmI9S7tNpe5U";
+
+const supabaseClient =
+supabase.createClient(
+  SUPABASE_URL,
+  SUPABASE_ANON_KEY
+);
+
+
+/* ==============================
+   GLOBALS
+============================== */
+
+const $ = id =>
+document.getElementById(id);
+
+const loginSection =
+$("loginSection");
+
+const signupSection =
+$("signupSection");
+
+const resetSection =
+$("resetSection");
+
+const clientArea =
+$("clientArea");
+
+const adminArea =
+$("adminArea");
+
+const orderIdInput =
+$("orderId");
+
+const paymentType =
+$("paymentType");
+
+const length =
+$("length");
+
+const width =
+$("width");
+
+const height =
+$("height");
+
+const actualWeight =
+$("actualWeight");
+
+const deliveryPincode =
+$("deliveryPincode");
+
+
+let currentUser = null;
+let currentProfile = null;
+let currentClient = null;
+
+let clientOrders = [];
+let adminBookingData = [];
+let adminClientData = [];
+
+
+/* ==============================
+   MESSAGE
+============================== */
+
+function msg(
+  id,
+  text,
+  type="notice"
+){
+
+  if($(id)){
+    $(id).innerHTML =
+    `<div class="notice ${type}">
+      ${text}
+    </div>`;
+  }
+
+}
+
+
+/* ==============================
+   AUTH SCREEN
+============================== */
+
+function showLogin(){
+
+  loginSection.classList.remove("hidden");
+
+  signupSection.classList.add("hidden");
+
+  resetSection.classList.add("hidden");
+
+}
+
+
+function showSignup(){
+
+  loginSection.classList.add("hidden");
+
+  signupSection.classList.remove("hidden");
+
+  resetSection.classList.add("hidden");
+
+}
+
+
+function showReset(){
+
+  loginSection.classList.add("hidden");
+
+  signupSection.classList.add("hidden");
+
+  resetSection.classList.remove("hidden");
+
+  clientArea.classList.add("hidden");
+
+  adminArea.classList.add("hidden");
+
+}
+
+
+function hideAuth(){
+
+  loginSection.classList.add("hidden");
+
+  signupSection.classList.add("hidden");
+
+}
+
+
+/* ==============================
+   SIGNUP
+============================== */
 
 async function signup(){
- const name=$("signupName").value.trim(),mobile=$("signupMobile").value.trim(),email=$("signupEmail").value.trim(),password=$("signupPassword").value;
- if(!name||!mobile||!email||!password)return msg("signupMsg","Please fill all details.","error");
- if(password.length<6)return msg("signupMsg","Password must be at least 6 characters.","error");
- msg("signupMsg","Creating account...");
- const {data,error}=await supabaseClient.auth.signUp({email,password,options:{data:{full_name:name,mobile}}});
- if(error)return msg("signupMsg",error.message,"error");
- if(data?.session){await loadUser();return}
- msg("signupMsg","Account created. Please login with your email and password.","ok");setTimeout(showLogin,1200)
+
+  const name =
+  $("signupName").value.trim();
+
+  const mobile =
+  $("signupMobile").value.trim();
+
+  const email =
+  $("signupEmail").value.trim();
+
+  const password =
+  $("signupPassword").value;
+
+
+  if(
+    !name ||
+    !mobile ||
+    !email ||
+    !password
+  ){
+
+    return msg(
+      "signupMsg",
+      "Please fill all details.",
+      "error"
+    );
+
+  }
+
+
+  if(password.length < 6){
+
+    return msg(
+      "signupMsg",
+      "Password must be at least 6 characters.",
+      "error"
+    );
+
+  }
+
+
+  msg(
+    "signupMsg",
+    "Creating account..."
+  );
+
+
+  const {
+    data,
+    error
+  } =
+  await supabaseClient.auth.signUp({
+
+    email,
+
+    password,
+
+    options:{
+      data:{
+        full_name:name,
+        mobile
+      }
+    }
+
+  });
+
+
+  if(error){
+
+    return msg(
+      "signupMsg",
+      error.message,
+      "error"
+    );
+
+  }
+
+
+  if(data?.session){
+
+    await loadUser();
+
+    return;
+
+  }
+
+
+  msg(
+    "signupMsg",
+    "Account created. Please login with your email and password.",
+    "ok"
+  );
+
+
+  setTimeout(
+    showLogin,
+    1200
+  );
+
 }
+
+
+/* ==============================
+   RESET PASSWORD
+============================== */
+
 async function sendReset(){
- const email=$("loginEmail").value.trim();if(!email)return msg("loginMsg","Enter your email first.","error");
- msg("loginMsg","Sending password reset email...");
- const {error}=await supabaseClient.auth.resetPasswordForEmail(email,{redirectTo:location.origin+location.pathname});
- if(error)return msg("loginMsg",error.message,"error");msg("loginMsg","Password reset email sent. Check Inbox / Spam / Promotions.","ok")
+
+  const email =
+  $("loginEmail").value.trim();
+
+
+  if(!email){
+
+    return msg(
+      "loginMsg",
+      "Enter your email first.",
+      "error"
+    );
+
+  }
+
+
+  msg(
+    "loginMsg",
+    "Sending password reset email..."
+  );
+
+
+  const {
+    error
+  } =
+  await supabaseClient.auth
+  .resetPasswordForEmail(
+    email,
+    {
+      redirectTo:
+      location.origin +
+      location.pathname
+    }
+  );
+
+
+  if(error){
+
+    return msg(
+      "loginMsg",
+      error.message,
+      "error"
+    );
+
+  }
+
+
+  msg(
+    "loginMsg",
+    "Password reset email sent. Check Inbox / Spam / Promotions.",
+    "ok"
+  );
+
 }
+
+
 async function updatePassword(){
- const password=$("newPassword").value,confirm=$("confirmPassword").value;
- if(!password||!confirm)return msg("resetMsg","Enter and confirm your new password.","error");
- if(password.length<6)return msg("resetMsg","Password must be at least 6 characters.","error");
- if(password!==confirm)return msg("resetMsg","Passwords do not match.","error");
- const {error}=await supabaseClient.auth.updateUser({password});if(error)return msg("resetMsg",error.message,"error");
- await supabaseClient.auth.signOut();history.replaceState(null,"",location.pathname);showLogin();msg("loginMsg","Password updated successfully. Please login.","ok")
+
+  const password =
+  $("newPassword").value;
+
+  const confirm =
+  $("confirmPassword").value;
+
+
+  if(
+    !password ||
+    !confirm
+  ){
+
+    return msg(
+      "resetMsg",
+      "Enter and confirm your new password.",
+      "error"
+    );
+
+  }
+
+
+  if(password.length < 6){
+
+    return msg(
+      "resetMsg",
+      "Password must be at least 6 characters.",
+      "error"
+    );
+
+  }
+
+
+  if(password !== confirm){
+
+    return msg(
+      "resetMsg",
+      "Passwords do not match.",
+      "error"
+    );
+
+  }
+
+
+  const {
+    error
+  } =
+  await supabaseClient.auth
+  .updateUser({
+    password
+  });
+
+
+  if(error){
+
+    return msg(
+      "resetMsg",
+      error.message,
+      "error"
+    );
+
+  }
+
+
+  await supabaseClient.auth.signOut();
+
+  history.replaceState(
+    null,
+    "",
+    location.pathname
+  );
+
+  showLogin();
+
+  msg(
+    "loginMsg",
+    "Password updated successfully. Please login.",
+    "ok"
+  );
+
 }
+
+
+/* ==============================
+   LOGIN
+============================== */
+
 async function login(){
- const email=$("loginEmail").value.trim(),password=$("loginPassword").value;
- if(!email||!password)return msg("loginMsg","Enter email and password.","error");
- msg("loginMsg","Logging in...");
- const {error}=await supabaseClient.auth.signInWithPassword({email,password});if(error)return msg("loginMsg",error.message,"error");await loadUser()
+
+  const email =
+  $("loginEmail").value.trim();
+
+  const password =
+  $("loginPassword").value;
+
+
+  if(
+    !email ||
+    !password
+  ){
+
+    return msg(
+      "loginMsg",
+      "Enter email and password.",
+      "error"
+    );
+
+  }
+
+
+  msg(
+    "loginMsg",
+    "Logging in..."
+  );
+
+
+  const {
+    error
+  } =
+  await supabaseClient.auth
+  .signInWithPassword({
+    email,
+    password
+  });
+
+
+  if(error){
+
+    return msg(
+      "loginMsg",
+      error.message,
+      "error"
+    );
+
+  }
+
+
+  await loadUser();
+
 }
+
+
+/* ==============================
+   LOAD USER
+============================== */
+
 async function loadUser(){
- const {data,error}=await supabaseClient.auth.getUser();if(error||!data?.user)return msg("loginMsg","Unable to load user. Please login again.","error");
- currentUser=data.user;
- let {data:profile,error:pe}=await supabaseClient.rpc("get_my_profile");if(pe)return msg("loginMsg","Profile loading error: "+pe.message,"error");
- if(!profile){const r=await supabaseClient.rpc("ensure_my_client_profile");if(r.error)return msg("loginMsg","Profile loading error: "+r.error.message,"error");profile=r.data}
- if(!profile)return msg("loginMsg","Your account profile is missing. Please contact BHAGWATI FULFIL support.","error");
- currentProfile=profile;
- if(profile.role==="admin"){hideAuth();clientArea.classList.add("hidden");adminArea.classList.remove("hidden");await loadAdmin();return}
- hideAuth();adminArea.classList.add("hidden");clientArea.classList.remove("hidden");await loadClient()
+
+  const {
+    data,
+    error
+  } =
+  await supabaseClient.auth
+  .getUser();
+
+
+  if(
+    error ||
+    !data?.user
+  ){
+
+    return msg(
+      "loginMsg",
+      "Unable to load user. Please login again.",
+      "error"
+    );
+
+  }
+
+
+  currentUser =
+  data.user;
+
+
+  let {
+    data:profile,
+    error:pe
+  } =
+  await supabaseClient
+  .rpc("get_my_profile");
+
+
+  if(pe){
+
+    return msg(
+      "loginMsg",
+      "Profile loading error: " +
+      pe.message,
+      "error"
+    );
+
+  }
+
+
+  if(!profile){
+
+    const r =
+    await supabaseClient
+    .rpc("ensure_my_client_profile");
+
+
+    if(r.error){
+
+      return msg(
+        "loginMsg",
+        "Profile loading error: " +
+        r.error.message,
+        "error"
+      );
+
+    }
+
+
+    profile =
+    r.data;
+
+  }
+
+
+  if(!profile){
+
+    return msg(
+      "loginMsg",
+      "Your account profile is missing. Please contact BHAGWATI FULFIL support.",
+      "error"
+    );
+
+  }
+
+
+  currentProfile =
+  profile;
+
+
+  if(profile.role === "admin"){
+
+    hideAuth();
+
+    clientArea.classList.add(
+      "hidden"
+    );
+
+    adminArea.classList.remove(
+      "hidden"
+    );
+
+    await loadAdmin();
+
+    return;
+
+  }
+
+
+  hideAuth();
+
+  adminArea.classList.add(
+    "hidden"
+  );
+
+  clientArea.classList.remove(
+    "hidden"
+  );
+
+  await loadClient();
+
 }
+
+
+/* ==============================
+   LOAD CLIENT
+============================== */
+
 async function loadClient(){
- $("clientWelcome").innerHTML=`<b>${esc(currentProfile.full_name||"")}</b>`;
- const cid=Number(currentProfile.client_id);if(!Number.isInteger(cid)||cid<=0)return msg("clientWelcome","Client profile is not linked to this account.","error");
- const {data,error}=await supabaseClient.from("clients").select("*").eq("id",cid).single();if(error)return msg("clientWelcome","Client profile loading error: "+error.message,"error");
- currentClient=data;
- $("profileName").value=data.Client_name||"";$("profileMobile").value=data.mobile||"";$("profileEmail").value=data.email||currentUser.email||"";
- $("bankHolder").value=data.bank_holder_name||"";$("accountNumber").value=data.account_number||"";$("ifsc").value=data.ifsc||"";$("upiId").value=data.upi_id||"";
- $("clientProfileBox").classList.remove("hidden");$("bookingBox").classList.remove("hidden");$("ordersBox").classList.remove("hidden");await loadOrders()
+
+  $("clientWelcome").innerHTML =
+  `<b>${esc(
+    currentProfile.full_name || ""
+  )}</b>`;
+
+
+  const cid =
+  Number(
+    currentProfile.client_id
+  );
+
+
+  if(
+    !Number.isInteger(cid) ||
+    cid <= 0
+  ){
+
+    return msg(
+      "clientWelcome",
+      "Client profile is not linked to this account.",
+      "error"
+    );
+
+  }
+
+
+  const {
+    data,
+    error
+  } =
+  await supabaseClient
+  .from("clients")
+  .select("*")
+  .eq("id",cid)
+  .single();
+
+
+  if(error){
+
+    return msg(
+      "clientWelcome",
+      "Client profile loading error: " +
+      error.message,
+      "error"
+    );
+
+  }
+
+
+  currentClient =
+  data;
+
+
+  $("profileName").value =
+  data.Client_name || "";
+
+  $("profileMobile").value =
+  data.mobile || "";
+
+  $("profileEmail").value =
+  data.email ||
+  currentUser.email ||
+  "";
+
+  $("bankHolder").value =
+  data.bank_holder_name || "";
+
+  $("accountNumber").value =
+  data.account_number || "";
+
+  $("ifsc").value =
+  data.ifsc || "";
+
+  $("upiId").value =
+  data.upi_id || "";
+
+
+  $("clientProfileBox")
+  .classList.remove("hidden");
+
+  $("bookingBox")
+  .classList.remove("hidden");
+
+  $("ordersBox")
+  .classList.remove("hidden");
+
+
+  await loadOrders();
+
 }
+
+
+/* ==============================
+   SAVE CLIENT PROFILE
+============================== */
+
 async function saveProfile(){
- const updates={Client_name:$("profileName").value.trim(),mobile:$("profileMobile").value.trim(),bank_holder_name:$("bankHolder").value.trim(),account_number:$("accountNumber").value.trim(),ifsc:$("ifsc").value.trim(),upi_id:$("upiId").value.trim()};
- const {error}=await supabaseClient.from("clients").update(updates).eq("id",currentProfile.client_id);if(error)return msg("profileMsg",error.message,"error");
- currentClient={...currentClient,...updates};msg("profileMsg","Profile saved successfully.","ok")
+
+  const updates = {
+
+    Client_name:
+    $("profileName").value.trim(),
+
+    mobile:
+    $("profileMobile").value.trim(),
+
+    bank_holder_name:
+    $("bankHolder").value.trim(),
+
+    account_number:
+    $("accountNumber").value.trim(),
+
+    ifsc:
+    $("ifsc").value.trim(),
+
+    upi_id:
+    $("upiId").value.trim()
+
+  };
+
+
+  const {
+    error
+  } =
+  await supabaseClient
+  .from("clients")
+  .update(updates)
+  .eq(
+    "id",
+    currentProfile.client_id
+  );
+
+
+  if(error){
+
+    return msg(
+      "profileMsg",
+      error.message,
+      "error"
+    );
+
+  }
+
+
+  currentClient = {
+    ...currentClient,
+    ...updates
+  };
+
+
+  msg(
+    "profileMsg",
+    "Profile saved successfully.",
+    "ok"
+  );
+
 }
-function paymentChanged(){calculateRate()}
+
+
+/* ==============================
+   RATE CALCULATION
+============================== */
+
+function paymentChanged(){
+
+  calculateRate();
+
+}
+
+
 function calculateRate(){
- const l=Number(length.value)||0,w=Number(width.value)||0,h=Number(height.value)||0,ag=Number(actualWeight.value)||0,pin=deliveryPincode.value.trim(),vol=l*w*h/5000,charge=Math.max(ag/1000,vol);
- let zn="Pan India";if(pin.length===6&&["40","41","42","43","44"].includes(pin.substring(0,2)))zn="Maharashtra";
- let ship=0;if(charge<=.25)ship=zn==="Maharashtra"?40:50;else if(charge<=.5)ship=zn==="Maharashtra"?45:60;else if(charge<=.75)ship=zn==="Maharashtra"?55:75;else if(charge<=1)ship=zn==="Maharashtra"?70:90;else if(charge<=1.5)ship=zn==="Maharashtra"?95:115;else if(charge<=2)ship=zn==="Maharashtra"?105:125;else ship=(zn==="Maharashtra"?105:125)+Math.ceil((charge-2)/.5)*(zn==="Maharashtra"?20:25);
- const cod=paymentType.value==="COD"?25:0;$("volumetricWeight").textContent=vol.toFixed(2);$("chargeableWeight").textContent=charge.toFixed(2);$("zone").textContent=zn;$("shippingCharge").textContent=ship;$("codCharge").textContent=cod;$("totalCharge").textContent=ship+cod;$("rtoCharge").textContent=ship
+
+  const l =
+  Number(length.value) || 0;
+
+  const w =
+  Number(width.value) || 0;
+
+  const h =
+  Number(height.value) || 0;
+
+  const ag =
+  Number(actualWeight.value) || 0;
+
+  const pin =
+  deliveryPincode.value.trim();
+
+
+  const vol =
+  l * w * h / 5000;
+
+
+  const charge =
+  Math.max(
+    ag / 1000,
+    vol
+  );
+
+
+  let zn =
+  "Pan India";
+
+
+  if(
+    pin.length === 6 &&
+    [
+      "40",
+      "41",
+      "42",
+      "43",
+      "44"
+    ].includes(
+      pin.substring(0,2)
+    )
+  ){
+
+    zn =
+    "Maharashtra";
+
+  }
+
+
+  let ship = 0;
+
+
+  if(charge <= .25){
+
+    ship =
+    zn === "Maharashtra"
+    ? 40
+    : 50;
+
+  }
+
+  else if(charge <= .5){
+
+    ship =
+    zn === "Maharashtra"
+    ? 45
+    : 60;
+
+  }
+
+  else if(charge <= .75){
+
+    ship =
+    zn === "Maharashtra"
+    ? 55
+    : 75;
+
+  }
+
+  else if(charge <= 1){
+
+    ship =
+    zn === "Maharashtra"
+    ? 70
+    : 90;
+
+  }
+
+  else if(charge <= 1.5){
+
+    ship =
+    zn === "Maharashtra"
+    ? 95
+    : 115;
+
+  }
+
+  else if(charge <= 2){
+
+    ship =
+    zn === "Maharashtra"
+    ? 105
+    : 125;
+
+  }
+
+  else{
+
+    ship =
+    (
+      zn === "Maharashtra"
+      ? 105
+      : 125
+    ) +
+    Math.ceil(
+      (charge - 2) / .5
+    ) *
+    (
+      zn === "Maharashtra"
+      ? 20
+      : 25
+    );
+
+  }
+
+
+  const cod =
+  paymentType.value === "COD"
+  ? 25
+  : 0;
+
+
+  $("volumetricWeight")
+  .textContent =
+  vol.toFixed(2);
+
+  $("chargeableWeight")
+  .textContent =
+  charge.toFixed(2);
+
+  $("zone")
+  .textContent =
+  zn;
+
+  $("shippingCharge")
+  .textContent =
+  ship;
+
+  $("codCharge")
+  .textContent =
+  cod;
+
+  $("totalCharge")
+  .textContent =
+  ship + cod;
+
+  $("rtoCharge")
+  .textContent =
+  ship;
+
 }
+
+
+/* ==============================
+   ORDER SEQUENCE
+============================== */
+
 async function getNextOrderSequence(){
- const {data,error}=await supabaseClient.rpc("get_next_order_sequence",{p_client_id:currentProfile.client_id});
- if(!error&&Number.isInteger(Number(data)))return Number(data);
- const {data:d}=await supabaseClient.from("bookings").select("order_sequence").eq("client_id",currentProfile.client_id).order("order_sequence",{ascending:false}).limit(1);
- return Number(d?.[0]?.order_sequence||0)+1
+
+  const {
+    data,
+    error
+  } =
+  await supabaseClient
+  .rpc(
+    "get_next_order_sequence",
+    {
+      p_client_id:
+      currentProfile.client_id
+    }
+  );
+
+
+  if(
+    !error &&
+    Number.isInteger(
+      Number(data)
+    )
+  ){
+
+    return Number(data);
+
+  }
+
+
+  const {
+    data:d
+  } =
+  await supabaseClient
+  .from("bookings")
+  .select("order_sequence")
+  .eq(
+    "client_id",
+    currentProfile.client_id
+  )
+  .order(
+    "order_sequence",
+    {
+      ascending:false
+    }
+  )
+  .limit(1);
+
+
+  return Number(
+    d?.[0]?.order_sequence || 0
+  ) + 1;
+
 }
+
+
+/* ==============================
+   BOOK SHIPMENT
+============================== */
+
 async function bookShipment(){
- if(!currentProfile?.client_id)return msg("bookingMsg","Client profile is not available. Please login again.","error");
- const fields=["pickupName","pickupMobile","pickupAddress","pickupPincode","customerName","customerMobile","deliveryAddress","deliveryPincode"].map(id=>$(id).value.trim()),[pn,pm,pa,pp,cn,cm,da,dp]=fields;
- const l=Number(length.value),w=Number(width.value),h=Number(height.value),aw=Number(actualWeight.value),pv=Number($("parcelValue").value)||0;
- if(fields.some(x=>!x)||!l||!w||!h||!aw)return msg("bookingMsg","Please fill all shipment and package details.","error");
- if(pp.length!==6||dp.length!==6)return msg("bookingMsg","Enter valid pickup and delivery pincodes.","error");if(!pv)return msg("bookingMsg","Enter parcel/order value.","error");
- calculateRate();const vol=l*w*h/5000,charge=Math.max(aw/1000,vol),shipping=Number($("shippingCharge").textContent),cod=Number($("codCharge").textContent),total=Number($("totalCharge").textContent);
- const seq=await getNextOrderSequence(),clientNo=currentClient.client_number||("BF-"+String(currentProfile.client_id).padStart(3,"0")),date=new Date().toISOString().slice(0,10).replaceAll("-",""),orderId=`${clientNo}-${date}-${String(seq).padStart(4,"0")}`;
- const booking={client_id:currentProfile.client_id,order_id:orderId,order_sequence:seq,payment_type:paymentType.value,parcel_value:pv,pickup_name:pn,pickup_mobile:pm,pickup_address:pa,pickup_pincode:pp,customer_name:cn,customer_mobile:cm,delivery_address:da,delivery_pincode:dp,zone:$("zone").textContent,length_cm:l,width_cm:w,height_cm:h,actual_weight_g:aw,volumetric_weight_kg:Number(vol.toFixed(3)),chargeable_weight_kg:Number(charge.toFixed(3)),shipping_charge:shipping,cod_charge:cod,total_charge:total,rto_charge:shipping,status:"Booked",cancellation_requested:false};
- msg("bookingMsg","Saving booking...");const {error}=await supabaseClient.from("bookings").insert(booking);if(error)return msg("bookingMsg",error.message,"error");
- orderIdInput.value=orderId;msg("bookingMsg",`Booking successful! Order ID: <b>${esc(orderId)}</b>`,"ok");await loadOrders();setTimeout(clearBooking,1500)
+
+  if(
+    !currentProfile?.client_id
+  ){
+
+    return msg(
+      "bookingMsg",
+      "Client profile is not available. Please login again.",
+      "error"
+    );
+
+  }
+
+
+  const fields = [
+
+    "pickupName",
+    "pickupMobile",
+    "pickupAddress",
+    "pickupPincode",
+    "customerName",
+    "customerMobile",
+    "deliveryAddress",
+    "deliveryPincode"
+
+  ].map(
+    id => $(id).value.trim()
+  );
+
+
+  const [
+    pn,
+    pm,
+    pa,
+    pp,
+    cn,
+    cm,
+    da,
+    dp
+  ] =
+  fields;
+
+
+  const l =
+  Number(length.value);
+
+  const w =
+  Number(width.value);
+
+  const h =
+  Number(height.value);
+
+  const aw =
+  Number(actualWeight.value);
+
+  const pv =
+  Number(
+    $("parcelValue").value
+  ) || 0;
+
+
+  if(
+    fields.some(x => !x) ||
+    !l ||
+    !w ||
+    !h ||
+    !aw
+  ){
+
+    return msg(
+      "bookingMsg",
+      "Please fill all shipment and package details.",
+      "error"
+    );
+
+  }
+
+
+  if(
+    pp.length !== 6 ||
+    dp.length !== 6
+  ){
+
+    return msg(
+      "bookingMsg",
+      "Enter valid pickup and delivery pincodes.",
+      "error"
+    );
+
+  }
+
+
+  if(!pv){
+
+    return msg(
+      "bookingMsg",
+      "Enter parcel/order value.",
+      "error"
+    );
+
+  }
+
+
+  calculateRate();
+
+
+  const vol =
+  l * w * h / 5000;
+
+
+  const charge =
+  Math.max(
+    aw / 1000,
+    vol
+  );
+
+
+  const shipping =
+  Number(
+    $("shippingCharge").textContent
+  );
+
+
+  const cod =
+  Number(
+    $("codCharge").textContent
+  );
+
+
+  const total =
+  Number(
+    $("totalCharge").textContent
+  );
+
+
+  const seq =
+  await getNextOrderSequence();
+
+
+  const clientNo =
+  currentClient.client_number ||
+  (
+    "BF-" +
+    String(
+      currentProfile.client_id
+    ).padStart(3,"0")
+  );
+
+
+  const date =
+  new Date()
+  .toISOString()
+  .slice(0,10)
+  .replaceAll("-","");
+
+
+  const orderId =
+  `${clientNo}-${date}-${String(seq).padStart(4,"0")}`;
+
+
+  const booking = {
+
+    client_id:
+    currentProfile.client_id,
+
+    order_id:
+    orderId,
+
+    order_sequence:
+    seq,
+
+    payment_type:
+    paymentType.value,
+
+    parcel_value:
+    pv,
+
+    pickup_name:
+    pn,
+
+    pickup_mobile:
+    pm,
+
+    pickup_address:
+    pa,
+
+    pickup_pincode:
+    pp,
+
+    customer_name:
+    cn,
+
+    customer_mobile:
+    cm,
+
+    delivery_address:
+    da,
+
+    delivery_pincode:
+    dp,
+
+    zone:
+    $("zone").textContent,
+
+    length_cm:
+    l,
+
+    width_cm:
+    w,
+
+    height_cm:
+    h,
+
+    actual_weight_g:
+    aw,
+
+    volumetric_weight_kg:
+    Number(
+      vol.toFixed(3)
+    ),
+
+    chargeable_weight_kg:
+    Number(
+      charge.toFixed(3)
+    ),
+
+    shipping_charge:
+    shipping,
+
+    cod_charge:
+    cod,
+
+    total_charge:
+    total,
+
+    rto_charge:
+    shipping,
+
+    status:
+    "Booked",
+
+    cancellation_requested:
+    false
+
+  };
+
+
+  msg(
+    "bookingMsg",
+    "Saving booking..."
+  );
+
+
+  const {
+    error
+  } =
+  await supabaseClient
+  .from("bookings")
+  .insert(booking);
+
+
+  if(error){
+
+    return msg(
+      "bookingMsg",
+      error.message,
+      "error"
+    );
+
+  }
+
+
+  orderIdInput.value =
+  orderId;
+
+
+  msg(
+    "bookingMsg",
+    `Booking successful! Order ID: <b>${esc(orderId)}</b>`,
+    "ok"
+  );
+
+
+  await loadOrders();
+
+
+  setTimeout(
+    clearBooking,
+    1500
+  );
+
 }
-function clearBooking(){["pickupName","pickupMobile","pickupAddress","pickupPincode","customerName","customerMobile","deliveryAddress","deliveryPincode","parcelValue","length","width","height","actualWeight"].forEach(id=>$(id).value="");paymentType.value="Prepaid";orderIdInput.value="";calculateRate()}
+
+
+/* ==============================
+   CLEAR BOOKING
+============================== */
+
+function clearBooking(){
+
+  [
+
+    "pickupName",
+    "pickupMobile",
+    "pickupAddress",
+    "pickupPincode",
+    "customerName",
+    "customerMobile",
+    "deliveryAddress",
+    "deliveryPincode",
+    "parcelValue",
+    "length",
+    "width",
+    "height",
+    "actualWeight"
+
+  ].forEach(
+    id => $(id).value = ""
+  );
+
+
+  paymentType.value =
+  "Prepaid";
+
+
+  orderIdInput.value =
+  "";
+
+
+  calculateRate();
+
+}
+
+
+/* ==============================
+   CLIENT ORDERS
+============================== */
+
 async function loadOrders(){
- const {data,error}=await supabaseClient.from("bookings").select("*").eq("client_id",currentProfile.client_id).order("created_at",{ascending:false});if(error)return $("ordersList").innerHTML=`<div class="notice error">${esc(error.message)}</div>`;
- clientOrders=data||[];populateMonth("clientMonth",clientOrders);renderClientOrders()
+
+  const {
+    data,
+    error
+  } =
+  await supabaseClient
+  .from("bookings")
+  .select("*")
+  .eq(
+    "client_id",
+    currentProfile.client_id
+  )
+  .order(
+    "created_at",
+    {
+      ascending:false
+    }
+  );
+
+
+  if(error){
+
+    return $("ordersList").innerHTML =
+    `<div class="notice error">
+      ${esc(error.message)}
+    </div>`;
+
+  }
+
+
+  clientOrders =
+  data || [];
+
+
+  populateMonth(
+    "clientMonth",
+    clientOrders
+  );
+
+
+  renderClientOrders();
+
 }
-function populateMonth(id,rows){
- const s=$(id),old=s.value,ms=[...new Set(rows.map(o=>{const d=new Date(o.created_at);return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}`}))];
- s.innerHTML='<option value="">All Months</option>'+ms.map(m=>{const [y,mo]=m.split("-"),n=new Date(+y,+mo-1,1).toLocaleString("en-IN",{month:"long",year:"numeric"});return `<option value="${m}">${n}</option>`}).join("");if(ms.includes(old))s.value=old
+
+
+/* ==============================
+   MONTH FILTER
+============================== */
+
+function populateMonth(
+  id,
+  rows
+){
+
+  const s =
+  $(id);
+
+
+  const old =
+  s.value;
+
+
+  const ms =
+  [
+    ...new Set(
+      rows.map(o => {
+
+        const d =
+        new Date(
+          o.created_at
+        );
+
+        return `${d.getFullYear()}-${String(
+          d.getMonth()+1
+        ).padStart(2,"0")}`;
+
+      })
+    )
+  ];
+
+
+  s.innerHTML =
+  '<option value="">All Months</option>' +
+
+  ms.map(m => {
+
+    const [
+      y,
+      mo
+    ] =
+    m.split("-");
+
+
+    const n =
+    new Date(
+      +y,
+      +mo-1,
+      1
+    )
+    .toLocaleString(
+      "en-IN",
+      {
+        month:"long",
+        year:"numeric"
+      }
+    );
+
+
+    return `
+    <option value="${m}">
+      ${n}
+    </option>`;
+
+  }).join("");
+
+
+  if(ms.includes(old)){
+
+    s.value =
+    old;
+
+  }
+
 }
+
+
+/* ==============================
+   CLIENT ORDER FILTER
+============================== */
+
 function renderClientOrders(){
- const q=$("clientSearch").value.toLowerCase(),mo=$("clientMonth").value,st=$("clientStatus").value,pay=$("clientPayment").value;
- const rows=clientOrders.filter(o=>{const d=new Date(o.created_at),ym=`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}`,hay=[o.order_id,o.customer_name,o.customer_mobile,o.tracking_number].join(" ").toLowerCase();return(!q||hay.includes(q))&&(!mo||ym===mo)&&(!st||o.status===st)&&(!pay||o.payment_type===pay)});
- if(!rows.length)return $("ordersList").innerHTML='<div class="notice">No shipments match your filters.</div>';
- const groups={};rows.forEach(o=>{const d=new Date(o.created_at),ym=`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}`,mn=d.toLocaleString("en-IN",{month:"long",year:"numeric"}),dn=d.toLocaleDateString("en-IN",{day:"2-digit",month:"short",year:"numeric"});groups[ym]??={name:mn,dates:{}};groups[ym].dates[dn]??=[];groups[ym].dates[dn].push(o)});
- $("ordersList").innerHTML=Object.keys(groups).sort().reverse().map(k=>`<div class="month-title">📁 ${esc(groups[k].name)}</div>`+Object.keys(groups[k].dates).map(d=>`<div class="date-title">📅 ${esc(d)}</div>${groups[k].dates[d].map(clientCard).join("")}`).join("")).join("")
+
+  const q =
+  $("clientSearch")
+  .value
+  .toLowerCase();
+
+
+  const mo =
+  $("clientMonth")
+  .value;
+
+
+  const st =
+  $("clientStatus")
+  .value;
+
+
+  const pay =
+  $("clientPayment")
+  .value;
+
+
+  const rows =
+  clientOrders.filter(o => {
+
+    const d =
+    new Date(
+      o.created_at
+    );
+
+
+    const ym =
+    `${d.getFullYear()}-${String(
+      d.getMonth()+1
+    ).padStart(2,"0")}`;
+
+
+    const hay =
+    [
+      o.order_id,
+      o.customer_name,
+      o.customer_mobile,
+      o.tracking_number
+    ]
+    .join(" ")
+    .toLowerCase();
+
+
+    return (
+
+      (!q || hay.includes(q)) &&
+
+      (!mo || ym === mo) &&
+
+      (!st || o.status === st) &&
+
+      (!pay || o.payment_type === pay)
+
+    );
+
+  });
+
+
+  if(!rows.length){
+
+    return $("ordersList").innerHTML =
+    '<div class="notice">No shipments match your filters.</div>';
+
+  }
+
+
+  const groups = {};
+
+
+  rows.forEach(o => {
+
+    const d =
+    new Date(
+      o.created_at
+    );
+
+
+    const ym =
+    `${d.getFullYear()}-${String(
+      d.getMonth()+1
+    ).padStart(2,"0")}`;
+
+
+    const mn =
+    d.toLocaleString(
+      "en-IN",
+      {
+        month:"long",
+        year:"numeric"
+      }
+    );
+
+
+    const dn =
+    d.toLocaleDateString(
+      "en-IN",
+      {
+        day:"2-digit",
+        month:"short",
+        year:"numeric"
+      }
+    );
+
+
+    groups[ym] ??=
+    {
+      name:mn,
+      dates:{}
+    };
+
+
+    groups[ym].dates[dn] ??=
+    [];
+
+
+    groups[ym].dates[dn]
+    .push(o);
+
+  });
+
+
+  $("ordersList").innerHTML =
+
+  Object.keys(groups)
+  .sort()
+  .reverse()
+  .map(k =>
+
+    `<div class="month-title">
+      📁 ${esc(groups[k].name)}
+    </div>` +
+
+    Object.keys(
+      groups[k].dates
+    )
+    .map(d =>
+
+      `<div class="date-title">
+        📅 ${esc(d)}
+      </div>` +
+
+      groups[k]
+      .dates[d]
+      .map(clientCard)
+      .join("")
+
+    )
+    .join("")
+
+  )
+  .join("");
+
 }
+
+
+/* ==============================
+   CLIENT ORDER CARD
+============================== */
+
 function clientCard(o){
- let links="";if(o.tracking_number)links+=`<p><b>Tracking No:</b> ${esc(o.tracking_number)}</p>`;if(o.tracking_link)links+=`<a class="linkbtn" href="${safe(o.tracking_link)}" target="_blank" rel="noopener">Track Shipment</a>`;if(o.label_file_path)links+=`<button class="info" onclick="downloadLabel(${o.id})">Download Shipping Label</button>`;else if(o.label_link)links+=`<a class="linkbtn" href="${safe(o.label_link)}" target="_blank" rel="noopener">Download Shipping Label</a>`;
- const cancel=o.status==="Booked"&&!o.cancellation_requested;
- return `<div class="order"><b>${esc(o.order_id||"")}</b><p>Status: <span class="badge">${esc(o.status||"Booked")}</span></p><p>Customer: ${esc(o.customer_name||"")} | Mobile: ${esc(o.customer_mobile||"")}</p><p>Payment: ${esc(o.payment_type||"")} | Parcel Value: ₹${Number(o.parcel_value||0)}</p><p>Shipping: ₹${Number(o.shipping_charge||0)} | COD: ₹${Number(o.cod_charge||0)} | Total: ₹${Number(o.total_charge||0)}</p>${o.cancellation_requested?'<p class="small"><b>Cancellation request submitted.</b></p>':''}${links}${cancel?`<button class="danger" onclick="requestCancellation(${o.id})">REQUEST CANCELLATION</button>`:""}</div>`
+
+  let links = "";
+
+
+  if(o.tracking_number){
+
+    links +=
+    `<p>
+      <b>Tracking No:</b>
+      ${esc(o.tracking_number)}
+    </p>`;
+
+  }
+
+
+  if(o.tracking_link){
+
+    links +=
+    `<a
+      class="linkbtn"
+      href="${safe(o.tracking_link)}"
+      target="_blank"
+      rel="noopener">
+      Track Shipment
+    </a>`;
+
+  }
+
+
+  /* ONLY PDF LABEL */
+
+  if(o.label_file_path){
+
+    links +=
+    `<button
+      class="info"
+      onclick="downloadLabel(${o.id})">
+      Download Shipping Label
+    </button>`;
+
+  }
+
+
+  const cancel =
+  o.status === "Booked" &&
+  !o.cancellation_requested;
+
+
+  return `
+
+  <div class="order">
+
+    <b>
+      ${esc(o.order_id || "")}
+    </b>
+
+    <p>
+      Status:
+      <span class="badge">
+        ${esc(o.status || "Booked")}
+      </span>
+    </p>
+
+    <p>
+      Customer:
+      ${esc(o.customer_name || "")}
+      |
+      Mobile:
+      ${esc(o.customer_mobile || "")}
+    </p>
+
+    <p>
+      Payment:
+      ${esc(o.payment_type || "")}
+      |
+      Parcel Value:
+      ₹${Number(o.parcel_value || 0)}
+    </p>
+
+    <p>
+      Shipping:
+      ₹${Number(o.shipping_charge || 0)}
+      |
+      COD:
+      ₹${Number(o.cod_charge || 0)}
+      |
+      Total:
+      ₹${Number(o.total_charge || 0)}
+    </p>
+
+    ${
+      o.cancellation_requested
+      ?
+      `<p class="small">
+        <b>
+          Cancellation request submitted.
+        </b>
+      </p>`
+      :
+      ""
+    }
+
+    ${links}
+
+    ${
+      cancel
+      ?
+      `<button
+        class="danger"
+        onclick="requestCancellation(${o.id})">
+        REQUEST CANCELLATION
+      </button>`
+      :
+      ""
+    }
+
+  </div>
+
+  `;
+
 }
+
+
+/* ==============================
+   CLIENT CANCELLATION
+============================== */
+
 async function requestCancellation(id){
- const reason=prompt("Cancellation reason (optional):");if(reason===null)return;
- const {error}=await supabaseClient.from("bookings").update({cancellation_requested:true,cancellation_reason:reason.trim()}).eq("id",id).eq("client_id",currentProfile.client_id).eq("status","Booked");if(error)return alert(error.message);alert("Cancellation request submitted.");await loadOrders()
+
+  const reason =
+  prompt(
+    "Cancellation reason (optional):"
+  );
+
+
+  if(reason === null){
+
+    return;
+
+  }
+
+
+  const {
+    error
+  } =
+  await supabaseClient
+  .from("bookings")
+  .update({
+
+    cancellation_requested:
+    true,
+
+    cancellation_reason:
+    reason.trim()
+
+  })
+  .eq(
+    "id",
+    id
+  )
+  .eq(
+    "client_id",
+    currentProfile.client_id
+  )
+  .eq(
+    "status",
+    "Booked"
+  );
+
+
+  if(error){
+
+    return alert(
+      error.message
+    );
+
+  }
+
+
+  alert(
+    "Cancellation request submitted."
+  );
+
+
+  await loadOrders();
+
 }
+
+
+/* ==============================
+   DOWNLOAD PRIVATE PDF
+============================== */
+
 async function downloadLabel(id){
- const o=clientOrders.find(x=>Number(x.id)===Number(id));if(!o?.label_file_path)return alert("Shipping label is not available yet.");
- const {data,error}=await supabaseClient.storage.from("shipping-labels").createSignedUrl(o.label_file_path,300);if(error)return alert(error.message);if(data?.signedUrl)window.open(data.signedUrl,"_blank")
+
+  const o =
+  clientOrders.find(
+    x =>
+    Number(x.id) ===
+    Number(id)
+  );
+
+
+  if(
+    !o?.label_file_path
+  ){
+
+    return alert(
+      "Shipping label is not available yet."
+    );
+
+  }
+
+
+  const {
+    data,
+    error
+  } =
+  await supabaseClient
+  .storage
+  .from("shipping-labels")
+  .createSignedUrl(
+    o.label_file_path,
+    300
+  );
+
+
+  if(error){
+
+    return alert(
+      error.message
+    );
+
+  }
+
+
+  if(data?.signedUrl){
+
+    window.open(
+      data.signedUrl,
+      "_blank"
+    );
+
+  }
+
 }
-async function loadAdmin(){await loadAdminClients();await loadAdminBookings();await loadAdminStats()}
+
+
+/* ==============================
+   ADMIN LOAD
+============================== */
+
+async function loadAdmin(){
+
+  await loadAdminClients();
+
+  await loadAdminBookings();
+
+  await loadAdminStats();
+
+}
+
+
+/* ==============================
+   ADMIN CLIENT ACCOUNTS
+============================== */
+
 async function loadAdminClients(){
- const {data,error}=await supabaseClient.from("clients").select('id,"Client_name",mobile,email,created_at,client_number,bank_holder_name,account_number,ifsc,upi_id').order("created_at",{ascending:false});if(error)return $("adminClients").innerHTML=`<div class="notice error">${esc(error.message)}</div>`;
- adminClientData=data||[];const f=$("adminClientFilter"),old=f.value;f.innerHTML='<option value="">All Clients</option>'+adminClientData.map(c=>`<option value="${c.id}">${esc(c.client_number||"Client "+c.id)} - ${esc(c.Client_name||"")}</option>`).join("");if([...f.options].some(x=>x.value===old))f.value=old;
- $("adminClients").innerHTML=adminClientData.length?adminClientData.map(c=>`<div class="order"><b>${esc(c.Client_name||"Client")} ${c.client_number?"("+esc(c.client_number)+")":""}</b><p>Mobile: ${esc(c.mobile||"")}</p><p>Email: ${esc(c.email||"")}</p><p>Client ID: ${esc(c.id)}</p><div class="client-bank"><b>COD Bank Details</b><p>Account Holder: ${esc(c.bank_holder_name||"Not added")}</p><p>Account Number: ${esc(c.account_number||"Not added")}</p><p>IFSC: ${esc(c.ifsc||"Not added")}</p><p>UPI: ${esc(c.upi_id||"Not added")}</p></div></div>`).join(""):'<div class="notice">No client accounts found.</div>'
+
+  const {
+    data,
+    error
+  } =
+  await supabaseClient
+  .from("clients")
+  .select(
+    'id,"Client_name",mobile,email,created_at,client_number,bank_holder_name,account_number,ifsc,upi_id'
+  )
+  .order(
+    "created_at",
+    {
+      ascending:false
+    }
+  );
+
+
+  if(error){
+
+    return $("adminClients").innerHTML =
+    `<div class="notice error">
+      ${esc(error.message)}
+    </div>`;
+
+  }
+
+
+  adminClientData =
+  data || [];
+
+
+  /* CLIENT FILTER */
+
+  const f =
+  $("adminClientFilter");
+
+
+  const old =
+  f.value;
+
+
+  f.innerHTML =
+  '<option value="">All Clients</option>' +
+
+  adminClientData
+  .map(c =>
+
+    `<option value="${c.id}">
+      ${esc(
+        c.client_number ||
+        "Client " + c.id
+      )}
+      -
+      ${esc(
+        c.Client_name || ""
+      )}
+    </option>`
+
+  )
+  .join("");
+
+
+  if(
+    [
+      ...f.options
+    ]
+    .some(
+      x =>
+      x.value === old
+    )
+  ){
+
+    f.value =
+    old;
+
+  }
+
+
+  /* CLIENT ACCOUNT CARDS */
+
+  $("adminClients").innerHTML =
+
+  adminClientData.length
+
+  ?
+
+  adminClientData
+  .map(c => `
+
+    <div class="order">
+
+      <b>
+        ${esc(
+          c.Client_name ||
+          "Client"
+        )}
+
+        ${
+          c.client_number
+          ?
+          "(" +
+          esc(c.client_number) +
+          ")"
+          :
+          ""
+        }
+
+      </b>
+
+      <p>
+        Mobile:
+        ${esc(c.mobile || "")}
+      </p>
+
+      <p>
+        Email:
+        ${esc(c.email || "")}
+      </p>
+
+      <p>
+        Client ID:
+        ${esc(c.id)}
+      </p>
+
+
+      <!-- THREE DOT BANK DETAILS -->
+
+      <div class="client-bank">
+
+        <button
+          type="button"
+          class="bank-toggle"
+          onclick="toggleBankDetails('${c.id}')">
+
+          ⋮ Bank Details
+
+        </button>
+
+
+        <div
+          id="bankDetails_${c.id}"
+          class="bank-details"
+          style="display:none;">
+
+          <p>
+            <b>Account Holder:</b>
+            ${esc(
+              c.bank_holder_name ||
+              "Not added"
+            )}
+          </p>
+
+          <p>
+            <b>Account Number:</b>
+            ${esc(
+              c.account_number ||
+              "Not added"
+            )}
+          </p>
+
+          <p>
+            <b>IFSC:</b>
+            ${esc(
+              c.ifsc ||
+              "Not added"
+            )}
+          </p>
+
+          <p>
+            <b>UPI:</b>
+            ${esc(
+              c.upi_id ||
+              "Not added"
+            )}
+          </p>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  `)
+  .join("")
+
+  :
+
+  '<div class="notice">No client accounts found.</div>';
+
 }
+
+
+/* ==============================
+   BANK DETAILS TOGGLE
+============================== */
+
+function toggleBankDetails(
+  clientId
+){
+
+  const box =
+  document.getElementById(
+    `bankDetails_${clientId}`
+  );
+
+
+  if(!box){
+
+    return;
+
+  }
+
+
+  if(
+    box.style.display === "none" ||
+    box.style.display === ""
+  ){
+
+    box.style.display =
+    "block";
+
+  }
+
+  else{
+
+    box.style.display =
+    "none";
+
+  }
+
+}
+
+
+/* ==============================
+   ADMIN BOOKINGS
+============================== */
+
 async function loadAdminBookings(){
- const {data,error}=await supabaseClient.from("bookings").select("*").order("created_at",{ascending:false});if(error)return $("adminBookings").innerHTML=`<div class="notice error">${esc(error.message)}</div>`;
- adminBookingData=data||[];populateMonth("adminMonth",adminBookingData);renderAdminBookings()
+
+  const {
+    data,
+    error
+  } =
+  await supabaseClient
+  .from("bookings")
+  .select("*")
+  .order(
+    "created_at",
+    {
+      ascending:false
+    }
+  );
+
+
+  if(error){
+
+    return $("adminBookings").innerHTML =
+    `<div class="notice error">
+      ${esc(error.message)}
+    </div>`;
+
+  }
+
+
+  adminBookingData =
+  data || [];
+
+
+  populateMonth(
+    "adminMonth",
+    adminBookingData
+  );
+
+
+  renderAdminBookings();
+
 }
-function clientName(id){return adminClientData.find(c=>Number(c.id)===Number(id))?.Client_name||"Client "+id}
-function clientNo(id){return adminClientData.find(c=>Number(c.id)===Number(id))?.client_number||""}
+
+
+/* ==============================
+   CLIENT NAME / NUMBER
+============================== */
+
+function clientName(id){
+
+  return (
+    adminClientData.find(
+      c =>
+      Number(c.id) ===
+      Number(id)
+    )?.Client_name
+    ||
+    "Client " + id
+  );
+
+}
+
+
+function clientNo(id){
+
+  return (
+    adminClientData.find(
+      c =>
+      Number(c.id) ===
+      Number(id)
+    )?.client_number
+    ||
+    ""
+  );
+
+}
+
+
+/* ==============================
+   ADMIN FILTER
+============================== */
+
 function renderAdminBookings(){
- const q=$("adminSearch").value.toLowerCase(),mo=$("adminMonth").value,cid=$("adminClientFilter").value,st=$("adminStatus").value,pay=$("adminPayment").value,dt=$("adminDate").value;
- const rows=adminBookingData.filter(o=>{const d=new Date(o.created_at),ym=`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}`,day=d.toISOString().slice(0,10),hay=[o.order_id,o.customer_name,o.customer_mobile,o.tracking_number].join(" ").toLowerCase();return(!q||hay.includes(q))&&(!mo||ym===mo)&&(!cid||String(o.client_id)===cid)&&(!st||o.status===st)&&(!pay||o.payment_type===pay)&&(!dt||day===dt)});
- if(!rows.length)return $("adminBookings").innerHTML='<div class="notice">No shipments match your filters.</div>';$("adminBookings").innerHTML=rows.map(adminCard).join("")
+
+  const q =
+  $("adminSearch")
+  .value
+  .toLowerCase();
+
+
+  const mo =
+  $("adminMonth")
+  .value;
+
+
+  const cid =
+  $("adminClientFilter")
+  .value;
+
+
+  const st =
+  $("adminStatus")
+  .value;
+
+
+  const pay =
+  $("adminPayment")
+  .value;
+
+
+  const dt =
+  $("adminDate")
+  .value;
+
+
+  const rows =
+  adminBookingData.filter(o => {
+
+    const d =
+    new Date(
+      o.created_at
+    );
+
+
+    const ym =
+    `${d.getFullYear()}-${String(
+      d.getMonth()+1
+    ).padStart(2,"0")}`;
+
+
+    /*
+      Exact local date
+    */
+
+    const day =
+    d.getFullYear() +
+    "-" +
+    String(
+      d.getMonth()+1
+    ).padStart(2,"0") +
+    "-" +
+    String(
+      d.getDate()
+    ).padStart(2,"0");
+
+
+    const hay =
+    [
+
+      o.order_id,
+      o.customer_name,
+      o.customer_mobile,
+      o.tracking_number,
+      o.pickup_name,
+      o.pickup_mobile,
+      o.delivery_pincode
+
+    ]
+    .join(" ")
+    .toLowerCase();
+
+
+    return (
+
+      /* SEARCH */
+
+      (!q ||
+      hay.includes(q))
+
+
+      &&
+
+
+      /* MONTH */
+
+      (!mo ||
+      ym === mo)
+
+
+      &&
+
+
+      /* CLIENT FILTER */
+
+      (!cid ||
+      String(o.client_id) ===
+      String(cid))
+
+
+      &&
+
+
+      /* STATUS */
+
+      (!st ||
+      o.status === st)
+
+
+      &&
+
+
+      /* PAYMENT */
+
+      (!pay ||
+      o.payment_type === pay)
+
+
+      &&
+
+
+      /* EXACT DATE */
+
+      (!dt ||
+      day === dt)
+
+    );
+
+  });
+
+
+  if(!rows.length){
+
+    return $("adminBookings").innerHTML =
+    '<div class="notice">No shipments match your filters.</div>';
+
+  }
+
+
+  $("adminBookings").innerHTML =
+  rows
+  .map(adminCard)
+  .join("");
+
 }
+
+
+/* ==============================
+   ADMIN BOOKING CARD
+============================== */
+
 function adminCard(o){
- return `<div class="order"><b>${esc(o.order_id||"")}</b><p>Client: <b>${esc(clientName(o.client_id))}</b> ${clientNo(o.client_id)?"("+esc(clientNo(o.client_id))+")":""}</p><p>Customer: ${esc(o.customer_name||"")} | Mobile: ${esc(o.customer_mobile||"")}</p><p>Delivery Pincode: ${esc(o.delivery_pincode||"")}</p><p>Payment: ${esc(o.payment_type||"")} | Parcel Value: ₹${Number(o.parcel_value||0)}</p><p>Shipping: ₹${Number(o.shipping_charge||0)} | COD: ₹${Number(o.cod_charge||0)} | Total: ₹${Number(o.total_charge||0)}</p>${o.cancellation_requested?`<div class="notice error"><b>Cancellation requested.</b><br>Reason: ${esc(o.cancellation_reason||"Not specified")}</div>`:""}
-<label>Status</label><select id="status-${o.id}">${["Booked","Picked Up","In Transit","Out for Delivery","Delivered","RTO","Cancelled"].map(s=>`<option ${o.status===s?"selected":""}>${s}</option>`).join("")}</select>
-<label>Tracking Number</label><input id="tracking-${o.id}" value="${escAttr(o.tracking_number||"")}"><label>Tracking Link</label><input id="trackingLink-${o.id}" value="${escAttr(o.tracking_link||"")}">
-<label>Old Label Link (optional)</label><input id="label-${o.id}" value="${escAttr(o.label_link||"")}" placeholder="https://...">
-<div class="uploadbox"><label>BHAGWATI FULFIL Shipping Label PDF</label><input id="labelFile-${o.id}" type="file" accept="application/pdf">${o.label_file_path?'<div class="small">PDF label already uploaded.</div>':""}</div>
-<button class="success" onclick="updateBooking(${o.id})">SAVE UPDATE</button>${o.cancellation_requested&&o.status==="Booked"?`<button class="danger" onclick="approveCancellation(${o.id})">APPROVE CANCELLATION</button><button class="secondary" onclick="rejectCancellation(${o.id})">REJECT CANCELLATION</button>`:""}</div>`
+
+  return `
+
+  <div class="order">
+
+    <b>
+      ${esc(o.order_id || "")}
+    </b>
+
+
+    <p>
+      Client:
+      <b>
+        ${esc(
+          clientName(
+            o.client_id
+          )
+        )}
+      </b>
+
+      ${
+        clientNo(
+          o.client_id
+        )
+        ?
+        "(" +
+        esc(
+          clientNo(
+            o.client_id
+          )
+        ) +
+        ")"
+        :
+        ""
+      }
+
+    </p>
+
+
+    <p>
+      Customer:
+      ${esc(
+        o.customer_name || ""
+      )}
+
+      |
+
+      Mobile:
+      ${esc(
+        o.customer_mobile || ""
+      )}
+    </p>
+
+
+    <p>
+      Delivery Pincode:
+      ${esc(
+        o.delivery_pincode || ""
+      )}
+    </p>
+
+
+    <p>
+      Payment:
+      ${esc(
+        o.payment_type || ""
+      )}
+
+      |
+
+      Parcel Value:
+      ₹${Number(
+        o.parcel_value || 0
+      )}
+    </p>
+
+
+    <p>
+      Shipping:
+      ₹${Number(
+        o.shipping_charge || 0
+      )}
+
+      |
+
+      COD:
+      ₹${Number(
+        o.cod_charge || 0
+      )}
+
+      |
+
+      Total:
+      ₹${Number(
+        o.total_charge || 0
+      )}
+    </p>
+
+
+    ${
+      o.cancellation_requested
+
+      ?
+
+      `<div class="notice error">
+
+        <b>
+          Cancellation requested.
+        </b>
+
+        <br>
+
+        Reason:
+        ${esc(
+          o.cancellation_reason ||
+          "Not specified"
+        )}
+
+      </div>`
+
+      :
+
+      ""
+
+    }
+
+
+    <!-- STATUS -->
+
+    <label>Status</label>
+
+    <select id="status-${o.id}">
+
+      ${
+        [
+          "Booked",
+          "Picked Up",
+          "In Transit",
+          "Out for Delivery",
+          "Delivered",
+          "RTO",
+          "Cancelled"
+        ]
+
+        .map(
+          s =>
+
+          `<option
+            ${
+              o.status === s
+              ? "selected"
+              : ""
+            }>
+
+            ${s}
+
+          </option>`
+
+        )
+        .join("")
+      }
+
+    </select>
+
+
+    <!-- TRACKING NUMBER -->
+
+    <label>
+      Tracking Number
+    </label>
+
+    <input
+      id="tracking-${o.id}"
+      value="${escAttr(
+        o.tracking_number || ""
+      )}"
+      placeholder="Enter actual tracking number">
+
+
+    <!-- TRACKING LINK -->
+
+    <label>
+      Tracking Link
+    </label>
+
+    <input
+      id="trackingLink-${o.id}"
+      value="${escAttr(
+        o.tracking_link || ""
+      )}"
+      placeholder="Enter tracking link">
+
+
+    <!-- ONLY PDF UPLOAD -->
+
+    <div class="uploadbox">
+
+      <label>
+        BHAGWATI FULFIL Shipping Label PDF
+      </label>
+
+      <input
+        id="labelFile-${o.id}"
+        type="file"
+        accept="application/pdf">
+
+      ${
+        o.label_file_path
+
+        ?
+
+        `<div class="small">
+          PDF label already uploaded.
+        </div>`
+
+        :
+
+        ""
+
+      }
+
+    </div>
+
+
+    <button
+      class="success"
+      onclick="updateBooking(${o.id})">
+
+      SAVE UPDATE
+
+    </button>
+
+
+    ${
+      o.cancellation_requested &&
+      o.status === "Booked"
+
+      ?
+
+      `
+
+      <button
+        class="danger"
+        onclick="approveCancellation(${o.id})">
+
+        APPROVE CANCELLATION
+
+      </button>
+
+
+      <button
+        class="secondary"
+        onclick="rejectCancellation(${o.id})">
+
+        REJECT CANCELLATION
+
+      </button>
+
+      `
+
+      :
+
+      ""
+
+    }
+
+  </div>
+
+  `;
+
 }
-async function uploadLabelFile(id,file){
- if(!file)return null;if(file.type!=="application/pdf")throw Error("Only PDF shipping labels are allowed.");if(file.size>50*1024*1024)throw Error("PDF must be 50 MB or smaller.");
- const o=adminBookingData.find(x=>Number(x.id)===Number(id));if(!o)throw Error("Booking not found.");const path=`${o.client_id}/${o.order_id}.pdf`;
- const {error}=await supabaseClient.storage.from("shipping-labels").upload(path,file,{upsert:true,contentType:"application/pdf"});if(error)throw error;return path
+
+
+/* ==============================
+   PDF UPLOAD
+============================== */
+
+async function uploadLabelFile(
+  id,
+  file
+){
+
+  if(!file){
+
+    return null;
+
+  }
+
+
+  if(
+    file.type !==
+    "application/pdf"
+  ){
+
+    throw Error(
+      "Only PDF shipping labels are allowed."
+    );
+
+  }
+
+
+  if(
+    file.size >
+    50 * 1024 * 1024
+  ){
+
+    throw Error(
+      "PDF must be 50 MB or smaller."
+    );
+
+  }
+
+
+  const o =
+  adminBookingData.find(
+    x =>
+    Number(x.id) ===
+    Number(id)
+  );
+
+
+  if(!o){
+
+    throw Error(
+      "Booking not found."
+    );
+
+  }
+
+
+  const path =
+  `${o.client_id}/${o.order_id}.pdf`;
+
+
+  const {
+    error
+  } =
+  await supabaseClient
+  .storage
+  .from("shipping-labels")
+  .upload(
+    path,
+    file,
+    {
+      upsert:true,
+      contentType:
+      "application/pdf"
+    }
+  );
+
+
+  if(error){
+
+    throw error;
+
+  }
+
+
+  return path;
+
 }
+
+
+/* ==============================
+   ADMIN UPDATE BOOKING
+============================== */
+
 async function updateBooking(id){
- const o=adminBookingData.find(x=>Number(x.id)===Number(id)),status=$(`status-${id}`).value,file=$(`labelFile-${id}`).files[0];
- try{
-  let fp=o?.label_file_path||null;if(file){msg("adminMsg","Uploading shipping label PDF...");fp=await uploadLabelFile(id,file)}
-  const updates={status,tracking_number:$(`tracking-${id}`).value.trim(),tracking_link:$(`trackingLink-${id}`).value.trim(),label_link:$(`label-${id}`).value.trim(),label_file_path:fp,delivered_at:status==="Delivered"?(o?.delivered_at||new Date().toISOString()):null};
-  if(status==="Cancelled"){updates.cancelled_at=o?.cancelled_at||new Date().toISOString();updates.cancellation_requested=false}
-  const {error}=await supabaseClient.from("bookings").update(updates).eq("id",id);if(error)throw error;msg("adminMsg","Booking updated successfully.","ok");await loadAdminBookings();await loadAdminStats()
- }catch(e){msg("adminMsg",e.message||String(e),"error")}
+
+  const o =
+  adminBookingData.find(
+    x =>
+    Number(x.id) ===
+    Number(id)
+  );
+
+
+  const status =
+  $(`status-${id}`).value;
+
+
+  const file =
+  $(`labelFile-${id}`)
+  .files[0];
+
+
+  try{
+
+    let fp =
+    o?.label_file_path ||
+    null;
+
+
+    if(file){
+
+      msg(
+        "adminMsg",
+        "Uploading shipping label PDF..."
+      );
+
+
+      fp =
+      await uploadLabelFile(
+        id,
+        file
+      );
+
+    }
+
+
+    /*
+      IMPORTANT:
+      label_link is NOT used anymore.
+      Only label_file_path.
+    */
+
+    const updates = {
+
+      status:
+
+      status,
+
+
+      tracking_number:
+
+      $(`tracking-${id}`)
+      .value
+      .trim(),
+
+
+      tracking_link:
+
+      $(`trackingLink-${id}`)
+      .value
+      .trim(),
+
+
+      label_file_path:
+
+      fp,
+
+
+      delivered_at:
+
+      status === "Delivered"
+
+      ?
+
+      (
+        o?.delivered_at ||
+        new Date().toISOString()
+      )
+
+      :
+
+      null
+
+    };
+
+
+    if(
+      status === "Cancelled"
+    ){
+
+      updates.cancelled_at =
+      o?.cancelled_at ||
+      new Date().toISOString();
+
+
+      updates.cancellation_requested =
+      false;
+
+    }
+
+
+    const {
+      error
+    } =
+    await supabaseClient
+    .from("bookings")
+    .update(updates)
+    .eq(
+      "id",
+      id
+    );
+
+
+    if(error){
+
+      throw error;
+
+    }
+
+
+    msg(
+      "adminMsg",
+      "Booking updated successfully.",
+      "ok"
+    );
+
+
+    await loadAdminBookings();
+
+    await loadAdminStats();
+
+  }
+
+  catch(e){
+
+    msg(
+      "adminMsg",
+      e.message ||
+      String(e),
+      "error"
+    );
+
+  }
+
 }
-async function approveCancellation(id){const {error}=await supabaseClient.from("bookings").update({status:"Cancelled",cancelled_at:new Date().toISOString(),cancellation_requested:false}).eq("id",id).eq("status","Booked");if(error)return alert(error.message);alert("Cancellation approved.");await loadAdminBookings();await loadAdminStats()}
-async function rejectCancellation(id){const {error}=await supabaseClient.from("bookings").update({cancellation_requested:false,cancellation_reason:null}).eq("id",id);if(error)return alert(error.message);alert("Cancellation request rejected.");await loadAdminBookings()}
+
+
+/* ==============================
+   APPROVE CANCELLATION
+============================== */
+
+async function approveCancellation(
+  id
+){
+
+  const {
+    error
+  } =
+  await supabaseClient
+  .from("bookings")
+  .update({
+
+    status:
+    "Cancelled",
+
+    cancelled_at:
+    new Date().toISOString(),
+
+    cancellation_requested:
+    false
+
+  })
+  .eq(
+    "id",
+    id
+  )
+  .eq(
+    "status",
+    "Booked"
+  );
+
+
+  if(error){
+
+    return alert(
+      error.message
+    );
+
+  }
+
+
+  alert(
+    "Cancellation approved."
+  );
+
+
+  await loadAdminBookings();
+
+  await loadAdminStats();
+
+}
+
+
+/* ==============================
+   REJECT CANCELLATION
+============================== */
+
+async function rejectCancellation(
+  id
+){
+
+  const {
+    error
+  } =
+  await supabaseClient
+  .from("bookings")
+  .update({
+
+    cancellation_requested:
+    false,
+
+    cancellation_reason:
+    null
+
+  })
+  .eq(
+    "id",
+    id
+  );
+
+
+  if(error){
+
+    return alert(
+      error.message
+    );
+
+  }
+
+
+  alert(
+    "Cancellation request rejected."
+  );
+
+
+  await loadAdminBookings();
+
+}
+
+
+/* ==============================
+   ADMIN STATUS
+============================== */
+
 async function loadAdminStats(){
- const {data,error}=await supabaseClient.from("bookings").select("status,created_at,delivered_at");if(error)return;const today=new Date();today.setHours(0,0,0,0),week=new Date();week.setDate(week.getDate()-7),month=new Date();month.setDate(1);month.setHours(0,0,0,0);let t=0,w=0,m=0;
- (data||[]).forEach(o=>{if(o.status!=="Delivered")return;const d=new Date(o.delivered_at||o.created_at);if(d>=today)t++;if(d>=week)w++;if(d>=month)m++});$("todayDelivered").textContent=t;$("weekDelivered").textContent=w;$("monthDelivered").textContent=m;$("totalBookings").textContent=(data||[]).length
+
+  const {
+    data,
+    error
+  } =
+  await supabaseClient
+  .from("bookings")
+  .select(
+    "status,created_at,delivered_at"
+  );
+
+
+  if(error){
+
+    return;
+
+  }
+
+
+  const today =
+  new Date();
+
+  today.setHours(
+    0,0,0,0
+  );
+
+
+  const week =
+  new Date();
+
+  week.setDate(
+    week.getDate() - 7
+  );
+
+
+  const month =
+  new Date();
+
+  month.setDate(1);
+
+  month.setHours(
+    0,0,0,0
+  );
+
+
+  let t = 0;
+  let w = 0;
+  let m = 0;
+
+
+  (data || [])
+  .forEach(o => {
+
+    if(
+      o.status !==
+      "Delivered"
+    ){
+
+      return;
+
+    }
+
+
+    const d =
+    new Date(
+      o.delivered_at ||
+      o.created_at
+    );
+
+
+    if(d >= today){
+
+      t++;
+
+    }
+
+
+    if(d >= week){
+
+      w++;
+
+    }
+
+
+    if(d >= month){
+
+      m++;
+
+    }
+
+  });
+
+
+  $("todayDelivered")
+  .textContent =
+  t;
+
+
+  $("weekDelivered")
+  .textContent =
+  w;
+
+
+  $("monthDelivered")
+  .textContent =
+  m;
+
+
+  $("totalBookings")
+  .textContent =
+  (data || []).length;
+
 }
-async function logout(){await supabaseClient.auth.signOut();currentUser=null;currentProfile=null;currentClient=null;clientOrders=[];adminBookingData=[];adminClientData=[];clientArea.classList.add("hidden");adminArea.classList.add("hidden");$("loginEmail").value="";$("loginPassword").value="";$("loginMsg").innerHTML="";showLogin()}
-function esc(v){return String(v??"").replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;").replaceAll('"',"&quot;").replaceAll("'","&#039;")}
-function escAttr(v){return esc(v)}
-function safe(url){try{const u=new URL(url);return["https:","http:"].includes(u.protocol)?u.href:"#"}catch(e){return"#"}}
-supabaseClient.auth.onAuthStateChange(async e=>{if(e==="SIGNED_OUT"){currentUser=null;currentProfile=null;currentClient=null;clientArea.classList.add("hidden");adminArea.classList.add("hidden");showLogin()}});
-document.addEventListener("DOMContentLoaded",async()=>{paymentChanged();const {data}=await supabaseClient.auth.getSession();if(data.session)await loadUser()});
+
+
+/* ==============================
+   LOGOUT
+============================== */
+
+async function logout(){
+
+  await supabaseClient
+  .auth
+  .signOut();
+
+
+  currentUser =
+  null;
+
+  currentProfile =
+  null;
+
+  currentClient =
+  null;
+
+  clientOrders =
+  [];
+
+  adminBookingData =
+  [];
+
+  adminClientData =
+  [];
+
+
+  clientArea
+  .classList
+  .add("hidden");
+
+
+  adminArea
+  .classList
+  .add("hidden");
+
+
+  $("loginEmail")
+  .value = "";
+
+
+  $("loginPassword")
+  .value = "";
+
+
+  $("loginMsg")
+  .innerHTML = "";
+
+
+  showLogin();
+
+}
+
+
+/* ==============================
+   SECURITY HELPERS
+============================== */
+
+function esc(v){
+
+  return String(
+    v ?? ""
+  )
+  .replaceAll(
+    "&",
+    "&amp;"
+  )
+  .replaceAll(
+    "<",
+    "&lt;"
+  )
+  .replaceAll(
+    ">",
+    "&gt;"
+  )
+  .replaceAll(
+    '"',
+    "&quot;"
+  )
+  .replaceAll(
+    "'",
+    "&#039;"
+  );
+
+}
+
+
+function escAttr(v){
+
+  return esc(v);
+
+}
+
+
+function safe(url){
+
+  try{
+
+    const u =
+    new URL(url);
+
+
+    return [
+      "https:",
+      "http:"
+    ].includes(
+      u.protocol
+    )
+
+    ?
+
+    u.href
+
+    :
+
+    "#";
+
+  }
+
+  catch(e){
+
+    return "#";
+
+  }
+
+}
+
+
+/* ==============================
+   AUTH STATE
+============================== */
+
+supabaseClient
+.auth
+.onAuthStateChange(
+  async e => {
+
+    if(
+      e ===
+      "SIGNED_OUT"
+    ){
+
+      currentUser =
+      null;
+
+      currentProfile =
+      null;
+
+      currentClient =
+      null;
+
+
+      clientArea
+      .classList
+      .add("hidden");
+
+
+      adminArea
+      .classList
+      .add("hidden");
+
+
+      showLogin();
+
+    }
+
+  }
+);
+
+
+/* ==============================
+   START
+============================== */
+
+document.addEventListener(
+  "DOMContentLoaded",
+  async () => {
+
+    paymentChanged();
+
+
+    const {
+      data
+    } =
+    await supabaseClient
+    .auth
+    .getSession();
+
+
+    if(data.session){
+
+      await loadUser();
+
+    }
+
+  }
+);
+
 </script>
+
 </body>
 </html>
