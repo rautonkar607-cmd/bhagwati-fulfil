@@ -31,6 +31,13 @@ textarea{min-height:90px;resize:vertical}label{font-weight:600;font-size:14px}bu
 <button class="secondary" onclick="showSignup()">CREATE NEW CLIENT ACCOUNT</button>
 </section>
 
+<section id="resetSection" class="card hidden">
+<h2>Set New Password</h2><div id="resetMsg"></div>
+<label>New Password</label><input id="newPassword" type="password" placeholder="Minimum 6 characters">
+<label>Confirm New Password</label><input id="confirmPassword" type="password" placeholder="Re-enter password">
+<button class="success" onclick="updatePassword()">UPDATE PASSWORD</button>
+</section>
+
 <section id="signupSection" class="card hidden">
 <h2>Create Client Account</h2><div id="signupMsg"></div>
 <label>Business / Client Name</label><input id="signupName" placeholder="Business name">
@@ -122,9 +129,10 @@ const SUPABASE_ANON_KEY="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYm
 const supabaseClient=supabase.createClient(SUPABASE_URL,SUPABASE_ANON_KEY);
 let currentUser=null,currentProfile=null,currentClient=null,adminProfiles=[];
 
-function showLogin(){loginSection.classList.remove("hidden");signupSection.classList.add("hidden")}
-function showSignup(){loginSection.classList.add("hidden");signupSection.classList.remove("hidden")}
-function hideAuth(){loginSection.classList.add("hidden");signupSection.classList.add("hidden")}
+function showLogin(){loginSection.classList.remove("hidden");signupSection.classList.add("hidden");resetSection.classList.add("hidden")}
+function showSignup(){loginSection.classList.add("hidden");signupSection.classList.remove("hidden");resetSection.classList.add("hidden")}
+function showReset(){loginSection.classList.add("hidden");signupSection.classList.add("hidden");resetSection.classList.remove("hidden");clientArea.classList.add("hidden");adminArea.classList.add("hidden")}
+function hideAuth(){loginSection.classList.add("hidden");signupSection.classList.add("hidden");resetSection.classList.add("hidden")}
 function msg(id,text,type="notice"){document.getElementById(id).innerHTML=`<div class="notice ${type}">${text}</div>`}
 
 async function signup(){
@@ -135,6 +143,21 @@ async function signup(){
  const {data,error}=await supabaseClient.auth.signUp({email,password,options:{data:{full_name:name,mobile}}});
  if(error)return msg("signupMsg",error.message,"error");
  if(data.user)msg("signupMsg","Account created. Please verify your email. After verification, Admin will approve your account.","ok");
+}
+
+async function updatePassword(){
+ const password=newPassword.value;
+ const confirm=confirmPassword.value;
+ if(!password||!confirm)return msg("resetMsg","Enter and confirm your new password.","error");
+ if(password.length<6)return msg("resetMsg","Password must be at least 6 characters.","error");
+ if(password!==confirm)return msg("resetMsg","Passwords do not match.","error");
+ msg("resetMsg","Updating password...");
+ const {error}=await supabaseClient.auth.updateUser({password});
+ if(error)return msg("resetMsg",error.message,"error");
+ await supabaseClient.auth.signOut();
+ newPassword.value="";confirmPassword.value="";
+ showLogin();
+ msg("loginMsg","Password updated successfully. Please login with your new password.","ok");
 }
 
 async function login(){
@@ -319,9 +342,25 @@ function escapeHtml(v){return String(v??"").replaceAll("&","&amp;").replaceAll("
 function escapeAttr(v){return escapeHtml(v)}
 function safeUrl(url){try{const u=new URL(url);return["https:","http:"].includes(u.protocol)?u.href:"#"}catch(e){return "#"}}
 
+supabaseClient.auth.onAuthStateChange(async(event,session)=>{
+ if(event==="PASSWORD_RECOVERY"){
+  showReset();
+  return;
+ }
+ if(event==="SIGNED_OUT"){
+  clientArea.classList.add("hidden");adminArea.classList.add("hidden");
+ }
+});
+
 document.addEventListener("DOMContentLoaded",async()=>{
  paymentChanged();
+ const hash=window.location.hash||"";
+ const isRecovery=hash.includes("type=recovery")||hash.includes("access_token=");
  const {data}=await supabaseClient.auth.getSession();
+ if(isRecovery){
+  showReset();
+  return;
+ }
  if(data.session)await loadUser();
 });
 </script>
